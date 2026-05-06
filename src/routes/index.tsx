@@ -6,6 +6,7 @@ import {
   useTransform,
   useMotionValue,
   useSpring,
+  AnimatePresence,
 } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
@@ -30,6 +31,9 @@ import {
   Zap,
   ArrowUpRight,
   ExternalLink,
+  Plus,
+  HelpCircle,
+  MessageCircle,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -82,6 +86,8 @@ const scaleIn = (delay = 0) => ({
 const services = [
   {
     icon: Lightbulb,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
     title: "IT Consultation",
     desc: "Cut through complexity with a roadmap built for scale. We align your tech strategy with your growth goals.",
     tag: "Strategy",
@@ -89,6 +95,8 @@ const services = [
   },
   {
     icon: Layers,
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
     title: "CMS Development",
     desc: "Headless, composable content platforms that give your team full editorial control — without dev bottlenecks.",
     tag: "Platform",
@@ -96,6 +104,8 @@ const services = [
   },
   {
     icon: Globe,
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.10)",
     title: "Web Development",
     desc: "High-performance websites and e-commerce stores designed to convert visitors into paying customers.",
     tag: "Web",
@@ -103,6 +113,8 @@ const services = [
   },
   {
     icon: Code2,
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
     title: "Software Development",
     desc: "Custom data systems and applications engineered to scale from day one — built on solid architecture.",
     tag: "Engineering",
@@ -110,6 +122,8 @@ const services = [
   },
   {
     icon: Search,
+    color: "#3b82f6",
+    bg: "rgba(59,130,246,0.10)",
     title: "SEO & GEO",
     desc: "Dominate search rankings locally and globally with data-driven organic growth strategies.",
     tag: "Growth",
@@ -117,6 +131,8 @@ const services = [
   },
   {
     icon: Palette,
+    color: "#ec4899",
+    bg: "rgba(236,72,153,0.10)",
     title: "Brand & Design",
     desc: "Visual identities that communicate authority instantly — logos, brand systems, and marketing collateral.",
     tag: "Design",
@@ -130,32 +146,36 @@ const process = [
     t: "Discovery Call",
     d: "We map your vision, constraints and success metrics in a focused 45-min session.",
     icon: Sparkles,
+    color: "#ec4899",
   },
   {
     n: "02",
     t: "Strategy & Scope",
     d: "A clear technical plan, architecture decisions and timeline — before a single line of code.",
     icon: Lightbulb,
+    color: "#f59e0b",
   },
   {
     n: "03",
     t: "Build & Iterate",
     d: "Weekly demos, async updates, and continuous feedback loops keep you fully in control.",
     icon: Code2,
+    color: "#10b981",
   },
   {
     n: "04",
     t: "Launch & Scale",
     d: "QA, performance hardening, live deployment, and ongoing support built into every engagement.",
     icon: Zap,
+    color: "#8b5cf6",
   },
 ];
 
 const stats = [
-  { v: "12+", l: "Years Experience", icon: Award },
-  { v: "450+", l: "Clients Worldwide", icon: Users },
-  { v: "25+", l: "Team Members", icon: Briefcase },
-  { v: "5", l: "Countries Served", icon: Globe },
+  { v: "12+", l: "Years Experience", icon: Award, color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
+  { v: "450+", l: "Clients Worldwide", icon: Users, color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
+  { v: "25+", l: "Team Members", icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
+  { v: "5", l: "Countries Served", icon: Globe, color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
 ];
 
 const testimonials = [
@@ -253,16 +273,22 @@ const regions = [
 const values = [
   {
     icon: Heart,
+    color: "#f43f5e",
+    bg: "rgba(244,63,94,0.10)",
     t: "Client Obsession",
     d: "We succeed when you succeed. Every decision traces back to your outcomes, not our convenience.",
   },
   {
     icon: Lightbulb,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
     t: "Deep Curiosity",
     d: "We ask better questions, challenge assumptions, and consistently find solutions others miss.",
   },
   {
     icon: ShieldCheck,
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
     t: "Radical Integrity",
     d: "Honest scopes. Transparent pricing. No surprises. Just dependable delivery, every single time.",
   },
@@ -272,6 +298,69 @@ const clientLogos = [
   "NorthPeak", "Dunescape", "Fluxio", "Loomline",
   "Hexa", "Ascend Co", "Vantara", "CloudSync", "Meridian", "Proxia",
 ];
+
+/* ─── FAQ Data for bottom section ──────────────────────────────────── */
+const faqCategories = [
+  {
+    label: "Process",
+    icon: Zap,
+    color: "from-blue-600 to-cyan-500",
+    faqs: [
+      {
+        q: "How long does a typical project take?",
+        a: "Most engagements run 4–12 weeks depending on scope. We share a detailed timeline after the discovery call so you know exactly what to expect at every milestone.",
+      },
+      {
+        q: "Can you redesign an existing product?",
+        a: "Yes — we frequently rebuild legacy systems and refresh brand experiences end-to-end. We audit what exists, identify what's worth keeping, and rebuild the rest with precision.",
+      },
+      {
+        q: "What happens during the discovery call?",
+        a: "We spend 45 minutes understanding your goals, constraints, and current challenges. You'll leave with clarity on scope, timeline, and cost — whether you work with us or not.",
+      },
+    ],
+  },
+  {
+    label: "Pricing",
+    icon: ShieldCheck,
+    color: "from-violet-600 to-purple-500",
+    faqs: [
+      {
+        q: "How do you price projects?",
+        a: "Fixed-price for well-defined scopes, retainer-based for evolving roadmaps. We provide transparent, itemised quotes after discovery — no hidden fees, ever.",
+      },
+      {
+        q: "Do you offer ongoing support?",
+        a: "Absolutely. We offer monthly retainers for maintenance, growth work, and feature development after launch. Most clients continue working with us long-term.",
+      },
+      {
+        q: "Is there a minimum project size?",
+        a: "We typically work with projects starting from $3,000 USD. For smaller needs we offer advisory sessions or point-in-time audits at a flat rate.",
+      },
+    ],
+  },
+  {
+    label: "Global",
+    icon: Globe,
+    color: "from-emerald-600 to-teal-500",
+    faqs: [
+      {
+        q: "Do you work with international clients?",
+        a: "Yes — we serve clients across Europe, the UK, America, Dubai and Pakistan with async-friendly workflows and overlapping time zone availability.",
+      },
+      {
+        q: "What technologies do you use?",
+        a: "Modern stacks: React, Next.js, Node.js, TypeScript, WordPress, WooCommerce, and cloud-native infrastructure. We choose the right tool for each project, not the trendiest one.",
+      },
+      {
+        q: "Can we meet in person?",
+        a: "Our team is based in Dubai and Pakistan. We meet in-person with Dubai-based clients and arrange travel for larger engagements when needed.",
+      },
+    ],
+  },
+];
+
+const allFaqs = faqCategories.flatMap((c) => c.faqs);
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -317,7 +406,12 @@ function StatCard({ s, delay }: { s: (typeof stats)[0]; delay: number }) {
       whileHover={{ y: -6, scale: 1.04 }}
       className="group glass rounded-2xl px-5 py-5 cursor-default"
     >
-      <s.icon className="h-5 w-5 text-primary mb-3 group-hover:scale-110 transition-transform duration-200" />
+      <div
+        className="w-8 h-8 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-200"
+        style={{ background: s.bg }}
+      >
+        <s.icon className="h-4 w-4" style={{ color: s.color }} />
+      </div>
       <div className="text-3xl md:text-4xl font-bold gradient-text">
         {inView ? count : 0}{suffix}
       </div>
@@ -357,12 +451,139 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
   );
 }
 
+/* ─── FAQ Item ──────────────────────────────────────────────────────── */
+function FaqItem({
+  q, a, index, isOpen, onToggle,
+}: {
+  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
+}) {
+  const panelId = `faq-panel-home-${index}`;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleToggle = () => {
+    const previousTop = buttonRef.current?.getBoundingClientRect().top;
+    onToggle();
+    if (typeof previousTop !== "number") return;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const nextTop = buttonRef.current?.getBoundingClientRect().top;
+        if (typeof nextTop !== "number") return;
+        window.scrollBy({ top: nextTop - previousTop, left: 0, behavior: "auto" });
+      });
+    });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+      className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
+        isOpen
+          ? "glass shadow-glow border border-primary/20"
+          : "glass border border-border/40 hover:border-primary/20"
+      }`}
+    >
+      {/* Active left accent bar */}
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 ${
+          isOpen ? "gradient-primary opacity-100" : "opacity-0"
+        }`}
+      />
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={handleToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
+      >
+        <div className="flex items-center gap-4">
+          <div
+            className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
+              isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+            }`}
+          >
+            <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+          </div>
+          <span className="font-semibold text-sm md:text-base">{q}</span>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
+            isOpen ? "gradient-primary" : "bg-primary/10"
+          }`}
+        >
+          <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pl-18 pr-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-primary/10 pt-4">
+              {a}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+/* ─── Category Tab ─────────────────────────────────────────────────── */
+function CategoryTab({
+  cat, active, onClick,
+}: {
+  cat: typeof faqCategories[0]; active: boolean; onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
+        active
+          ? "gradient-primary text-primary-foreground shadow-elegant"
+          : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
+      }`}
+    >
+      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-gradient-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
+        <cat.icon className="h-3 w-3 text-white" />
+      </div>
+      {cat.label}
+    </button>
+  );
+}
+
 /* ─── Index Page ────────────────────────────────────────────────────── */
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+
+  /* FAQ state */
+  const [openQuestions, setOpenQuestions] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const displayedFaqs = activeCategory !== null ? faqCategories[activeCategory].faqs : allFaqs;
+  const handleCategoryChange = (next: number | null) => {
+    setActiveCategory(next);
+    setOpenQuestions([]);
+  };
+  const handleQuestionToggle = (question: string) => {
+    setOpenQuestions((cur) =>
+      cur.includes(question) ? cur.filter((q) => q !== question) : [...cur, question]
+    );
+  };
 
   return (
     <Layout>
@@ -413,7 +634,6 @@ function Index() {
                 <span className="text-primary">Est. Dubai, UAE</span>
               </motion.div>
 
-              {/* Headline — NO underline animation */}
               <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>
@@ -573,10 +793,10 @@ function Index() {
               style={{ transform: "perspective(900px) rotateY(-5deg) rotateX(3deg)" }}
             >
               {[
-                { icon: Award,     v: "12+",  l: "Years Experience" },
-                { icon: Users,     v: "450+", l: "Clients Worldwide" },
-                { icon: Briefcase, v: "25+",  l: "Team Members"     },
-                { icon: Star,      v: "5★",   l: "Avg. Rating"      },
+                { icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.15)",  v: "12+",  l: "Years Experience" },
+                { icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.15)",   v: "450+", l: "Clients Worldwide" },
+                { icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.15)",  v: "25+",  l: "Team Members"     },
+                { icon: Star,      color: "#ec4899", bg: "rgba(236,72,153,0.15)",  v: "5★",   l: "Avg. Rating"      },
               ].map((item, i) => (
                 <motion.div
                   key={item.l}
@@ -585,8 +805,11 @@ function Index() {
                   whileHover={{ scale: 1.06 }}
                   className="group rounded-2xl bg-card/80 shadow-elegant flex flex-col items-center justify-center p-6 gap-2 cursor-default"
                 >
-                  <div className="h-12 w-12 rounded-xl gradient-primary flex items-center justify-center shadow-elegant group-hover:scale-110 transition-transform duration-200">
-                    <item.icon className="h-6 w-6 text-primary-foreground" />
+                  <div
+                    className="h-12 w-12 rounded-xl flex items-center justify-center shadow-elegant group-hover:scale-110 transition-transform duration-200"
+                    style={{ background: item.bg }}
+                  >
+                    <item.icon className="h-6 w-6" style={{ color: item.color }} />
                   </div>
                   <div className="text-2xl font-bold gradient-text">{item.v}</div>
                   <div className="text-xs text-muted-foreground text-center leading-tight">{item.l}</div>
@@ -616,13 +839,22 @@ function Index() {
                 whileHover={{ y: -8 }}
                 className="group relative glass rounded-3xl p-8 overflow-hidden hover:shadow-glow transition-all duration-300 h-full"
               >
-                <div className="absolute -right-8 -top-8 h-36 w-36 rounded-full gradient-primary opacity-5 blur-2xl group-hover:opacity-20 transition-opacity duration-300" />
-                <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform duration-300">
-                  <v.icon className="h-7 w-7 text-primary-foreground" />
+                <div
+                  className="absolute -right-8 -top-8 h-36 w-36 rounded-full blur-2xl opacity-[0.06] group-hover:opacity-[0.12] transition-opacity duration-300 pointer-events-none"
+                  style={{ background: v.color }}
+                />
+                <div
+                  className="h-14 w-14 rounded-2xl flex items-center justify-center mb-6 shadow-elegant group-hover:scale-110 transition-transform duration-300"
+                  style={{ background: v.bg, boxShadow: `0 4px 20px ${v.color}20` }}
+                >
+                  <v.icon className="h-7 w-7" style={{ color: v.color }} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{v.t}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.d}</p>
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                  style={{ background: `linear-gradient(to right, transparent, ${v.color}55, transparent)` }}
+                />
               </motion.div>
             </TiltCard>
           ))}
@@ -658,7 +890,10 @@ function Index() {
                 whileHover={{ y: -10 }}
                 className="group relative glass rounded-3xl p-7 overflow-hidden hover:shadow-glow transition-all duration-300 h-full"
               >
-                <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full gradient-primary opacity-5 blur-2xl group-hover:opacity-20 transition-opacity duration-300" />
+                <div
+                  className="absolute -right-10 -top-10 h-48 w-48 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-300 pointer-events-none"
+                  style={{ background: s.color }}
+                />
                 <div className="relative">
                   <div className="flex items-center justify-between mb-4">
                     <span className="inline-block text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-full">
@@ -669,10 +904,10 @@ function Index() {
                     </span>
                   </div>
                   <div
-                    className="rounded-2xl gradient-primary flex items-center justify-center mb-5 shadow-elegant group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
-                    style={{ width: 52, height: 52 }}
+                    className="rounded-2xl flex items-center justify-center mb-5 shadow-elegant group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+                    style={{ width: 52, height: 52, background: s.bg, boxShadow: `0 4px 16px ${s.color}22` }}
                   >
-                    <s.icon className="h-6 w-6 text-primary-foreground" />
+                    <s.icon className="h-6 w-6" style={{ color: s.color }} />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{s.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-6">{s.desc}</p>
@@ -683,7 +918,10 @@ function Index() {
                     Learn more <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                  style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
+                />
               </motion.div>
             </TiltCard>
           ))}
@@ -719,11 +957,20 @@ function Index() {
                 whileHover={{ y: -8 }}
                 className="group relative text-center cursor-default"
               >
-                <div className="relative mx-auto h-20 w-20 rounded-full gradient-primary text-primary-foreground flex items-center justify-center font-bold text-lg shadow-glow mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <div className="absolute inset-0 rounded-full gradient-primary blur-xl opacity-40 -z-10 group-hover:opacity-70 transition-opacity duration-300" />
-                  <p.icon className="h-8 w-8" />
+                <div
+                  className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center font-bold text-lg mb-6 group-hover:scale-110 transition-transform duration-300"
+                  style={{
+                    background: `linear-gradient(135deg, ${p.color}cc, ${p.color}88)`,
+                    boxShadow: `0 6px 24px ${p.color}40`,
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-full blur-xl opacity-30 -z-10 group-hover:opacity-60 transition-opacity duration-300"
+                    style={{ background: p.color }}
+                  />
+                  <p.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-primary/60 mb-1">{p.n}</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: p.color + "99" }}>{p.n}</div>
                 <h3 className="font-bold mb-2">{p.t}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
@@ -734,7 +981,6 @@ function Index() {
 
       {/* ══════════════════════════════════════ PORTFOLIO ═══════════════════ */}
       <section className="relative mx-auto max-w-7xl px-4 py-24">
-        {/* Header — NO "View all projects" link */}
         <motion.div {...fadeUp()} className="mb-14">
           <SectionLabel>Portfolio</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
@@ -758,8 +1004,6 @@ function Index() {
                 className="absolute inset-0 transition-opacity duration-300"
                 style={p.gradientStyle}
               />
-
-              {/* Subtle grid overlay */}
               <div className="absolute inset-0 opacity-[0.07]">
                 <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -770,10 +1014,7 @@ function Index() {
                   <rect width="100%" height="100%" fill={`url(#pg-${i})`} />
                 </svg>
               </div>
-
-              {/* Hover shimmer */}
               <div className="absolute inset-0 bg-transparent group-hover:bg-white/[0.06] transition-colors duration-300 pointer-events-none" />
-
               <div className="relative p-7 flex flex-col justify-between" style={{ height: 224 }}>
                 <div className="flex items-start justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-white/75 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
@@ -826,7 +1067,6 @@ function Index() {
                   className="shrink-0 glass rounded-3xl p-6 flex flex-col gap-4 hover:shadow-glow transition-shadow duration-300"
                   style={{ width: 380 }}
                 >
-                  {/* Stars — yellow fill */}
                   <div className="flex items-center gap-0.5">
                     {Array.from({ length: t.stars }).map((_, j) => (
                       <Star
@@ -904,91 +1144,107 @@ function Index() {
         </motion.div>
       </section>
 
-      {/* ═══════════════════════════════════════════ CTA ════════════════════ */}
-      <section className="relative mx-auto max-w-7xl px-4 py-16 pb-28">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.75, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl gradient-primary shadow-elegant"
-        >
-          {/* Bg decorations */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="cta-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#cta-grid)" />
-            </svg>
-            <motion.div
-              animate={{ scale: [1, 1.35, 1], opacity: [0.15, 0.35, 0.15] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-24 -right-24 rounded-full bg-white/10 blur-3xl"
-              style={{ width: 480, height: 480 }}
+      {/* ════════════════════════════════════════ FAQs ══════════════════════ */}
+      {/* Category Tabs */}
+      <section className="mx-auto max-w-4xl px-4 pt-16 pb-6">
+        <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-12">
+          <SectionLabel>FAQs</SectionLabel>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            Frequently<br /><span className="gradient-text">asked.</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
+            Everything you wanted to know — answered. Still need help?{" "}
+            <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
+              Just ask us.
+            </Link>
+          </p>
+        </motion.div>
+        <motion.div {...fadeUp(0.1)} className="flex flex-wrap items-center gap-3 justify-center">
+          <button
+            type="button"
+            onClick={() => handleCategoryChange(null)}
+            className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
+              activeCategory === null
+                ? "gradient-primary text-primary-foreground shadow-elegant"
+                : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
+            }`}
+          >
+            All Questions
+          </button>
+          {faqCategories.map((cat, i) => (
+            <CategoryTab
+              key={cat.label}
+              cat={cat}
+              active={activeCategory === i}
+              onClick={() => handleCategoryChange(activeCategory === i ? null : i)}
             />
-            <motion.div
-              animate={{ scale: [1, 1.4, 1], opacity: [0.12, 0.26, 0.12] }}
-              transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-              className="absolute -bottom-24 -left-24 rounded-full bg-white/10 blur-3xl"
-              style={{ width: 400, height: 400 }}
-            />
-          </div>
+          ))}
+        </motion.div>
+      </section>
 
-          <div className="relative px-10 py-16 md:px-20 md:py-20 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/80 mb-7"
-            >
-              <Zap className="h-3.5 w-3.5" />
-              No commitment. Just clarity.
-            </motion.div>
+      {/* FAQ List */}
+      <section className="mx-auto max-w-4xl px-4 pb-16">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory ?? "all"}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3"
+          >
+            {displayedFaqs.map((f, i) => (
+              <FaqItem
+                key={f.q}
+                q={f.q}
+                a={f.a}
+                index={i}
+                isOpen={openQuestions.includes(f.q)}
+                onToggle={() => handleQuestionToggle(f.q)}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </section>
 
-            <h2 className="text-4xl md:text-[56px] font-bold text-primary-foreground mb-5 leading-[1.08] tracking-tight">
-              Your next great product<br />starts with a conversation.
-            </h2>
-            <p className="text-primary-foreground/70 text-lg mb-10 max-w-lg mx-auto leading-relaxed">
-              Book a free 45-minute strategy call and walk away with a clear technical
-              roadmap — whether you work with us or not.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              >
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-background text-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200"
-                >
-                  Book Free Strategy Call <ArrowRight className="h-4 w-4" />
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              >
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white/20 text-white border border-white/25 px-8 py-4 font-semibold hover:bg-white/30 transition-all duration-200"
-                >
-                  Explore Services <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </motion.div>
+      {/* FAQ Bottom CTA */}
+      <section className="mx-auto max-w-4xl px-4 pb-28">
+        <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
+          <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)" }}
+          />
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+            className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+          />
+          <div className="relative">
+            <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
+              <MessageCircle className="h-7 w-7 text-primary-foreground" />
             </div>
-
-            {/* Trust signals */}
-            <div className="mt-9 flex flex-wrap justify-center gap-6 text-white/55 text-xs font-medium">
-              {["Free consultation", "No sales pressure", "Clear deliverables", "Response within 24hrs"].map((t) => (
+            <SectionLabel>Still unsure?</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Let's talk it through.
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
+              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+            </p>
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
+            >
+              Book Free Consultation
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+            </Link>
+            <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
+              {["No commitment required", "Response within 24 hours", "Completely free"].map((t) => (
                 <div key={t} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3 w-3 text-white/55" />
+                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
                   {t}
                 </div>
               ))}
