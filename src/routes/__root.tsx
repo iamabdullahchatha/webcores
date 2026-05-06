@@ -48,6 +48,19 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
+function scrollWindowToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
+function scrollWindowToTopAfterPaint() {
+  scrollWindowToTop();
+  window.requestAnimationFrame(scrollWindowToTop);
+  window.setTimeout(scrollWindowToTop, 50);
+  window.setTimeout(scrollWindowToTop, 250);
+}
+
 function ScrollToTop() {
   const pathname = useLocation({ select: (location) => location.pathname });
 
@@ -56,8 +69,49 @@ function ScrollToTop() {
       return;
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    scrollWindowToTopAfterPaint();
   }, [pathname]);
+
+  useLayoutEffect(() => {
+    const handleSamePathLinkClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.shiftKey
+      ) {
+        return;
+      }
+
+      const target = event.target instanceof Element ? event.target : null;
+      const link = target?.closest<HTMLAnchorElement>("a[href]");
+
+      if (!link || (link.target && link.target !== "_self")) {
+        return;
+      }
+
+      const url = new URL(link.href);
+
+      if (
+        url.origin !== window.location.origin ||
+        url.pathname !== window.location.pathname ||
+        url.search !== window.location.search ||
+        url.hash
+      ) {
+        return;
+      }
+
+      window.setTimeout(scrollWindowToTopAfterPaint, 0);
+    };
+
+    document.addEventListener("click", handleSamePathLinkClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleSamePathLinkClick, true);
+    };
+  }, []);
 
   return null;
 }

@@ -168,11 +168,34 @@ function FaqItem({
   q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
 }) {
   const panelId = `faq-panel-${index}`;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleToggle = () => {
+    const previousTop = buttonRef.current?.getBoundingClientRect().top;
+
+    onToggle();
+
+    if (typeof previousTop !== "number") {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const nextTop = buttonRef.current?.getBoundingClientRect().top;
+
+        if (typeof nextTop !== "number") {
+          return;
+        }
+
+        window.scrollBy({ top: nextTop - previousTop, left: 0, behavior: "auto" });
+      });
+    });
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
       className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
@@ -189,8 +212,9 @@ function FaqItem({
       />
 
       <button
+        ref={buttonRef}
         type="button"
-        onClick={onToggle}
+        onClick={handleToggle}
         aria-expanded={isOpen}
         aria-controls={panelId}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
@@ -262,7 +286,7 @@ function CategoryTab({
 
 /* ─── Main Component ───────────────────────────────────────────────── */
 function FAQs() {
-  const [openQuestion, setOpenQuestion] = useState<string | null>(allFaqs[0]?.q ?? null);
+  const [openQuestions, setOpenQuestions] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -273,7 +297,15 @@ function FAQs() {
 
   const handleCategoryChange = (nextCategory: number | null) => {
     setActiveCategory(nextCategory);
-    setOpenQuestion(null);
+    setOpenQuestions([]);
+  };
+
+  const handleQuestionToggle = (question: string) => {
+    setOpenQuestions((current) =>
+      current.includes(question)
+        ? current.filter((openQuestion) => openQuestion !== question)
+        : [...current, question],
+    );
   };
 
   return (
@@ -415,8 +447,8 @@ function FAQs() {
                 q={f.q}
                 a={f.a}
                 index={i}
-                isOpen={openQuestion === f.q}
-                onToggle={() => setOpenQuestion(openQuestion === f.q ? null : f.q)}
+                isOpen={openQuestions.includes(f.q)}
+                onToggle={() => handleQuestionToggle(f.q)}
               />
             ))}
           </motion.div>
