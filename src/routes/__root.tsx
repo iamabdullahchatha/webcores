@@ -1,4 +1,5 @@
-import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, useLocation } from "@tanstack/react-router";
+import { useLayoutEffect } from "react";
 
 function NotFoundComponent() {
   return (
@@ -47,6 +48,25 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
+function ScrollToTop() {
+  const pathname = useLocation({ select: (location) => location.pathname });
+
+  useLayoutEffect(() => {
+    if (window.location.hash) {
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <>
+      <ScrollToTop />
+      <Outlet />
+    </>
+  );
 }

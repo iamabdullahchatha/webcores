@@ -167,6 +167,8 @@ function FaqItem({
 }: {
   q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
 }) {
+  const panelId = `faq-panel-${index}`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -187,7 +189,10 @@ function FaqItem({
       />
 
       <button
+        type="button"
         onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
       >
         <div className="flex items-center gap-4">
@@ -214,6 +219,7 @@ function FaqItem({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={panelId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -238,6 +244,7 @@ function CategoryTab({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
         active
@@ -255,7 +262,7 @@ function CategoryTab({
 
 /* ─── Main Component ───────────────────────────────────────────────── */
 function FAQs() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openQuestion, setOpenQuestion] = useState<string | null>(allFaqs[0]?.q ?? null);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -263,6 +270,11 @@ function FAQs() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const displayedFaqs = activeCategory !== null ? categories[activeCategory].faqs : allFaqs;
+
+  const handleCategoryChange = (nextCategory: number | null) => {
+    setActiveCategory(nextCategory);
+    setOpenQuestion(null);
+  };
 
   return (
     <Layout>
@@ -365,7 +377,8 @@ function FAQs() {
       <section className="mx-auto max-w-4xl px-4 pt-16 pb-6">
         <motion.div {...fadeUp()} className="flex flex-wrap items-center gap-3 justify-center">
           <button
-            onClick={() => setActiveCategory(null)}
+            type="button"
+            onClick={() => handleCategoryChange(null)}
             className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
               activeCategory === null
                 ? "gradient-primary text-primary-foreground shadow-elegant"
@@ -379,7 +392,7 @@ function FAQs() {
               key={cat.label}
               cat={cat}
               active={activeCategory === i}
-              onClick={() => setActiveCategory(activeCategory === i ? null : i)}
+              onClick={() => handleCategoryChange(activeCategory === i ? null : i)}
             />
           ))}
         </motion.div>
@@ -402,8 +415,8 @@ function FAQs() {
                 q={f.q}
                 a={f.a}
                 index={i}
-                isOpen={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                isOpen={openQuestion === f.q}
+                onToggle={() => setOpenQuestion(openQuestion === f.q ? null : f.q)}
               />
             ))}
           </motion.div>
