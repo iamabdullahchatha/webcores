@@ -41,22 +41,10 @@ export function Header() {
         scrolled ? "py-3" : "py-5"
       }`}
     >
-      <div className={`mx-auto max-w-7xl px-4`}>
-        <div
-          className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all ${
-            scrolled ? "shadow-elegant" : ""
-          }`}
-          style={
-            scrolled
-              ? {
-                  backdropFilter: "blur(32px)",
-                  WebkitBackdropFilter: "blur(32px)",
-                  backgroundColor: "rgba(255, 255, 255, 0.75)",
-                  border: "1px solid rgba(255, 255, 255, 0.5)",
-                }
-              : undefined
-          }
-        >
+      <div className={`mx-auto max-w-7xl px-4 ${scrolled ? "" : ""}`}>
+        <div className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all ${
+          scrolled ? "glass shadow-elegant" : ""
+        }`}>
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Webcore Solutions" className="h-10 md:h-12 w-auto" />
           </Link>
