@@ -514,7 +514,7 @@ function CmsDevelopment() {
               <Card3D className="bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-6 h-full hover:border-border/60 transition-colors duration-300">
                 <div className="flex items-center gap-0.5 mb-4">
                   {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star key={j} className="h-3.5 w-3.5 fill-primary text-primary" />
+                    <Star key={j} className="h-3.5 w-3.5" style={{ fill: "#f59e0b", color: "#f59e0b" }} />
                   ))}
                 </div>
                 <p className="text-sm text-foreground/75 leading-relaxed mb-5">"{t.quote}"</p>
