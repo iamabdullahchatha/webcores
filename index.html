@@ -2,12 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Favicon (main) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Optional for better compatibility -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
+    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme color (optional, improves mobile UI) -->
+    <meta name="theme-color" content="#0a66c2" />
+
+    <!-- SEO -->
+    <meta name="description" content="Webcore Solutions - Professional software and web development services." />
+
     <title>Webcore App</title>
   </head>
+
   <body>
     <div id="root"></div>
+
+    <!-- Vite entry -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
