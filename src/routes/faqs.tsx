@@ -1,0 +1,463 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { Layout } from "@/components/Layout";
+import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import {
+  Plus, ArrowRight, CheckCircle2, MessageCircle,
+  Zap, Globe, Clock, Shield, Star, HelpCircle,
+} from "lucide-react";
+import { Link } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/faqs")({
+  head: () => ({
+    meta: [
+      { title: "FAQs — Webcore Solutions" },
+      { name: "description", content: "Answers to common questions about our process, pricing and partnerships." },
+      { property: "og:title", content: "FAQs — Webcore Solutions" },
+    ],
+  }),
+  component: FAQs,
+});
+
+/* ─── Data ─────────────────────────────────────────────────────────── */
+const categories = [
+  {
+    label: "Process",
+    icon: Zap,
+    color: "from-blue-600 to-cyan-500",
+    faqs: [
+      {
+        q: "How long does a typical project take?",
+        a: "Most engagements run 4–12 weeks depending on scope. We share a detailed timeline after the discovery call so you know exactly what to expect at every milestone.",
+      },
+      {
+        q: "Can you redesign an existing product?",
+        a: "Yes — we frequently rebuild legacy systems and refresh brand experiences end-to-end. We audit what exists, identify what's worth keeping, and rebuild the rest with precision.",
+      },
+      {
+        q: "What happens during the discovery call?",
+        a: "We spend 45 minutes understanding your goals, constraints, and current challenges. You'll leave with clarity on scope, timeline, and cost — whether you work with us or not.",
+      },
+    ],
+  },
+  {
+    label: "Pricing",
+    icon: Shield,
+    color: "from-violet-600 to-purple-500",
+    faqs: [
+      {
+        q: "How do you price projects?",
+        a: "Fixed-price for well-defined scopes, retainer-based for evolving roadmaps. We provide transparent, itemised quotes after discovery — no hidden fees, ever.",
+      },
+      {
+        q: "Do you offer ongoing support?",
+        a: "Absolutely. We offer monthly retainers for maintenance, growth work, and feature development after launch. Most clients continue working with us long-term.",
+      },
+      {
+        q: "Is there a minimum project size?",
+        a: "We typically work with projects starting from $3,000 USD. For smaller needs we offer advisory sessions or point-in-time audits at a flat rate.",
+      },
+    ],
+  },
+  {
+    label: "Global",
+    icon: Globe,
+    color: "from-emerald-600 to-teal-500",
+    faqs: [
+      {
+        q: "Do you work with international clients?",
+        a: "Yes — we serve clients across Europe, the UK, America, Dubai and Pakistan with async-friendly workflows and overlapping time zone availability.",
+      },
+      {
+        q: "What technologies do you use?",
+        a: "Modern stacks: React, Next.js, Node.js, TypeScript, WordPress, WooCommerce, and cloud-native infrastructure. We choose the right tool for each project, not the trendiest one.",
+      },
+      {
+        q: "Can we meet in person?",
+        a: "Our team is based in Dubai and Pakistan. We meet in-person with Dubai-based clients and arrange travel for larger engagements when needed.",
+      },
+    ],
+  },
+];
+
+const allFaqs = categories.flatMap((c) => c.faqs);
+
+/* ─── Helpers ──────────────────────────────────────────────────────── */
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+});
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
+      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+      {children}
+    </div>
+  );
+}
+
+/* ─── Decorative SVG ───────────────────────────────────────────────── */
+function HeroDecoration() {
+  return (
+    <svg
+      viewBox="0 0 800 320"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full opacity-60"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="faq-g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.05" />
+        </linearGradient>
+        <linearGradient id="faq-g2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
+        </linearGradient>
+        <filter id="faq-blur" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="18" />
+        </filter>
+      </defs>
+
+      {/* Blobs */}
+      <ellipse cx="160" cy="160" rx="140" ry="110" fill="url(#faq-g1)" filter="url(#faq-blur)" />
+      <ellipse cx="640" cy="120" rx="120" ry="100" fill="url(#faq-g2)" filter="url(#faq-blur)" />
+      <ellipse cx="400" cy="240" rx="90" ry="70" fill="hsl(var(--primary))" opacity="0.07" filter="url(#faq-blur)" />
+
+      {/* Floating question-mark dots */}
+      {[
+        [80, 60], [700, 40], [200, 260], [560, 280], [400, 50], [300, 200],
+      ].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r={i % 2 === 0 ? 4 : 6} fill="hsl(var(--primary))" opacity={0.12 + i * 0.04} />
+      ))}
+
+      {/* Grid lines */}
+      {Array.from({ length: 10 }).map((_, i) => (
+        <line key={`v${i}`} x1={i * 88} y1="0" x2={i * 88} y2="320" stroke="hsl(var(--primary))" strokeOpacity="0.04" strokeWidth="1" />
+      ))}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <line key={`h${i}`} x1="0" y1={i * 64} x2="800" y2={i * 64} stroke="hsl(var(--primary))" strokeOpacity="0.04" strokeWidth="1" />
+      ))}
+
+      {/* Floating cards suggestion */}
+      <rect x="580" y="60" width="160" height="90" rx="16" fill="hsl(var(--card))" opacity="0.5" />
+      <rect x="596" y="78" width="60" height="8" rx="4" fill="hsl(var(--primary))" opacity="0.3" />
+      <rect x="596" y="92" width="128" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.15" />
+      <rect x="596" y="102" width="100" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.1" />
+      <rect x="596" y="116" width="80" height="20" rx="6" fill="hsl(var(--primary))" opacity="0.18" />
+
+      <rect x="50" y="170" width="140" height="80" rx="14" fill="hsl(var(--card))" opacity="0.5" />
+      <circle cx="76" cy="200" r="16" fill="hsl(var(--primary))" opacity="0.2" />
+      <rect x="100" y="192" width="74" height="7" rx="3.5" fill="hsl(var(--primary))" opacity="0.25" />
+      <rect x="100" y="204" width="54" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.15" />
+      <rect x="62" y="224" width="112" height="14" rx="5" fill="hsl(var(--primary))" opacity="0.12" />
+    </svg>
+  );
+}
+
+/* ─── FAQ Accordion Item ───────────────────────────────────────────── */
+function FaqItem({
+  q, a, index, isOpen, onToggle,
+}: {
+  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+      className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
+        isOpen
+          ? "glass shadow-glow border border-primary/20"
+          : "glass border border-border/40 hover:border-primary/20"
+      }`}
+    >
+      {/* Active left accent bar */}
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 ${
+          isOpen ? "gradient-primary opacity-100" : "opacity-0"
+        }`}
+      />
+
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
+      >
+        <div className="flex items-center gap-4">
+          <div
+            className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
+              isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+            }`}
+          >
+            <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+          </div>
+          <span className="font-semibold text-sm md:text-base">{q}</span>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
+            isOpen ? "gradient-primary" : "bg-primary/10"
+          }`}
+        >
+          <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pl-18 pr-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-primary/10 pt-4">
+              {a}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+/* ─── Category Tab ─────────────────────────────────────────────────── */
+function CategoryTab({
+  cat, active, onClick,
+}: {
+  cat: typeof categories[0]; active: boolean; onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
+        active
+          ? "gradient-primary text-primary-foreground shadow-elegant"
+          : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
+      }`}
+    >
+      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-linear-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
+        <cat.icon className="h-3 w-3 text-white" />
+      </div>
+      {cat.label}
+    </button>
+  );
+}
+
+/* ─── Main Component ───────────────────────────────────────────────── */
+function FAQs() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const displayedFaqs = activeCategory !== null ? categories[activeCategory].faqs : allFaqs;
+
+  return (
+    <Layout>
+
+      {/* ══════════════════ HERO ═══════════════════════════════════════ */}
+      <section ref={heroRef} className="relative overflow-hidden min-h-[60vh] flex items-center">
+        <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+        <GridBackground />
+        <FloatingShapes />
+
+        {/* Ambient orbs */}
+        <motion.div
+          animate={{ scale: [1, 1.18, 1], opacity: [0.2, 0.45, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-8 right-12 rounded-full pointer-events-none"
+          style={{ width: 480, height: 480, background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)" }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          className="absolute bottom-0 left-4 rounded-full pointer-events-none"
+          style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)" }}
+        />
+
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+          <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
+            <div className="flex flex-col items-center text-center">
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                FAQs
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
+              >
+                Frequently{" "}
+                <span className="gradient-text">asked.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
+                className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
+              >
+                Everything you wanted to know — answered. Still need help?{" "}
+                <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
+                  Just ask us.
+                </Link>
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
+                className="mt-8 flex flex-wrap justify-center gap-3"
+              >
+                {[
+                  { icon: Star,   label: "Trusted by 450+ clients" },
+                  { icon: Clock,  label: "Response in 24hrs"       },
+                  { icon: Shield, label: "No commitment needed"    },
+                ].map((p) => (
+                  <span key={p.label} className="inline-flex items-center gap-1.5 glass rounded-full px-4 py-1.5 text-xs font-semibold text-primary">
+                    <p.icon className="h-3 w-3" />
+                    {p.label}
+                  </span>
+                ))}
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="mt-10"
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
+                >
+                  Book Free Consultation
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                </Link>
+              </motion.div>
+
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ══════════════════ CATEGORY TABS ══════════════════════════════ */}
+      <section className="mx-auto max-w-4xl px-4 pt-16 pb-6">
+        <motion.div {...fadeUp()} className="flex flex-wrap items-center gap-3 justify-center">
+          <button
+            onClick={() => setActiveCategory(null)}
+            className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
+              activeCategory === null
+                ? "gradient-primary text-primary-foreground shadow-elegant"
+                : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
+            }`}
+          >
+            All Questions
+          </button>
+          {categories.map((cat, i) => (
+            <CategoryTab
+              key={cat.label}
+              cat={cat}
+              active={activeCategory === i}
+              onClick={() => setActiveCategory(activeCategory === i ? null : i)}
+            />
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ══════════════════ FAQ LIST ════════════════════════════════════ */}
+      <section className="mx-auto max-w-4xl px-4 pb-16">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory ?? "all"}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3"
+          >
+            {displayedFaqs.map((f, i) => (
+              <FaqItem
+                key={f.q}
+                q={f.q}
+                a={f.a}
+                index={i}
+                isOpen={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </section>
+
+      {/* ══════════════════ BOTTOM CTA ══════════════════════════════════ */}
+      <section className="mx-auto max-w-4xl px-4 pb-24">
+        <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
+          {/* Background glow */}
+          <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)" }}
+          />
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+            className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+          />
+
+          <div className="relative">
+            <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
+              <MessageCircle className="h-7 w-7 text-primary-foreground" />
+            </div>
+            <SectionLabel>Still unsure?</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Let's talk it through.
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
+              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+            </p>
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
+            >
+              Book Free Consultation
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+            </Link>
+            <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
+              {["No commitment required", "Response within 24 hours", "Completely free"].map((t) => (
+                <div key={t} className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
+                  {t}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+    </Layout>
+  );
+}
