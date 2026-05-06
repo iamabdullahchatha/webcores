@@ -207,7 +207,7 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
       <div className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
       <button
         onClick={() => setOpen(!open)}
-        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/[0.03] transition-colors duration-200"
+        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >
         <span className="font-semibold text-sm md:text-base pr-4">{q}</span>
         <motion.div
@@ -385,7 +385,7 @@ function GraphicDesign() {
                   style={{ background: f.color }} />
                 <div className="relative">
                   {/* Icon badge */}
-                  <div className="w-[48px] h-[48px] rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
                     style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}18` }}>
                     <f.icon className="h-5 w-5" style={{ color: f.color }} />
                   </div>
@@ -448,7 +448,7 @@ function GraphicDesign() {
               </div>
 
               {/* IP callout */}
-              <div className="mt-8 flex items-start gap-3 p-4 bg-primary/[0.05] border border-primary/15 rounded-xl">
+              <div className="mt-8 flex items-start gap-3 p-4 bg-primary/5 border border-primary/15 rounded-xl">
                 <Award className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold">100% IP transfer.</span>{" "}
@@ -476,7 +476,7 @@ function GraphicDesign() {
           {/* Connector line */}
           <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
             transition={{ duration: 1.1, delay: 0.3, type: "tween", ease: "easeOut" }}
-            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-border/60 to-transparent origin-left" />
+            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-border/60 to-transparent origin-left" />
 
           <div className="grid md:grid-cols-5 gap-6">
             {processSteps.map((p, i) => (
@@ -581,7 +581,7 @@ function GraphicDesign() {
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
               className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl" />
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full border border-white/[0.06] pointer-events-none" />
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-95 h-95 rounded-full border border-white/6 pointer-events-none" />
             {/* Sparkle dots */}
             {[...Array(6)].map((_, i) => (
               <motion.div key={i}
