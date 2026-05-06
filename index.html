@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- ✅ Favicon (best practice for Vercel) -->
+    <!-- ✅ Favicon (use your 96x96 properly) -->
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+
+    <!-- ✅ Fallback (IMPORTANT for browsers like Chrome) -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" />
+
+    <!-- Optional Apple -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Viewport -->
@@ -26,7 +30,6 @@
   <body>
     <div id="root"></div>
 
-    <!-- Vite entry -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
