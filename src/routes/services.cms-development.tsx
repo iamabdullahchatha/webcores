@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Layers, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown,
-  Zap, Shield, Globe, Code2, Database, RefreshCw, Users,
-  GitBranch, Cpu, BarChart3, FileText, Settings, Package,
-  Star, Clock, MessageSquare,
+  Globe, Code2, Zap, Star, Eye, Settings,
+  FileText, BarChart2, Users, Shield, Award,
+  LayoutTemplate, Puzzle, RefreshCw, Lock, Workflow, Database,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -15,109 +15,145 @@ export const Route = createFileRoute("/services/cms-development")({
   head: () => ({
     meta: [
       { title: "CMS Development — Webcore Solutions" },
-      { name: "description", content: "Custom-fit content platforms built to evolve with your team." },
+      { name: "description", content: "Headless and composable CMS platforms that give editorial teams full control — without dev bottlenecks." },
     ],
   }),
   component: CmsDevelopment,
 });
 
-/* ─── Data ──────────────────────────────────────────────────────── */
+/* ─── Data ──────────────────────────────────────────────────────────── */
 const features = [
   {
-    icon: Database,
+    icon: LayoutTemplate,
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
     t: "Headless CMS Architecture",
-    d: "Sanity, Contentful, Strapi, Payload — we match the platform to your editorial workflow and front-end stack, not the other way around.",
+    d: "Decouple your content layer from your presentation layer — giving you the freedom to deliver content to any channel, device or platform without rebuilding from scratch.",
   },
   {
-    icon: FileText,
-    t: "Custom Editorial UX",
-    d: "Authoring interfaces shaped around your content model. Editors ship content faster; developers spend less time on support.",
+    icon: Puzzle,
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.10)",
+    t: "Composable Content Platforms",
+    d: "Modular content models built around your editorial workflow — not the other way around. Stack best-of-breed tools that grow with your organisation.",
   },
   {
-    icon: GitBranch,
-    t: "Workflow & Roles",
-    d: "Multi-stage approvals, draft previews, scheduled publishing, localisation and granular role matrices — all built in.",
-  },
-  {
-    icon: Zap,
-    t: "Edge Performance",
-    d: "ISR, on-demand revalidation and image pipelines deliver sub-second pages globally. Your CMS will never be the bottleneck.",
+    icon: Workflow,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
+    t: "Editorial Workflow Design",
+    d: "Structured publishing flows with role-based permissions, review queues and scheduled publishing — so your team ships content fast without stepping on each other.",
   },
   {
     icon: RefreshCw,
-    t: "Zero-Downtime Migrations",
-    d: "Moving from WordPress, Drupal or a custom legacy system. We write migration scripts, validate content parity, and cut over without disruption.",
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
+    t: "Migration & Re-platforming",
+    d: "Safe, zero-downtime migrations from legacy CMS platforms — WordPress, Drupal, Contentful and more — with full content, media and metadata fidelity.",
   },
   {
-    icon: Settings,
-    t: "Deep Integrations",
-    d: "DAMs, CRMs, marketing automation, analytics, e-commerce. Every tool in your stack plugged in cleanly via APIs and webhooks.",
+    icon: Database,
+    color: "#f43f5e",
+    bg: "rgba(244,63,94,0.10)",
+    t: "Custom Content Modelling",
+    d: "Content schemas engineered for flexibility and longevity — structured to support localisation, multi-site and personalisation from day one.",
   },
-];
-
-const deliverables = [
-  "Content model & taxonomy design",
-  "Custom editorial interface",
-  "Role & permission matrix",
-  "Migration scripts & runbook",
-  "Editor training & documentation",
-  "Post-launch support period",
-];
-
-const techStack = [
-  { name: "Sanity",      color: "#f43f5e" },
-  { name: "Contentful",  color: "#06b6d4" },
-  { name: "Strapi",      color: "#8b5cf6" },
-  { name: "Payload",     color: "#10b981" },
-  { name: "Next.js",     color: "#f59e0b" },
-  { name: "GraphQL",     color: "#ec4899" },
+  {
+    icon: Lock,
+    color: "#ec4899",
+    bg: "rgba(236,72,153,0.10)",
+    t: "Governance & Permissions",
+    d: "Fine-grained access control, audit logs, content locking and approval workflows — so the right people publish the right content, every time.",
+  },
 ];
 
 const processSteps = [
-  { n: "01", t: "Audit",    d: "Content structure, editorial review, legacy debt.",       icon: BarChart3,  color: "#f59e0b" },
-  { n: "02", t: "Model",    d: "Schemas, taxonomies, roles, locales.",                   icon: Database,   color: "#8b5cf6" },
-  { n: "03", t: "Build",    d: "CMS platform + front-end integration.",                  icon: Code2,      color: "#06b6d4" },
-  { n: "04", t: "Migrate",  d: "Content transfer, validation, zero-downtime cutover.",   icon: RefreshCw,  color: "#10b981" },
-  { n: "05", t: "Train",    d: "Hands-on editor training, docs, ongoing support.",        icon: Users,      color: "#f43f5e" },
+  { n: "01", t: "Discovery",  d: "Content audit, editorial workflow mapping and platform evaluation.",  icon: Eye,          color: "#8b5cf6" },
+  { n: "02", t: "Model",      d: "Content schema design, taxonomy planning and governance structure.",  icon: Database,     color: "#06b6d4" },
+  { n: "03", t: "Build",      d: "CMS configuration, custom fields, integrations and API connections.", icon: Code2,        color: "#f59e0b" },
+  { n: "04", t: "Train",      d: "Editor onboarding, documentation and workflow rehearsal sessions.",   icon: Users,        color: "#10b981" },
+  { n: "05", t: "Launch",     d: "Migration, go-live support, monitoring and ongoing optimisation.",    icon: Zap,          color: "#f43f5e" },
+];
+
+const deliverables = [
+  "Headless CMS fully configured and production-ready",
+  "Custom content models and structured schemas",
+  "Role-based permissions and editorial workflows",
+  "Frontend integration (Next.js, Nuxt, or your stack)",
+  "API documentation and content delivery guide",
+  "Editor training sessions and written user guides",
+  "30-day post-launch support included",
+];
+
+const techStack = [
+  { name: "Sanity",       color: "#8b5cf6" },
+  { name: "Contentful",   color: "#06b6d4" },
+  { name: "Strapi",       color: "#f59e0b" },
+  { name: "Payload CMS",  color: "#10b981" },
+  { name: "WordPress",    color: "#3b82f6" },
+  { name: "Storyblok",    color: "#ec4899" },
+  { name: "Directus",     color: "#f43f5e" },
 ];
 
 const stats = [
-  { v: "50+",  l: "CMS projects delivered" },
-  { v: "4×",   l: "Faster editorial cycles" },
-  { v: "100%", l: "On-time migrations"      },
-  { v: "12+",  l: "Years of CMS craft"      },
+  { v: "120+", l: "CMS platforms delivered"    },
+  { v: "10×",  l: "Publishing speed gain"      },
+  { v: "3–6w", l: "Typical delivery window"    },
+  { v: "100%", l: "Editor-friendly handoffs"   },
+];
+
+const testimonials = [
+  {
+    name: "Ahmed Khalil",
+    role: "Founder, Dunescape",
+    quote: "Our editorial team went from waiting days for developer support to publishing independently in hours. The CMS Webcore built is the backbone of everything we do.",
+    photo: "/ahmed-khalil.webp",
+    stars: 5,
+  },
+  {
+    name: "Sarah Lin",
+    role: "CTO, NorthPeak",
+    quote: "The content model they designed has scaled to support 12 markets and 4 languages without a single structural change. That's exceptional architecture.",
+    photo: "/sarah-lin.webp",
+    stars: 5,
+  },
+  {
+    name: "Connor James",
+    role: "Managing Director",
+    quote: "We migrated 8 years of content from Drupal without losing a single asset or URL. The process was transparent, methodical and totally stress-free.",
+    photo: "/connor-james.webp",
+    stars: 5,
+  },
 ];
 
 const faqs = [
   {
-    q: "Which CMS platform do you recommend?",
-    a: "It depends on team size, editorial workflows, integrations and budget. After a discovery call we'll match you to the right platform — we have no vendor bias. We're equally at home with Sanity, Contentful, Strapi or Payload.",
+    q: "Which CMS platform is right for my project?",
+    a: "It depends on your editorial team size, content complexity, tech stack and budget. We evaluate Sanity, Contentful, Strapi, Payload and others against your specific requirements — and always recommend the platform that serves your editors best, not the one that's easiest for us to build on.",
   },
   {
-    q: "Can you migrate us from WordPress or Drupal?",
-    a: "Yes — we routinely migrate from WordPress, Drupal and custom legacy systems. We write migration scripts, validate content parity and perform the cutover with zero downtime.",
+    q: "What is a headless CMS and do I need one?",
+    a: "A headless CMS separates content management from content delivery — your editors work in a familiar interface while your developers consume content via API, delivering it to any channel (web, app, kiosk, voice). If you publish to more than one channel or need frontend flexibility, headless is almost always the right choice.",
   },
   {
-    q: "How long does a CMS build typically take?",
-    a: "A standard headless CMS project with content modelling, editorial UI and front-end integration typically takes 4–8 weeks. Enterprise platforms with complex workflows or large migrations are scoped individually.",
+    q: "Can you migrate our existing content from WordPress or Drupal?",
+    a: "Yes — we handle migrations from any platform. We export, transform and import your content, media and metadata with zero data loss and maintain your URL structure throughout so you don't lose any SEO equity in the process.",
   },
   {
-    q: "Will our editors need technical knowledge?",
-    a: "No. We design the editorial interface specifically for your team's skill level. Most clients see a significant improvement in content velocity within the first week after go-live.",
+    q: "Will our editors need technical skills to use the new CMS?",
+    a: "No. A well-built CMS should be invisible — editors focus on content, not configuration. We design intuitive interfaces, sensible field labels and contextual help text so non-technical teams feel confident from day one. We also provide training sessions and written guides.",
   },
   {
-    q: "Do you provide training and documentation?",
-    a: "Yes — every CMS engagement includes live editor training sessions and comprehensive documentation. We also offer a retainer-based ongoing support package for maintenance and feature additions.",
+    q: "How do you handle multi-language and multi-site setups?",
+    a: "We design content models with localisation and multi-site in mind from the start — using locale fields, content variants and shared asset libraries so your team manages global content from a single source of truth without duplicating structures.",
+  },
+  {
+    q: "Do you provide ongoing CMS support after launch?",
+    a: "Yes. We offer monthly retainers covering CMS updates, new content model extensions, editor support and performance monitoring. Many clients keep us on as their embedded CMS team as their content needs evolve.",
   },
 ];
 
-const testimonials = [
-  { name: "Ahmed Khalil",  role: "Founder, Dunescape", quote: "Our editors went from dreading the old CMS to shipping content daily. Webcore rebuilt the entire system in 6 weeks.", photo: "/ahmed-khalil.webp" },
-  { name: "Sarah Lin",     role: "CTO, NorthPeak",     quote: "The content model they designed has scaled perfectly as we've grown. Exactly what thoughtful architecture looks like.",  photo: "/sarah-lin.webp"    },
-  { name: "Connor James",  role: "Managing Director",  quote: "Migration from our legacy system was completely seamless. Not a single piece of content was lost.",                       photo: "/connor-james.webp" },
-];
-
-/* ─── Helpers ────────────────────────────────────────────────────── */
+/* ─── Helpers ────────────────────────────────────────────────────────── */
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0  },
@@ -134,7 +170,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── 3D Tilt Card ───────────────────────────────────────────────── */
+/* ─── 3D Tilt Card ───────────────────────────────────────────────────── */
 function Card3D({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   function onMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -160,27 +196,26 @@ function Card3D({ children, className = "" }: { children: React.ReactNode; class
   );
 }
 
-/* ─── FAQ Item ───────────────────────────────────────────────────── */
+/* ─── FAQ Item ───────────────────────────────────────────────────────── */
 function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
   return (
     <motion.div
       {...fadeUp(index * 0.07)}
-      className={`group border rounded-2xl overflow-hidden transition-all duration-300 ${
+      className={`relative border rounded-2xl overflow-hidden transition-all duration-300 ${
         open ? "border-primary/25 glass" : "border-border/40 glass hover:border-primary/20"
       }`}
     >
-      {/* Left accent bar */}
       <div className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
       <button
         onClick={() => setOpen(!open)}
-        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/[0.03] transition-colors duration-200"
+        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >
         <span className="font-semibold text-sm md:text-base pr-4">{q}</span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${open ? "gradient-primary" : "bg-primary/10 group-hover:bg-primary/15"}`}
+          className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${open ? "gradient-primary" : "bg-primary/10 hover:bg-primary/15"}`}
         >
           <ChevronDown className={`h-4 w-4 ${open ? "text-primary-foreground" : "text-primary"}`} />
         </motion.div>
@@ -200,7 +235,20 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-/* ─── Main Component ─────────────────────────────────────────────── */
+/* ─── Testimonial Photo ──────────────────────────────────────────────── */
+function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
+  const [err, setErr] = useState(false);
+  return err ? (
+    <div className="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0 ring-1 ring-border/30">
+      {name[0]}
+    </div>
+  ) : (
+    <img src={photo} alt={name} onError={() => setErr(true)}
+      className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
+  );
+}
+
+/* ─── Main Page ──────────────────────────────────────────────────────── */
 function CmsDevelopment() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -210,7 +258,7 @@ function CmsDevelopment() {
   return (
     <Layout>
 
-      {/* ══════════════════════════ HERO ════════════════════════════════ */}
+      {/* ════════════════════════════════ HERO ════════════════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-[78vh] flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <GridBackground />
@@ -225,6 +273,11 @@ function CmsDevelopment() {
           transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-12 rounded-full pointer-events-none"
           style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }} />
+        {/* Violet accent for CMS/platform theme */}
+        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
+          style={{ width: 280, height: 280, background: "radial-gradient(circle, #8b5cf6 0%, transparent 70%)" }} />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-32 md:pt-24 md:pb-36">
@@ -242,15 +295,15 @@ function CmsDevelopment() {
                 <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                   className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight">
-                  Content systems{" "}
-                  <span className="gradient-text">built to evolve.</span>
+                  Content platforms that{" "}
+                  <span className="gradient-text">empower your team.</span>
                 </motion.h1>
 
                 <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  Headless, hybrid or traditional — we design CMS platforms that editors love to use
-                  and developers are proud to maintain.
+                  Headless, composable CMS platforms engineered to give editorial teams full
+                  control — without waiting on developers for every update.
                 </motion.p>
 
                 {/* Pill badges */}
@@ -258,9 +311,9 @@ function CmsDevelopment() {
                   transition={{ duration: 0.5, delay: 0.38, type: "tween", ease: "easeOut" }}
                   className="mt-7 flex flex-wrap gap-2.5">
                   {[
-                    { icon: Zap,    label: "Headless-first"      },
-                    { icon: Shield, label: "Zero-downtime migration" },
-                    { icon: Globe,  label: "Edge performance"    },
+                    { icon: Zap,          label: "10× publishing speed"        },
+                    { icon: Globe,        label: "Multi-site & multi-language"  },
+                    { icon: FileText,     label: "Full editor training included" },
                   ].map((p) => (
                     <span key={p.label}
                       className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80">
@@ -276,13 +329,13 @@ function CmsDevelopment() {
                   className="mt-9 flex flex-wrap gap-4">
                   <Link to="/contact"
                     className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm">
-                    Book a free consultation
+                    Start your project
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                   <Link to="/services"
                     className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm">
                     All services
-                    <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-all duration-200" />
+                    <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
                   </Link>
                 </motion.div>
               </div>
@@ -291,9 +344,7 @@ function CmsDevelopment() {
               <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.2, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="relative hidden md:grid grid-cols-2 gap-4">
-                {/* Glow */}
                 <div className="absolute -inset-6 gradient-primary opacity-[0.07] blur-3xl rounded-full pointer-events-none" />
-
                 {stats.map((s, i) => (
                   <motion.div key={s.l}
                     animate={{ y: [0, -8, 0] }}
@@ -305,21 +356,22 @@ function CmsDevelopment() {
                   </motion.div>
                 ))}
               </motion.div>
+
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* ══════════════════════════ FEATURES ════════════════════════════ */}
+      {/* ═══════════════════════════════ FEATURES ═════════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-24">
         <motion.div {...fadeUp()} className="mb-14">
           <SectionLabel>What We Build</SectionLabel>
           <div className="flex items-end justify-between flex-wrap gap-4">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Every capability<br />your content team needs.
+              Every CMS capability,<br />under one roof.
             </h2>
             <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-              From architecture to editor experience — we handle the full CMS lifecycle, start to finish.
+              From headless architecture to editorial workflow design — we cover the entire content platform stack in-house, end to end.
             </p>
           </div>
         </motion.div>
@@ -329,22 +381,26 @@ function CmsDevelopment() {
             <motion.div key={f.t} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.07, duration: 0.55, type: "tween", ease: "easeOut" }}
               className="group">
-              <Card3D className="relative bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-7 h-full hover:border-border/65 transition-colors duration-300 overflow-hidden">
-                {/* Icon */}
-                <div className="w-11 h-11 rounded-xl bg-muted/60 border border-border/40 flex items-center justify-center mb-5 group-hover:border-border/70 transition-colors duration-300">
-                  <f.icon className="h-5 w-5 text-primary" />
+              <Card3D className="relative bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-7 h-full hover:border-border/60 transition-all duration-300 overflow-hidden">
+                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl opacity-[0.05] pointer-events-none"
+                  style={{ background: f.color }} />
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}18` }}>
+                    <f.icon className="h-5 w-5" style={{ color: f.color }} />
+                  </div>
+                  <h3 className="font-bold text-base mb-2">{f.t}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{f.d}</p>
                 </div>
-                <h3 className="font-bold text-base mb-2">{f.t}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.d}</p>
-                {/* Bottom line on hover */}
-                <div className="absolute bottom-0 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center bg-border/50" />
+                <div className="absolute bottom-0 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                  style={{ background: `linear-gradient(to right, transparent, ${f.color}55, transparent)` }} />
               </Card3D>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ══════════════════════ DELIVERABLES + TECH ═════════════════════ */}
+      {/* ══════════════════ DELIVERABLES + TECH STACK ══════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="grid md:grid-cols-2 gap-6">
 
@@ -368,13 +424,13 @@ function CmsDevelopment() {
             </div>
           </motion.div>
 
-          {/* Tech stack */}
+          {/* Tech Stack */}
           <motion.div {...fadeUp(0.1)}>
             <div className="glass border border-border/35 rounded-2xl p-8 h-full">
-              <SectionLabel>Tech Stack</SectionLabel>
-              <h3 className="text-2xl font-bold mb-2">Our core toolset.</h3>
+              <SectionLabel>Platforms & Tools</SectionLabel>
+              <h3 className="text-2xl font-bold mb-2">The right CMS for your needs.</h3>
               <p className="text-sm text-muted-foreground mb-7 leading-relaxed">
-                We're platform-agnostic and vendor-neutral. We pick the right tool for your context — not the easiest one for us.
+                We're platform-agnostic — we evaluate every CMS against your specific requirements and recommend the one that serves your editors and your architecture best.
               </p>
               <div className="flex flex-wrap gap-3">
                 {techStack.map((t, i) => (
@@ -390,12 +446,12 @@ function CmsDevelopment() {
                 ))}
               </div>
 
-              {/* Platform-agnostic callout */}
-              <div className="mt-8 flex items-start gap-3 p-4 bg-primary/[0.05] border border-primary/15 rounded-xl">
-                <Package className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+              {/* Editorial callout */}
+              <div className="mt-8 flex items-start gap-3 p-4 bg-primary/5 border border-primary/15 rounded-xl">
+                <Award className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  <span className="text-foreground font-semibold">Platform-agnostic.</span>{" "}
-                  We recommend based on your team's needs — not based on vendor relationships. You own 100% of your infrastructure.
+                  <span className="text-foreground font-semibold">Editor-first philosophy.</span>{" "}
+                  Every CMS we build is designed so non-technical editors feel confident and autonomous — no developer dependency for day-to-day publishing.
                 </p>
               </div>
             </div>
@@ -403,15 +459,15 @@ function CmsDevelopment() {
         </div>
       </section>
 
-      {/* ══════════════════════════ PROCESS ═════════════════════════════ */}
+      {/* ══════════════════════════ PROCESS ════════════════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-20">
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-18">
           <SectionLabel>Our Process</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            From audit to live —<br />five clear steps.
+            From brief to live platform —<br />five clear steps.
           </h2>
           <p className="mt-4 text-muted-foreground text-sm">
-            A structured approach refined across 50+ CMS projects.
+            A structured CMS delivery process refined across 120+ content platform projects.
           </p>
         </motion.div>
 
@@ -419,21 +475,20 @@ function CmsDevelopment() {
           {/* Connector line */}
           <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
             transition={{ duration: 1.1, delay: 0.3, type: "tween", ease: "easeOut" }}
-            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px
-            bg-gradient-to-r from-transparent via-border/60 to-transparent origin-left" />
+            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-border/60 to-transparent origin-left" />
 
           <div className="grid md:grid-cols-5 gap-6">
             {processSteps.map((p, i) => (
               <motion.div key={p.n} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ delay: 0.1 + i * 0.1, duration: 0.5, type: "tween", ease: "easeOut" }}
-                whileHover={{ y: -6 }} className="group relative text-center cursor-default">
-                {/* Step bubble */}
-                <div className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5
-                  group-hover:scale-110 transition-transform duration-300"
+                whileHover={{ y: -6 }}
+                className="group relative text-center cursor-default">
+                <div className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
                   style={{
                     background: `linear-gradient(135deg, ${p.color}cc, ${p.color}88)`,
                     boxShadow: `0 6px 24px ${p.color}40`,
                   }}>
+                  <div className="absolute inset-0 rounded-full blur-xl opacity-30 -z-10 pointer-events-none" style={{ background: p.color }} />
                   <p.icon className="h-7 w-7 text-white" />
                 </div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">{p.n}</div>
@@ -445,7 +500,7 @@ function CmsDevelopment() {
         </div>
       </section>
 
-      {/* ══════════════════════ TESTIMONIALS ════════════════════════════ */}
+      {/* ══════════════════════ TESTIMONIALS ═══════════════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-16">
         <motion.div {...fadeUp()} className="mb-12">
           <SectionLabel>Client Stories</SectionLabel>
@@ -456,25 +511,21 @@ function CmsDevelopment() {
           {testimonials.map((t, i) => (
             <motion.div key={t.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: "easeOut" }}>
-              <Card3D className="bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-6 h-full hover:border-border/65 transition-colors duration-300">
-                {/* Stars */}
+              <Card3D className="bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-6 h-full hover:border-border/60 transition-colors duration-300">
                 <div className="flex items-center gap-0.5 mb-4">
-                  {Array.from({ length: 5 }).map((_, j) => (
+                  {Array.from({ length: t.stars }).map((_, j) => (
                     <Star key={j} className="h-3.5 w-3.5 fill-primary text-primary" />
                   ))}
                 </div>
-                {/* Quote */}
-                <p className="text-sm text-foreground/75 leading-relaxed mb-5 flex-1">
-                  "{t.quote}"
-                </p>
-                {/* Author */}
+                <p className="text-sm text-foreground/75 leading-relaxed mb-5">"{t.quote}"</p>
                 <div className="flex items-center gap-3 pt-4 border-t border-border/30">
-                  <img src={t.photo} alt={t.name}
-                    className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                  <TestimonialPhoto photo={t.photo} name={t.name} />
                   <div>
                     <p className="font-semibold text-sm leading-none">{t.name}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{t.role}</p>
+                  </div>
+                  <div className="ml-auto w-7 h-7 rounded-full flex items-center justify-center bg-primary/10">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                   </div>
                 </div>
               </Card3D>
@@ -483,12 +534,12 @@ function CmsDevelopment() {
         </div>
       </section>
 
-      {/* ══════════════════════════ FAQs ════════════════════════════════ */}
+      {/* ══════════════════════════ FAQs ═══════════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 py-16">
         <motion.div {...fadeUp()} className="text-center mb-12">
           <SectionLabel>FAQs</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Common questions<br />about CMS work.
+            Common questions<br />about CMS development.
           </h2>
           <p className="mt-4 text-muted-foreground max-w-md mx-auto text-sm">
             Still have questions?{" "}
@@ -505,7 +556,7 @@ function CmsDevelopment() {
         </div>
       </section>
 
-      {/* ══════════════════════════ CTA ═════════════════════════════════ */}
+      {/* ════════════════════════════ CTA ══════════════════════════════════ */}
       <section className="mx-auto max-w-5xl px-4 py-10 pb-28">
         <motion.div {...fadeUp()}
           className="relative overflow-hidden rounded-2xl gradient-primary shadow-elegant">
@@ -527,25 +578,36 @@ function CmsDevelopment() {
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
               className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl" />
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full border border-white/[0.06] pointer-events-none" />
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-95 h-95 rounded-full border border-white/6 pointer-events-none" />
+            {[...Array(6)].map((_, i) => (
+              <motion.div key={i}
+                animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
+                transition={{ duration: 2.8 + i * 0.55, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
+                className="absolute w-1 h-1 rounded-full bg-white/60"
+                style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
+              />
+            ))}
           </div>
 
           {/* Two-col layout */}
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-8 px-8 py-10 md:px-12">
             <div className="flex-1 text-left">
-              <div className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1
-                text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">
-                <Zap className="h-3 w-3 text-yellow-300" />
-                Free consultation
+              <div className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">
+                <Layers className="h-3 w-3 text-violet-300" />
+                Free platform consultation
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug">
-                Ready to modernise<br className="hidden md:block" /> your content platform?
+                Ready to give your team<br className="hidden md:block" /> full editorial control?
               </h2>
               <p className="text-white/60 text-sm mt-2.5 leading-relaxed max-w-sm">
-                Book a free 45-minute discovery call. We'll audit your current setup and recommend the right path forward.
+                Book a free 45-minute discovery call. We'll review your content needs and recommend the right CMS architecture — no obligation.
               </p>
               <div className="flex items-center gap-6 mt-5">
-                {[{ v: "50+", l: "CMS projects" }, { v: "4×", l: "Faster editing" }, { v: "100%", l: "On-time" }].map((s) => (
+                {[
+                  { v: "120+", l: "Platforms shipped" },
+                  { v: "10×",  l: "Publishing speed"  },
+                  { v: "3–6w", l: "Delivery window"   },
+                ].map((s) => (
                   <div key={s.l}>
                     <p className="text-base font-bold text-white leading-none">{s.v}</p>
                     <p className="text-[10px] text-white/45 mt-0.5 uppercase tracking-wide">{s.l}</p>
@@ -553,30 +615,29 @@ function CmsDevelopment() {
                 ))}
               </div>
             </div>
+
             <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
               <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 420, damping: 18 }}>
                 <Link to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white text-foreground
-                  px-7 py-3 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full">
-                  Book free consultation
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white text-foreground px-7 py-3 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full">
+                  Start your project
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 420, damping: 18 }}>
                 <Link to="/services"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white/12 text-white
-                  border border-white/20 px-7 py-3 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full">
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white/12 text-white border border-white/20 px-7 py-3 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full">
                   View all services
                   <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
               </motion.div>
               <div className="flex items-center justify-center gap-4 mt-1">
-                {["No commitment", "Free of charge"].map((t) => (
-                  <div key={t} className="flex items-center gap-1.5 text-[10px] text-white/45">
+                {["No commitment", "Free of charge"].map((label) => (
+                  <div key={label} className="flex items-center gap-1.5 text-[10px] text-white/45">
                     <CheckCircle2 className="h-3 w-3" />
-                    {t}
+                    {label}
                   </div>
                 ))}
               </div>
