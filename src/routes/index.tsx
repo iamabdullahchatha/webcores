@@ -38,6 +38,19 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 
+/* ─── Asset imports ────────────────────────────────────────────────── */
+import imgCmsDevelopment   from "@/assets/cms-development.webp";
+import imgGraphicsDesign   from "@/assets/graphics-design.webp";
+import imgItConsulting     from "@/assets/it-consulting.webp";
+import imgSeo              from "@/assets/seo.webp";
+import imgSoftwareDev      from "@/assets/software-development.webp";
+import imgWebDevelopment   from "@/assets/web-development.webp";
+
+import imgAhmedKhalil      from "@/assets/ahmed-khalil.webp";
+import imgSarahLin         from "@/assets/sarah-lin.webp";
+import imgYukiTanaka       from "@/assets/yuki-tanaka.webp";
+import imgConnorJames      from "@/assets/connor-james.webp";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -92,6 +105,7 @@ const services = [
     desc: "Cut through complexity with a roadmap built for scale. We align your tech strategy with your growth goals.",
     tag: "Strategy",
     metric: "3× faster decisions",
+    image: imgItConsulting,
   },
   {
     icon: Layers,
@@ -101,6 +115,7 @@ const services = [
     desc: "Headless, composable content platforms that give your team full editorial control — without dev bottlenecks.",
     tag: "Platform",
     metric: "10× publishing speed",
+    image: imgCmsDevelopment,
   },
   {
     icon: Globe,
@@ -110,6 +125,7 @@ const services = [
     desc: "High-performance websites and e-commerce stores designed to convert visitors into paying customers.",
     tag: "Web",
     metric: "Sub-1s load times",
+    image: imgWebDevelopment,
   },
   {
     icon: Code2,
@@ -119,6 +135,7 @@ const services = [
     desc: "Custom data systems and applications engineered to scale from day one — built on solid architecture.",
     tag: "Engineering",
     metric: "99.9% uptime SLA",
+    image: imgSoftwareDev,
   },
   {
     icon: Search,
@@ -128,6 +145,7 @@ const services = [
     desc: "Dominate search rankings locally and globally with data-driven organic growth strategies.",
     tag: "Growth",
     metric: "Top 3 rankings",
+    image: imgSeo,
   },
   {
     icon: Palette,
@@ -137,6 +155,7 @@ const services = [
     desc: "Visual identities that communicate authority instantly — logos, brand systems, and marketing collateral.",
     tag: "Design",
     metric: "Brand recognition +40%",
+    image: imgGraphicsDesign,
   },
 ];
 
@@ -172,10 +191,10 @@ const process = [
 ];
 
 const stats = [
-  { v: "12+", l: "Years Experience", icon: Award, color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
-  { v: "450+", l: "Clients Worldwide", icon: Users, color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
-  { v: "25+", l: "Team Members", icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
-  { v: "5", l: "Countries Served", icon: Globe, color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
+  { v: "12+", l: "Years Experience",  icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
+  { v: "450+", l: "Clients Worldwide", icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.10)"   },
+  { v: "25+",  l: "Team Members",      icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)"  },
+  { v: "5",    l: "Countries Served",  icon: Globe,     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
 ];
 
 const testimonials = [
@@ -184,36 +203,42 @@ const testimonials = [
     role: "CTO, NorthPeak",
     quote: "Webcore rebuilt our platform end-to-end. Load times dropped 78% and conversions jumped immediately.",
     stars: 5,
+    image: imgSarahLin,
   },
   {
     name: "Ahmed Khalil",
     role: "Founder, Dunescape",
     quote: "They didn't just deliver code — they delivered clarity. The system they built has scaled effortlessly for 3 years.",
     stars: 5,
+    image: imgAhmedKhalil,
   },
   {
     name: "Maria Costa",
     role: "VP Eng, Fluxio",
     quote: "From discovery to deploy in 8 weeks, zero surprises. Their process is genuinely best-in-class.",
     stars: 5,
+    image: null,
   },
   {
     name: "James O'Connor",
     role: "CEO, Loomline",
     quote: "We doubled qualified leads in 90 days. Worth every penny and then some.",
     stars: 5,
+    image: imgConnorJames,
   },
   {
     name: "Yuki Tanaka",
     role: "Product Lead, Hexa",
     quote: "The rarest find: a team that's equally sharp on design and engineering. Our users noticed immediately.",
     stars: 5,
+    image: imgYukiTanaka,
   },
   {
     name: "Priya Nair",
     role: "Director, Ascend Co",
     quote: "Finally, an agency that treats deadlines as commitments, not suggestions. Delivered on time, every time.",
     stars: 5,
+    image: null,
   },
 ];
 
@@ -299,7 +324,7 @@ const clientLogos = [
   "Hexa", "Ascend Co", "Vantara", "CloudSync", "Meridian", "Proxia",
 ];
 
-/* ─── FAQ Data for bottom section ──────────────────────────────────── */
+/* ─── FAQ Data ──────────────────────────────────────────────────────── */
 const faqCategories = [
   {
     label: "Process",
@@ -451,6 +476,41 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
   );
 }
 
+/* ─── Avatar component — image with fallback initial ───────────────── */
+function Avatar({
+  src, name, size = 36,
+}: {
+  src: string | null; name: string; size?: number;
+}) {
+  const [errored, setErrored] = useState(false);
+  const initial = name.charAt(0).toUpperCase();
+
+  if (!src || errored) {
+    return (
+      <div
+        className="rounded-full gradient-primary flex items-center justify-center text-primary-foreground font-bold shrink-0"
+        style={{ width: size, height: size, fontSize: size * 0.38 }}
+      >
+        {initial}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={name}
+      width={size}
+      height={size}
+      onError={() => setErrored(true)}
+      className="rounded-full object-cover shrink-0"
+      style={{ width: size, height: size }}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+}
+
 /* ─── FAQ Item ──────────────────────────────────────────────────────── */
 function FaqItem({
   q, a, index, isOpen, onToggle,
@@ -485,7 +545,6 @@ function FaqItem({
           : "glass border border-border/40 hover:border-primary/20"
       }`}
     >
-      {/* Active left accent bar */}
       <div
         className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 ${
           isOpen ? "gradient-primary opacity-100" : "opacity-0"
@@ -621,7 +680,6 @@ function Index() {
               transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
               className="max-w-5xl"
             >
-              {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.82 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -652,7 +710,6 @@ function Index() {
                 designed digital products — trusted by 450+ companies across 5 continents.
               </motion.p>
 
-              {/* CTAs */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -675,7 +732,6 @@ function Index() {
                 </Link>
               </motion.div>
 
-              {/* Social proof */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -698,7 +754,6 @@ function Index() {
                 </div>
               </motion.div>
 
-              {/* Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -888,40 +943,71 @@ function Index() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -10 }}
-                className="group relative glass rounded-3xl p-7 overflow-hidden hover:shadow-glow transition-all duration-300 h-full"
+                className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-300 h-full flex flex-col"
               >
-                <div
-                  className="absolute -right-10 -top-10 h-48 w-48 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-300 pointer-events-none"
-                  style={{ background: s.color }}
-                />
-                <div className="relative">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                {/* ── Service image banner ── */}
+                <div className="relative h-44 w-full overflow-hidden shrink-0">
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {/* Gradient overlay so text below blends smoothly */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: `linear-gradient(to bottom, transparent 40%, ${s.color}22 100%)`,
+                    }}
+                  />
+                  {/* Floating tag + metric over image */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                    <span
+                      className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md"
+                      style={{ background: `${s.color}22`, color: s.color, border: `1px solid ${s.color}44` }}
+                    >
                       {s.tag}
                     </span>
-                    <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">
+                    <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/30">
                       {s.metric}
                     </span>
                   </div>
+                </div>
+
+                {/* ── Card body ── */}
+                <div className="relative flex flex-col flex-1 p-6">
+                  {/* Colour blob */}
                   <div
-                    className="rounded-2xl flex items-center justify-center mb-5 shadow-elegant group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
-                    style={{ width: 52, height: 52, background: s.bg, boxShadow: `0 4px 16px ${s.color}22` }}
-                  >
-                    <s.icon className="h-6 w-6" style={{ color: s.color }} />
+                    className="absolute -right-10 -top-10 h-36 w-36 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.10] transition-opacity duration-300 pointer-events-none"
+                    style={{ background: s.color }}
+                  />
+
+                  <div className="flex items-center gap-3 mb-4">
+                    <div
+                      className="rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-elegant"
+                      style={{ width: 44, height: 44, background: s.bg, boxShadow: `0 4px 16px ${s.color}22` }}
+                    >
+                      <s.icon className="h-5 w-5" style={{ color: s.color }} />
+                    </div>
+                    <h3 className="text-base font-bold leading-snug">{s.title}</h3>
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-6">{s.desc}</p>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-5">{s.desc}</p>
+
                   <Link
                     to="/services"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all duration-200"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all duration-200 mt-auto"
                   >
                     Learn more <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
+
+                  {/* Bottom accent */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                    style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
+                  />
                 </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                  style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
-                />
               </motion.div>
             </TiltCard>
           ))}
@@ -948,7 +1034,6 @@ function Index() {
             transition={{ duration: 1.4, delay: 0.3, type: "tween", ease: [0.22, 1, 0.36, 1] }}
             className="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent origin-left"
           />
-
           <div className="grid md:grid-cols-4 gap-8">
             {process.map((p, i) => (
               <motion.div
@@ -1000,10 +1085,7 @@ function Index() {
               className="group relative overflow-hidden rounded-3xl cursor-pointer"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div
-                className="absolute inset-0 transition-opacity duration-300"
-                style={p.gradientStyle}
-              />
+              <div className="absolute inset-0 transition-opacity duration-300" style={p.gradientStyle} />
               <div className="absolute inset-0 opacity-[0.07]">
                 <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -1081,9 +1163,8 @@ function Index() {
                     <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
                   </div>
                   <div className="flex items-center gap-3 pt-3 border-t border-border/30">
-                    <div className="h-9 w-9 rounded-full gradient-primary flex items-center justify-center text-primary-foreground font-bold text-sm shrink-0">
-                      {t.name[0]}
-                    </div>
+                    {/* ── Profile picture with graceful fallback ── */}
+                    <Avatar src={t.image} name={t.name} size={36} />
                     <div>
                       <div className="font-semibold text-sm">{t.name}</div>
                       <div className="text-xs text-muted-foreground">{t.role}</div>
@@ -1145,7 +1226,6 @@ function Index() {
       </section>
 
       {/* ════════════════════════════════════════ FAQs ══════════════════════ */}
-      {/* Category Tabs */}
       <section className="mx-auto max-w-4xl px-4 pt-16 pb-6">
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-12">
           <SectionLabel>FAQs</SectionLabel>
@@ -1182,7 +1262,6 @@ function Index() {
         </motion.div>
       </section>
 
-      {/* FAQ List */}
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <AnimatePresence mode="wait">
           <motion.div
