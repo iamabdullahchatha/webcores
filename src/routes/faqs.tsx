@@ -68,7 +68,7 @@ const categories = [
       },
       {
         q: "Is there a minimum project size?",
-        a: "We typically work with projects starting from $3,000 USD. For smaller needs we offer advisory sessions or point-in-time audits at a flat rate.",
+        a: "We typically work with projects starting from $500 USD. For smaller needs we offer advisory sessions or point-in-time audits at a flat rate.",
       },
     ],
   },
