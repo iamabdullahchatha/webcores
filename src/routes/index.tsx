@@ -673,7 +673,8 @@ function Index() {
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
-          <div className="mx-auto max-w-7xl px-4 pt-20 pb-36 md:pt-24 md:pb-44">
+          {/* ↓ FIX: increased horizontal padding on mobile (px-6 sm:px-8 md:px-4) */}
+          <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-4 pt-20 pb-36 md:pt-24 md:pb-44">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -692,7 +693,8 @@ function Index() {
                 <span className="text-primary">Est. Dubai, UAE</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+              {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>
                 <br className="hidden md:block" />
@@ -954,14 +956,12 @@ function Index() {
                     loading="lazy"
                     decoding="async"
                   />
-                  {/* Gradient overlay so text below blends smoothly */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
                       background: `linear-gradient(to bottom, transparent 40%, ${s.color}22 100%)`,
                     }}
                   />
-                  {/* Floating tag + metric over image */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                     <span
                       className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md"
@@ -977,7 +977,6 @@ function Index() {
 
                 {/* ── Card body ── */}
                 <div className="relative flex flex-col flex-1 p-6">
-                  {/* Colour blob */}
                   <div
                     className="absolute -right-10 -top-10 h-36 w-36 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.10] transition-opacity duration-300 pointer-events-none"
                     style={{ background: s.color }}
@@ -1002,7 +1001,6 @@ function Index() {
                     Learn more <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
 
-                  {/* Bottom accent */}
                   <div
                     className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
                     style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
@@ -1163,7 +1161,6 @@ function Index() {
                     <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
                   </div>
                   <div className="flex items-center gap-3 pt-3 border-t border-border/30">
-                    {/* ── Profile picture with graceful fallback ── */}
                     <Avatar src={t.image} name={t.name} size={36} />
                     <div>
                       <div className="font-semibold text-sm">{t.name}</div>
