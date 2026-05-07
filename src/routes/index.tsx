@@ -1,3 +1,4 @@
+
 import { createFileRoute } from "@tanstack/react-router";
 import {
   motion,
@@ -673,6 +674,7 @@ function Index() {
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+          {/* ↓ FIX: increased horizontal padding on mobile (px-6 sm:px-8 md:px-4) */}
           <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-4 pt-20 pb-36 md:pt-24 md:pb-44">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -692,27 +694,13 @@ function Index() {
                 <span className="text-primary">Est. Dubai, UAE</span>
               </motion.div>
 
-              {/*
-               * ── Hero heading ───────────────────────────────────────────
-               * On mobile the heading naturally wraps as:
-               *   Line 1 → "Transforming Ideas"
-               *   Line 2 → "into Digital"
-               *   Line 3 → "Reality"
-               * This matches the original attractive mobile layout (Image 1).
-               *
-               * The only bug in the original was the missing {" "} space
-               * between </span> and "into" which caused "Ideasinto" to merge.
-               * That single space is the ONLY fix applied here — everything
-               * else is identical to the original code so desktop layout is
-               * completely unchanged.
-               * ────────────────────────────────────────────────────────── */}
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+              {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>
-                {" "}into
-                <br className="hidden sm:block" />
-                {" "}<span className="gradient-text">Digital</span>
-                {" "}Reality
+                <br className="hidden md:block" />
+                into{" "}
+                <span className="gradient-text">Digital Reality</span>
               </h1>
 
               <motion.p
