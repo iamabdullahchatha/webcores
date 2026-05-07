@@ -4,10 +4,15 @@ import { MessageCircle } from "lucide-react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
-      <main className="flex-1 pt-24">{children}</main>
+
+      <main className="flex-1 pt-24">
+        {children}
+      </main>
+
       <Footer />
+
       <a
         href="https://wa.me/4412345678"
         target="_blank"

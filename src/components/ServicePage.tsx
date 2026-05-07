@@ -137,7 +137,7 @@ export function ServicePage(p: ServicePageProps) {
           <h2 className="text-4xl md:text-5xl font-bold">A proven path to launch.</h2>
         </div>
         <div className="relative grid md:grid-cols-5 gap-6">
-          <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
           {p.process.map((step, i) => (
             <motion.div
               key={step.n}
