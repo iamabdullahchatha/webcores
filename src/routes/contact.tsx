@@ -38,8 +38,8 @@ const contactInfo = [
 
 const socials = [
   { icon: Instagram, label: "Instagram", color: "#ec4899", bg: "rgba(236,72,153,0.10)", href: "#" },
-  { icon: Linkedin,  label: "LinkedIn",  color: "#06b6d4", bg: "rgba(6,182,212,0.10)",  href: "#" },
-  { icon: Facebook,  label: "Facebook",  color: "#3b82f6", bg: "rgba(59,130,246,0.10)", href: "#" },
+  { icon: Linkedin,  label: "LinkedIn",  color: "#06b6d4", bg: "rgba(6,182,212,0.10)",  href: "https://www.linkedin.com/in/webcore-solutions-939b88408" },
+  { icon: Facebook,  label: "Facebook",  color: "#3b82f6", bg: "rgba(59,130,246,0.10)", href: "https://www.facebook.com/profile.php?id=61587249472207" },
 ];
 
 const weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
@@ -473,6 +473,8 @@ function Contact() {
                     <TiltCard key={s.label}>
                       <a
                         href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         aria-label={s.label}
                         className="h-9 w-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-glow"
                         style={{ background: s.bg }}
