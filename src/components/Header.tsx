@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Easing } from "framer-motion";
 import logo from "@/assets/logo.png";
 
 const services = [
@@ -36,7 +37,7 @@ const dropdownVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.2, ease: "easeOut" },
+    transition: { duration: 0.2, ease: "easeOut" as Easing },
   },
   exit: { opacity: 0, y: -8, scale: 0.95, transition: { duration: 0.15 } },
 };
@@ -46,7 +47,7 @@ const mobileMenuVariants = {
   visible: {
     opacity: 1,
     height: "auto",
-    transition: { duration: 0.3, ease: "easeOut" },
+    transition: { duration: 0.3, ease: "easeOut" as Easing },
   },
   exit: { opacity: 0, height: 0, transition: { duration: 0.2 } },
 };
@@ -144,9 +145,9 @@ export function Header() {
                       exit="exit"
                       className="absolute top-full left-0 mt-3 w-64 rounded-xl p-2 shadow-elegant"
                       style={{
-                        backdropFilter: "blur(24px)",
-                        WebkitBackdropFilter: "blur(24px)",
-                        backgroundColor: "rgba(255, 255, 255, 0.82)",
+                        backdropFilter: "blur(48px)",
+                        WebkitBackdropFilter: "blur(48px)",
+                        backgroundColor: "rgba(255, 255, 255, 0.88)",
                         border: "1px solid rgba(255, 255, 255, 0.5)",
                       }}
                     >
