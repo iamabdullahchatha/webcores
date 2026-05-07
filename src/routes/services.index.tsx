@@ -1,11 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import {
   Lightbulb, Layers, Globe, Database, Search, Palette,
-  ArrowRight, CheckCircle2, Zap, Users, Award,
+  ArrowRight, CheckCircle2, Zap, Users, Award, ArrowUpRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/services/")({
@@ -23,71 +29,76 @@ export const Route = createFileRoute("/services/")({
 const services = [
   {
     icon: Lightbulb,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
     t: "IT Consultation",
     d: "Strategic guidance, technology audits and clear roadmaps to help your team scale with confidence and precision.",
     to: "/services/it-consultation" as const,
     tags: ["Strategy", "Audits", "Roadmaps"],
-    accent: "from-blue-500 to-cyan-400",
-    accentBg: "from-blue-500/10 to-cyan-400/5",
-    // Replace src below with your image path e.g. "/images/it-consultation.jpg"
+    metric: "3× faster decisions",
     img: null as string | null,
   },
   {
     icon: Layers,
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
     t: "CMS Development",
     d: "Headless and custom content platforms built to evolve with your business — fast, flexible and editor-friendly.",
     to: "/services/cms-development" as const,
     tags: ["Headless CMS", "WordPress", "Custom"],
-    accent: "from-violet-500 to-purple-400",
-    accentBg: "from-violet-500/10 to-purple-400/5",
+    metric: "10× publishing speed",
     img: null as string | null,
   },
   {
     icon: Globe,
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.10)",
     t: "Web Development",
     d: "Business sites, e-commerce stores and custom design solutions engineered to perform and convert.",
     to: "/services/web-development" as const,
     tags: ["E-commerce", "WordPress", "React"],
-    accent: "from-emerald-500 to-teal-400",
-    accentBg: "from-emerald-500/10 to-teal-400/5",
+    metric: "Sub-1s load times",
     img: null as string | null,
   },
   {
     icon: Database,
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
     t: "Software Development",
     d: "SaaS products, internal tools, APIs and enterprise data systems built for reliability and growth.",
     to: "/services/software-development" as const,
     tags: ["SaaS", "APIs", "Enterprise"],
-    accent: "from-orange-500 to-amber-400",
-    accentBg: "from-orange-500/10 to-amber-400/5",
+    metric: "99.9% uptime SLA",
     img: null as string | null,
   },
   {
     icon: Search,
+    color: "#3b82f6",
+    bg: "rgba(59,130,246,0.10)",
     t: "SEO & GEO",
     d: "Rank higher locally and globally through sustainable, technically sound search and geo-optimisation strategies.",
     to: "/services/seo-geo" as const,
     tags: ["Local SEO", "Technical SEO", "GEO"],
-    accent: "from-rose-500 to-pink-400",
-    accentBg: "from-rose-500/10 to-pink-400/5",
+    metric: "Top 3 rankings",
     img: null as string | null,
   },
   {
     icon: Palette,
+    color: "#ec4899",
+    bg: "rgba(236,72,153,0.10)",
     t: "Graphic Design",
     d: "Logos, brochures, brand profiles and complete visual identity systems that make your business unforgettable.",
     to: "/services/graphic-design" as const,
     tags: ["Branding", "Print", "Identity"],
-    accent: "from-indigo-500 to-blue-400",
-    accentBg: "from-indigo-500/10 to-blue-400/5",
+    metric: "Brand recognition +40%",
     img: null as string | null,
   },
 ];
 
 const stats = [
-  { v: "450+", l: "Projects Delivered", icon: Award },
-  { v: "12+",  l: "Years Experience",   icon: Zap   },
-  { v: "25+",  l: "Team Members",       icon: Users },
+  { v: "450+", l: "Projects Delivered", icon: Award, color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
+  { v: "12+",  l: "Years Experience",   icon: Zap,   color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
+  { v: "25+",  l: "Team Members",       icon: Users, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
 ];
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
@@ -107,109 +118,172 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* ── 3D Tilt Card ───────────────────────────────────────────────────── */
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 200, damping: 22 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 200, damping: 22 });
+
+  const handleMouse = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  }, [x, y]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      onMouseMove={handleMouse}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 /* ─── Service Card ──────────────────────────────────────────────────── */
 function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: i * 0.08, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-    >
-      <Link
-        to={s.to}
-        className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full"
+    <TiltCard className="h-full">
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ delay: i * 0.08, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+        className="h-full"
       >
-        {/* ── Image area ── */}
-        <div className="relative overflow-hidden h-52">
-          {/* Gradient placeholder — swap for <img> when you have the asset */}
-          {s.img ? (
-            <img
-              src={s.img}
-              alt={s.t}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-          ) : (
-            <div className={`w-full h-full bg-linear-to-br ${s.accentBg} flex items-center justify-center relative`}>
-              {/* Decorative background pattern */}
-              <div className="absolute inset-0 opacity-30">
-                {Array.from({ length: 6 }).map((_, r) =>
-                  Array.from({ length: 8 }).map((_, c) => (
-                    <div
-                      key={`${r}-${c}`}
-                      className="absolute rounded-full bg-current opacity-10"
-                      style={{
-                        width: (r + c) % 3 === 0 ? 6 : 4,
-                        height: (r + c) % 3 === 0 ? 6 : 4,
-                        left: `${c * 14 + 4}%`,
-                        top: `${r * 18 + 4}%`,
-                        color: "hsl(var(--primary))",
-                      }}
-                    />
-                  ))
-                )}
+        <Link
+          to={s.to}
+          className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full"
+        >
+          {/* ── Image / Placeholder area ── */}
+          <div className="relative overflow-hidden h-52">
+            {s.img ? (
+              <img
+                src={s.img}
+                alt={s.t}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            ) : (
+              <div
+                className="w-full h-full flex items-center justify-center relative"
+                style={{ background: `linear-gradient(135deg, ${s.color}18 0%, ${s.color}08 100%)` }}
+              >
+                {/* Dot grid pattern */}
+                <div className="absolute inset-0">
+                  {Array.from({ length: 6 }).map((_, r) =>
+                    Array.from({ length: 8 }).map((_, c) => (
+                      <div
+                        key={`${r}-${c}`}
+                        className="absolute rounded-full"
+                        style={{
+                          width: (r + c) % 3 === 0 ? 5 : 3,
+                          height: (r + c) % 3 === 0 ? 5 : 3,
+                          left: `${c * 14 + 4}%`,
+                          top: `${r * 18 + 4}%`,
+                          background: s.color,
+                          opacity: 0.22,
+                        }}
+                      />
+                    ))
+                  )}
+                </div>
+
+                {/* Icon centrepiece */}
+                <div
+                  className="h-24 w-24 rounded-3xl flex items-center justify-center shadow-elegant relative z-10 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(135deg, ${s.color}cc, ${s.color}88)`,
+                    boxShadow: `0 8px 32px ${s.color}44`,
+                  }}
+                >
+                  <s.icon className="h-12 w-12 text-white" />
+                </div>
+
+                {/* Blobs */}
+                <div
+                  className="absolute -bottom-8 -right-8 h-36 w-36 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: s.color }}
+                />
+                <div
+                  className="absolute -top-6 -left-6 h-28 w-28 rounded-full blur-2xl opacity-10 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: s.color }}
+                />
               </div>
+            )}
 
-              {/* Large icon centrepiece */}
-              <motion.div
-                className={`h-24 w-24 rounded-3xl bg-linear-to-br ${s.accent} flex items-center justify-center shadow-elegant relative z-10`}
-                whileHover={{ rotate: [0, -6, 6, 0], scale: 1.05 }}
-                transition={{ duration: 0.5 }}
-              >
-                <s.icon className="h-12 w-12 text-white" />
-              </motion.div>
+            {/* Hover shimmer */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Decorative blobs */}
-              <div className={`absolute -bottom-8 -right-8 h-36 w-36 rounded-full bg-linear-to-br ${s.accent} opacity-15 blur-2xl group-hover:opacity-30 transition-opacity duration-500`} />
-              <div className={`absolute -top-6 -left-6 h-28 w-28 rounded-full bg-linear-to-br ${s.accent} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity duration-500`} />
+            {/* Tags */}
+            <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+              {s.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide glass border border-white/20 backdrop-blur-sm"
+                  style={{ color: s.color }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-          )}
 
-          {/* Hover overlay shimmer */}
-          <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-          {/* Tags floating on image */}
-          <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-            {s.tags.map((tag) => (
+            {/* Metric badge */}
+            <div className="absolute top-3 right-3">
               <span
-                key={tag}
-                className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide glass border border-white/20 text-foreground/80 backdrop-blur-sm"
+                className="px-2.5 py-1 rounded-full text-[10px] font-bold glass border border-white/10 backdrop-blur-sm"
+                style={{ color: s.color, background: `${s.color}18` }}
               >
-                {tag}
+                {s.metric}
               </span>
-            ))}
+            </div>
           </div>
-        </div>
 
-        {/* ── Card body ── */}
-        <div className="p-6 relative">
-          {/* Subtle top accent line */}
-          <div className={`absolute top-0 left-6 right-6 h-px bg-linear-to-r ${s.accent} opacity-30 group-hover:opacity-70 transition-opacity duration-300`} />
+          {/* ── Card body ── */}
+          <div className="p-6 relative">
+            {/* Top accent line */}
+            <div
+              className="absolute top-0 left-6 right-6 h-px opacity-30 group-hover:opacity-70 transition-opacity duration-300"
+              style={{ background: `linear-gradient(to right, transparent, ${s.color}, transparent)` }}
+            />
 
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
-              {s.t}
-            </h3>
-            {/* Arrow icon that slides in on hover */}
-            <motion.div
-              className={`shrink-0 h-8 w-8 rounded-xl bg-linear-to-br ${s.accent} flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-elegant`}
+            <div className="flex items-start justify-between gap-3 mb-3">
+              <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary">
+                {s.t}
+              </h3>
+              {/* Slide-in arrow */}
+              <div
+                className="shrink-0 h-8 w-8 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-elegant"
+                style={{ background: `linear-gradient(135deg, ${s.color}cc, ${s.color}88)` }}
+              >
+                <ArrowRight className="h-4 w-4 text-white" />
+              </div>
+            </div>
+
+            <p className="text-muted-foreground text-sm leading-relaxed mb-5">{s.d}</p>
+
+            <span
+              className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200"
+              style={{ color: s.color }}
             >
-              <ArrowRight className="h-4 w-4 text-white" />
-            </motion.div>
+              Explore service
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+
+            {/* Bottom sweep */}
+            <div
+              className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+              style={{ background: `linear-gradient(to right, ${s.color}88, transparent)` }}
+            />
           </div>
-
-          <p className="text-muted-foreground text-sm leading-relaxed mb-5">{s.d}</p>
-
-          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all duration-200">
-            Explore service
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </span>
-
-          {/* Bottom progress bar on hover */}
-          <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r ${s.accent} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
-        </div>
-      </Link>
-    </motion.div>
+        </Link>
+      </motion.div>
+    </TiltCard>
   );
 }
 
@@ -275,20 +349,21 @@ function Services() {
                 From strategy and engineering to brand and growth — every service delivered in-house, no outsourcing, no middlemen.
               </motion.p>
 
+              {/* Per-service colored pills */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
-                className="mt-8 flex flex-wrap justify-center gap-3"
+                className="mt-8 flex flex-wrap justify-center gap-2.5"
               >
-                {[
-                  { icon: Award, label: "450+ Projects" },
-                  { icon: Zap,   label: "12+ Years"     },
-                  { icon: Users, label: "25+ Experts"   },
-                ].map((p) => (
-                  <span key={p.label} className="inline-flex items-center gap-1.5 glass rounded-full px-4 py-1.5 text-xs font-semibold text-primary">
-                    <p.icon className="h-3 w-3" />
-                    {p.label}
+                {services.map((s) => (
+                  <span
+                    key={s.t}
+                    className="inline-flex items-center gap-1.5 glass rounded-full px-3.5 py-1.5 text-xs font-semibold"
+                    style={{ color: s.color }}
+                  >
+                    <s.icon className="h-3 w-3" />
+                    {s.t}
                   </span>
                 ))}
               </motion.div>
@@ -315,23 +390,39 @@ function Services() {
 
       {/* ══════════════════════ STATS STRIP ════════════════════════════ */}
       <section className="relative border-y border-border/40 py-10 overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-r from-background via-muted/10 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/10 to-background pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
             {stats.map((s, i) => (
-              <motion.div
-                key={s.l}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4, scale: 1.03 }}
-                className="group glass rounded-2xl px-5 py-5 text-center cursor-default hover:shadow-glow transition-all duration-300"
-              >
-                <s.icon className="h-5 w-5 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
-                <div className="text-2xl font-bold gradient-text">{s.v}</div>
-                <div className="text-xs text-muted-foreground mt-0.5">{s.l}</div>
-              </motion.div>
+              <TiltCard key={s.l}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                  className="group glass rounded-2xl px-5 py-5 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
+                >
+                  {/* Color wash on hover */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 rounded-2xl pointer-events-none"
+                    style={{ background: s.color }}
+                  />
+                  <div
+                    className="h-9 w-9 rounded-xl flex items-center justify-center mx-auto mb-2.5 group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: s.bg, boxShadow: `0 4px 14px ${s.color}22` }}
+                  >
+                    <s.icon className="h-4 w-4" style={{ color: s.color }} />
+                  </div>
+                  <div className="text-2xl font-bold gradient-text">{s.v}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{s.l}</div>
+                  {/* Bottom accent */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                    style={{ background: `linear-gradient(to right, transparent, ${s.color}66, transparent)` }}
+                  />
+                </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>
