@@ -48,7 +48,7 @@ import imgWebDevelopment   from "@/assets/web-development.webp";
 
 import imgAhmedKhalil      from "@/assets/ahmed-khalil.webp";
 import imgSarahLin         from "@/assets/sarah-lin.webp";
-import imgYukiTanaka       from "@/assets/yuki-tanaka.webp";
+import imgYukiTanaka       from "@/assets/yuki-tanaka.jpg";
 import imgConnorJames      from "@/assets/connor-james.webp";
 
 export const Route = createFileRoute("/")({
@@ -615,7 +615,7 @@ function CategoryTab({
           : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
       }`}
     >
-      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-gradient-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
+      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-linear-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
         <cat.icon className="h-3 w-3 text-white" />
       </div>
       {cat.label}
@@ -771,14 +771,14 @@ function Index() {
 
       {/* ══════════════════════════════ TRUST STRIP ═══════════════════════ */}
       <section className="relative border-y border-border/40 py-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/20 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-muted/20 to-background pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4">
           <p className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground/50 mb-7">
             Trusted by 450+ companies worldwide
           </p>
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
             <motion.div
               className="flex gap-10 items-center"
               animate={{ x: ["0%", "-50%"] }}
@@ -1032,7 +1032,7 @@ function Index() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.4, delay: 0.3, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-            className="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent origin-left"
+            className="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent origin-left"
           />
           <div className="grid md:grid-cols-4 gap-8">
             {process.map((p, i) => (
@@ -1096,7 +1096,7 @@ function Index() {
                   <rect width="100%" height="100%" fill={`url(#pg-${i})`} />
                 </svg>
               </div>
-              <div className="absolute inset-0 bg-transparent group-hover:bg-white/[0.06] transition-colors duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-transparent group-hover:bg-white/6 transition-colors duration-300 pointer-events-none" />
               <div className="relative p-7 flex flex-col justify-between" style={{ height: 224 }}>
                 <div className="flex items-start justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-white/75 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
@@ -1120,8 +1120,8 @@ function Index() {
       {/* ══════════════════════════════════ TESTIMONIALS ════════════════════ */}
       <section className="relative py-28 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
-          <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border/60 to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border/60 to-transparent" />
         </div>
 
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16 px-4">
@@ -1136,8 +1136,8 @@ function Index() {
 
         {[{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
           <div key={ri} className={`relative ${ri === 1 ? "mt-5" : ""}`}>
-            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
             <motion.div
               className="flex gap-5"
               animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
@@ -1199,7 +1199,7 @@ function Index() {
               </defs>
               <rect width="100%" height="100%" fill="url(#reach-grid)" />
             </svg>
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+            <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/5" />
           </div>
 
           <div className="relative flex flex-wrap justify-center gap-4 md:gap-5">
