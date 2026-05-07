@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import imgWeb1 from "@/assets/web-1.webp";
 
 export const Route = createFileRoute("/services/web-development")({
   head: () => ({
@@ -81,6 +82,7 @@ const fadeUp = (delay = 0) => ({
   viewport: { once: true, margin: "-60px" },
   transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
 });
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -88,6 +90,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 function Card3D({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   function onMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -105,6 +108,7 @@ function Card3D({ children, className = "" }: { children: React.ReactNode; class
   }
   return <div ref={ref} className={className} onMouseMove={onMove} onMouseLeave={onLeave} style={{ transformStyle: "preserve-3d", willChange: "transform" }}>{children}</div>;
 }
+
 function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
   return (
@@ -126,12 +130,219 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
     </motion.div>
   );
 }
+
 function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
   const [err, setErr] = useState(false);
   return err ? (
     <div className="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0 ring-1 ring-border/30">{name[0]}</div>
   ) : (
     <img src={photo} alt={name} onError={() => setErr(true)} className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
+  );
+}
+
+/* ─── Web Overview (image section) ──────────────────────────────────── */
+function WebOverview() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
+      <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        {/* ── Left: narrative copy ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+        >
+          <SectionLabel>Our Craft</SectionLabel>
+
+          <h2 className="text-3xl md:text-[2.25rem] font-bold leading-tight mb-5">
+            Built for performance,{" "}
+            <span className="gradient-text">designed to convert.</span>
+          </h2>
+
+          <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">
+            Every site we ship is engineered from the ground up — custom design systems,
+            clean componentised code and a relentless focus on Core Web Vitals so your
+            visitors stay and your rankings climb.
+          </p>
+
+          {/* Three proof-point rows */}
+          <ul className="space-y-5 mb-9">
+            {[
+              {
+                icon: Gauge, color: "#6366f1",
+                label: "98 avg. Lighthouse score",
+                sub: "Performance is a first-class requirement on every build, not a last-minute pass",
+              },
+              {
+                icon: MonitorSmartphone, color: "#06b6d4",
+                label: "Mobile-first by default",
+                sub: "Designed and tested on real devices — not browser emulators",
+              },
+              {
+                icon: FileText, color: "#10b981",
+                label: "Figma design system included",
+                sub: "Full token library, component docs and brand guide handed to your team",
+              },
+            ].map((item, i) => (
+              <motion.li
+                key={item.label}
+                initial={{ opacity: 0, x: -14 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.12 + i * 0.09, duration: 0.5, ease: "easeOut" as const }}
+                className="flex items-start gap-4 group"
+              >
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200"
+                  style={{ background: `${item.color}18`, boxShadow: `0 2px 10px ${item.color}20` }}
+                >
+                  <item.icon className="h-4 w-4" style={{ color: item.color }} />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold leading-none mb-1.5">{item.label}</p>
+                  <p className="text-xs text-muted-foreground leading-snug">{item.sub}</p>
+                </div>
+              </motion.li>
+            ))}
+          </ul>
+
+          {/* Compact stat row */}
+          <div className="flex items-center gap-8 pt-6 border-t border-border/25">
+            {[
+              { v: "180+", l: "Sites shipped",         color: "#6366f1" },
+              { v: "4–8w", l: "Typical build",         color: "#f59e0b" },
+              { v: "100%", l: "Mobile-first delivery", color: "#10b981" },
+            ].map((s) => (
+              <div key={s.l}>
+                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>{s.v}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5 leading-none">{s.l}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Right: contained image card ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] as const }}
+          className="relative"
+        >
+          {/* Soft ambient glow */}
+          <div
+            className="absolute -inset-5 rounded-3xl pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 80% 70% at 55% 45%, rgba(99,102,241,0.12) 0%, transparent 72%)",
+              filter: "blur(24px)",
+            }}
+          />
+
+          {/* Card wrapper */}
+          <div
+            className="relative rounded-2xl overflow-hidden border border-border/25 group"
+            style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)" }}
+          >
+            {/* Image — 4:3 aspect */}
+            <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+              <img
+                src={imgWeb1}
+                alt="Web development in progress — clean code and responsive design"
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                loading="eager"
+                decoding="async"
+              />
+
+              {/* Bottom gradient for caption readability */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
+                }}
+              />
+
+              {/* Subtle brand tint — top-left */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: "linear-gradient(130deg, rgba(99,102,241,0.22) 0%, transparent 48%)",
+                }}
+              />
+
+              {/* Top-right: live indicator */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
+                className="absolute top-3.5 right-3.5 flex items-center gap-1.5 rounded-full px-3 py-1.5 backdrop-blur-md border border-white/12"
+                style={{ background: "rgba(0,0,0,0.38)" }}
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                <span className="text-[10px] font-semibold text-white/80 tracking-wide">Mobile-first</span>
+              </motion.div>
+
+              {/* Bottom-left: caption badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+                className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-md px-3 py-1.5 backdrop-blur-md border border-indigo-400/30"
+                style={{ background: "rgba(79,70,229,0.48)" }}
+              >
+                <Globe className="h-2.5 w-2.5 text-indigo-300 shrink-0" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
+                  Web Development
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Card footer: three metrics */}
+            <div
+              className="grid grid-cols-3 divide-x divide-border/25"
+              style={{ background: "hsl(var(--card))" }}
+            >
+              {[
+                { v: "180+",    l: "Sites shipped",        color: "#6366f1" },
+                { v: "98",      l: "Avg. Lighthouse",      color: "#06b6d4" },
+                { v: "30 days", l: "Post-launch support",  color: "#10b981" },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, y: 6 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" as const }}
+                  className="flex flex-col items-center py-4 px-3"
+                >
+                  <span
+                    className="text-[15px] font-bold leading-none tabular-nums"
+                    style={{ color: s.color }}
+                  >
+                    {s.v}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground mt-1.5 text-center leading-snug">
+                    {s.l}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Decorative offset border */}
+          <div
+            className="absolute -bottom-2.5 -right-2.5 w-20 h-20 rounded-xl pointer-events-none border border-primary/10"
+            style={{ background: "rgba(99,102,241,0.03)" }}
+          />
+        </motion.div>
+
+      </div>
+    </section>
   );
 }
 
@@ -184,6 +395,9 @@ function WebDevelopment() {
           </div>
         </motion.div>
       </section>
+
+      {/* ════════════════ WEB OVERVIEW (image section) ══════════════════ */}
+      <WebOverview />
 
       <section className="mx-auto max-w-7xl px-4 py-24">
         <motion.div {...fadeUp()} className="mb-14">
