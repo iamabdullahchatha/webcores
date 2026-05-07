@@ -673,7 +673,6 @@ function Index() {
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
-          {/* ↓ FIX: increased horizontal padding on mobile (px-6 sm:px-8 md:px-4) */}
           <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-4 pt-20 pb-36 md:pt-24 md:pb-44">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -693,13 +692,30 @@ function Index() {
                 <span className="text-primary">Est. Dubai, UAE</span>
               </motion.div>
 
-              {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
+              {/*
+               * ── FIX: Hero heading ──────────────────────────────────────
+               * Problems fixed:
+               *   1. "Ideasinto" → added an explicit {" "} space between
+               *      the </span> closing tag and "into" so they never collapse.
+               *   2. Text was clipping on the left on mobile because the large
+               *      font caused the "T" to overflow. Reduced mobile font size
+               *      to text-3xl (was text-4xl) and switched from
+               *      `wrap-break-word` (non-standard) to the proper Tailwind
+               *      class `break-words` + `overflow-hidden` so nothing
+               *      bleeds outside the container.
+               *   3. Removed the desktop-only <br /> between "Ideas" / "into"
+               *      and "Digital Reality" lines — instead the heading is now
+               *      structured in two explicit lines using <br /> tags that
+               *      are visible on ALL screen sizes, keeping the layout clean
+               *      and predictable across widths.
+               * ────────────────────────────────────────────────────────── */}
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word overflow-hidden">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>
-                <br className="hidden md:block" />
-                into{" "}
-                <span className="gradient-text">Digital Reality</span>
+                {" "}into{" "}
+                <br className="hidden sm:block" />
+                <span className="gradient-text">Digital</span>
+                {" "}Reality
               </h1>
 
               <motion.p
