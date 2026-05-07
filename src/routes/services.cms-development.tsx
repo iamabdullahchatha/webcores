@@ -146,11 +146,16 @@ const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween", ease: [0.22, 1, 0.36, 1] },
+  transition: {
+    duration: 0.65,
+    delay,
+    type: "tween" as const,
+    ease: [0.22, 1, 0.36, 1] as const,
+  },
 });
 
 /* ─── Section label pill ─────────────────────────────────────────────── */
-function SectionLabel({ children }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -160,9 +165,10 @@ function SectionLabel({ children }) {
 }
 
 /* ─── 3D Tilt Card ───────────────────────────────────────────────────── */
-function Card3D({ children, className = "" }) {
-  const ref = useRef(null);
-  function onMove(e) {
+function Card3D({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function onMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -171,39 +177,58 @@ function Card3D({ children, className = "" }) {
     el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px) scale(1.015)`;
     el.style.transition = "transform 0.05s linear";
   }
+
   function onLeave() {
     const el = ref.current;
     if (!el) return;
     el.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateZ(0) scale(1)";
     el.style.transition = "transform 0.45s cubic-bezier(0.23,1,0.32,1)";
   }
+
   return (
-    <div ref={ref} className={className} onMouseMove={onMove} onMouseLeave={onLeave}
-      style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
+    <div
+      ref={ref}
+      className={className}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+    >
       {children}
     </div>
   );
 }
 
 /* ─── FAQ accordion item ─────────────────────────────────────────────── */
-function FaqItem({ q, a, index }) {
+function FaqItem({
+  q, a, index,
+}: {
+  q: string; a: string; index: number;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <motion.div
-      {...fadeUp(index * 0.06)}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{
+        delay: index * 0.06,
+        duration: 0.55,
+        type: "tween" as const,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }}
       className={`relative border rounded-2xl overflow-hidden transition-all duration-300 ${
         open ? "border-primary/25 glass shadow-glow" : "border-border/40 glass hover:border-primary/20"
       }`}
     >
-      <div className={`absolute left-0 top-0 bottom-0 w-[3px] rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
+      <div className={`absolute left-0 top-0 bottom-0 w-0.75 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
       <button
         onClick={() => setOpen(!open)}
-        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/[0.03] transition-colors duration-200"
+        className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >
         <span className="font-semibold text-sm md:text-base pr-4 leading-snug">{q}</span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
           className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${open ? "gradient-primary" : "bg-primary/10 hover:bg-primary/15"}`}
         >
           <ChevronDown className={`h-4 w-4 ${open ? "text-primary-foreground" : "text-primary"}`} />
@@ -215,7 +240,7 @@ function FaqItem({ q, a, index }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] as const }}
             className="overflow-hidden"
           >
             <div className="px-6 pb-6 pt-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30">
@@ -229,25 +254,23 @@ function FaqItem({ q, a, index }) {
 }
 
 /* ─── Testimonial avatar with fallback ──────────────────────────────── */
-function TestimonialPhoto({ photo, name }) {
+function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
   const [err, setErr] = useState(false);
   return err ? (
     <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0 ring-2 ring-border/30">
       {name[0]}
     </div>
   ) : (
-    <img src={photo} alt={name} onError={() => setErr(true)}
-      className="h-10 w-10 rounded-full object-cover object-top shrink-0 ring-2 ring-border/30" />
+    <img
+      src={photo}
+      alt={name}
+      onError={() => setErr(true)}
+      className="h-10 w-10 rounded-full object-cover object-top shrink-0 ring-2 ring-border/30"
+    />
   );
 }
 
-/* ─── Platform Overview: text left, contained image right ───────────── */
-/*
- * Layout mirrors the reference (image 2): contained card on the right,
- * narrative content on the left. Image is capped at a natural 4:3 ratio
- * so it never feels oversized. A slim caption badge sits at the bottom of
- * the image exactly like the reference's "IT CONSULTING" strip.
- */
+/* ─── Platform Overview ──────────────────────────────────────────────── */
 function PlatformOverview() {
   return (
     <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
@@ -258,7 +281,7 @@ function PlatformOverview() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <SectionLabel>Platform Overview</SectionLabel>
 
@@ -268,10 +291,11 @@ function PlatformOverview() {
           </h2>
 
           <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">
-            Purpose-built for editorial speed — every workflow is designed around the people who use it daily. No tickets, no queues, no waiting. Your team publishes on their own terms from day one.
+            Purpose-built for editorial speed — every workflow is designed around the people
+            who use it daily. No tickets, no queues, no waiting. Your team publishes on their
+            own terms from day one.
           </p>
 
-          {/* Three proof-point rows */}
           <ul className="space-y-5 mb-9">
             {[
               {
@@ -295,7 +319,7 @@ function PlatformOverview() {
                 initial={{ opacity: 0, x: -14 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.12 + i * 0.09, duration: 0.5, ease: "easeOut" }}
+                transition={{ delay: 0.12 + i * 0.09, duration: 0.5, ease: "easeOut" as const }}
                 className="flex items-start gap-4 group"
               >
                 <div
@@ -312,7 +336,6 @@ function PlatformOverview() {
             ))}
           </ul>
 
-          {/* Compact stat row */}
           <div className="flex items-center gap-8 pt-6 border-t border-border/25">
             {[
               { v: "120+", l: "Platforms built", color: "#8b5cf6" },
@@ -332,10 +355,9 @@ function PlatformOverview() {
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] as const }}
           className="relative"
         >
-          {/* Soft ambient glow behind the card */}
           <div
             className="absolute -inset-5 rounded-3xl pointer-events-none"
             style={{
@@ -344,14 +366,10 @@ function PlatformOverview() {
             }}
           />
 
-          {/* Card wrapper */}
           <div
             className="relative rounded-2xl overflow-hidden border border-border/25 group"
-            style={{
-              boxShadow: "0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
-            }}
+            style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)" }}
           >
-            {/* Image — 4:3 aspect, contained, never overflows */}
             <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
               <img
                 src={imgCms1}
@@ -360,31 +378,20 @@ function PlatformOverview() {
                 loading="eager"
                 decoding="async"
               />
-
-              {/* Gradient: darkens bottom for caption readability */}
               <div
                 className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
-                }}
+                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)" }}
               />
-
-              {/* Subtle brand tint — top-left corner only */}
               <div
                 className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(130deg, rgba(109,40,217,0.22) 0%, transparent 48%)",
-                }}
+                style={{ background: "linear-gradient(130deg, rgba(109,40,217,0.22) 0%, transparent 48%)" }}
               />
 
-              {/* Top-right: live indicator */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
                 className="absolute top-3.5 right-3.5 flex items-center gap-1.5 rounded-full px-3 py-1.5 backdrop-blur-md border border-white/12"
                 style={{ background: "rgba(0,0,0,0.38)" }}
               >
@@ -395,12 +402,11 @@ function PlatformOverview() {
                 <span className="text-[10px] font-semibold text-white/80 tracking-wide">Production-ready</span>
               </motion.div>
 
-              {/* Bottom-left: caption badge — matches reference style precisely */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
                 className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-md px-3 py-1.5 backdrop-blur-md border border-violet-400/30"
                 style={{ background: "rgba(109,40,217,0.48)" }}
               >
@@ -411,7 +417,6 @@ function PlatformOverview() {
               </motion.div>
             </div>
 
-            {/* Card footer: three metrics in a clean strip */}
             <div
               className="grid grid-cols-3 divide-x divide-border/25"
               style={{ background: "hsl(var(--card))" }}
@@ -426,7 +431,7 @@ function PlatformOverview() {
                   initial={{ opacity: 0, y: 6 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" }}
+                  transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" as const }}
                   className="flex flex-col items-center py-4 px-3"
                 >
                   <span className="text-[15px] font-bold leading-none tabular-nums" style={{ color: s.color }}>
@@ -440,7 +445,6 @@ function PlatformOverview() {
             </div>
           </div>
 
-          {/* Decorative offset border — adds depth, matches reference aesthetics */}
           <div
             className="absolute -bottom-2.5 -right-2.5 w-20 h-20 rounded-xl pointer-events-none border border-primary/10"
             style={{ background: "rgba(139,92,246,0.03)" }}
@@ -454,7 +458,7 @@ function PlatformOverview() {
 
 /* ═══════════════════════════ Main page ══════════════════════════════ */
 function CmsDevelopment() {
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLElement>(null);
 
   return (
     <Layout>
@@ -465,18 +469,24 @@ function CmsDevelopment() {
         <GridBackground />
         <FloatingShapes />
 
-        <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" as const }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
-          style={{ width: 520, height: 520, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }} />
-        <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.22, 0.10] }}
-          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          style={{ width: 520, height: 520, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.22, 0.10] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
           className="absolute bottom-0 left-12 rounded-full pointer-events-none"
-          style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }} />
-        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" as const, delay: 1.5 }}
           className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
-          style={{ width: 280, height: 280, background: "radial-gradient(circle, #8b5cf6 0%, transparent 70%)" }} />
+          style={{ width: 280, height: 280, background: "radial-gradient(circle, #8b5cf6 0%, transparent 70%)" }}
+        />
 
         <div className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-32 md:pt-24 md:pb-36">
@@ -484,79 +494,109 @@ function CmsDevelopment() {
 
               {/* Left — copy */}
               <div>
-                <motion.div initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.08, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.88 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.08, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+                  className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
+                >
                   <Layers className="h-3.5 w-3.5 text-primary" />
                   CMS Development
                 </motion.div>
 
-                <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                  className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight">
+                <motion.h1
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+                  className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight"
+                >
                   Content platforms that{" "}
                   <span className="gradient-text">empower your team.</span>
                 </motion.h1>
 
-                <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
-                  className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.25, type: "tween" as const, ease: "easeOut" as const }}
+                  className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
+                >
                   Headless, composable CMS platforms engineered to give editorial teams full
                   control — without waiting on developers for every update.
                 </motion.p>
 
-                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.38, type: "tween", ease: "easeOut" }}
-                  className="mt-7 flex flex-wrap gap-2.5">
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.38, type: "tween" as const, ease: "easeOut" as const }}
+                  className="mt-7 flex flex-wrap gap-2.5"
+                >
                   {[
                     { icon: Zap, label: "10× publishing speed" },
                     { icon: Globe, label: "Multi-site & multi-language" },
                     { icon: FileText, label: "Full editor training included" },
                   ].map((p) => (
-                    <span key={p.label}
-                      className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80">
+                    <span
+                      key={p.label}
+                      className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80"
+                    >
                       <p.icon className="h-3 w-3 text-primary" />
                       {p.label}
                     </span>
                   ))}
                 </motion.div>
 
-                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.48, type: "tween", ease: "easeOut" }}
-                  className="mt-9 flex flex-wrap gap-4">
-                  <Link to="/contact"
-                    className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm">
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.48, type: "tween" as const, ease: "easeOut" as const }}
+                  className="mt-9 flex flex-wrap gap-4"
+                >
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm"
+                  >
                     Start your project
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
-                  <Link to="/services"
-                    className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm">
+                  <Link
+                    to="/services"
+                    className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm"
+                  >
                     All services
                     <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
                   </Link>
                 </motion.div>
               </div>
 
-              {/* Right — floating stat cards (original) */}
-              <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.2, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                className="relative hidden md:grid grid-cols-2 gap-4">
+              {/* Right — floating stat cards */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.2, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+                className="relative hidden md:grid grid-cols-2 gap-4"
+              >
                 <div className="absolute -inset-6 gradient-primary opacity-[0.07] blur-3xl rounded-full pointer-events-none" />
                 {heroStats.map((s, i) => (
-                  <motion.div key={s.l}
+                  <motion.div
+                    key={s.l}
                     animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 4 + i * 0.7, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                    transition={{ duration: 4 + i * 0.7, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.5 }}
                     whileHover={{ scale: 1.05 }}
                     className="group glass border border-border/30 rounded-2xl p-6 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
-                    style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}>
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-200"
-                      style={{ background: s.bg }}>
+                    style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}
+                  >
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-200"
+                      style={{ background: s.bg }}
+                    >
                       <s.icon className="h-4 w-4" style={{ color: s.color }} />
                     </div>
                     <div className="text-3xl font-bold gradient-text mb-1">{s.v}</div>
                     <div className="text-xs text-muted-foreground leading-tight">{s.l}</div>
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                      style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }} />
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                      style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
+                    />
                   </motion.div>
                 ))}
               </motion.div>
@@ -566,7 +606,7 @@ function CmsDevelopment() {
         </div>
       </section>
 
-      {/* ════════════════ PLATFORM OVERVIEW (image section) ════════════════ */}
+      {/* ════════════════ PLATFORM OVERVIEW ════════════════ */}
       <PlatformOverview />
 
       {/* ══════════════════════════ FEATURES ══════════════════════════════ */}
@@ -578,33 +618,44 @@ function CmsDevelopment() {
               Every CMS capability,<br />under one roof.
             </h2>
             <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-              From headless architecture to editorial workflow design — we cover the entire content platform stack in-house, end to end.
+              From headless architecture to editorial workflow design — we cover the entire
+              content platform stack in-house, end to end.
             </p>
           </div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f, i) => (
-            <motion.div key={f.t}
+            <motion.div
+              key={f.t}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.55, type: "tween", ease: "easeOut" }}>
+              transition={{ delay: i * 0.07, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
+            >
               <Card3D className="group relative bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-7 h-full hover:border-border/60 hover:shadow-glow transition-all duration-300 overflow-hidden cursor-default">
-                <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.11] transition-opacity duration-500 pointer-events-none"
-                  style={{ background: f.color }} />
-                <div className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(to right, transparent, ${f.color}, transparent)` }} />
+                <div
+                  className="absolute -right-10 -top-10 h-44 w-44 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.11] transition-opacity duration-500 pointer-events-none"
+                  style={{ background: f.color }}
+                />
+                <div
+                  className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                  style={{ background: `linear-gradient(to right, transparent, ${f.color}, transparent)` }}
+                />
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
-                    style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}20` }}>
+                  <div
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+                    style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}20` }}
+                  >
                     <f.icon className="h-6 w-6" style={{ color: f.color }} />
                   </div>
                   <h3 className="font-bold text-base mb-2.5 group-hover:text-primary transition-colors duration-200">{f.t}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{f.d}</p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                  style={{ background: `linear-gradient(to right, ${f.color}88, transparent)` }} />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                  style={{ background: `linear-gradient(to right, ${f.color}88, transparent)` }}
+                />
               </Card3D>
             </motion.div>
           ))}
@@ -617,18 +668,22 @@ function CmsDevelopment() {
 
           <motion.div {...fadeUp()}>
             <div className="glass border border-border/35 rounded-3xl p-9 h-full relative overflow-hidden group hover:border-border/55 transition-colors duration-300">
-              <div className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
-                style={{ background: "#8b5cf6" }} />
+              <div
+                className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
+                style={{ background: "#8b5cf6" }}
+              />
               <SectionLabel>Deliverables</SectionLabel>
               <h3 className="text-2xl font-bold mb-7">What you walk away with.</h3>
               <ul className="space-y-4">
                 {deliverables.map((d, i) => (
-                  <motion.li key={d}
+                  <motion.li
+                    key={d}
                     initial={{ opacity: 0, x: -14 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, duration: 0.45, type: "tween", ease: "easeOut" }}
-                    className="flex items-center gap-3.5 group/item">
+                    transition={{ delay: i * 0.07, duration: 0.45, type: "tween" as const, ease: "easeOut" as const }}
+                    className="flex items-center gap-3.5 group/item"
+                  >
                     <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 group-hover/item:bg-primary/20 transition-colors duration-200 shrink-0">
                       <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                     </span>
@@ -641,23 +696,32 @@ function CmsDevelopment() {
 
           <motion.div {...fadeUp(0.1)}>
             <div className="glass border border-border/35 rounded-3xl p-9 h-full relative overflow-hidden group hover:border-border/55 transition-colors duration-300">
-              <div className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
-                style={{ background: "#06b6d4" }} />
+              <div
+                className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
+                style={{ background: "#06b6d4" }}
+              />
               <SectionLabel>Platforms & Tools</SectionLabel>
               <h3 className="text-2xl font-bold mb-2">The right CMS for your needs.</h3>
               <p className="text-sm text-muted-foreground mb-7 leading-relaxed">
-                We're platform-agnostic — we evaluate every option against your specific requirements and recommend the one that serves your editors and your architecture best.
+                We're platform-agnostic — we evaluate every option against your specific
+                requirements and recommend the one that serves your editors and your
+                architecture best.
               </p>
               <div className="flex flex-wrap gap-2.5">
                 {techStack.map((t, i) => (
-                  <motion.div key={t.name}
+                  <motion.div
+                    key={t.name}
                     initial={{ opacity: 0, scale: 0.88 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.06, duration: 0.4, type: "tween", ease: "easeOut" }}
+                    transition={{ delay: i * 0.06, duration: 0.4, type: "tween" as const, ease: "easeOut" as const }}
                     whileHover={{ y: -3, scale: 1.06 }}
-                    className="inline-flex items-center gap-2.5 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 hover:shadow-glow transition-all duration-200">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: t.color, boxShadow: `0 0 6px ${t.color}66` }} />
+                    className="inline-flex items-center gap-2.5 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 hover:shadow-glow transition-all duration-200"
+                  >
+                    <span
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{ background: t.color, boxShadow: `0 0 6px ${t.color}66` }}
+                    />
                     <span className="text-sm font-semibold">{t.name}</span>
                   </motion.div>
                 ))}
@@ -668,7 +732,8 @@ function CmsDevelopment() {
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold">Editor-first philosophy.</span>{" "}
-                  Every CMS we build is designed so non-technical editors feel confident and autonomous — no developer dependency for day-to-day publishing.
+                  Every CMS we build is designed so non-technical editors feel confident and
+                  autonomous — no developer dependency for day-to-day publishing.
                 </p>
               </div>
             </div>
@@ -679,8 +744,10 @@ function CmsDevelopment() {
       {/* ══════════════════════════ PROCESS ══════════════════════════════ */}
       <section className="relative mx-auto max-w-7xl px-4 py-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[320px] rounded-full blur-3xl opacity-[0.04]"
-            style={{ background: "radial-gradient(ellipse, hsl(var(--primary)) 0%, transparent 70%)" }} />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-80 rounded-full blur-3xl opacity-[0.04]"
+            style={{ background: "radial-gradient(ellipse, hsl(var(--primary)) 0%, transparent 70%)" }}
+          />
         </div>
 
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-20">
@@ -698,24 +765,32 @@ function CmsDevelopment() {
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.3, type: "tween", ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: 0.3, type: "tween" as const, ease: "easeOut" as const }}
             className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px origin-left"
-            style={{ background: "linear-gradient(to right, transparent, hsl(var(--border)/0.6) 20%, hsl(var(--primary)/0.35) 50%, hsl(var(--border)/0.6) 80%, transparent)" }}
+            style={{
+              background: "linear-gradient(to right, transparent, hsl(var(--border)/0.6) 20%, hsl(var(--primary)/0.35) 50%, hsl(var(--border)/0.6) 80%, transparent)",
+            }}
           />
 
           <div className="grid md:grid-cols-5 gap-6">
             {processSteps.map((p, i) => (
-              <motion.div key={p.n}
+              <motion.div
+                key={p.n}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.11, duration: 0.55, type: "tween", ease: "easeOut" }}
+                transition={{ delay: 0.1 + i * 0.11, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
                 whileHover={{ y: -8 }}
-                className="group relative text-center cursor-default">
-                <div className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300"
-                  style={{ background: `linear-gradient(135deg, ${p.color}cc, ${p.color}88)`, boxShadow: `0 6px 28px ${p.color}45` }}>
-                  <div className="absolute inset-0 rounded-full blur-xl opacity-30 group-hover:opacity-60 -z-10 transition-opacity duration-300 pointer-events-none"
-                    style={{ background: p.color }} />
+                className="group relative text-center cursor-default"
+              >
+                <div
+                  className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300"
+                  style={{ background: `linear-gradient(135deg, ${p.color}cc, ${p.color}88)`, boxShadow: `0 6px 28px ${p.color}45` }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-full blur-xl opacity-30 group-hover:opacity-60 -z-10 transition-opacity duration-300 pointer-events-none"
+                    style={{ background: p.color }}
+                  />
                   <p.icon className="h-7 w-7 text-white" />
                 </div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: `${p.color}99` }}>{p.n}</div>
@@ -742,16 +817,22 @@ function CmsDevelopment() {
 
         <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
-            <motion.div key={t.name}
+            <motion.div
+              key={t.name}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: "easeOut" }}>
+              transition={{ delay: i * 0.1, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
+            >
               <Card3D className="group bg-card/60 backdrop-blur-sm border border-border/35 rounded-3xl p-7 h-full hover:border-border/60 hover:shadow-glow transition-all duration-300 relative overflow-hidden cursor-default">
-                <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.10] transition-opacity duration-500 pointer-events-none"
-                  style={{ background: t.color }} />
-                <div className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(to right, transparent, ${t.color}, transparent)` }} />
+                <div
+                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.10] transition-opacity duration-500 pointer-events-none"
+                  style={{ background: t.color }}
+                />
+                <div
+                  className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                  style={{ background: `linear-gradient(to right, transparent, ${t.color}, transparent)` }}
+                />
                 <div className="flex items-center gap-0.5 mb-5">
                   {Array.from({ length: t.stars }).map((_, j) => (
                     <Star key={j} className="h-3.5 w-3.5" style={{ fill: "#f59e0b", color: "#f59e0b" }} />
@@ -764,8 +845,10 @@ function CmsDevelopment() {
                     <p className="font-semibold text-sm leading-none">{t.name}</p>
                     <p className="text-xs text-muted-foreground mt-1 truncate">{t.role}</p>
                   </div>
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: `${t.color}18` }}>
+                  <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: `${t.color}18` }}
+                  >
                     <CheckCircle2 className="h-3.5 w-3.5" style={{ color: t.color }} />
                   </div>
                 </div>
@@ -808,18 +891,24 @@ function CmsDevelopment() {
               </defs>
               <rect width="100%" height="100%" fill="url(#cta-grid-cms)" />
             </svg>
-            <motion.div animate={{ scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl" />
-            <motion.div animate={{ scale: [1, 1.28, 1], opacity: [0.10, 0.18, 0.10] }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-              className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl" />
+            <motion.div
+              animate={{ scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" as const }}
+              className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl"
+            />
+            <motion.div
+              animate={{ scale: [1, 1.28, 1], opacity: [0.10, 0.18, 0.10] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
+              className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl"
+            />
             {[...Array(6)].map((_, i) => (
-              <motion.div key={i}
+              <motion.div
+                key={i}
                 animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
-                transition={{ duration: 2.8 + i * 0.55, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
+                transition={{ duration: 2.8 + i * 0.55, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.8 }}
                 className="absolute w-1 h-1 rounded-full bg-white/60"
-                style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }} />
+                style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
+              />
             ))}
           </div>
 
@@ -833,7 +922,8 @@ function CmsDevelopment() {
                 Ready to give your team<br className="hidden md:block" /> full editorial control?
               </h2>
               <p className="text-white/60 text-sm mt-3 leading-relaxed max-w-sm">
-                Book a free 45-minute discovery call. We'll review your content needs and recommend the right CMS architecture — no obligation.
+                Book a free 45-minute discovery call. We'll review your content needs and
+                recommend the right CMS architecture — no obligation.
               </p>
               <div className="flex items-center gap-7 mt-6">
                 {[
@@ -850,18 +940,28 @@ function CmsDevelopment() {
             </div>
 
             <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 420, damping: 18 }}>
-                <Link to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-foreground px-8 py-3.5 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 18 }}
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-foreground px-8 py-3.5 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full"
+                >
                   Start your project
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 420, damping: 18 }}>
-                <Link to="/services"
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white/12 text-white border border-white/20 px-8 py-3.5 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 18 }}
+              >
+                <Link
+                  to="/services"
+                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white/12 text-white border border-white/20 px-8 py-3.5 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full"
+                >
                   View all services
                   <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
