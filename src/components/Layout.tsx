@@ -14,7 +14,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Footer />
 
       <a
-        href="https://wa.me/4412345678"
+        href="https://wa.me/+44 7570 792516"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-40 p-4 rounded-full bg-[oklch(0.75_0.18_150)] text-white shadow-glow hover:scale-110 transition-transform"
