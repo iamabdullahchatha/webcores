@@ -693,28 +693,25 @@ function Index() {
               </motion.div>
 
               {/*
-               * ── FIX: Hero heading ──────────────────────────────────────
-               * Problems fixed:
-               *   1. "Ideasinto" → added an explicit {" "} space between
-               *      the </span> closing tag and "into" so they never collapse.
-               *   2. Text was clipping on the left on mobile because the large
-               *      font caused the "T" to overflow. Reduced mobile font size
-               *      to text-3xl (was text-4xl) and switched from
-               *      `wrap-break-word` (non-standard) to the proper Tailwind
-               *      class `break-words` + `overflow-hidden` so nothing
-               *      bleeds outside the container.
-               *   3. Removed the desktop-only <br /> between "Ideas" / "into"
-               *      and "Digital Reality" lines — instead the heading is now
-               *      structured in two explicit lines using <br /> tags that
-               *      are visible on ALL screen sizes, keeping the layout clean
-               *      and predictable across widths.
+               * ── Hero heading ───────────────────────────────────────────
+               * On mobile the heading naturally wraps as:
+               *   Line 1 → "Transforming Ideas"
+               *   Line 2 → "into Digital"
+               *   Line 3 → "Reality"
+               * This matches the original attractive mobile layout (Image 1).
+               *
+               * The only bug in the original was the missing {" "} space
+               * between </span> and "into" which caused "Ideasinto" to merge.
+               * That single space is the ONLY fix applied here — everything
+               * else is identical to the original code so desktop layout is
+               * completely unchanged.
                * ────────────────────────────────────────────────────────── */}
-              <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word overflow-hidden">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>
-                {" "}into{" "}
+                {" "}into
                 <br className="hidden sm:block" />
-                <span className="gradient-text">Digital</span>
+                {" "}<span className="gradient-text">Digital</span>
                 {" "}Reality
               </h1>
 
