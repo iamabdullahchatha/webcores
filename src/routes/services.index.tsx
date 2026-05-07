@@ -14,6 +14,14 @@ import {
   ArrowRight, CheckCircle2, Zap, Users, Award, ArrowUpRight,
 } from "lucide-react";
 
+/* ─── Asset imports (same images used in index.tsx) ────────────────── */
+import imgCmsDevelopment from "@/assets/cms-development.webp";
+import imgGraphicsDesign from "@/assets/graphics-design.webp";
+import imgItConsulting   from "@/assets/it-consulting.webp";
+import imgSeo            from "@/assets/seo.webp";
+import imgSoftwareDev    from "@/assets/software-development.webp";
+import imgWebDevelopment from "@/assets/web-development.webp";
+
 export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
@@ -36,7 +44,7 @@ const services = [
     to: "/services/it-consultation" as const,
     tags: ["Strategy", "Audits", "Roadmaps"],
     metric: "3× faster decisions",
-    img: null as string | null,
+    img: imgItConsulting,
   },
   {
     icon: Layers,
@@ -47,7 +55,7 @@ const services = [
     to: "/services/cms-development" as const,
     tags: ["Headless CMS", "WordPress", "Custom"],
     metric: "10× publishing speed",
-    img: null as string | null,
+    img: imgCmsDevelopment,
   },
   {
     icon: Globe,
@@ -58,7 +66,7 @@ const services = [
     to: "/services/web-development" as const,
     tags: ["E-commerce", "WordPress", "React"],
     metric: "Sub-1s load times",
-    img: null as string | null,
+    img: imgWebDevelopment,
   },
   {
     icon: Database,
@@ -69,7 +77,7 @@ const services = [
     to: "/services/software-development" as const,
     tags: ["SaaS", "APIs", "Enterprise"],
     metric: "99.9% uptime SLA",
-    img: null as string | null,
+    img: imgSoftwareDev,
   },
   {
     icon: Search,
@@ -80,7 +88,7 @@ const services = [
     to: "/services/seo-geo" as const,
     tags: ["Local SEO", "Technical SEO", "GEO"],
     metric: "Top 3 rankings",
-    img: null as string | null,
+    img: imgSeo,
   },
   {
     icon: Palette,
@@ -91,7 +99,7 @@ const services = [
     to: "/services/graphic-design" as const,
     tags: ["Branding", "Print", "Identity"],
     metric: "Brand recognition +40%",
-    img: null as string | null,
+    img: imgGraphicsDesign,
   },
 ];
 
@@ -159,68 +167,30 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
       >
         <Link
           to={s.to}
-          className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full"
+          className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
         >
-          {/* ── Image / Placeholder area ── */}
-          <div className="relative overflow-hidden h-52">
-            {s.img ? (
-              <img
-                src={s.img}
-                alt={s.t}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            ) : (
-              <div
-                className="w-full h-full flex items-center justify-center relative"
-                style={{ background: `linear-gradient(135deg, ${s.color}18 0%, ${s.color}08 100%)` }}
-              >
-                {/* Dot grid pattern */}
-                <div className="absolute inset-0">
-                  {Array.from({ length: 6 }).map((_, r) =>
-                    Array.from({ length: 8 }).map((_, c) => (
-                      <div
-                        key={`${r}-${c}`}
-                        className="absolute rounded-full"
-                        style={{
-                          width: (r + c) % 3 === 0 ? 5 : 3,
-                          height: (r + c) % 3 === 0 ? 5 : 3,
-                          left: `${c * 14 + 4}%`,
-                          top: `${r * 18 + 4}%`,
-                          background: s.color,
-                          opacity: 0.22,
-                        }}
-                      />
-                    ))
-                  )}
-                </div>
+          {/* ── Image banner (mirrors index.tsx pattern) ── */}
+          <div className="relative h-52 w-full overflow-hidden shrink-0">
+            <img
+              src={s.img}
+              alt={s.t}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+              decoding="async"
+            />
 
-                {/* Icon centrepiece */}
-                <div
-                  className="h-24 w-24 rounded-3xl flex items-center justify-center shadow-elegant relative z-10 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500"
-                  style={{
-                    background: `linear-gradient(135deg, ${s.color}cc, ${s.color}88)`,
-                    boxShadow: `0 8px 32px ${s.color}44`,
-                  }}
-                >
-                  <s.icon className="h-12 w-12 text-white" />
-                </div>
-
-                {/* Blobs */}
-                <div
-                  className="absolute -bottom-8 -right-8 h-36 w-36 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
-                  style={{ background: s.color }}
-                />
-                <div
-                  className="absolute -top-6 -left-6 h-28 w-28 rounded-full blur-2xl opacity-10 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none"
-                  style={{ background: s.color }}
-                />
-              </div>
-            )}
+            {/* Gradient overlay — blends image into card body */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `linear-gradient(to bottom, transparent 40%, ${s.color}22 100%)`,
+              }}
+            />
 
             {/* Hover shimmer */}
             <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            {/* Tags */}
+            {/* Tags — bottom-left */}
             <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
               {s.tags.map((tag) => (
                 <span
@@ -233,7 +203,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               ))}
             </div>
 
-            {/* Metric badge */}
+            {/* Metric badge — top-right */}
             <div className="absolute top-3 right-3">
               <span
                 className="px-2.5 py-1 rounded-full text-[10px] font-bold glass border border-white/10 backdrop-blur-sm"
@@ -245,30 +215,44 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
           </div>
 
           {/* ── Card body ── */}
-          <div className="p-6 relative">
+          <div className="p-6 relative flex flex-col flex-1">
             {/* Top accent line */}
             <div
               className="absolute top-0 left-6 right-6 h-px opacity-30 group-hover:opacity-70 transition-opacity duration-300"
               style={{ background: `linear-gradient(to right, transparent, ${s.color}, transparent)` }}
             />
 
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary">
-                {s.t}
-              </h3>
-              {/* Slide-in arrow */}
+            {/* Icon + Title row */}
+            <div className="flex items-center gap-3 mb-3">
               <div
-                className="shrink-0 h-8 w-8 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-elegant"
-                style={{ background: `linear-gradient(135deg, ${s.color}cc, ${s.color}88)` }}
+                className="rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-elegant"
+                style={{
+                  width: 44, height: 44,
+                  background: s.bg,
+                  boxShadow: `0 4px 16px ${s.color}22`,
+                }}
               >
-                <ArrowRight className="h-4 w-4 text-white" />
+                <s.icon className="h-5 w-5" style={{ color: s.color }} />
+              </div>
+
+              <div className="flex items-start justify-between gap-3 flex-1 min-w-0">
+                <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary truncate">
+                  {s.t}
+                </h3>
+                {/* Slide-in arrow */}
+                <div
+                  className="shrink-0 h-8 w-8 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 shadow-elegant"
+                  style={{ background: `linear-gradient(135deg, ${s.color}cc, ${s.color}88)` }}
+                >
+                  <ArrowRight className="h-4 w-4 text-white" />
+                </div>
               </div>
             </div>
 
-            <p className="text-muted-foreground text-sm leading-relaxed mb-5">{s.d}</p>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">{s.d}</p>
 
             <span
-              className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200 mt-auto"
               style={{ color: s.color }}
             >
               Explore service
