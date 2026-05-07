@@ -26,8 +26,8 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: Linkedin,      label: "LinkedIn", href: "#",                               color: "#0A66C2" },
-  { icon: Facebook,      label: "Facebook", href: "#",                               color: "#1877F2" },
+  { icon: Linkedin,      label: "LinkedIn", href: "https://www.linkedin.com/in/webcore-solutions-939b88408", color: "#0A66C2" },
+  { icon: Facebook,      label: "Facebook", href: "https://www.facebook.com/profile.php?id=61587249472207", color: "#1877F2" },
   { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/447570792516",      color: "#25D366" },
 ];
 
@@ -74,6 +74,8 @@ function MagneticSocial({
     <motion.a
       ref={btnRef}
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
