@@ -26,9 +26,9 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: Linkedin,      label: "LinkedIn", href: "#",                        color: "#0A66C2" },
-  { icon: Facebook,      label: "Facebook", href: "#",                        color: "#1877F2" },
-  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/4412345678", color: "#25D366" },
+  { icon: Linkedin,      label: "LinkedIn", href: "#",                               color: "#0A66C2" },
+  { icon: Facebook,      label: "Facebook", href: "#",                               color: "#1877F2" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/447570792516",      color: "#25D366" },
 ];
 
 /* ─── Floating Orb ─────────────────────────────────────────────────── */
