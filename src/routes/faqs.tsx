@@ -1,7 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import {
@@ -26,7 +33,9 @@ const categories = [
   {
     label: "Process",
     icon: Zap,
-    color: "from-blue-600 to-cyan-500",
+    color: "#3b82f6",
+    bg: "rgba(59,130,246,0.10)",
+    gradient: "from-blue-600 to-cyan-500",
     faqs: [
       {
         q: "How long does a typical project take?",
@@ -45,7 +54,9 @@ const categories = [
   {
     label: "Pricing",
     icon: Shield,
-    color: "from-violet-600 to-purple-500",
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
+    gradient: "from-violet-600 to-purple-500",
     faqs: [
       {
         q: "How do you price projects?",
@@ -64,7 +75,9 @@ const categories = [
   {
     label: "Global",
     icon: Globe,
-    color: "from-emerald-600 to-teal-500",
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
+    gradient: "from-emerald-600 to-teal-500",
     faqs: [
       {
         q: "Do you work with international clients?",
@@ -84,6 +97,12 @@ const categories = [
 
 const allFaqs = categories.flatMap((c) => c.faqs);
 
+const heroPills = [
+  { icon: Star,   label: "Trusted by 450+ clients", color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
+  { icon: Clock,  label: "Response in 24hrs",        color: "#06b6d4", bg: "rgba(6,182,212,0.10)"   },
+  { icon: Shield, label: "No commitment needed",     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
+];
+
 /* ─── Helpers ──────────────────────────────────────────────────────── */
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -101,67 +120,35 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── Decorative SVG ───────────────────────────────────────────────── */
-function HeroDecoration() {
+/* ── 3D Tilt Card ─────────────────────────────────────────────────── */
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 200, damping: 22 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 200, damping: 22 });
+
+  const handleMouse = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  }, [x, y]);
+
   return (
-    <svg
-      viewBox="0 0 800 320"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full opacity-60"
-      aria-hidden="true"
+    <motion.div
+      ref={ref}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      onMouseMove={handleMouse}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      className={className}
     >
-      <defs>
-        <linearGradient id="faq-g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.05" />
-        </linearGradient>
-        <linearGradient id="faq-g2" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
-        </linearGradient>
-        <filter id="faq-blur" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="18" />
-        </filter>
-      </defs>
-
-      {/* Blobs */}
-      <ellipse cx="160" cy="160" rx="140" ry="110" fill="url(#faq-g1)" filter="url(#faq-blur)" />
-      <ellipse cx="640" cy="120" rx="120" ry="100" fill="url(#faq-g2)" filter="url(#faq-blur)" />
-      <ellipse cx="400" cy="240" rx="90" ry="70" fill="hsl(var(--primary))" opacity="0.07" filter="url(#faq-blur)" />
-
-      {/* Floating question-mark dots */}
-      {[
-        [80, 60], [700, 40], [200, 260], [560, 280], [400, 50], [300, 200],
-      ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r={i % 2 === 0 ? 4 : 6} fill="hsl(var(--primary))" opacity={0.12 + i * 0.04} />
-      ))}
-
-      {/* Grid lines */}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <line key={`v${i}`} x1={i * 88} y1="0" x2={i * 88} y2="320" stroke="hsl(var(--primary))" strokeOpacity="0.04" strokeWidth="1" />
-      ))}
-      {Array.from({ length: 6 }).map((_, i) => (
-        <line key={`h${i}`} x1="0" y1={i * 64} x2="800" y2={i * 64} stroke="hsl(var(--primary))" strokeOpacity="0.04" strokeWidth="1" />
-      ))}
-
-      {/* Floating cards suggestion */}
-      <rect x="580" y="60" width="160" height="90" rx="16" fill="hsl(var(--card))" opacity="0.5" />
-      <rect x="596" y="78" width="60" height="8" rx="4" fill="hsl(var(--primary))" opacity="0.3" />
-      <rect x="596" y="92" width="128" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.15" />
-      <rect x="596" y="102" width="100" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.1" />
-      <rect x="596" y="116" width="80" height="20" rx="6" fill="hsl(var(--primary))" opacity="0.18" />
-
-      <rect x="50" y="170" width="140" height="80" rx="14" fill="hsl(var(--card))" opacity="0.5" />
-      <circle cx="76" cy="200" r="16" fill="hsl(var(--primary))" opacity="0.2" />
-      <rect x="100" y="192" width="74" height="7" rx="3.5" fill="hsl(var(--primary))" opacity="0.25" />
-      <rect x="100" y="204" width="54" height="5" rx="2.5" fill="hsl(var(--primary))" opacity="0.15" />
-      <rect x="62" y="224" width="112" height="14" rx="5" fill="hsl(var(--primary))" opacity="0.12" />
-    </svg>
+      {children}
+    </motion.div>
   );
 }
 
-/* ─── FAQ Accordion Item ───────────────────────────────────────────── */
+/* ─── FAQ Accordion Item — colors intentionally unchanged ─────────── */
 function FaqItem({
   q, a, index, isOpen, onToggle,
 }: {
@@ -172,21 +159,12 @@ function FaqItem({
 
   const handleToggle = () => {
     const previousTop = buttonRef.current?.getBoundingClientRect().top;
-
     onToggle();
-
-    if (typeof previousTop !== "number") {
-      return;
-    }
-
+    if (typeof previousTop !== "number") return;
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         const nextTop = buttonRef.current?.getBoundingClientRect().top;
-
-        if (typeof nextTop !== "number") {
-          return;
-        }
-
+        if (typeof nextTop !== "number") return;
         window.scrollBy({ top: nextTop - previousTop, left: 0, behavior: "auto" });
       });
     });
@@ -267,20 +245,41 @@ function CategoryTab({
   cat: typeof categories[0]; active: boolean; onClick: () => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
-        active
-          ? "gradient-primary text-primary-foreground shadow-elegant"
-          : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
-      }`}
-    >
-      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-linear-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
-        <cat.icon className="h-3 w-3 text-white" />
-      </div>
-      {cat.label}
-    </button>
+    <TiltCard>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 overflow-hidden ${
+          active
+            ? "gradient-primary text-primary-foreground shadow-elegant"
+            : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
+        }`}
+      >
+        {/* Color wash on hover when inactive */}
+        {!active && (
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300 rounded-2xl pointer-events-none"
+            style={{ background: cat.color }}
+          />
+        )}
+        <div
+          className="h-5 w-5 rounded-md flex items-center justify-center shrink-0 relative"
+          style={{
+            background: active
+              ? "rgba(255,255,255,0.25)"
+              : cat.bg,
+            boxShadow: `0 2px 8px ${cat.color}30`,
+          }}
+        >
+          <cat.icon className="h-3 w-3" style={{ color: active ? "white" : cat.color }} />
+        </div>
+        <span className="relative">{cat.label}</span>
+        {/* Bottom accent on active */}
+        {active && (
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/30" />
+        )}
+      </button>
+    </TiltCard>
   );
 }
 
@@ -303,7 +302,7 @@ function FAQs() {
   const handleQuestionToggle = (question: string) => {
     setOpenQuestions((current) =>
       current.includes(question)
-        ? current.filter((openQuestion) => openQuestion !== question)
+        ? current.filter((q) => q !== question)
         : [...current, question],
     );
   };
@@ -317,7 +316,6 @@ function FAQs() {
         <GridBackground />
         <FloatingShapes />
 
-        {/* Ambient orbs */}
         <motion.div
           animate={{ scale: [1, 1.18, 1], opacity: [0.2, 0.45, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -367,18 +365,19 @@ function FAQs() {
                 </Link>
               </motion.p>
 
+              {/* Colored pills matching index.tsx pattern */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
                 className="mt-8 flex flex-wrap justify-center gap-3"
               >
-                {[
-                  { icon: Star,   label: "Trusted by 450+ clients" },
-                  { icon: Clock,  label: "Response in 24hrs"       },
-                  { icon: Shield, label: "No commitment needed"    },
-                ].map((p) => (
-                  <span key={p.label} className="inline-flex items-center gap-1.5 glass rounded-full px-4 py-1.5 text-xs font-semibold text-primary">
+                {heroPills.map((p) => (
+                  <span
+                    key={p.label}
+                    className="inline-flex items-center gap-1.5 glass rounded-full px-4 py-1.5 text-xs font-semibold"
+                    style={{ color: p.color }}
+                  >
                     <p.icon className="h-3 w-3" />
                     {p.label}
                   </span>
@@ -405,8 +404,54 @@ function FAQs() {
         </motion.div>
       </section>
 
+      {/* ══════════════════ CATEGORY STATS STRIP ═══════════════════════ */}
+      <section className="relative border-y border-border/40 py-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/10 to-background pointer-events-none" />
+        <div className="mx-auto max-w-4xl px-4">
+          <div className="grid grid-cols-3 gap-4">
+            {categories.map((cat, i) => (
+              <TiltCard key={cat.label}>
+                <motion.button
+                  type="button"
+                  onClick={() => handleCategoryChange(activeCategory === i ? null : i)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                  className={`group w-full glass rounded-2xl px-5 py-5 text-center cursor-pointer hover:shadow-glow transition-all duration-300 relative overflow-hidden ${
+                    activeCategory === i ? "border border-primary/30 shadow-glow" : "border border-transparent"
+                  }`}
+                >
+                  {/* Color wash */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 rounded-2xl pointer-events-none"
+                    style={{ background: cat.color }}
+                  />
+                  <div
+                    className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: cat.bg, boxShadow: `0 4px 16px ${cat.color}22` }}
+                  >
+                    <cat.icon className="h-5 w-5" style={{ color: cat.color }} />
+                  </div>
+                  <div className="text-sm font-bold" style={{ color: activeCategory === i ? cat.color : undefined }}>
+                    {cat.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{cat.faqs.length} questions</div>
+                  {/* Bottom accent */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                    style={{ background: `linear-gradient(to right, transparent, ${cat.color}66, transparent)` }}
+                  />
+                </motion.button>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══════════════════ CATEGORY TABS ══════════════════════════════ */}
-      <section className="mx-auto max-w-4xl px-4 pt-16 pb-6">
+      <section className="mx-auto max-w-4xl px-4 pt-10 pb-6">
         <motion.div {...fadeUp()} className="flex flex-wrap items-center gap-3 justify-center">
           <button
             type="button"
@@ -458,7 +503,6 @@ function FAQs() {
       {/* ══════════════════ BOTTOM CTA ══════════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
         <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
-          {/* Background glow */}
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
           <motion.div
             animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
@@ -472,7 +516,6 @@ function FAQs() {
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
           />
-
           <div className="relative">
             <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
               <MessageCircle className="h-7 w-7 text-primary-foreground" />
