@@ -116,7 +116,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.92 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col items-center justify-center py-16 px-8 text-center h-full min-h-[420px]"
+      className="flex flex-col items-center justify-center py-16 px-8 text-center h-full min-h-105"
     >
       {/* Icon */}
       <motion.div
