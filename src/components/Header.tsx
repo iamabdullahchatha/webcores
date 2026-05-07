@@ -21,6 +21,36 @@ const nav = [
   { name: "Contact", to: "/contact" },
 ];
 
+const navItemVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.05, duration: 0.3 },
+  }),
+};
+
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -8, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.2, ease: "easeOut" },
+  },
+  exit: { opacity: 0, y: -8, scale: 0.95, transition: { duration: 0.15 } },
+};
+
+const mobileMenuVariants = {
+  hidden: { opacity: 0, height: 0 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+  exit: { opacity: 0, height: 0, transition: { duration: 0.2 } },
+};
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -36,14 +66,14 @@ export function Header() {
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "py-3" : "py-5"
       }`}
     >
       <div className={`mx-auto max-w-7xl px-4`}>
         <div
-          className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all ${
+          className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all duration-300 ${
             scrolled ? "shadow-elegant" : ""
           }`}
           style={
@@ -57,36 +87,62 @@ export function Header() {
               : undefined
           }
         >
-          <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="Webcore Solutions" className="h-10 md:h-12 w-auto" />
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
+            aria-label="Home"
+          >
+            <img
+              src={logo}
+              alt="Webcore Solutions"
+              className="h-10 md:h-12 w-auto"
+            />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
-            {nav.map((item) => (
-              <div
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-0.5">
+            {nav.map((item, index) => (
+              <motion.div
                 key={item.name}
                 className="relative"
+                custom={index}
+                variants={navItemVariants}
+                initial="hidden"
+                animate="visible"
                 onMouseEnter={() => item.dropdown && setDrop(true)}
                 onMouseLeave={() => item.dropdown && setDrop(false)}
               >
                 <Link
                   to={item.to}
-                  className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors flex items-center gap-1 group"
-                  activeProps={{ className: "relative px-4 py-2 text-sm font-semibold text-primary flex items-center gap-1 group" }}
+                  className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200 flex items-center gap-1.5 group"
+                  activeProps={{
+                    className:
+                      "relative px-4 py-2 text-sm font-semibold text-primary flex items-center gap-1.5 group",
+                  }}
                   activeOptions={{ exact: item.to === "/" }}
                 >
                   {item.name}
-                  {item.dropdown && <ChevronDown className="h-3.5 w-3.5" />}
+                  {item.dropdown && (
+                    <motion.div
+                      animate={{ rotate: drop ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    </motion.div>
+                  )}
                   <span className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </Link>
 
+                {/* Desktop Dropdown */}
                 <AnimatePresence>
                   {item.dropdown && drop && (
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-2 w-64 rounded-xl p-2 shadow-elegant"
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="absolute top-full left-0 mt-3 w-64 rounded-xl p-2 shadow-elegant"
                       style={{
                         backdropFilter: "blur(24px)",
                         WebkitBackdropFilter: "blur(24px)",
@@ -94,58 +150,112 @@ export function Header() {
                         border: "1px solid rgba(255, 255, 255, 0.5)",
                       }}
                     >
-                      {services.map((s) => (
-                        <Link
+                      {services.map((s, idx) => (
+                        <motion.div
                           key={s.name}
-                          to={s.to}
-                          className="block rounded-lg px-3 py-2 text-sm hover:bg-primary/10 hover:text-primary transition"
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.04, duration: 0.2 }}
                         >
-                          {s.name}
-                        </Link>
+                          <Link
+                            to={s.to}
+                            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-primary/10 hover:text-primary transition-all duration-200 hover:pl-4"
+                          >
+                            {s.name}
+                          </Link>
+                        </motion.div>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
           </nav>
 
+          {/* CTA and Mobile Menu Button */}
           <div className="flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="hidden md:inline-flex items-center rounded-xl gradient-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] active:scale-[0.97] active:translate-y-0"
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="hidden md:block"
             >
-              Book Consultation
-            </Link>
-            <button
+              <Link
+                to="/contact"
+                className="inline-flex items-center rounded-xl gradient-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold shadow-elegant hover:shadow-glow transition-all duration-200"
+              >
+                Book Consultation
+              </Link>
+            </motion.div>
+
+            {/* Mobile Menu Toggle */}
+            <motion.button
               onClick={() => setOpen(!open)}
-              className="lg:hidden p-2 rounded-lg glass"
-              aria-label="Menu"
+              className="lg:hidden p-2 rounded-lg glass hover:bg-primary/10 transition-colors duration-200"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={open ? "close" : "menu"}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {open ? (
+                    <X className="h-5 w-5" />
+                  ) : (
+                    <Menu className="h-5 w-5" />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
 
+        {/* Mobile Menu */}
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="lg:hidden mt-2 glass rounded-2xl overflow-hidden"
             >
               <div className="p-4 flex flex-col gap-1">
-                {nav.map((item) => (
-                  <Link
+                {nav.map((item, index) => (
+                  <motion.div
                     key={item.name}
-                    to={item.to}
-                    onClick={() => setOpen(false)}
-                    className="px-4 py-3 rounded-lg hover:bg-primary/10 text-sm font-medium"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.2 }}
                   >
-                    {item.name}
-                  </Link>
+                    <Link
+                      to={item.to}
+                      onClick={() => setOpen(false)}
+                      className="block px-4 py-3 rounded-lg hover:bg-primary/10 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200"
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: nav.length * 0.05, duration: 0.2 }}
+                  className="mt-2 pt-2 border-t border-primary/10"
+                >
+                  <Link
+                    to="/contact"
+                    onClick={() => setOpen(false)}
+                    className="block px-4 py-3 rounded-lg gradient-primary text-primary-foreground text-sm font-semibold text-center transition-all duration-200 hover:shadow-glow"
+                  >
+                    Book Consultation
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
           )}
