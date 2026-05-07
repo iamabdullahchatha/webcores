@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import imgSoftware1 from "@/assets/software-1.webp";
 
 export const Route = createFileRoute("/services/software-development")({
   head: () => ({
@@ -69,11 +70,11 @@ const features = [
 ];
 
 const processSteps = [
-  { n: "01", t: "Discovery",  d: "Requirements, success metrics and technical constraints.", icon: Eye,       color: "#6366f1" },
-  { n: "02", t: "Architect",  d: "System design, data models and infrastructure blueprint.",  icon: Server,    color: "#06b6d4" },
-  { n: "03", t: "Build",      d: "Sprint-based delivery with fortnightly live demos.",        icon: Code2,     color: "#f59e0b" },
-  { n: "04", t: "Test",       d: "Unit, integration, load and security testing.",             icon: Shield,    color: "#10b981" },
-  { n: "05", t: "Ship",       d: "Deploy, monitor, iterate — and own what you've built.",    icon: Zap,       color: "#f43f5e" },
+  { n: "01", t: "Discovery",  d: "Requirements, success metrics and technical constraints.", icon: Eye,    color: "#6366f1" },
+  { n: "02", t: "Architect",  d: "System design, data models and infrastructure blueprint.",  icon: Server, color: "#06b6d4" },
+  { n: "03", t: "Build",      d: "Sprint-based delivery with fortnightly live demos.",        icon: Code2,  color: "#f59e0b" },
+  { n: "04", t: "Test",       d: "Unit, integration, load and security testing.",             icon: Shield, color: "#10b981" },
+  { n: "05", t: "Ship",       d: "Deploy, monitor, iterate — and own what you've built.",    icon: Zap,    color: "#f43f5e" },
 ];
 
 const deliverables = [
@@ -87,21 +88,21 @@ const deliverables = [
 ];
 
 const techStack = [
-  { name: "TypeScript",  color: "#6366f1" },
-  { name: "Node.js",     color: "#10b981" },
-  { name: "Python",      color: "#f59e0b" },
-  { name: "PostgreSQL",  color: "#06b6d4" },
-  { name: "Redis",       color: "#f43f5e" },
-  { name: "Kubernetes",  color: "#8b5cf6" },
-  { name: "OpenAI",      color: "#ec4899" },
-  { name: "tRPC",        color: "#f59e0b" },
+  { name: "TypeScript", color: "#6366f1" },
+  { name: "Node.js",    color: "#10b981" },
+  { name: "Python",     color: "#f59e0b" },
+  { name: "PostgreSQL", color: "#06b6d4" },
+  { name: "Redis",      color: "#f43f5e" },
+  { name: "Kubernetes", color: "#8b5cf6" },
+  { name: "OpenAI",     color: "#ec4899" },
+  { name: "tRPC",       color: "#f59e0b" },
 ];
 
 const stats = [
-  { v: "200+", l: "Products shipped"         },
-  { v: "99%",  l: "On-time delivery rate"    },
-  { v: "4–8w", l: "MVP to production"        },
-  { v: "100%", l: "IP owned by you"          },
+  { v: "200+", l: "Products shipped"      },
+  { v: "99%",  l: "On-time delivery rate" },
+  { v: "4–8w", l: "MVP to production"     },
+  { v: "100%", l: "IP owned by you"       },
 ];
 
 const testimonials = [
@@ -250,6 +251,212 @@ function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
   );
 }
 
+/* ─── Software Overview (image section) ─────────────────────────────── */
+function SoftwareOverview() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
+      <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        {/* ── Left: narrative copy ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+        >
+          <SectionLabel>Our Engineering</SectionLabel>
+
+          <h2 className="text-3xl md:text-[2.25rem] font-bold leading-tight mb-5">
+            Production-grade code,{" "}
+            <span className="gradient-text">built to last.</span>
+          </h2>
+
+          <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">
+            Every system we ship is architected for the long term — clean separation of
+            concerns, comprehensive test coverage and CI/CD pipelines that let your team
+            move fast without breaking things.
+          </p>
+
+          {/* Three proof-point rows */}
+          <ul className="space-y-5 mb-9">
+            {[
+              {
+                icon: Lock, color: "#6366f1",
+                label: "100% IP ownership on delivery",
+                sub: "Every file, schema and line of code belongs to you outright — no licensing fees or lock-in",
+              },
+              {
+                icon: Shield, color: "#06b6d4",
+                label: "Production-grade from day one",
+                sub: "Tests, CI/CD, observability and security baked in — not bolted on before launch",
+              },
+              {
+                icon: GitBranch, color: "#10b981",
+                label: "Sprint-based, transparent delivery",
+                sub: "Fortnightly demos, clear milestones and a change process that keeps scope under control",
+              },
+            ].map((item, i) => (
+              <motion.li
+                key={item.label}
+                initial={{ opacity: 0, x: -14 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.12 + i * 0.09, duration: 0.5, ease: "easeOut" as const }}
+                className="flex items-start gap-4 group"
+              >
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200"
+                  style={{ background: `${item.color}18`, boxShadow: `0 2px 10px ${item.color}20` }}
+                >
+                  <item.icon className="h-4 w-4" style={{ color: item.color }} />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold leading-none mb-1.5">{item.label}</p>
+                  <p className="text-xs text-muted-foreground leading-snug">{item.sub}</p>
+                </div>
+              </motion.li>
+            ))}
+          </ul>
+
+          {/* Compact stat row */}
+          <div className="flex items-center gap-8 pt-6 border-t border-border/25">
+            {[
+              { v: "200+", l: "Products shipped",    color: "#6366f1" },
+              { v: "4–8w", l: "MVP to production",   color: "#f59e0b" },
+              { v: "99%",  l: "On-time delivery",    color: "#10b981" },
+            ].map((s) => (
+              <div key={s.l}>
+                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>{s.v}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5 leading-none">{s.l}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Right: contained image card ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] as const }}
+          className="relative"
+        >
+          {/* Soft ambient glow */}
+          <div
+            className="absolute -inset-5 rounded-3xl pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 80% 70% at 55% 45%, rgba(6,182,212,0.12) 0%, transparent 72%)",
+              filter: "blur(24px)",
+            }}
+          />
+
+          {/* Card wrapper */}
+          <div
+            className="relative rounded-2xl overflow-hidden border border-border/25 group"
+            style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)" }}
+          >
+            {/* Image — 4:3 aspect */}
+            <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+              <img
+                src={imgSoftware1}
+                alt="Software engineering team building a production-grade system"
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                loading="eager"
+                decoding="async"
+              />
+
+              {/* Bottom gradient for caption readability */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
+                }}
+              />
+
+              {/* Subtle brand tint — top-left */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: "linear-gradient(130deg, rgba(6,182,212,0.20) 0%, transparent 48%)",
+                }}
+              />
+
+              {/* Top-right: live indicator */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
+                className="absolute top-3.5 right-3.5 flex items-center gap-1.5 rounded-full px-3 py-1.5 backdrop-blur-md border border-white/12"
+                style={{ background: "rgba(0,0,0,0.38)" }}
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                <span className="text-[10px] font-semibold text-white/80 tracking-wide">Production-grade</span>
+              </motion.div>
+
+              {/* Bottom-left: caption badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+                className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-md px-3 py-1.5 backdrop-blur-md border border-cyan-400/30"
+                style={{ background: "rgba(6,100,180,0.48)" }}
+              >
+                <Database className="h-2.5 w-2.5 text-cyan-300 shrink-0" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
+                  Software Development
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Card footer: three metrics */}
+            <div
+              className="grid grid-cols-3 divide-x divide-border/25"
+              style={{ background: "hsl(var(--card))" }}
+            >
+              {[
+                { v: "200+",    l: "Products shipped",    color: "#6366f1" },
+                { v: "99%",     l: "On-time delivery",    color: "#06b6d4" },
+                { v: "30 days", l: "Post-launch support", color: "#10b981" },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, y: 6 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" as const }}
+                  className="flex flex-col items-center py-4 px-3"
+                >
+                  <span
+                    className="text-[15px] font-bold leading-none tabular-nums"
+                    style={{ color: s.color }}
+                  >
+                    {s.v}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground mt-1.5 text-center leading-snug">
+                    {s.l}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Decorative offset border */}
+          <div
+            className="absolute -bottom-2.5 -right-2.5 w-20 h-20 rounded-xl pointer-events-none border border-primary/10"
+            style={{ background: "rgba(6,182,212,0.03)" }}
+          />
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
 /* ─── Main Page ──────────────────────────────────────────────────────── */
 function SoftwareDevelopment() {
   const heroRef = useRef<HTMLElement>(null);
@@ -266,7 +473,6 @@ function SoftwareDevelopment() {
         <GridBackground />
         <FloatingShapes />
 
-        {/* Ambient orbs */}
         <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
@@ -275,7 +481,6 @@ function SoftwareDevelopment() {
           transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-12 rounded-full pointer-events-none"
           style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }} />
-        {/* Cyan/indigo accent for software/engineering theme */}
         <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
           className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
@@ -308,14 +513,13 @@ function SoftwareDevelopment() {
                   — built with the rigour your business deserves, and the velocity your roadmap demands.
                 </motion.p>
 
-                {/* Pill badges */}
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.38, type: "tween", ease: "easeOut" }}
                   className="mt-7 flex flex-wrap gap-2.5">
                   {[
-                    { icon: Lock,     label: "Full IP ownership"         },
-                    { icon: Shield,   label: "Production-grade from day 1" },
-                    { icon: GitBranch, label: "CI/CD included"            },
+                    { icon: Lock,      label: "Full IP ownership"          },
+                    { icon: Shield,    label: "Production-grade from day 1" },
+                    { icon: GitBranch, label: "CI/CD included"              },
                   ].map((p) => (
                     <span key={p.label}
                       className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80">
@@ -325,7 +529,6 @@ function SoftwareDevelopment() {
                   ))}
                 </motion.div>
 
-                {/* CTAs */}
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.48, type: "tween", ease: "easeOut" }}
                   className="mt-9 flex flex-wrap gap-4">
@@ -363,6 +566,9 @@ function SoftwareDevelopment() {
           </div>
         </motion.div>
       </section>
+
+      {/* ════════════════ SOFTWARE OVERVIEW (image section) ════════════════ */}
+      <SoftwareOverview />
 
       {/* ═══════════════════════════════ FEATURES ═════════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-24">
@@ -406,7 +612,6 @@ function SoftwareDevelopment() {
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="grid md:grid-cols-2 gap-6">
 
-          {/* Deliverables */}
           <motion.div {...fadeUp()}>
             <div className="glass border border-border/35 rounded-2xl p-8 h-full">
               <SectionLabel>Deliverables</SectionLabel>
@@ -426,7 +631,6 @@ function SoftwareDevelopment() {
             </div>
           </motion.div>
 
-          {/* Tech Stack */}
           <motion.div {...fadeUp(0.1)}>
             <div className="glass border border-border/35 rounded-2xl p-8 h-full">
               <SectionLabel>Tech Stack</SectionLabel>
@@ -447,8 +651,6 @@ function SoftwareDevelopment() {
                   </motion.div>
                 ))}
               </div>
-
-              {/* IP callout */}
               <div className="mt-8 flex items-start gap-3 p-4 bg-primary/5 border border-primary/15 rounded-xl">
                 <Lock className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
@@ -474,7 +676,6 @@ function SoftwareDevelopment() {
         </motion.div>
 
         <div className="relative">
-          {/* Connector line */}
           <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
             transition={{ duration: 1.1, delay: 0.3, type: "tween", ease: "easeOut" }}
             className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-border/60 to-transparent origin-left" />
@@ -514,7 +715,6 @@ function SoftwareDevelopment() {
             <motion.div key={t.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: "easeOut" }}>
               <Card3D className="bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-6 h-full hover:border-border/60 transition-colors duration-300">
-                {/* Stars — yellow, not primary */}
                 <div className="flex items-center gap-0.5 mb-4">
                   {Array.from({ length: t.stars }).map((_, j) => (
                     <Star key={j} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
@@ -564,7 +764,6 @@ function SoftwareDevelopment() {
         <motion.div {...fadeUp()}
           className="relative overflow-hidden rounded-2xl gradient-primary shadow-elegant">
 
-          {/* Background detail */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <svg className="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -592,7 +791,6 @@ function SoftwareDevelopment() {
             ))}
           </div>
 
-          {/* Two-col layout */}
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-8 px-8 py-10 md:px-12">
             <div className="flex-1 text-left">
               <div className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">
