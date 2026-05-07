@@ -152,11 +152,11 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
     >
       {/* Active left accent */}
       <div
-        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 bg-gradient-to-b from-cyan-400 to-violet-500 ${open ? "opacity-100" : "opacity-0"}`}
+        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 bg-linear-to-b from-cyan-400 to-violet-500 ${open ? "opacity-100" : "opacity-0"}`}
       />
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/[0.03] transition-colors duration-200"
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >
         <span className="font-semibold text-sm md:text-base pr-4">{q}</span>
         <motion.div
@@ -292,7 +292,7 @@ function About() {
 
       {/* ══════════════════════ STATS ══════════════════════════════════ */}
       <section className="relative border-y border-border/40 py-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/10 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-muted/10 to-background pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((s, i) => (
@@ -376,7 +376,7 @@ function About() {
 
           {/* Timeline */}
           <motion.div {...fadeUp(0.1)} className="relative">
-            <div className="absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-primary/60 via-primary/20 to-transparent" />
+            <div className="absolute left-5 top-2 bottom-2 w-px bg-linear-to-b from-primary/60 via-primary/20 to-transparent" />
             <div className="space-y-6">
               {timeline.map((item, i) => (
                 <motion.div

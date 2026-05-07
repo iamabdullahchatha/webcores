@@ -218,7 +218,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
             )}
 
             {/* Hover shimmer */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Tags */}
             <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
@@ -390,7 +390,7 @@ function Services() {
 
       {/* ══════════════════════ STATS STRIP ════════════════════════════ */}
       <section className="relative border-y border-border/40 py-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/10 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-muted/10 to-background pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
             {stats.map((s, i) => (
