@@ -406,7 +406,7 @@ function FAQs() {
 
       {/* ══════════════════ CATEGORY STATS STRIP ═══════════════════════ */}
       <section className="relative border-y border-border/40 py-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-muted/10 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-muted/10 to-background pointer-events-none" />
         <div className="mx-auto max-w-4xl px-4">
           <div className="grid grid-cols-3 gap-4">
             {categories.map((cat, i) => (
