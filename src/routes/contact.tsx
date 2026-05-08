@@ -94,7 +94,7 @@ const contactInfo = [
   {
     icon: Phone,
     label: "UK",
-    value: "+44 12345678",
+    value: "+44 7570 792516",
     color: "#06b6d4",
     bg: "rgba(6,182,212,0.10)",
   },
