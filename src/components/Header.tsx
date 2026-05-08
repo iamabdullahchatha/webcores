@@ -224,7 +224,14 @@ export function Header() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden mt-2 glass rounded-2xl overflow-hidden"
+              className="lg:hidden mt-2 rounded-2xl overflow-hidden"
+              style={{
+                backdropFilter: "blur(64px)",
+                WebkitBackdropFilter: "blur(64px)",
+                backgroundColor: "rgba(255, 255, 255, 0.92)",
+                border: "1px solid rgba(255, 255, 255, 0.6)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.08)",
+              }}
             >
               <div className="p-4 flex flex-col gap-1">
                 {nav.map((item, index) => (
