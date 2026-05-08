@@ -101,7 +101,7 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Dubai",
-    value: "+971 3743029402",
+    value: "+971 50 716 9200",
     color: "#3b82f6",
     bg: "rgba(59,130,246,0.10)",
   },

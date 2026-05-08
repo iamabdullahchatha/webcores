@@ -309,7 +309,7 @@ export function Footer() {
               <ul className="space-y-4">
                 {[
                   { icon: Phone,  label: "UK",    value: "+44 7570 792516" },
-                  { icon: Phone,  label: "Dubai", value: "+971 3743029402" },
+                  { icon: Phone,  label: "Dubai", value: "+971 50 716 9200" },
                   { icon: Mail,   label: "Email", value: "info@webcoreuae.com" },
                   { icon: MapPin, label: "HQ",    value: "Dubai, United Arab Emirates" },
                 ].map(({ icon: Icon, label, value }) => (
