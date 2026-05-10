@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -10,10 +10,10 @@ export default async function handler(req, res) {
   try {
     const { name, email, phone, service, subject, message } = req.body;
 
-    await resend.emails.send({
+    const data = await resend.emails.send({
       from: "Webcore Solutions <onboarding@resend.dev>",
       to: ["info@webcoreuae.com"],
-      subject: subject || "New Contact Form",
+      subject: subject || "New Contact Form Message",
       replyTo: email,
 
       html: `
@@ -26,8 +26,9 @@ export default async function handler(req, res) {
       `,
     });
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, data });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ success: false, error: error.message });
   }
 }
