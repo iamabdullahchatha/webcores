@@ -589,10 +589,6 @@ function ServiceDropdown({
 /* Contact Form */
 /* ──────────────────────────────────────────────────────────────────── */
 
-/* ──────────────────────────────────────────────────────────────────── */
-/* Contact Form */
-/* ──────────────────────────────────────────────────────────────────── */
-
 function ContactForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -621,19 +617,12 @@ function ContactForm() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/send-email", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          service: form.service,
-          subject: form.subject,
-          message: form.message,
-        }),
+        body: JSON.stringify(form),
       });
 
       const data = await response.json();
@@ -655,9 +644,7 @@ function ContactForm() {
     } catch (error) {
       console.error("Contact form error:", error);
 
-      alert(
-        "Something went wrong while sending your message. Please try again."
-      );
+      alert("Something went wrong while sending your message. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -674,7 +661,6 @@ function ContactForm() {
             key="success"
             onReset={() => {
               setSent(false);
-
               setForm({
                 name: "",
                 email: "",
@@ -698,144 +684,75 @@ function ContactForm() {
             </h2>
 
             <p className="text-muted-foreground text-sm mb-7">
-              Fill out the form and we'll get back to you
-              shortly.
+              Fill out the form and we'll get back to you shortly.
             </p>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    Your Name
-                  </label>
-
-                  <input
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="John Doe"
-                    className={inputClass}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    Email Address
-                  </label>
-
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="john@example.com"
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    Phone (Optional)
-                  </label>
-
-                  <input
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="+44 000 000 000"
-                    className={inputClass}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    Service Interested In
-                  </label>
-
-                  <ServiceDropdown
-                    value={form.service}
-                    onChange={(val) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        service: val,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  Subject
-                </label>
-
                 <input
-                  name="subject"
-                  value={form.subject}
+                  name="name"
+                  value={form.name}
                   onChange={handleChange}
                   required
-                  placeholder="How can we help?"
+                  placeholder="Your Name"
+                  className={inputClass}
+                />
+
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email Address"
                   className={inputClass}
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  Message
-                </label>
-
-                <textarea
-                  name="message"
-                  value={form.message}
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input
+                  name="phone"
+                  value={form.phone}
                   onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Tell us about your project, goals, and timeline..."
-                  className={`${inputClass} resize-none`}
+                  placeholder="Phone (optional)"
+                  className={inputClass}
+                />
+
+                <input
+                  name="service"
+                  value={form.service}
+                  onChange={handleChange}
+                  placeholder="Service"
+                  className={inputClass}
                 />
               </div>
 
-              <div className="flex items-center justify-between gap-4 pt-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Shield className="h-3.5 w-3.5 text-primary/50" />
-                  Your data is safe and never shared.
-                </div>
+              <input
+                name="subject"
+                value={form.subject}
+                onChange={handleChange}
+                required
+                placeholder="Subject"
+                className={inputClass}
+              />
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="group relative inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm disabled:opacity-70 disabled:pointer-events-none overflow-hidden"
-                >
-                  {loading && (
-                    <motion.div
-                      className="absolute inset-0 bg-white/10"
-                      animate={{
-                        x: ["-100%", "100%"],
-                      }}
-                      transition={{
-                        duration: 0.9,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                  )}
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                placeholder="Your Message..."
+                className={`${inputClass} resize-none`}
+              />
 
-                  <span className="relative">
-                    {loading
-                      ? "Sending..."
-                      : "Send message"}
-                  </span>
-
-                  <Send className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 relative" />
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full gradient-primary text-white py-3 rounded-xl font-semibold hover:scale-[1.02] transition disabled:opacity-60"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
             </form>
           </motion.div>
         )}

@@ -10,12 +10,11 @@ export default async function handler(req, res) {
   try {
     const { name, email, phone, service, subject, message } = req.body;
 
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: "Webcore Solutions <onboarding@resend.dev>",
       to: ["info@webcoreuae.com"],
-      subject: subject || "New Contact Form Message",
+      subject: subject || "New Contact Form",
       replyTo: email,
-
       html: `
         <h2>New Message</h2>
         <p><b>Name:</b> ${name}</p>
@@ -26,9 +25,8 @@ export default async function handler(req, res) {
       `,
     });
 
-    return res.status(200).json({ success: true, data });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ success: false, error: error.message });
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
   }
 }
