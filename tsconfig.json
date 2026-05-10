@@ -1,11 +1,20 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "eslint.config.js"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "api/**/*.ts",
+    "vite.config.ts",
+    "eslint.config.js"
+  ],
+
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",
     "module": "ESNext",
+
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
 
+    /* IMPORTANT: enables Node globals like process */
     "types": ["vite/client", "node"],
 
     /* Bundler mode */
@@ -14,14 +23,15 @@
     "verbatimModuleSyntax": false,
     "noEmit": true,
 
-    /* Linting */
-    "skipLibCheck": true,
+    /* Strictness */
     "strict": true,
+    "skipLibCheck": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    /* Path alias */
     "paths": {
       "@/*": ["./src/*"]
     }
