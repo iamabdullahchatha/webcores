@@ -589,6 +589,10 @@ function ServiceDropdown({
 /* Contact Form */
 /* ──────────────────────────────────────────────────────────────────── */
 
+/* ──────────────────────────────────────────────────────────────────── */
+/* Contact Form */
+/* ──────────────────────────────────────────────────────────────────── */
+
 function ContactForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -614,12 +618,49 @@ function ContactForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    await new Promise((r) => setTimeout(r, 1400));
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
 
-    setLoading(false);
-    setSent(true);
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSent(true);
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+
+      alert(
+        "Something went wrong while sending your message. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
