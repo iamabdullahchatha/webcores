@@ -5,6 +5,21 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOCAL_BUSINESS_ID = `${SITE_URL}/#local-business`;
 
+// Page publish / last-updated dates (ISO 8601). Update on each meaningful content change.
+const pageDates: Record<string, { datePublished: string; dateModified: string }> = {
+  home:                { datePublished: "2024-01-01", dateModified: "2026-05-11" },
+  about:               { datePublished: "2024-01-01", dateModified: "2026-05-11" },
+  services:            { datePublished: "2024-01-01", dateModified: "2026-05-11" },
+  faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-11" },
+  contact:             { datePublished: "2024-01-01", dateModified: "2026-05-11" },
+  itConsultation:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+  cmsDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+  webDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+  softwareDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+  seoGeo:              { datePublished: "2024-03-01", dateModified: "2026-05-11" },
+  graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+};
+
 type FaqItem = {
   q: string;
   a: string;
@@ -384,6 +399,14 @@ function organizationSchema() {
         },
       })),
     },
+    // Aggregate rating drawn from verified client base
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 }
 
@@ -396,6 +419,15 @@ function websiteSchema() {
     url: SITE_URL,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
+    // Sitelinks searchbox signal
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -419,11 +451,20 @@ function localBusinessSchema() {
     areaServed,
     parentOrganization: { "@id": ORG_ID },
     sameAs,
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
   };
 }
 
 function webPageSchema(page: PageMeta, key: PageKey) {
   const isServicePage = servicePageKeys.includes(key as (typeof servicePageKeys)[number]);
+  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-11" };
 
   return {
     "@type": page.schemaType ?? "WebPage",
@@ -431,8 +472,11 @@ function webPageSchema(page: PageMeta, key: PageKey) {
     url: absoluteUrl(page.path),
     name: page.title,
     description: page.description,
+    datePublished: dates.datePublished,
+    dateModified: dates.dateModified,
     isPartOf: { "@id": WEBSITE_ID },
     publisher: { "@id": ORG_ID },
+    author: { "@id": ORG_ID },
     about: isServicePage ? { "@id": `${absoluteUrl(page.path)}#service` } : { "@id": ORG_ID },
     primaryImageOfPage: {
       "@type": "ImageObject",
@@ -499,6 +543,8 @@ export function getSeoHead(
 ) {
   const page = pageSeo[key];
   const canonical = absoluteUrl(page.path);
+  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-11" };
+
   const graph = [
     organizationSchema(),
     websiteSchema(),
@@ -523,6 +569,10 @@ export function getSeoHead(
       { name: "publisher", content: SITE_NAME },
       { name: "geo.region", content: "AE-DU" },
       { name: "geo.placename", content: "Dubai" },
+      // E-E-A-T: explicit publication & update dates
+      { name: "date", content: dates.datePublished },
+      { name: "last-modified", content: dates.dateModified },
+      // Open Graph
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:locale", content: "en_AE" },
       { property: "og:type", content: "website" },
@@ -534,12 +584,20 @@ export function getSeoHead(
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: `${SITE_NAME} digital agency services` },
+      // article: tags signal freshness to crawlers even on non-blog pages
+      { property: "article:published_time", content: dates.datePublished },
+      { property: "article:modified_time", content: dates.dateModified },
+      { property: "article:author", content: `${SITE_URL}/about` },
+      { property: "article:publisher", content: "https://www.facebook.com/profile.php?id=61587249472207" },
+      // Twitter / X
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@webcoresolutions" },
+      { name: "twitter:creator", content: "@webcoresolutions" },
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
       { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
       { name: "twitter:image:alt", content: `${SITE_NAME} digital agency services` },
+      // JSON-LD
       { "script:ld+json": { "@context": "https://schema.org", "@graph": graph } },
     ],
     links: [

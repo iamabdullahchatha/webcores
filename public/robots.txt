@@ -2,4 +2,12 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# Prevent crawling of build artifacts / config
+Disallow: /.wrangler/
+Disallow: /.env
+
+# Sitemaps
 Sitemap: https://www.webcoreuae.com/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
