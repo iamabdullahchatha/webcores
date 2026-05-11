@@ -3,10 +3,27 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  Search, ArrowRight, ArrowUpRight, CheckCircle2, ChevronDown,
-  TrendingUp, Globe, MapPin, Link2, FileText, BarChart2,
-  Zap, Star, Eye, Target, Layers, Settings,
-  Award, Shield, Clock, Users,
+  Search,
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  ChevronDown,
+  TrendingUp,
+  Globe,
+  MapPin,
+  Link2,
+  FileText,
+  BarChart2,
+  Zap,
+  Star,
+  Eye,
+  Target,
+  Layers,
+  Settings,
+  Award,
+  Shield,
+  Clock,
+  Users,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -19,19 +36,85 @@ export const Route = createFileRoute("/services/seo-geo")({
 });
 
 const features = [
-  { icon: Settings, color: "#10b981", bg: "rgba(16,185,129,0.10)", t: "Technical SEO", d: "Core Web Vitals, crawlability, schema markup, site architecture and indexation — a bulletproof technical foundation that search engines reward." },
-  { icon: Target, color: "#06b6d4", bg: "rgba(6,182,212,0.10)", t: "Keyword & Content Strategy", d: "Search intent mapping, topic cluster architecture and editorial calendars — built to capture demand at every stage of the buyer journey." },
-  { icon: MapPin, color: "#f59e0b", bg: "rgba(245,158,11,0.10)", t: "Local & GEO SEO", d: "Google Business optimisation, citation building, geo-targeted landing pages and multi-location strategies for businesses that win locally." },
-  { icon: Link2, color: "#8b5cf6", bg: "rgba(139,92,246,0.10)", t: "Authority & Link Building", d: "White-hat digital PR and outreach that earns high-authority backlinks — sustainably increasing your domain's trust and topical authority." },
-  { icon: FileText, color: "#f43f5e", bg: "rgba(244,63,94,0.10)", t: "Content Optimisation", d: "On-page tuning of existing content to recover rankings, strengthen relevance signals and improve click-through rates from the SERPs." },
-  { icon: BarChart2, color: "#ec4899", bg: "rgba(236,72,153,0.10)", t: "Reporting & Analytics", d: "Transparent monthly dashboards connecting organic traffic, keyword movements and leads to real revenue — so you always know your ROI." },
+  {
+    icon: Settings,
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
+    t: "Technical SEO",
+    d: "Core Web Vitals, crawlability, schema markup, site architecture and indexation — a bulletproof technical foundation that search engines reward.",
+  },
+  {
+    icon: Target,
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.10)",
+    t: "Keyword & Content Strategy",
+    d: "Search intent mapping, topic cluster architecture and editorial calendars — built to capture demand at every stage of the buyer journey.",
+  },
+  {
+    icon: MapPin,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
+    t: "GEO & AI Search",
+    d: "Generative engine optimization, answer-ready content, entity signals and AI-search structure for brands that need to be understood and cited.",
+  },
+  {
+    icon: Link2,
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
+    t: "Authority & Link Building",
+    d: "White-hat digital PR and outreach that earns high-authority backlinks — sustainably increasing your domain's trust and topical authority.",
+  },
+  {
+    icon: FileText,
+    color: "#f43f5e",
+    bg: "rgba(244,63,94,0.10)",
+    t: "Content Optimisation",
+    d: "On-page tuning of existing content to recover rankings, strengthen relevance signals and improve click-through rates from the SERPs.",
+  },
+  {
+    icon: BarChart2,
+    color: "#ec4899",
+    bg: "rgba(236,72,153,0.10)",
+    t: "Reporting & Analytics",
+    d: "Transparent monthly dashboards connecting organic traffic, keyword movements and leads to real revenue — so you always know your ROI.",
+  },
 ];
 const processSteps = [
-  { n: "01", t: "Audit",    d: "Technical, content & backlink deep-dive.",         icon: Search,   color: "#10b981" },
-  { n: "02", t: "Strategy", d: "Keyword, topic & GEO roadmap tailored to you.",    icon: Target,   color: "#06b6d4" },
-  { n: "03", t: "Optimise", d: "On-page, technical fixes and schema deployment.",  icon: Settings, color: "#f59e0b" },
-  { n: "04", t: "Create",   d: "High-quality content & authority link campaigns.", icon: Layers,   color: "#8b5cf6" },
-  { n: "05", t: "Measure",  d: "Track, report, refine — every single month.",      icon: BarChart2,color: "#f43f5e" },
+  {
+    n: "01",
+    t: "Audit",
+    d: "Technical, content & backlink deep-dive.",
+    icon: Search,
+    color: "#10b981",
+  },
+  {
+    n: "02",
+    t: "Strategy",
+    d: "Keyword, topic & AI-search roadmap tailored to you.",
+    icon: Target,
+    color: "#06b6d4",
+  },
+  {
+    n: "03",
+    t: "Optimise",
+    d: "On-page, technical fixes and schema deployment.",
+    icon: Settings,
+    color: "#f59e0b",
+  },
+  {
+    n: "04",
+    t: "Create",
+    d: "High-quality content & authority link campaigns.",
+    icon: Layers,
+    color: "#8b5cf6",
+  },
+  {
+    n: "05",
+    t: "Measure",
+    d: "Track, report, refine — every single month.",
+    icon: BarChart2,
+    color: "#f43f5e",
+  },
 ];
 const deliverables = [
   "Full SEO audit with prioritised action plan",
@@ -43,45 +126,85 @@ const deliverables = [
   "Monthly performance report with commentary",
 ];
 const techStack = [
-  { name: "Ahrefs",          color: "#10b981" },
-  { name: "SEMrush",         color: "#f59e0b" },
-  { name: "Search Console",  color: "#06b6d4" },
-  { name: "GA4",             color: "#f43f5e" },
-  { name: "Screaming Frog",  color: "#8b5cf6" },
-  { name: "Schema.org",      color: "#ec4899" },
+  { name: "Ahrefs", color: "#10b981" },
+  { name: "SEMrush", color: "#f59e0b" },
+  { name: "Search Console", color: "#06b6d4" },
+  { name: "GA4", color: "#f43f5e" },
+  { name: "Screaming Frog", color: "#8b5cf6" },
+  { name: "Schema.org", color: "#ec4899" },
 ];
 const stats = [
-  { v: "200+", l: "Sites ranked on page one"       },
-  { v: "3×",   l: "Avg. traffic increase"           },
-  { v: "60d",  l: "First wins delivered"            },
-  { v: "100%", l: "White-hat methodology only"      },
+  { v: "200+", l: "Sites ranked on page one" },
+  { v: "3×", l: "Avg. traffic increase" },
+  { v: "60d", l: "First wins delivered" },
+  { v: "100%", l: "White-hat methodology only" },
 ];
 const testimonials = [
-  { name: "Ahmed Khalil",  role: "Founder, Dunescape",   quote: "Within 90 days our organic leads doubled. Webcore's SEO strategy is the highest-ROI investment we've made as a business.",                                                                      photo: "/ahmed-khalil.webp", stars: 5 },
-  { name: "Sarah Lin",     role: "CTO, NorthPeak",       quote: "The technical audit alone uncovered issues that had been suppressing our rankings for years. The roadmap they delivered was clear, actionable and right.",                                         photo: "/sarah-lin.webp",   stars: 5 },
-  { name: "Connor James",  role: "Managing Director",    quote: "Our local GEO strategy now puts us at the top of maps results in all three cities we operate in. The results speak for themselves.",                                                                photo: "/connor-james.webp",stars: 5 },
+  {
+    name: "Ahmed Khalil",
+    role: "Founder, Dunescape",
+    quote:
+      "Within 90 days our organic leads doubled. Webcore's SEO strategy is the highest-ROI investment we've made as a business.",
+    photo: "/ahmed-khalil.webp",
+    stars: 5,
+  },
+  {
+    name: "Sarah Lin",
+    role: "CTO, NorthPeak",
+    quote:
+      "The technical audit alone uncovered issues that had been suppressing our rankings for years. The roadmap they delivered was clear, actionable and right.",
+    photo: "/sarah-lin.webp",
+    stars: 5,
+  },
+  {
+    name: "Connor James",
+    role: "Managing Director",
+    quote:
+      "Their AI-search and SEO strategy made our service pages clearer, stronger and much easier for buyers to find. The results speak for themselves.",
+    photo: "/connor-james.webp",
+    stars: 5,
+  },
 ];
 const faqs = [
-  { q: "How long before I see results from SEO?",              a: "Most clients see measurable traction within 60–90 days — initial quick wins from technical fixes and on-page optimisation. Compounding authority-driven gains typically materialise between months 4–6 and accelerate from there. SEO is a long-term investment, but the returns are durable in a way paid channels are not." },
-  { q: "Do you guarantee specific rankings?",                  a: "No reputable SEO agency can or should guarantee specific rankings — search algorithms are controlled by Google, not us. What we guarantee is rigorous process, full transparency, measurable progress month-on-month, and a strategic approach that builds lasting organic authority." },
-  { q: "What is GEO SEO and do I need it?",                    a: "GEO (Geographic) SEO is the practice of optimising your presence for location-specific searches — Google Maps, 'near me' queries, city-level landing pages and local citations. If any part of your business depends on customers in a specific geography, GEO SEO is essential and often the fastest path to qualified leads." },
-  { q: "Will you write the content or do we need to?",         a: "We provide detailed content briefs, topic outlines and optimisation recommendations each month. We can also produce the content in-house through our editorial team — or work alongside your writers. Both models work well; we scope based on your preference and resources." },
-  { q: "How do you build links without risking a penalty?",    a: "We use white-hat digital PR and editorial outreach only — no link farms, no paid placements, no private blog networks. Every link we build is earned through genuine value: original research, expert commentary and relationship-driven outreach to relevant publications in your industry." },
-  { q: "How do you measure and report success?",               a: "We connect GA4 and Search Console to a live performance dashboard and deliver a monthly report that maps keyword movements, traffic trends and organic lead volume to revenue impact. You'll always know exactly what's working, what's next, and why." },
+  {
+    q: "How long before I see results from SEO?",
+    a: "Most clients see measurable traction within 60–90 days — initial quick wins from technical fixes and on-page optimisation. Compounding authority-driven gains typically materialise between months 4–6 and accelerate from there. SEO is a long-term investment, but the returns are durable in a way paid channels are not.",
+  },
+  {
+    q: "Do you guarantee specific rankings?",
+    a: "No reputable SEO agency can or should guarantee specific rankings — search algorithms are controlled by Google, not us. What we guarantee is rigorous process, full transparency, measurable progress month-on-month, and a strategic approach that builds lasting organic authority.",
+  },
+  {
+    q: "What is GEO optimization and do I need it?",
+    a: "GEO, or generative engine optimization, structures content, entities, schema and direct answers so AI-powered search systems can understand, summarize and cite your brand more confidently.",
+  },
+  {
+    q: "Will you write the content or do we need to?",
+    a: "We provide detailed content briefs, topic outlines and optimisation recommendations each month. We can also produce the content in-house through our editorial team — or work alongside your writers. Both models work well; we scope based on your preference and resources.",
+  },
+  {
+    q: "How do you build links without risking a penalty?",
+    a: "We use white-hat digital PR and editorial outreach only — no link farms, no paid placements, no private blog networks. Every link we build is earned through genuine value: original research, expert commentary and relationship-driven outreach to relevant publications in your industry.",
+  },
+  {
+    q: "How do you measure and report success?",
+    a: "We connect GA4 and Search Console to a live performance dashboard and deliver a monthly report that maps keyword movements, traffic trends and organic lead volume to revenue impact. You'll always know exactly what's working, what's next, and why.",
+  },
 ];
 
 /* ─── Helpers ────────────────────────────────────────────────────────── */
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0  },
-  viewport:    { once: true, margin: "-60px" },
-  transition:  { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />{children}
+      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+      {children}
     </div>
   );
 }
@@ -90,21 +213,28 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 function Card3D({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   function onMove(e: React.MouseEvent<HTMLDivElement>) {
-    const el = ref.current; if (!el) return;
+    const el = ref.current;
+    if (!el) return;
     const r = el.getBoundingClientRect();
-    const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -8;
-    const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  8;
-    el.style.transform  = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px) scale(1.015)`;
+    const rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -8;
+    const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 8;
+    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px) scale(1.015)`;
     el.style.transition = "transform 0.05s linear";
   }
   function onLeave() {
-    const el = ref.current; if (!el) return;
-    el.style.transform  = "perspective(900px) rotateX(0) rotateY(0) translateZ(0) scale(1)";
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateZ(0) scale(1)";
     el.style.transition = "transform 0.45s cubic-bezier(0.23,1,0.32,1)";
   }
   return (
-    <div ref={ref} className={className} onMouseMove={onMove} onMouseLeave={onLeave}
-      style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
+    <div
+      ref={ref}
+      className={className}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+    >
       {children}
     </div>
   );
@@ -120,7 +250,9 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
         open ? "border-primary/25 glass" : "border-border/40 glass hover:border-primary/20"
       }`}
     >
-      <div className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`}
+      />
       <button
         type="button"
         aria-expanded={open}
@@ -139,11 +271,15 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-5 pt-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30">{a}</div>
+            <div className="px-6 pb-5 pt-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30">
+              {a}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -159,8 +295,14 @@ function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
       {name[0]}
     </div>
   ) : (
-    <img src={photo} alt={name} onError={() => setErr(true)} loading="lazy" decoding="async"
-      className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
+    <img
+      src={photo}
+      alt={name}
+      onError={() => setErr(true)}
+      loading="lazy"
+      decoding="async"
+      className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30"
+    />
   );
 }
 
@@ -169,7 +311,6 @@ function SeoOverview() {
   return (
     <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
         {/* ── Left: narrative copy ── */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -180,31 +321,33 @@ function SeoOverview() {
           <SectionLabel>Our Approach</SectionLabel>
 
           <h2 className="text-3xl md:text-[2.25rem] font-bold leading-tight mb-5">
-            Organic growth that{" "}
-            <span className="gradient-text">compounds for years.</span>
+            Organic growth that <span className="gradient-text">compounds for years.</span>
           </h2>
 
           <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">
-            Every engagement starts with a rigorous audit and ends with a strategy built on
-            data — not guesswork. We combine technical precision, content authority and
-            local GEO expertise to drive rankings that hold and traffic that converts.
+            Every engagement starts with a rigorous audit and ends with a strategy built on data —
+            not guesswork. We combine technical precision, content authority and generative engine
+            optimization to drive rankings that hold and traffic that converts.
           </p>
 
           {/* Three proof-point rows */}
           <ul className="space-y-5 mb-9">
             {[
               {
-                icon: Shield, color: "#10b981",
+                icon: Shield,
+                color: "#10b981",
                 label: "100% white-hat methodology",
                 sub: "No shortcuts, no risk — only sustainable techniques that compound in value and never put your domain at risk",
               },
               {
-                icon: TrendingUp, color: "#06b6d4",
+                icon: TrendingUp,
+                color: "#06b6d4",
                 label: "Average 3× organic traffic increase",
                 sub: "Consistent results across 200+ sites — from local businesses to enterprise SaaS platforms",
               },
               {
-                icon: Clock, color: "#f59e0b",
+                icon: Clock,
+                color: "#f59e0b",
                 label: "First wins delivered within 60 days",
                 sub: "Quick technical and on-page wins in the first sprint so you see momentum before the long-term gains kick in",
               },
@@ -234,12 +377,14 @@ function SeoOverview() {
           {/* Compact stat row */}
           <div className="flex items-center gap-8 pt-6 border-t border-border/25">
             {[
-              { v: "200+", l: "Sites ranked",      color: "#10b981" },
-              { v: "3×",   l: "Traffic increase",  color: "#06b6d4" },
-              { v: "60d",  l: "First wins",         color: "#f59e0b" },
+              { v: "200+", l: "Sites ranked", color: "#10b981" },
+              { v: "3×", l: "Traffic increase", color: "#06b6d4" },
+              { v: "60d", l: "First wins", color: "#f59e0b" },
             ].map((s) => (
               <div key={s.l}>
-                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>{s.v}</p>
+                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>
+                  {s.v}
+                </p>
                 <p className="text-[11px] text-muted-foreground mt-1.5 leading-none">{s.l}</p>
               </div>
             ))}
@@ -258,7 +403,8 @@ function SeoOverview() {
           <div
             className="absolute -inset-5 rounded-3xl pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 80% 70% at 55% 45%, rgba(16,185,129,0.12) 0%, transparent 72%)",
+              background:
+                "radial-gradient(ellipse 80% 70% at 55% 45%, rgba(16,185,129,0.12) 0%, transparent 72%)",
               filter: "blur(24px)",
             }}
           />
@@ -282,7 +428,8 @@ function SeoOverview() {
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
                 }}
               />
 
@@ -307,7 +454,9 @@ function SeoOverview() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                 </span>
-                <span className="text-[10px] font-semibold text-white/80 tracking-wide">White-hat only</span>
+                <span className="text-[10px] font-semibold text-white/80 tracking-wide">
+                  White-hat only
+                </span>
               </motion.div>
 
               {/* Bottom-left: caption badge */}
@@ -332,9 +481,9 @@ function SeoOverview() {
               style={{ background: "hsl(var(--card))" }}
             >
               {[
-                { v: "200+", l: "Sites ranked",      color: "#10b981" },
-                { v: "3×",   l: "Avg. traffic lift", color: "#06b6d4" },
-                { v: "60d",  l: "First wins",         color: "#f59e0b" },
+                { v: "200+", l: "Sites ranked", color: "#10b981" },
+                { v: "3×", l: "Avg. traffic lift", color: "#06b6d4" },
+                { v: "60d", l: "First wins", color: "#f59e0b" },
               ].map((s, i) => (
                 <motion.div
                   key={s.l}
@@ -364,7 +513,6 @@ function SeoOverview() {
             style={{ background: "rgba(16,185,129,0.03)" }}
           />
         </motion.div>
-
       </div>
     </section>
   );
@@ -374,83 +522,126 @@ function SeoOverview() {
 function SeoGeo() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY       = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <Layout>
-
       {/* ════════════════════════════════ HERO ════════════════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-[78vh] flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <GridBackground />
         <FloatingShapes />
 
-        <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
-          style={{ width: 520, height: 520, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }} />
-        <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.22, 0.10] }}
+          style={{
+            width: 520,
+            height: 520,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)",
+          }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.22, 0.1] }}
           transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-12 rounded-full pointer-events-none"
-          style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }} />
-        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
+          style={{
+            width: 320,
+            height: 320,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)",
+          }}
+        />
+        <motion.div
+          animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
           className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
-          style={{ width: 280, height: 280, background: "radial-gradient(circle, #10b981 0%, transparent 70%)" }} />
+          style={{
+            width: 280,
+            height: 280,
+            background: "radial-gradient(circle, #10b981 0%, transparent 70%)",
+          }}
+        />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-32 md:pt-24 md:pb-36">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-
               {/* Left — copy */}
               <div>
-                <motion.div initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.08, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.88 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.08,
+                    type: "tween",
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
+                >
                   <Search className="h-3.5 w-3.5 text-primary" />
                   SEO &amp; GEO
                 </motion.div>
 
-                <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+                <motion.h1
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                  className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight">
-                  Visibility that{" "}
-                  <span className="gradient-text">compounds over time.</span>
+                  className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight"
+                >
+                  Visibility that <span className="gradient-text">compounds over time.</span>
                 </motion.h1>
 
-                <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
-                  className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  Technical SEO, content strategy, local GEO and authority-building — engineered to drive sustainable organic growth that pays for itself for years.
+                  className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
+                >
+                  Technical SEO, content strategy, generative engine optimization and
+                  authority-building — engineered to drive sustainable organic growth that pays for
+                  itself for years.
                 </motion.p>
 
-                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.38, type: "tween", ease: "easeOut" }}
-                  className="mt-7 flex flex-wrap gap-2.5">
+                  className="mt-7 flex flex-wrap gap-2.5"
+                >
                   {[
-                    { icon: Shield,    label: "White-hat methodology"     },
-                    { icon: Clock,     label: "First wins in 60 days"     },
-                    { icon: TrendingUp,label: "Avg. 3× traffic increase"  },
+                    { icon: Shield, label: "White-hat methodology" },
+                    { icon: Clock, label: "First wins in 60 days" },
+                    { icon: TrendingUp, label: "Avg. 3× traffic increase" },
                   ].map((p) => (
-                    <span key={p.label}
-                      className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80">
+                    <span
+                      key={p.label}
+                      className="inline-flex items-center gap-1.5 glass border border-border/40 rounded-full px-3.5 py-1.5 text-xs font-semibold text-foreground/80"
+                    >
                       <p.icon className="h-3 w-3 text-primary" />
                       {p.label}
                     </span>
                   ))}
                 </motion.div>
 
-                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.48, type: "tween", ease: "easeOut" }}
-                  className="mt-9 flex flex-wrap gap-4">
-                  <Link to="/contact"
-                    className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm">
+                  className="mt-9 flex flex-wrap gap-4"
+                >
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm"
+                  >
                     Book a free consultation
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
-                  <Link to="/services"
-                    className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm">
+                  <Link
+                    to="/services"
+                    className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm"
+                  >
                     All services
                     <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
                   </Link>
@@ -458,22 +649,31 @@ function SeoGeo() {
               </div>
 
               {/* Right — floating stat cards */}
-              <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.2, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-                className="relative hidden md:grid grid-cols-2 gap-4">
+                className="relative hidden md:grid grid-cols-2 gap-4"
+              >
                 <div className="absolute -inset-6 gradient-primary opacity-[0.07] blur-3xl rounded-full pointer-events-none" />
                 {stats.map((s, i) => (
-                  <motion.div key={s.l}
+                  <motion.div
+                    key={s.l}
                     animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 4 + i * 0.7, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                    transition={{
+                      duration: 4 + i * 0.7,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.5,
+                    }}
                     className="glass border border-border/30 rounded-2xl p-6 text-center cursor-default"
-                    style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}>
+                    style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}
+                  >
                     <div className="text-3xl font-bold gradient-text mb-1">{s.v}</div>
                     <div className="text-xs text-muted-foreground leading-tight">{s.l}</div>
                   </motion.div>
                 ))}
               </motion.div>
-
             </div>
           </div>
         </motion.div>
@@ -488,32 +688,48 @@ function SeoGeo() {
           <SectionLabel>What We Do</SectionLabel>
           <div className="flex items-end justify-between flex-wrap gap-4">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Every SEO capability,<br />under one roof.
+              Every SEO capability,
+              <br />
+              under one roof.
             </h2>
             <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-              From foundational technical fixes to full content and link-building campaigns — we cover the entire organic growth stack in-house.
+              From foundational technical fixes to full content and link-building campaigns — we
+              cover the entire organic growth stack in-house.
             </p>
           </div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f, i) => (
-            <motion.div key={f.t} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.07, duration: 0.55, type: "tween", ease: "easeOut" }}
-              className="group">
+            <motion.div
+              key={f.t}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07, duration: 0.55, type: "tween", ease: "easeOut" }}
+              className="group"
+            >
               <Card3D className="relative bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-7 h-full hover:border-border/60 transition-all duration-300 overflow-hidden">
-                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl opacity-[0.05] pointer-events-none"
-                  style={{ background: f.color }} />
+                <div
+                  className="absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl opacity-[0.05] pointer-events-none"
+                  style={{ background: f.color }}
+                />
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
-                    style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}18` }}>
+                  <div
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: f.bg, boxShadow: `0 4px 16px ${f.color}18` }}
+                  >
                     <f.icon className="h-5 w-5" style={{ color: f.color }} />
                   </div>
                   <h3 className="font-bold text-base mb-2">{f.t}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{f.d}</p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                  style={{ background: `linear-gradient(to right, transparent, ${f.color}55, transparent)` }} />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                  style={{
+                    background: `linear-gradient(to right, transparent, ${f.color}55, transparent)`,
+                  }}
+                />
               </Card3D>
             </motion.div>
           ))}
@@ -523,18 +739,20 @@ function SeoGeo() {
       {/* ══════════════════ DELIVERABLES + TOOLS ═══════════════════════════ */}
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="grid md:grid-cols-2 gap-6">
-
           <motion.div {...fadeUp()}>
             <div className="glass border border-border/35 rounded-2xl p-8 h-full">
               <SectionLabel>Deliverables</SectionLabel>
               <h3 className="text-2xl font-bold mb-6">What you walk away with.</h3>
               <ul className="space-y-3.5">
                 {deliverables.map((d, i) => (
-                  <motion.li key={d}
-                    initial={{ opacity: 0, x: -14 }} whileInView={{ opacity: 1, x: 0 }}
+                  <motion.li
+                    key={d}
+                    initial={{ opacity: 0, x: -14 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08, duration: 0.45, type: "tween", ease: "easeOut" }}
-                    className="flex items-center gap-3">
+                    className="flex items-center gap-3"
+                  >
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                     <span className="text-sm font-medium">{d}</span>
                   </motion.li>
@@ -548,16 +766,20 @@ function SeoGeo() {
               <SectionLabel>Tools &amp; Platforms</SectionLabel>
               <h3 className="text-2xl font-bold mb-2">Industry-leading toolset.</h3>
               <p className="text-sm text-muted-foreground mb-7 leading-relaxed">
-                Every insight we share is backed by data from the tools professionals trust — so you're never flying blind on your organic performance.
+                Every insight we share is backed by data from the tools professionals trust — so
+                you're never flying blind on your organic performance.
               </p>
               <div className="flex flex-wrap gap-3">
                 {techStack.map((t, i) => (
-                  <motion.div key={t.name}
-                    initial={{ opacity: 0, scale: 0.88 }} whileInView={{ opacity: 1, scale: 1 }}
+                  <motion.div
+                    key={t.name}
+                    initial={{ opacity: 0, scale: 0.88 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06, duration: 0.4, type: "tween", ease: "easeOut" }}
                     whileHover={{ y: -3, scale: 1.06 }}
-                    className="inline-flex items-center gap-2 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 transition-all duration-200">
+                    className="inline-flex items-center gap-2 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 transition-all duration-200"
+                  >
                     <span className="w-2 h-2 rounded-full" style={{ background: t.color }} />
                     <span className="text-sm font-semibold">{t.name}</span>
                   </motion.div>
@@ -567,7 +789,8 @@ function SeoGeo() {
                 <Award className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold">100% white-hat methodology.</span>{" "}
-                  No link farms, no paid placements, no black-hat shortcuts — only sustainable techniques that compound in value over time and never put your domain at risk.
+                  No link farms, no paid placements, no black-hat shortcuts — only sustainable
+                  techniques that compound in value over time and never put your domain at risk.
                 </p>
               </div>
             </div>
@@ -580,7 +803,8 @@ function SeoGeo() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-18">
           <SectionLabel>Our Process</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            From audit to authority —<br />five clear steps.
+            From audit to authority —<br />
+            five clear steps.
           </h2>
           <p className="mt-4 text-muted-foreground text-sm">
             A structured SEO process refined across 200+ organic growth engagements.
@@ -588,25 +812,41 @@ function SeoGeo() {
         </motion.div>
 
         <div className="relative">
-          <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 1.1, delay: 0.3, type: "tween", ease: "easeOut" }}
-            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-border/60 to-transparent origin-left" />
+            className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-border/60 to-transparent origin-left"
+          />
 
           <div className="grid md:grid-cols-5 gap-6">
             {processSteps.map((p, i) => (
-              <motion.div key={p.n} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ delay: 0.1 + i * 0.1, duration: 0.5, type: "tween", ease: "easeOut" }}
+              <motion.div
+                key={p.n}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 + i * 0.1, duration: 0.5, type: "tween", ease: "easeOut" }}
                 whileHover={{ y: -6 }}
-                className="group relative text-center cursor-default">
-                <div className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                className="group relative text-center cursor-default"
+              >
+                <div
+                  className="relative mx-auto h-20 w-20 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
                   style={{
                     background: `linear-gradient(135deg, ${p.color}cc, ${p.color}88)`,
                     boxShadow: `0 6px 24px ${p.color}40`,
-                  }}>
-                  <div className="absolute inset-0 rounded-full blur-xl opacity-30 -z-10 pointer-events-none" style={{ background: p.color }} />
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-full blur-xl opacity-30 -z-10 pointer-events-none"
+                    style={{ background: p.color }}
+                  />
                   <p.icon className="h-7 w-7 text-white" />
                 </div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">{p.n}</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-1">
+                  {p.n}
+                </div>
                 <h3 className="font-bold text-sm mb-1.5">{p.t}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
@@ -624,8 +864,13 @@ function SeoGeo() {
 
         <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
-            <motion.div key={t.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: "easeOut" }}>
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: "easeOut" }}
+            >
               <Card3D className="bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-6 h-full hover:border-border/60 transition-colors duration-300">
                 <div className="flex items-center gap-0.5 mb-4">
                   {Array.from({ length: t.stars }).map((_, j) => (
@@ -654,11 +899,16 @@ function SeoGeo() {
         <motion.div {...fadeUp()} className="text-center mb-12">
           <SectionLabel>FAQs</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Common questions<br />about SEO &amp; GEO.
+            Common questions
+            <br />
+            about SEO &amp; GEO.
           </h2>
           <p className="mt-4 text-muted-foreground max-w-md mx-auto text-sm">
             Still have questions?{" "}
-            <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
+            <Link
+              to="/contact"
+              className="text-primary font-semibold hover:underline underline-offset-2"
+            >
               Just ask us directly.
             </Link>
           </p>
@@ -673,11 +923,15 @@ function SeoGeo() {
 
       {/* ════════════════════════════ CTA ══════════════════════════════════ */}
       <section className="mx-auto max-w-5xl px-4 py-10 pb-28">
-        <motion.div {...fadeUp()}
-          className="relative overflow-hidden rounded-2xl gradient-primary shadow-elegant">
-
+        <motion.div
+          {...fadeUp()}
+          className="relative overflow-hidden rounded-2xl gradient-primary shadow-elegant"
+        >
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <svg className="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              className="absolute inset-0 w-full h-full opacity-[0.06]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <defs>
                 <pattern id="cta-grid-seo" width="32" height="32" patternUnits="userSpaceOnUse">
                   <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
@@ -685,18 +939,31 @@ function SeoGeo() {
               </defs>
               <rect width="100%" height="100%" fill="url(#cta-grid-seo)" />
             </svg>
-            <motion.div animate={{ scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
+            <motion.div
+              animate={{ scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
               transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl" />
-            <motion.div animate={{ scale: [1, 1.28, 1], opacity: [0.10, 0.18, 0.10] }}
+              className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl"
+            />
+            <motion.div
+              animate={{ scale: [1, 1.28, 1], opacity: [0.1, 0.18, 0.1] }}
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-              className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl" />
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-95 h-95 rounded-full border border-white/6 pointer-events-none" />
+              className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl"
+            />
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-95 h-95 rounded-full border border-white/6 pointer-events-none"
+            />
             {[...Array(6)].map((_, i) => (
-              <motion.div key={i}
+              <motion.div
+                key={i}
                 animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
-                transition={{ duration: 2.8 + i * 0.55, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
+                transition={{
+                  duration: 2.8 + i * 0.55,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.8,
+                }}
                 className="absolute w-1 h-1 rounded-full bg-white/60"
                 style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
               />
@@ -710,38 +977,52 @@ function SeoGeo() {
                 Free SEO audit
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug">
-                Ready to build organic visibility<br className="hidden md:block" /> that compounds for years?
+                Ready to build organic visibility
+                <br className="hidden md:block" /> that compounds for years?
               </h2>
               <p className="text-white/60 text-sm mt-2.5 leading-relaxed max-w-sm">
-                Book a free 45-minute discovery call. We'll audit your current SEO health and map out the highest-impact opportunities.
+                Book a free 45-minute discovery call. We'll audit your current SEO health and map
+                out the highest-impact opportunities.
               </p>
               <div className="flex items-center gap-6 mt-5">
                 {[
-                  { v: "200+", l: "Sites ranked"    },
-                  { v: "60d",  l: "First wins"       },
-                  { v: "100%", l: "White-hat only"   },
+                  { v: "200+", l: "Sites ranked" },
+                  { v: "60d", l: "First wins" },
+                  { v: "100%", l: "White-hat only" },
                 ].map((s) => (
                   <div key={s.l}>
                     <p className="text-base font-bold text-white leading-none">{s.v}</p>
-                    <p className="text-[10px] text-white/45 mt-0.5 uppercase tracking-wide">{s.l}</p>
+                    <p className="text-[10px] text-white/45 mt-0.5 uppercase tracking-wide">
+                      {s.l}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 420, damping: 18 }}>
-                <Link to="/contact"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white text-foreground px-7 py-3 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 18 }}
+              >
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white text-foreground px-7 py-3 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full"
+                >
                   Book free consultation
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 420, damping: 18 }}>
-                <Link to="/services"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white/12 text-white border border-white/20 px-7 py-3 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 18 }}
+              >
+                <Link
+                  to="/services"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white/12 text-white border border-white/20 px-7 py-3 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full"
+                >
                   View all services
                   <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
@@ -758,7 +1039,6 @@ function SeoGeo() {
           </div>
         </motion.div>
       </section>
-
     </Layout>
   );
 }

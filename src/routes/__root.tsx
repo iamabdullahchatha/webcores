@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, useLocation, HeadContent } from "@tanstack/react-router";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { getRootHead } from "@/lib/seo";
 
 function NotFoundComponent() {
@@ -98,10 +98,20 @@ function ScrollToTop() {
   return null;
 }
 
+function ClientHeadContent() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted ? <HeadContent /> : null;
+}
+
 function RootComponent() {
   return (
     <>
-      <HeadContent />
+      <ClientHeadContent />
       <ScrollToTop />
       <Outlet />
     </>

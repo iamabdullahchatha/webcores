@@ -1,0 +1,37 @@
+# Webcore UAE
+
+> Webcore UAE is a Dubai-founded digital agency serving UAE, Dubai, UK, Europe, US, Pakistan, and remote international clients.
+
+## Core Services
+
+- Web development: high-performance business websites, React websites, WordPress builds, ecommerce development, landing pages, and conversion-focused frontend engineering.
+- Software development: SaaS platforms, APIs, internal tools, enterprise systems, business automation, dashboards, data workflows, and AI integrations.
+- CMS development: headless CMS, WordPress, custom content platforms, editorial workflows, multilingual content structures, and scalable publishing systems.
+- SEO and GEO: technical SEO, local SEO, international SEO, schema, AI search optimization, answer-engine optimization, content strategy, and Core Web Vitals.
+- Branding and UI/UX: brand identity, logo design, web visuals, company profiles, brochures, collateral, and product interface design.
+- IT consultation: audits, architecture planning, cloud strategy, vendor selection, technology roadmaps, and modernization.
+
+## Important Pages
+
+- Home: https://www.webcoreuae.com/
+- Services: https://www.webcoreuae.com/services
+- Web Development: https://www.webcoreuae.com/services/web-development
+- Software Development: https://www.webcoreuae.com/services/software-development
+- CMS Development: https://www.webcoreuae.com/services/cms-development
+- SEO and GEO: https://www.webcoreuae.com/services/seo-geo
+- IT Consultation: https://www.webcoreuae.com/services/it-consultation
+- Graphic Design: https://www.webcoreuae.com/services/graphic-design
+- About: https://www.webcoreuae.com/about
+- FAQs: https://www.webcoreuae.com/faqs
+- Contact: https://www.webcoreuae.com/contact
+
+## Business Context
+
+Webcore UAE works with startups, SMEs, and enterprise teams that need senior technical execution, reliable communication, and measurable digital growth. Primary markets include Dubai and the UAE, the United Kingdom, Europe, the United States, Pakistan, and international remote clients.
+
+## Contact
+
+- Website: https://www.webcoreuae.com/
+- Email: info@webcoreuae.com
+- Dubai phone: +971 50 716 9200
+- UK phone / WhatsApp: +44 7570 792516

@@ -38,9 +38,9 @@ export const pageSeo = {
   home: {
     label: "Home",
     path: "/",
-    title: "Webcore UAE | Software, Web Development & SEO Agency in Dubai",
+    title: "Webcore UAE | Web, Software & SEO Agency Dubai",
     description:
-      "Webcore UAE is a Dubai digital agency delivering software development, web development, CMS, SEO, GEO, IT consultation and brand design for growing teams.",
+      "Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation for UAE, UK, US and global teams.",
     keywords: [
       "Webcore UAE",
       "Dubai digital agency",
@@ -53,36 +53,36 @@ export const pageSeo = {
   about: {
     label: "About",
     path: "/about",
-    title: "About Webcore UAE | Dubai Digital Agency & Technology Team",
+    title: "About Webcore UAE | Dubai Digital Agency Team",
     description:
-      "Meet Webcore UAE, a Dubai-founded software, web, SEO and design team serving clients across the UAE, UK, Europe, America and Pakistan.",
+      "Meet Webcore UAE, a Dubai-founded software, web, SEO and design team serving clients across the UAE, UK, Europe, US and Pakistan.",
     keywords: ["about Webcore UAE", "Dubai technology agency", "software agency UAE"],
     schemaType: "AboutPage",
   },
   services: {
     label: "Services",
     path: "/services",
-    title: "Digital Services in Dubai | Web, Software, SEO, CMS & Design",
+    title: "Digital Services Dubai | Web, Software, SEO & CMS",
     description:
-      "Explore Webcore UAE services: IT consultation, CMS development, web development, software development, SEO, GEO and graphic design for modern businesses.",
+      "Explore Webcore UAE services: web development, software development, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
     keywords: ["digital services Dubai", "web development services UAE", "software services UAE"],
     schemaType: "CollectionPage",
   },
   faqs: {
     label: "FAQs",
     path: "/faqs",
-    title: "FAQs | Webcore UAE Process, Pricing, Services & Support",
+    title: "Webcore UAE FAQs | Process, Pricing & Support",
     description:
-      "Answers to common questions about Webcore UAE services, pricing, project timelines, support, technology choices and international partnerships.",
+      "Answers about Webcore UAE services, pricing, project timelines, support, technology choices and international digital agency work.",
     keywords: ["Webcore UAE FAQs", "digital agency questions", "software project pricing UAE"],
     schemaType: "FAQPage",
   },
   contact: {
     label: "Contact",
     path: "/contact",
-    title: "Contact Webcore UAE | Book a Free Digital Strategy Call",
+    title: "Contact Webcore UAE | Free Digital Strategy Call",
     description:
-      "Contact Webcore UAE for software development, web development, SEO, GEO, CMS, IT consultation and brand design support in Dubai and internationally.",
+      "Contact Webcore UAE for web development, software, SEO, GEO, CMS, IT consultation, branding and ecommerce support in Dubai and globally.",
     keywords: ["contact Webcore UAE", "Dubai software consultation", "book web development call"],
     schemaType: "ContactPage",
   },
@@ -91,52 +91,181 @@ export const pageSeo = {
     path: "/services/it-consultation",
     title: "IT Consultation Dubai | Technology Audits & Roadmaps",
     description:
-      "Strategic IT consultation in Dubai for technology audits, architecture planning, cloud strategy, vendor selection and scale-ready roadmaps.",
+      "Strategic IT consultation in Dubai for audits, architecture, cloud strategy, vendor selection, automation and scale-ready roadmaps.",
     keywords: ["IT consultation Dubai", "technology audit UAE", "fractional CTO Dubai"],
   },
   cmsDevelopment: {
     label: "CMS Development",
     path: "/services/cms-development",
-    title: "CMS Development Dubai | Headless CMS & Content Platforms",
+    title: "CMS Development Dubai | Headless & WordPress CMS",
     description:
-      "Headless and composable CMS development for Dubai and global teams that need structured content, editorial workflows and scalable publishing.",
+      "Headless CMS, WordPress and composable content platform development for Dubai, UK and global teams that need scalable publishing.",
     keywords: ["CMS development Dubai", "headless CMS UAE", "WordPress development Dubai"],
   },
   webDevelopment: {
     label: "Web Development",
     path: "/services/web-development",
-    title: "Web Development Dubai | High-Performance Business Websites",
+    title: "Web Development Dubai | High-Performance Websites",
     description:
-      "Web development in Dubai for fast business websites, e-commerce stores, WordPress builds and conversion-focused digital experiences.",
+      "Web development in Dubai for fast business websites, ecommerce stores, WordPress builds, React apps and conversion-focused experiences.",
     keywords: ["web development Dubai", "website development UAE", "ecommerce development Dubai"],
   },
   softwareDevelopment: {
     label: "Software Development",
     path: "/services/software-development",
-    title: "Software Development Dubai | SaaS, APIs & Business Systems",
+    title: "Software Development Dubai | SaaS, APIs & Systems",
     description:
-      "Custom software development for SaaS platforms, APIs, data systems, internal tools and AI integrations built for reliability and scale.",
+      "Custom software development for SaaS platforms, APIs, data systems, internal tools, enterprise workflows and AI integrations.",
     keywords: ["software development Dubai", "custom software UAE", "SaaS development Dubai"],
   },
   seoGeo: {
     label: "SEO & GEO",
     path: "/services/seo-geo",
-    title: "SEO & GEO Services Dubai | Search, AI & Local Visibility",
+    title: "SEO & GEO Services Dubai | Google & AI Search",
     description:
-      "SEO and GEO services in Dubai covering technical SEO, local SEO, content optimization, schema, AI search readiness and sustainable authority growth.",
+      "SEO and GEO services in Dubai for technical SEO, local SEO, content, schema, AI search readiness and sustainable authority growth.",
     keywords: ["SEO services Dubai", "GEO services UAE", "AI search optimization Dubai"],
   },
   graphicDesign: {
     label: "Graphic Design",
     path: "/services/graphic-design",
-    title: "Graphic Design Dubai | Logo, Brand Identity & Collateral",
+    title: "Graphic Design Dubai | Logo & Brand Identity",
     description:
-      "Graphic design services in Dubai for logos, brand systems, company profiles, brochures, visiting cards, web visuals and premium collateral.",
+      "Graphic design in Dubai for logos, brand identity systems, company profiles, brochures, web visuals and premium marketing collateral.",
     keywords: ["graphic design Dubai", "logo design UAE", "brand identity Dubai"],
   },
 } satisfies Record<string, PageMeta>;
 
 export type PageKey = keyof typeof pageSeo;
+
+export const seoRoutes = [
+  { key: "home", path: "/" },
+  { key: "about", path: "/about" },
+  { key: "services", path: "/services" },
+  { key: "itConsultation", path: "/services/it-consultation" },
+  { key: "cmsDevelopment", path: "/services/cms-development" },
+  { key: "webDevelopment", path: "/services/web-development" },
+  { key: "softwareDevelopment", path: "/services/software-development" },
+  { key: "seoGeo", path: "/services/seo-geo" },
+  { key: "graphicDesign", path: "/services/graphic-design" },
+  { key: "faqs", path: "/faqs" },
+  { key: "contact", path: "/contact" },
+] as const satisfies ReadonlyArray<{ key: PageKey; path: string }>;
+
+export const pageFaqs = {
+  home: [
+    {
+      q: "Does Webcore UAE work with international clients?",
+      a: "Yes. Webcore UAE serves clients across Dubai, the UAE, the UK, Europe, the United States, Pakistan and remote international markets.",
+    },
+    {
+      q: "Which digital services does Webcore UAE provide?",
+      a: "Webcore UAE provides web development, software development, ecommerce, CMS development, SEO, GEO, branding, UI/UX, IT consultation and business automation.",
+    },
+    {
+      q: "Can Webcore UAE improve both Google rankings and AI search visibility?",
+      a: "Yes. The team combines technical SEO, content strategy, schema, GEO and answer-engine optimization to improve visibility in traditional and AI-powered search.",
+    },
+  ],
+  about: [
+    {
+      q: "Where is Webcore UAE based?",
+      a: "Webcore UAE is headquartered in Dubai, United Arab Emirates, with client operations across the UK, Europe, the United States, Pakistan and international remote markets.",
+    },
+    {
+      q: "What types of companies does Webcore UAE work with?",
+      a: "Webcore UAE works with startups, SMEs and enterprise teams that need senior execution across software, web, SEO, branding and technology strategy.",
+    },
+  ],
+  services: [
+    {
+      q: "What services does Webcore UAE provide?",
+      a: "Webcore UAE provides web development, software development, ecommerce, CMS development, SEO, GEO, IT consultation, graphic design and branding.",
+    },
+    {
+      q: "Can services be combined?",
+      a: "Yes. Services can be combined for integrated solutions, such as web development with branding, or software development with SEO optimization.",
+    },
+  ],
+  faqs: [
+    {
+      q: "How long does a typical Webcore UAE project take?",
+      a: "Most projects take four to twelve weeks depending on scope, with larger custom software or enterprise engagements scoped around milestones.",
+    },
+    {
+      q: "How does Webcore UAE price projects?",
+      a: "Webcore UAE uses fixed-scope pricing for defined projects and retainers for ongoing product, SEO, development and support work.",
+    },
+    {
+      q: "Does Webcore UAE provide ongoing support?",
+      a: "Yes. Ongoing retainers can cover maintenance, performance work, SEO growth, feature development and post-launch improvements.",
+    },
+  ],
+  itConsultation: [
+    {
+      q: "What does IT consultation include?",
+      a: "IT consultation includes technology audits, architecture planning, cloud strategy, vendor selection, automation planning and implementation roadmaps.",
+    },
+    {
+      q: "Can Webcore UAE audit an existing technology stack?",
+      a: "Yes. Webcore UAE can review current systems, identify risk, prioritize modernization work and create a practical roadmap for scale.",
+    },
+  ],
+  cmsDevelopment: [
+    {
+      q: "Does Webcore UAE build headless CMS platforms?",
+      a: "Yes. Webcore UAE builds headless CMS, WordPress and custom content platforms with structured content, editorial workflows and scalable publishing.",
+    },
+    {
+      q: "Can Webcore UAE migrate content from an old CMS?",
+      a: "Yes. CMS migrations can include content modeling, redirects, metadata preservation, taxonomy cleanup and editorial workflow improvements.",
+    },
+  ],
+  webDevelopment: [
+    {
+      q: "What web development services does Webcore UAE offer?",
+      a: "Webcore UAE builds business websites, ecommerce stores, React websites, WordPress sites, landing pages and conversion-focused web experiences.",
+    },
+    {
+      q: "Are Webcore UAE websites optimized for Core Web Vitals?",
+      a: "Yes. Builds are planned around performance, responsive UX, accessibility, crawlability and Core Web Vitals from the start.",
+    },
+  ],
+  softwareDevelopment: [
+    {
+      q: "What custom software can Webcore UAE build?",
+      a: "Webcore UAE builds SaaS platforms, APIs, dashboards, data systems, internal tools, business automation and enterprise workflows.",
+    },
+    {
+      q: "Can Webcore UAE integrate AI into business systems?",
+      a: "Yes. AI integrations can include workflow automation, data processing, internal assistants, API integrations and productivity tools.",
+    },
+  ],
+  seoGeo: [
+    {
+      q: "What is GEO optimization?",
+      a: "GEO, or generative engine optimization, structures content, entities, schema and answers so AI-powered search systems can understand and cite a brand more confidently.",
+    },
+    {
+      q: "Does Webcore UAE provide technical SEO audits?",
+      a: "Yes. Technical SEO audits can cover crawlability, indexation, metadata, schema, Core Web Vitals, internal links, rendering and content gaps.",
+    },
+  ],
+  graphicDesign: [
+    {
+      q: "What graphic design services does Webcore UAE provide?",
+      a: "Webcore UAE provides logo design, brand identity, company profiles, brochures, web visuals, marketing collateral and brand systems.",
+    },
+    {
+      q: "Can design work be paired with web development?",
+      a: "Yes. Branding, UI/UX and web development can be delivered together so the visual identity and website experience feel consistent.",
+    },
+  ],
+} satisfies Partial<Record<PageKey, FaqItem[]>>;
+
+export function getStaticSeoHead(key: PageKey) {
+  return getSeoHead(key, { faqs: (pageFaqs as Partial<Record<PageKey, FaqItem[]>>)[key] });
+}
 
 const servicePageKeys = [
   "itConsultation",
@@ -413,7 +542,11 @@ export function getSeoHead(
       { name: "twitter:image:alt", content: `${SITE_NAME} digital agency services` },
       { "script:ld+json": { "@context": "https://schema.org", "@graph": graph } },
     ],
-    links: [{ rel: "canonical", href: canonical }],
+    links: [
+      { rel: "canonical", href: canonical },
+      { rel: "alternate", hrefLang: "en", href: canonical },
+      { rel: "alternate", hrefLang: "x-default", href: canonical },
+    ],
   };
 }
 

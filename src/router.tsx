@@ -1,4 +1,5 @@
 import { createRouter, useRouter } from "@tanstack/react-router";
+import type { RouterConstructorOptions } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -54,13 +55,20 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
   );
 }
 
-export const router = createRouter({
-  routeTree,
-  context: {},
-  scrollRestoration: false,
-  defaultPreloadStaleTime: 0,
-  defaultErrorComponent: DefaultErrorComponent,
-});
+type AppRouterOptions = Partial<RouterConstructorOptions<typeof routeTree>>;
+
+export function createAppRouter(options: AppRouterOptions = {}) {
+  return createRouter({
+    routeTree,
+    context: {},
+    scrollRestoration: false,
+    defaultPreloadStaleTime: 0,
+    defaultErrorComponent: DefaultErrorComponent,
+    ...options,
+  });
+}
+
+export const router = createAppRouter();
 
 declare module "@tanstack/react-router" {
   interface Register {
