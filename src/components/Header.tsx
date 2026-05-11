@@ -94,15 +94,11 @@ export function Header() {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
             aria-label="Home"
           >
-            <img
-              src={logo}
-              alt="Webcore Solutions"
-              className="h-10 md:h-12 w-auto"
-            />
+            <img src={logo} alt="Webcore Solutions" className="h-10 md:h-12 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Primary navigation">
             {nav.map((item, index) => (
               <motion.div
                 key={item.name}
@@ -122,13 +118,12 @@ export function Header() {
                       "relative px-4 py-2 text-sm font-semibold text-primary flex items-center gap-1.5 group",
                   }}
                   activeOptions={{ exact: item.to === "/" }}
+                  aria-haspopup={item.dropdown ? "true" : undefined}
+                  aria-expanded={item.dropdown ? drop : undefined}
                 >
                   {item.name}
                   {item.dropdown && (
-                    <motion.div
-                      animate={{ rotate: drop ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.div animate={{ rotate: drop ? 180 : 0 }} transition={{ duration: 0.2 }}>
                       <ChevronDown className="h-3.5 w-3.5" />
                     </motion.div>
                   )}
@@ -205,11 +200,7 @@ export function Header() {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {open ? (
-                    <X className="h-5 w-5" />
-                  ) : (
-                    <Menu className="h-5 w-5" />
-                  )}
+                  {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </motion.div>
               </AnimatePresence>
             </motion.button>
@@ -233,7 +224,11 @@ export function Header() {
                 boxShadow: "0 8px 32px rgba(0, 0, 0, 0.08)",
               }}
             >
-              <div className="p-4 flex flex-col gap-1">
+              <div
+                className="p-4 flex flex-col gap-1"
+                role="navigation"
+                aria-label="Mobile navigation"
+              >
                 {nav.map((item, index) => (
                   <motion.div
                     key={item.name}

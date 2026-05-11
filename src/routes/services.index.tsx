@@ -9,6 +9,7 @@ import {
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 import {
   Lightbulb, Layers, Globe, Database, Search, Palette,
   ArrowRight, CheckCircle2, Zap, Users, Award, ArrowUpRight,
@@ -23,13 +24,7 @@ import imgSoftwareDev    from "@/assets/software-development.webp";
 import imgWebDevelopment from "@/assets/web-development.webp";
 
 export const Route = createFileRoute("/services/")({
-  head: () => ({
-    meta: [
-      { title: "Services — Webcore Solutions" },
-      { name: "description", content: "IT consultation, web & software development, SEO, GEO and graphic design." },
-      { property: "og:title", content: "Services — Webcore Solutions" },
-    ],
-  }),
+  head: () => getSeoHead("services"),
   component: Services,
 });
 

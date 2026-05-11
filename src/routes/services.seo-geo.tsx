@@ -10,15 +10,11 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 import imgSeo1 from "@/assets/seo-1.webp";
 
 export const Route = createFileRoute("/services/seo-geo")({
-  head: () => ({
-    meta: [
-      { title: "SEO & GEO — Webcore Solutions" },
-      { name: "description", content: "Rank higher locally and globally — organically and sustainably." },
-    ],
-  }),
+  head: () => getSeoHead("seoGeo", { faqs }),
   component: SeoGeo,
 });
 
@@ -126,6 +122,8 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
     >
       <div className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
       <button
+        type="button"
+        aria-expanded={open}
         onClick={() => setOpen(!open)}
         className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >
@@ -161,7 +159,7 @@ function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
       {name[0]}
     </div>
   ) : (
-    <img src={photo} alt={name} onError={() => setErr(true)}
+    <img src={photo} alt={name} onError={() => setErr(true)} loading="lazy" decoding="async"
       className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
   );
 }

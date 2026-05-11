@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 
 /* ─── Asset imports ────────────────────────────────────────────────── */
 import imgCmsDevelopment   from "@/assets/cms-development.webp";
@@ -53,21 +54,7 @@ import imgYukiTanaka       from "@/assets/yuki-tanaka.jpg";
 import imgConnorJames      from "@/assets/connor-james.webp";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Webcore Solutions — Transforming Ideas into Digital Reality" },
-      {
-        name: "description",
-        content:
-          "Premium software, web & IT solutions for global businesses. Founded in Dubai, serving Europe, UK, America & Pakistan.",
-      },
-      { property: "og:title", content: "Webcore Solutions" },
-      {
-        property: "og:description",
-        content: "Software, Web & IT Solutions for Global Businesses.",
-      },
-    ],
-  }),
+  head: () => getSeoHead("home", { faqs: allFaqs }),
   component: Index,
 });
 

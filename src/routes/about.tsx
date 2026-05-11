@@ -17,15 +17,10 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Webcore Solutions" },
-      { name: "description", content: "Founded in Dubai by Muhammad Abdullah Chattha. Serving Europe, UK, America, Dubai & Pakistan." },
-      { property: "og:title", content: "About Webcore Solutions" },
-    ],
-  }),
+  head: () => getSeoHead("about", { faqs }),
   component: About,
 });
 
@@ -155,6 +150,8 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
         className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 bg-linear-to-b from-cyan-400 to-violet-500 ${open ? "opacity-100" : "opacity-0"}`}
       />
       <button
+        type="button"
+        aria-expanded={open}
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200"
       >

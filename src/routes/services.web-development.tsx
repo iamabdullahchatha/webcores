@@ -11,15 +11,11 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 import imgWeb1 from "@/assets/web-1.webp";
 
 export const Route = createFileRoute("/services/web-development")({
-  head: () => ({
-    meta: [
-      { title: "Web Development — Webcore Solutions" },
-      { name: "description", content: "Business websites, e-commerce, custom design and WordPress development." },
-    ],
-  }),
+  head: () => getSeoHead("webDevelopment", { faqs }),
   component: WebDevelopment,
 });
 
@@ -114,7 +110,7 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   return (
     <motion.div {...fadeUp(index * 0.07)} className={`relative border rounded-2xl overflow-hidden transition-all duration-300 ${open ? "border-primary/25 glass" : "border-border/40 glass hover:border-primary/20"}`}>
       <div className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-r-full transition-all duration-300 ${open ? "gradient-primary opacity-100" : "opacity-0"}`} />
-      <button onClick={() => setOpen(!open)} className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200">
+      <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="relative w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-primary/3 transition-colors duration-200">
         <span className="font-semibold text-sm md:text-base pr-4">{q}</span>
         <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${open ? "gradient-primary" : "bg-primary/10 hover:bg-primary/15"}`}>
           <ChevronDown className={`h-4 w-4 ${open ? "text-primary-foreground" : "text-primary"}`} />
@@ -136,7 +132,7 @@ function TestimonialPhoto({ photo, name }: { photo: string; name: string }) {
   return err ? (
     <div className="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0 ring-1 ring-border/30">{name[0]}</div>
   ) : (
-    <img src={photo} alt={name} onError={() => setErr(true)} className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
+    <img src={photo} alt={name} onError={() => setErr(true)} loading="lazy" decoding="async" className="h-9 w-9 rounded-full object-cover object-top shrink-0 ring-1 ring-border/30" />
   );
 }
 

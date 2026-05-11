@@ -39,6 +39,7 @@ import {
 
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /* WhatsApp SVG Icon */
@@ -69,20 +70,7 @@ function WhatsAppIcon({
 /* ──────────────────────────────────────────────────────────────────── */
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Webcore Solutions" },
-      {
-        name: "description",
-        content:
-          "Get in touch with Webcore Solutions. Book a free consultation or send us a message.",
-      },
-      {
-        property: "og:title",
-        content: "Contact — Webcore Solutions",
-      },
-    ],
-  }),
+  head: () => getSeoHead("contact"),
   component: Contact,
 });
 
@@ -453,6 +441,8 @@ function ServiceDropdown({
     <div className="relative">
       <button
         type="button"
+        aria-expanded={open}
+        aria-haspopup="listbox"
         onClick={() => setOpen((o) => !o)}
         className="w-full glass rounded-xl px-4 py-3 text-sm bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground flex items-center justify-between gap-2"
         style={{ minHeight: "46px" }}

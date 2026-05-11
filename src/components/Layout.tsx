@@ -7,9 +7,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
 
-      <main className="flex-1 pt-24">
-        {children}
-      </main>
+      <main className="flex-1 pt-24">{children}</main>
 
       <Footer />
 
@@ -18,7 +16,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-40 p-4 rounded-full bg-[oklch(0.75_0.18_150)] text-white shadow-glow hover:scale-110 transition-transform"
-        aria-label="WhatsApp"
+        aria-label="Chat with Webcore Solutions on WhatsApp"
       >
         <MessageCircle className="h-6 w-6" />
       </a>

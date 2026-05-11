@@ -1,5 +1,6 @@
-import { Outlet, Link, createRootRoute, useLocation } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, useLocation, HeadContent } from "@tanstack/react-router";
 import { useLayoutEffect } from "react";
+import { getRootHead } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -8,7 +9,7 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          The page you are looking for does not exist or has been moved.
         </p>
         <div className="mt-6">
           <Link
@@ -24,26 +25,7 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Webcore Solutions — Software, Web & IT" },
-      {
-        name: "description",
-        content: "Premium software, web & IT solutions for global businesses.",
-      },
-      { name: "author", content: "Webcore Solutions" },
-      { property: "og:title", content: "Webcore Solutions" },
-      {
-        property: "og:description",
-        content: "Software, Web & IT Solutions for Global Businesses.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
-  }),
+  head: getRootHead,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
@@ -119,6 +101,7 @@ function ScrollToTop() {
 function RootComponent() {
   return (
     <>
+      <HeadContent />
       <ScrollToTop />
       <Outlet />
     </>

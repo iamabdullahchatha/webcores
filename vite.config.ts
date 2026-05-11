@@ -6,9 +6,12 @@ import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   base: "/",
-  plugins: [tanstackRouter({ target: "react" }), react(), tailwindcss(), tsConfigPaths()],
+  plugins: [tanstackRouter({ target: "react", autoCodeSplitting: true }), react(), tailwindcss(), tsConfigPaths()],
   build: {
     outDir: "dist",
+    target: "es2022",
+    cssCodeSplit: true,
+    minify: "esbuild",
     rollupOptions: {
       output: {
         manualChunks(id) {

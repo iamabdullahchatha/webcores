@@ -11,6 +11,7 @@ import {
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { getSeoHead } from "@/lib/seo";
 import {
   Plus, ArrowRight, CheckCircle2, MessageCircle,
   Zap, Globe, Clock, Shield, Star, HelpCircle,
@@ -18,13 +19,7 @@ import {
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/faqs")({
-  head: () => ({
-    meta: [
-      { title: "FAQs — Webcore Solutions" },
-      { name: "description", content: "Answers to common questions about our process, pricing and partnerships." },
-      { property: "og:title", content: "FAQs — Webcore Solutions" },
-    ],
-  }),
+  head: () => getSeoHead("faqs", { faqs: allFaqs }),
   component: FAQs,
 });
 
