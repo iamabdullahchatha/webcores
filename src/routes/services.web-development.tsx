@@ -366,7 +366,7 @@ function WebDevelopment() {
                   Websites that{" "}<span className="gradient-text">convert and scale.</span>
                 </motion.h1>
                 <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }} className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  From marketing sites to high-traffic e-commerce — we design and build web experiences engineered for performance, SEO and long-term growth.
+                  Webcore Solutions designs and builds websites for businesses in Dubai and internationally — from marketing sites to high-traffic e-commerce, engineered for performance, SEO and long-term growth.
                 </motion.p>
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.38, type: "tween", ease: "easeOut" }} className="mt-7 flex flex-wrap gap-2.5">
                   {[{ icon: Gauge, label: "98 avg. Lighthouse score" }, { icon: MonitorSmartphone, label: "Mobile-first always" }, { icon: FileText, label: "Figma design system included" }].map((p) => (

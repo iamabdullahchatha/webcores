@@ -141,27 +141,27 @@ const stats = [
 ];
 const testimonials = [
   {
-    name: "Ahmed Khalil",
-    role: "Founder, Dunescape",
+    name: "Tariq Hassan",
+    role: "Marketing Director, Atlas Commerce",
     quote:
-      "Within 90 days our organic leads doubled. Webcore's SEO strategy is the highest-ROI investment we've made as a business.",
-    photo: "/ahmed-khalil.webp",
+      "Our organic traffic doubled in five months after Webcore Solutions restructured our technical SEO foundation. The keyword strategy they produced was the most thorough we've seen from any agency.",
+    photo: "/tariq-hassan.webp",
     stars: 5,
   },
   {
-    name: "Sarah Lin",
-    role: "CTO, NorthPeak",
+    name: "Claire Bennett",
+    role: "CMO, Nexus Digital",
     quote:
-      "The technical audit alone uncovered issues that had been suppressing our rankings for years. The roadmap they delivered was clear, actionable and right.",
-    photo: "/sarah-lin.webp",
+      "We were invisible on AI search tools. Webcore's GEO work changed that — we're now being cited by Perplexity and Gemini for queries in our core market.",
+    photo: "/claire-bennett.webp",
     stars: 5,
   },
   {
-    name: "Connor James",
-    role: "Managing Director",
+    name: "Daniyar Bekova",
+    role: "CEO, Steppe Commerce",
     quote:
-      "Their AI-search and SEO strategy made our service pages clearer, stronger and much easier for buyers to find. The results speak for themselves.",
-    photo: "/connor-james.webp",
+      "The SEO audit identified seventeen critical issues we had no idea about. Within three months of fixes, we climbed from page 5 to position 2 for our primary keyword.",
+    photo: "/daniyar-bekova.webp",
     stars: 5,
   },
 ];
@@ -599,9 +599,7 @@ function SeoGeo() {
                   transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
                 >
-                  Technical SEO, content strategy, generative engine optimization and
-                  authority-building — engineered to drive sustainable organic growth that pays for
-                  itself for years.
+                  Webcore Solutions's SEO and GEO services help Dubai businesses and international brands rank higher and get cited by AI tools — through technical SEO, content strategy and authority-building.
                 </motion.p>
 
                 <motion.div

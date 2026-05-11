@@ -184,34 +184,36 @@ function FaqItem({
         }`}
       />
 
-      <button
-        ref={buttonRef}
-        type="button"
-        onClick={handleToggle}
-        aria-expanded={isOpen}
-        aria-controls={panelId}
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
-      >
-        <div className="flex items-center gap-4">
-          <div
-            className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+      <h3 className="m-0 p-0 font-normal leading-none">
+        <button
+          ref={buttonRef}
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
+        >
+          <div className="flex items-center gap-4">
+            <div
+              className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+              }`}
+            >
+              <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+            </div>
+            <span className="font-semibold text-sm md:text-base">{q}</span>
+          </div>
+          <motion.div
+            animate={{ rotate: isOpen ? 45 : 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
+              isOpen ? "gradient-primary" : "bg-primary/10"
             }`}
           >
-            <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
-          </div>
-          <span className="font-semibold text-sm md:text-base">{q}</span>
-        </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
-            isOpen ? "gradient-primary" : "bg-primary/10"
-          }`}
-        >
-          <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
-        </motion.div>
-      </button>
+            <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+          </motion.div>
+        </button>
+      </h3>
 
       <AnimatePresence>
         {isOpen && (
@@ -288,6 +290,7 @@ function FAQs() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const displayedFaqs = activeCategory !== null ? categories[activeCategory].faqs : allFaqs;
+  const activeCat = activeCategory !== null ? categories[activeCategory] : null;
 
   const handleCategoryChange = (nextCategory: number | null) => {
     setActiveCategory(nextCategory);
@@ -354,9 +357,9 @@ function FAQs() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Everything you wanted to know — answered. Still need help?{" "}
+                Everything you need to know about working with Webcore Solutions — answered. Still have a question?{" "}
                 <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-                  Just ask us.
+                  Book a strategy call
                 </Link>
               </motion.p>
 
@@ -479,18 +482,45 @@ function FAQs() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3 }}
-            className="space-y-3"
+            className="space-y-8"
           >
-            {displayedFaqs.map((f, i) => (
-              <FaqItem
-                key={f.q}
-                q={f.q}
-                a={f.a}
-                index={i}
-                isOpen={openQuestions.includes(f.q)}
-                onToggle={() => handleQuestionToggle(f.q)}
-              />
-            ))}
+            {activeCategory === null ? (
+              categories.map((cat) => (
+                <div key={cat.label} className="space-y-3">
+                  <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
+                    <cat.icon className="h-3.5 w-3.5" style={{ color: cat.color }} />
+                    {cat.label}
+                  </h2>
+                  {cat.faqs.map((f, i) => (
+                    <FaqItem
+                      key={f.q}
+                      q={f.q}
+                      a={f.a}
+                      index={i}
+                      isOpen={openQuestions.includes(f.q)}
+                      onToggle={() => handleQuestionToggle(f.q)}
+                    />
+                  ))}
+                </div>
+              ))
+            ) : (
+              <div className="space-y-3">
+                <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
+                  {activeCat && <activeCat.icon className="h-3.5 w-3.5" style={{ color: activeCat.color }} />}
+                  {activeCat?.label}
+                </h2>
+                {displayedFaqs.map((f, i) => (
+                  <FaqItem
+                    key={f.q}
+                    q={f.q}
+                    a={f.a}
+                    index={i}
+                    isOpen={openQuestions.includes(f.q)}
+                    onToggle={() => handleQuestionToggle(f.q)}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </section>
@@ -520,7 +550,7 @@ function FAQs() {
               Let's talk it through.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+              One 45-minute call with our senior team covers everything the FAQ doesn't — specific to your business, your goals, and your budget.
             </p>
             <Link
               to="/contact"

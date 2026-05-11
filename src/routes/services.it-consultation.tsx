@@ -100,26 +100,26 @@ const heroStats = [
 
 const testimonials = [
   {
-    name: "Ahmed Khalil",
-    role: "Founder, Dunescape",
-    quote: "The audit identified three critical bottlenecks we'd missed for two years. Within a quarter we'd resolved all of them. Webcore's advice pays for itself many times over.",
-    photo: "/ahmed-khalil.webp",
+    name: "Michael Torres",
+    role: "Head of Engineering, Avanta Systems",
+    quote: "The technology roadmap Webcore Solutions produced was the most actionable document we'd had in three years. It cut our infrastructure costs by 30% in the first quarter.",
+    photo: "/michael-torres.webp",
     stars: 5,
     color: "#f59e0b",
   },
   {
-    name: "Sarah Lin",
-    role: "CTO, NorthPeak",
-    quote: "Having a senior architect embedded with our team for six weeks was transformational. The roadmap they produced is still guiding our engineering org 18 months later.",
-    photo: "/sarah-lin.webp",
+    name: "Rania Aziz",
+    role: "COO, Meridian Group",
+    quote: "We were locked into a stack that couldn't scale. Webcore's IT audit identified exactly what to rip out and what to keep. Six months later, our systems are stable and our team moves faster.",
+    photo: "/rania-aziz.webp",
     stars: 5,
     color: "#6366f1",
   },
   {
-    name: "Connor James",
-    role: "Managing Director",
-    quote: "We were about to make a very expensive vendor decision. Webcore's evaluation process saved us from a costly mistake and pointed us to a better fit at half the price.",
-    photo: "/connor-james.webp",
+    name: "James Hartley",
+    role: "VP Technology, Apex Financial",
+    quote: "Webcore's cloud migration roadmap was thorough and risk-aware. The phased approach they recommended meant we didn't lose a single day of uptime during the transition.",
+    photo: "/james-hartley.webp",
     stars: 5,
     color: "#06b6d4",
   },
@@ -551,8 +551,7 @@ function ItConsultation() {
                   transition={{ duration: 0.6, delay: 0.25, type: "tween" as const, ease: "easeOut" as const }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
                 >
-                  From architecture audits to vendor selection — we help leadership teams make
-                  confident technology decisions that scale with the business.
+                  Webcore Solutions helps businesses in Dubai and globally make confident technology decisions — from architecture audits to vendor selection and long-term roadmap planning.
                 </motion.p>
 
                 {/* Pill badges */}
@@ -849,7 +848,7 @@ function ItConsultation() {
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">What our clients say.</h2>
           </div>
           <Link to="/contact" className="group inline-flex items-center gap-2 text-primary font-semibold text-sm">
-            Work with us
+            Start your IT consultation
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>

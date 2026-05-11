@@ -243,8 +243,9 @@ function About() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Born in Dubai, made for the world. Webcore partners with ambitious teams
-                to engineer software that performs and endures.
+                Born in Dubai, made for the world. Webcore Solutions is a digital agency
+                that partners with ambitious teams to design and ship premium digital
+                products — software that is beautiful, fast, and built to endure.
               </motion.p>
 
               <motion.div
@@ -278,7 +279,7 @@ function About() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
                 >
-                  Work with us
+                  Start your project
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
@@ -520,7 +521,7 @@ function About() {
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             Everything you need to know before working with us. Still have questions?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              Just ask.
+              Ask our team
             </Link>
           </p>
         </motion.div>

@@ -1,69 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://www.webcoreuae.com/</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>Webcore Solutions — Dubai Digital Agency</image:title>
+    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/"/>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/about</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/about"/>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services"/>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/it-consultation</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>IT Consultation Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/cms-development</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>CMS Development Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/web-development</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>Web Development Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/software-development</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>Software Development Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/seo-geo</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>SEO and GEO Services Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/services/graphic-design</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
+      <image:title>Graphic Design Dubai — Webcore Solutions</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/faqs</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
+
   <url>
     <loc>https://www.webcoreuae.com/contact</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
 </urlset>

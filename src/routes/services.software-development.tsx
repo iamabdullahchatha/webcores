@@ -103,24 +103,24 @@ const stats = [
 
 const testimonials = [
   {
-    name: "Ahmed Khalil",
-    role: "Founder, Dunescape",
-    quote: "Webcore rebuilt our entire data pipeline in six weeks. The performance improvement was immediate and the codebase is cleaner than anything we'd shipped internally. Exceptional work.",
-    photo: "/ahmed-khalil.webp",
+    name: "Liam Chen",
+    role: "CTO, Pillar SaaS",
+    quote: "Webcore Solutions took a complex data architecture and built a system that's handled 10× the load we originally projected. The codebase is clean and our engineers love maintaining it.",
+    photo: "/liam-chen.webp",
     stars: 5,
   },
   {
-    name: "Sarah Lin",
-    role: "CTO, NorthPeak",
-    quote: "We needed a complex SaaS platform built fast without cutting corners. Webcore delivered production-ready code with tests, docs and CI/CD from day one. They raised the bar for our whole engineering org.",
-    photo: "/sarah-lin.webp",
+    name: "Nadia Petrov",
+    role: "Founder, Fieldwork Tools",
+    quote: "From discovery to our first paying users was fourteen weeks. The team understood what a B2B SaaS needs at early stage — fast iteration, clean APIs, a solid auth layer.",
+    photo: "/nadia-petrov.webp",
     stars: 5,
   },
   {
-    name: "Connor James",
-    role: "Managing Director",
-    quote: "The internal tooling they built replaced five different spreadsheets and halved our ops overhead. ROI was visible within the first month. I wish we'd engaged them two years earlier.",
-    photo: "/connor-james.webp",
+    name: "Andrew Walsh",
+    role: "Head of Product, CoreBridge",
+    quote: "We had a legacy internal tool that cost our ops team hours every day. Webcore rebuilt it in eight weeks. The time savings paid for the engagement within the first month.",
+    photo: "/andrew-walsh.webp",
     stars: 5,
   },
 ];
@@ -507,8 +507,7 @@ function SoftwareDevelopment() {
                 <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  ERPs, dashboards, internal tools, SaaS platforms and data management systems
-                  — built with the rigour your business deserves, and the velocity your roadmap demands.
+                  Webcore Solutions builds custom software for businesses in Dubai and internationally — SaaS platforms, ERPs, internal tools and data systems built with the rigour your business deserves.
                 </motion.p>
 
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}

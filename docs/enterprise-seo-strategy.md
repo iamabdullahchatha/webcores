@@ -1,4 +1,4 @@
-# Webcore UAE Enterprise SEO Strategy
+# Webcore Solutions Enterprise SEO Strategy
 
 Audit date: 2026-05-11
 
@@ -69,7 +69,7 @@ This is preferable to dynamic rendering because it avoids bot-specific serving a
 
 | Page | Primary Keyword | Secondary Keywords | Intent | Difficulty | GEO/AEO Opportunity |
 |---|---|---|---|---|---|
-| `/` | digital agency Dubai | web development company Dubai, SEO agency UAE, software development Dubai | Brand + Commercial | High | Direct answer: what Webcore UAE does and where it serves |
+| `/` | digital agency Dubai | web development company Dubai, SEO agency UAE, software development Dubai | Brand + Commercial | High | Direct answer: what Webcore Solutions does and where it serves |
 | `/about` | digital agency team Dubai | web development experts UAE, international digital agency | Trust | Medium | EEAT, founder/team, process, global delivery |
 | `/services` | digital services Dubai | web development, CMS, SEO, branding, automation | Commercial investigation | High | Service comparison and package-fit answers |
 | `/services/web-development` | web development company Dubai | React websites, business websites UAE, high performance web development | Transactional | High | "Best web development company for UAE businesses" style queries |
@@ -79,7 +79,7 @@ This is preferable to dynamic rendering because it avoids bot-specific serving a
 | `/services/it-consultation` | IT consultation Dubai | technology audit, cloud strategy, digital transformation UAE | Commercial | Medium | "How to modernize legacy systems" answers |
 | `/services/graphic-design` | graphic design Dubai | logo design UAE, branding agency Dubai, brand identity design | Commercial | High | Visual brand and design process answers |
 | `/faqs` | web agency FAQs Dubai | pricing, timelines, support, remote projects | Informational | Medium | Central FAQPage and voice-search style answers |
-| `/contact` | contact web development agency Dubai | free digital strategy call, hire Webcore UAE | Transactional | Medium | Conversion intent and local trust signals |
+| `/contact` | contact web development agency Dubai | free digital strategy call, hire Webcore Solutions | Transactional | Medium | Conversion intent and local trust signals |
 
 ## Metadata Direction
 

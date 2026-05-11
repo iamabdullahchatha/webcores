@@ -90,19 +90,19 @@ const heroStats = [
 
 const testimonials = [
   {
-    name: "Ahmed Khalil", role: "Founder, Dunescape",
-    quote: "Our editorial team went from waiting days for developer support to publishing independently in hours. The CMS Webcore built is the backbone of everything we do.",
-    photo: "/ahmed-khalil.webp", stars: 5, color: "#f59e0b",
+    name: "Sophie Carver", role: "Head of Content, Resolve Media",
+    quote: "We moved from a rigid CMS that required a developer for every change to a headless platform built by Webcore. Our editors were fully independent within a week of training.",
+    photo: "/sophie-carver.webp", stars: 5, color: "#f59e0b",
   },
   {
-    name: "Sarah Lin", role: "CTO, NorthPeak",
-    quote: "The content model they designed has scaled to support 12 markets and 4 languages without a single structural change. That's exceptional architecture.",
-    photo: "/sarah-lin.webp", stars: 5, color: "#8b5cf6",
+    name: "Omar Al Nasser", role: "Digital Director, Kestrel Retail",
+    quote: "The composable content platform Webcore Solutions built handles our 10,000-SKU catalogue without breaking a sweat. Publishing time went from 2 hours to 15 minutes.",
+    photo: "/omar-al-nasser.webp", stars: 5, color: "#8b5cf6",
   },
   {
-    name: "Connor James", role: "Managing Director",
-    quote: "We migrated 8 years of content from Drupal without losing a single asset or URL. The process was transparent, methodical and totally stress-free.",
-    photo: "/connor-james.webp", stars: 5, color: "#06b6d4",
+    name: "Emma Clarke", role: "Marketing Manager, Horizon Group",
+    quote: "We needed a WordPress build that non-technical editors could actually use. Webcore designed the editorial workflow from scratch and it's genuinely a pleasure to work in.",
+    photo: "/emma-clarke.webp", stars: 5, color: "#06b6d4",
   },
 ];
 
@@ -516,8 +516,7 @@ function CmsDevelopment() {
                   transition={{ duration: 0.6, delay: 0.25, type: "tween" as const, ease: "easeOut" as const }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
                 >
-                  Headless, composable CMS platforms engineered to give editorial teams full
-                  control — without waiting on developers for every update.
+                  Webcore Solutions builds headless and composable CMS platforms for businesses in Dubai and beyond — giving editorial teams full content control without developer dependency.
                 </motion.p>
 
                 <motion.div
@@ -806,7 +805,7 @@ function CmsDevelopment() {
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">What our clients say.</h2>
           </div>
           <Link to="/contact" className="group inline-flex items-center gap-2 text-primary font-semibold text-sm">
-            Work with us
+            Start your CMS project
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>

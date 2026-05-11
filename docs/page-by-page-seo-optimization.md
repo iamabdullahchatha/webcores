@@ -1,4 +1,4 @@
-# Webcore UAE Page-by-Page SEO Optimization
+# Webcore Solutions Page-by-Page SEO Optimization
 
 Date: 2026-05-11
 
@@ -45,13 +45,13 @@ The website now uses prerendered route HTML with React hydration. This means eve
 | Primary keyword | digital agency Dubai |
 | Secondary keywords | web development company Dubai, SEO agency UAE, software development Dubai, international digital agency |
 | Search intent | Commercial + brand + service discovery |
-| Optimized title | Digital Agency Dubai \| Webcore UAE Web, SEO & Software |
+| Optimized title | Digital Agency Dubai \| Webcore Solutions Web, SEO & Software |
 | Meta description | Premium Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation across global markets. |
 | H1 direction | Keep premium H1, but support it immediately with crawlable copy naming Dubai digital agency, web development, SEO, software and international delivery. |
 | H2/H3 strategy | Add/keep sections for services, proof, process, global delivery, FAQs and conversion CTA. |
 | Internal links | Link to all service pages using descriptive anchors: web development company Dubai, SEO and GEO services, CMS development, software development. |
 | Schema | Organization, LocalBusiness, WebSite, WebPage, Breadcrumb, visible FAQ subset. |
-| GEO/AEO | Add direct answer block: "What does Webcore UAE do?" |
+| GEO/AEO | Add direct answer block: "What does Webcore Solutions do?" |
 | CTA | "Book a free digital strategy call" and "Explore services". |
 
 ### About Page
@@ -59,14 +59,14 @@ The website now uses prerendered route HTML with React hydration. This means eve
 | Item | Recommendation |
 |---|---|
 | Primary keyword | Dubai digital agency team |
-| Secondary keywords | international digital agency, Webcore UAE team, software agency UAE |
+| Secondary keywords | international digital agency, Webcore Solutions team, software agency UAE |
 | Semantic entities | Dubai, UAE, remote delivery, senior team, process, trust, startups, SMEs, enterprise |
 | Search intent | Trust validation and EEAT |
-| Optimized title | About Webcore UAE \| Dubai Digital Agency Team |
+| Optimized title | About Webcore Solutions \| Dubai Digital Agency Team |
 | H1 direction | Keep as trust-led, but add nearby copy naming Dubai, global delivery and senior digital execution. |
 | Internal links | Link to services hub, web development, software development, SEO/GEO and contact. |
 | Schema | AboutPage, Organization, Breadcrumb, visible FAQ subset. |
-| GEO/AEO | Answer "Where is Webcore UAE based?" and "Who does Webcore UAE work with?" |
+| GEO/AEO | Answer "Where is Webcore Solutions based?" and "Who does Webcore Solutions work with?" |
 | Conversion | Add proof-led CTA: "Talk to the team about your project". |
 
 ### Services Hub
@@ -80,7 +80,7 @@ The website now uses prerendered route HTML with React hydration. This means eve
 | H1 direction | Keep the premium H1; ensure service cards have crawlable H3 names and descriptive copy. |
 | Internal links | Must link to every current and future service page. |
 | Schema | CollectionPage, Organization, Breadcrumb. Do not output FAQ schema unless visible FAQs are added. |
-| GEO/AEO | Add future service comparison content: "Which Webcore UAE service do I need?" |
+| GEO/AEO | Add future service comparison content: "Which Webcore Solutions service do I need?" |
 | Conversion | Include service-specific CTAs and contact CTA. |
 
 ### Web Development Page
@@ -183,10 +183,10 @@ The website now uses prerendered route HTML with React hydration. This means eve
 
 | Item | Recommendation |
 |---|---|
-| Primary keyword | Webcore UAE FAQs |
+| Primary keyword | Webcore Solutions FAQs |
 | Secondary keywords | digital agency pricing UAE, website project timelines, remote web agency questions |
 | Search intent | Informational + objection handling |
-| Optimized title | Webcore UAE FAQs \| Process, Pricing & Support |
+| Optimized title | Webcore Solutions FAQs \| Process, Pricing & Support |
 | H1 direction | Keep concise FAQ H1. |
 | Internal links | Each answer should contextually link to relevant service pages where natural. |
 | Schema | FAQPage is present, but Google FAQ rich results are no longer available for general sites after May 7, 2026. Keep for machine readability and users, not as a rich-result dependency. |
@@ -198,9 +198,9 @@ The website now uses prerendered route HTML with React hydration. This means eve
 | Item | Recommendation |
 |---|---|
 | Primary keyword | contact web development agency Dubai |
-| Secondary keywords | free digital strategy call, hire Webcore UAE, website quote Dubai |
+| Secondary keywords | free digital strategy call, hire Webcore Solutions, website quote Dubai |
 | Search intent | Transactional |
-| Optimized title | Contact Webcore UAE \| Free Digital Strategy Call |
+| Optimized title | Contact Webcore Solutions \| Free Digital Strategy Call |
 | H1 direction | Current H1 is conversion-friendly. |
 | Internal links | Link back to services and FAQs near form or after submission. |
 | Schema | ContactPage, Organization, LocalBusiness, ContactPoint, Breadcrumb. |
@@ -276,7 +276,7 @@ The website now uses prerendered route HTML with React hydration. This means eve
 
 | Page Type | Direct-Answer Opportunity | AI Search Angle |
 |---|---|---|
-| Homepage | What does Webcore UAE do? | Entity summary for AI systems. |
+| Homepage | What does Webcore Solutions do? | Entity summary for AI systems. |
 | Services hub | Which service do I need? | Service classification and buyer path. |
 | Web development | How does Webcore build SEO-ready websites? | Crawlable React, performance and conversion. |
 | Software | What can be built as custom software? | SaaS, APIs, dashboards and automation. |
@@ -285,7 +285,7 @@ The website now uses prerendered route HTML with React hydration. This means eve
 | IT consultation | What does a technology audit include? | Enterprise decision support. |
 | Graphic design | What is included in brand identity design? | Logo, collateral, ownership and guidelines. |
 | FAQs | Pricing, timelines, support, global delivery | Voice-search and zero-click answers. |
-| Contact | How do I start a project with Webcore UAE? | Conversion answer. |
+| Contact | How do I start a project with Webcore Solutions? | Conversion answer. |
 
 ## Search Appearance Rules
 

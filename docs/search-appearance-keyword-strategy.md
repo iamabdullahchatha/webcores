@@ -1,4 +1,4 @@
-# Webcore UAE Search Appearance and Keyword Strategy
+# Webcore Solutions Search Appearance and Keyword Strategy
 
 Date: 2026-05-11
 
@@ -10,7 +10,7 @@ Important limitation: no authenticated Ahrefs, SEMrush, Keyword Planner, or Sear
 
 ## Strategic Positioning
 
-Webcore UAE should be positioned as a premium Dubai-founded international digital agency for companies that need technical execution, SEO-safe websites, custom systems, CMS platforms, ecommerce, AI search visibility, and remote delivery across UAE, UK, Europe, USA, Pakistan, and global markets.
+Webcore Solutions should be positioned as a premium Dubai-founded international digital agency for companies that need technical execution, SEO-safe websites, custom systems, CMS platforms, ecommerce, AI search visibility, and remote delivery across UAE, UK, Europe, USA, Pakistan, and global markets.
 
 The strongest differentiated SEO angle is not just "web development company Dubai." That market is crowded. The stronger authority position is:
 
@@ -192,7 +192,7 @@ This creates coverage across classic Google, local commercial searches, B2B outs
 | Page | Primary Keyword | Secondary Keywords | Semantic Entities | Intent | Ranking Opportunity | Conversion Opportunity |
 |---|---|---|---|---|---|---|
 | `/` | digital agency Dubai | web development company Dubai, SEO agency UAE, software development Dubai, international digital agency | Dubai, UAE, UK, Europe, USA, Pakistan, web development, SEO, CMS, software, branding | Commercial/Brand | Rank for broad brand and agency searches | Position as global agency and drive strategy calls |
-| `/about` | digital agency team Dubai | international digital agency, Webcore UAE team, remote digital agency | team, process, delivery, expertise, communication, global clients | Trust/Commercial | Support brand and EEAT queries | Build confidence before contact |
+| `/about` | digital agency team Dubai | international digital agency, Webcore Solutions team, remote digital agency | team, process, delivery, expertise, communication, global clients | Trust/Commercial | Support brand and EEAT queries | Build confidence before contact |
 | `/services` | digital services Dubai | web development, software development, CMS, SEO, branding, automation | service portfolio, digital transformation, business growth | Commercial investigation | Hub page for service discovery | Route users to best-fit service pages |
 | `/services/web-development` | web development company Dubai | website development UAE, React website development, high-performance websites, SEO-friendly websites | React, Vite, Core Web Vitals, responsive design, business websites | Transactional | Money page for web/dev terms | Capture website build leads |
 | `/services/software-development` | software development company Dubai | custom web applications, SaaS development, APIs, business automation | SaaS, APIs, dashboards, portals, integrations, automation | Enterprise/Transactional | High-ticket software leads | Book discovery for custom systems |
@@ -201,7 +201,7 @@ This creates coverage across classic Google, local commercial searches, B2B outs
 | `/services/it-consultation` | IT consultation Dubai | technology audit, digital transformation UAE, cloud strategy, enterprise IT roadmap | audit, architecture, roadmap, vendors, cloud, risk | Commercial/Enterprise | Lower competition advisory keywords | Convert to consultation engagements |
 | `/services/graphic-design` | graphic design Dubai | logo design UAE, brand identity design, company profile design | logo, identity, brand system, collateral, social creatives | Commercial | Visual service lead capture | Package with web/branding projects |
 | `/faqs` | web agency FAQs Dubai | website cost Dubai, project timelines, support, remote collaboration | pricing, timelines, process, revisions, support | Informational/AEO | Voice and long-tail answer coverage | Reduce sales friction |
-| `/contact` | contact web development agency Dubai | free digital strategy call, hire Webcore UAE, website quote Dubai | consultation, quote, phone, email, WhatsApp | Transactional | Brand and conversion intent | Capture leads |
+| `/contact` | contact web development agency Dubai | free digital strategy call, hire Webcore Solutions, website quote Dubai | consultation, quote, phone, email, WhatsApp | Transactional | Brand and conversion intent | Capture leads |
 
 ## Missing High-Intent Pages
 
@@ -223,17 +223,17 @@ Current implemented metadata is already short enough for practical SERP display.
 
 | Page | Recommended Meta Title | Recommended Meta Description | SERP CTR Angle |
 |---|---|---|---|
-| `/` | Digital Agency Dubai | Webcore UAE Web, SEO & Software | Premium Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation across global markets. | Premium international agency, broad services, global delivery |
-| `/about` | About Webcore UAE | Dubai Digital Agency Team | Meet the Webcore UAE team building SEO-ready websites, CMS platforms, software and digital growth systems for global clients. | Trust and expertise |
-| `/services` | Digital Services Dubai | Web, SEO, Software & CMS | Explore Webcore UAE services for websites, CMS, custom software, SEO, GEO, branding and business automation. | Service hub |
-| `/services/web-development` | Web Development Company Dubai | SEO-Ready Websites | Build fast, SEO-ready business websites with Webcore UAE, serving Dubai, UAE, UK, Europe, USA and remote international clients. | Fast, SEO-ready, international |
+| `/` | Digital Agency Dubai | Webcore Solutions Web, SEO & Software | Premium Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation across global markets. | Premium international agency, broad services, global delivery |
+| `/about` | About Webcore Solutions | Dubai Digital Agency Team | Meet the Webcore Solutions team building SEO-ready websites, CMS platforms, software and digital growth systems for global clients. | Trust and expertise |
+| `/services` | Digital Services Dubai | Web, SEO, Software & CMS | Explore Webcore Solutions services for websites, CMS, custom software, SEO, GEO, branding and business automation. | Service hub |
+| `/services/web-development` | Web Development Company Dubai | SEO-Ready Websites | Build fast, SEO-ready business websites with Webcore Solutions, serving Dubai, UAE, UK, Europe, USA and remote international clients. | Fast, SEO-ready, international |
 | `/services/software-development` | Software Development Company Dubai | SaaS & Web Apps | Custom software, SaaS platforms, APIs, dashboards and automation built for scalable businesses in UAE and global markets. | Enterprise outcomes |
 | `/services/cms-development` | CMS Development Dubai | Headless & WordPress Agency | Custom CMS, WordPress and headless content platforms for teams that need flexible publishing, SEO and scalable workflows. | CMS clarity and SEO |
 | `/services/seo-geo` | SEO & GEO Agency Dubai | Google & AI Search | Technical SEO, content strategy, schema, generative engine optimization and answer-engine optimization for stronger Google and AI search visibility. | Traditional SEO plus AI search |
 | `/services/it-consultation` | IT Consulting Company Dubai | Tech Audits & Roadmaps | Get senior technology audits, modernization roadmaps, cloud guidance and vendor planning for growing digital businesses. | Senior advisory |
 | `/services/graphic-design` | Graphic Design Company Dubai | Logo & Branding | Logo design, brand identity, company profiles and digital graphics for businesses that need a sharper visual presence. | Brand polish |
-| `/faqs` | Webcore UAE FAQs | Process, Pricing & Support | Answers about Webcore UAE services, pricing, timelines, support, remote delivery and project workflow. | Objection handling |
-| `/contact` | Contact Webcore UAE | Free Digital Strategy Call | Talk to Webcore UAE about websites, software, CMS, SEO, GEO, branding or digital growth projects. | Direct conversion |
+| `/faqs` | Webcore Solutions FAQs | Process, Pricing & Support | Answers about Webcore Solutions services, pricing, timelines, support, remote delivery and project workflow. | Objection handling |
+| `/contact` | Contact Webcore Solutions | Free Digital Strategy Call | Talk to Webcore Solutions about websites, software, CMS, SEO, GEO, branding or digital growth projects. | Direct conversion |
 
 ### Open Graph and Twitter/X
 

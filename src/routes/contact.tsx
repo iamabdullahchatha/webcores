@@ -945,10 +945,10 @@ function Contact() {
                 }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Drop us a message or book a free
-                45-minute strategy call. You'll leave
-                with clarity — whether you work with us
-                or not.
+                Reach the Webcore Solutions team directly, or
+                book a free 45-minute digital strategy
+                call. No sales pitch — just honest advice
+                on what your project needs.
               </motion.p>
 
               <motion.div
@@ -976,7 +976,7 @@ function Contact() {
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20">
+      <section id="contact-form" className="mx-auto max-w-7xl px-4 py-20">
         <div className="grid lg:grid-cols-[420px_1fr] gap-8 items-start">
           <div className="space-y-5">
             <motion.div
@@ -1167,6 +1167,139 @@ function Contact() {
         </div>
       </section>
 
+      {/* ── Why Webcore Solutions / body content ── */}
+      <section className="mx-auto max-w-4xl px-4 pb-16">
+        <motion.div
+          {...fadeUp()}
+          className="space-y-10 text-muted-foreground leading-relaxed"
+        >
+          <p>
+            Webcore Solutions is a Dubai-based digital agency working with
+            businesses across the UAE, UK, and internationally. Whether
+            you need a new website, bespoke software, an SEO overhaul, or
+            a full brand identity — our senior team handles it from
+            discovery to delivery. Use the form above to start the
+            conversation.
+          </p>
+
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              What happens on a free digital strategy call?
+            </h2>
+            <p className="mb-3">
+              Every new project starts with a free 45-minute digital
+              strategy call with a senior member of our team — not a
+              salesperson. We cover three things: what you're trying to
+              achieve, what's blocking you, and what a realistic path
+              forward looks like. You'll leave with a clear picture of
+              scope, timeline, and budget range.
+            </p>
+            <p>
+              Clients tell us this call is worth taking regardless of
+              whether they proceed. It gives you an expert outside
+              perspective before you commit to anything — we answer
+              technical questions, flag risks you may not have considered,
+              and help you prioritise the work that will have the biggest
+              impact.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Why businesses in Dubai choose Webcore Solutions
+            </h2>
+            <p className="mb-3">
+              We've delivered 450+ projects for businesses ranging from
+              Dubai start-ups to established UK enterprises. What makes
+              Webcore Solutions different is the combination of senior technical
+              depth and genuine commercial understanding. We don't just
+              build what you ask for — we ask why you need it, what success
+              looks like, and how it fits your broader digital strategy.
+            </p>
+            <p>
+              Our Dubai team operates on Gulf Standard Time, keeping
+              communication straightforward for UAE-based clients. Our UK
+              presence covers GMT and BST. We respond within one business
+              day — usually faster — and keep you updated throughout the
+              project without you needing to chase us.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              Frequently asked questions
+            </h2>
+
+            <div className="space-y-7">
+              <div>
+                <h3 className="font-semibold text-base text-foreground mb-2">
+                  How quickly will you respond to my enquiry?
+                </h3>
+                <p className="text-sm">
+                  All enquiries receive an initial response within one
+                  business day. Messages sent during working hours
+                  (Mon–Fri, 9 AM–6 PM GST) typically get a reply within
+                  a few hours.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base text-foreground mb-2">
+                  Is the strategy call really free with no obligation?
+                </h3>
+                <p className="text-sm">
+                  Yes — completely. There is no pressure to proceed after
+                  the call. Many clients use it simply to get clarity on
+                  their options. If you decide to work with Webcore Solutions,
+                  great. If not, you'll still leave with useful, honest
+                  advice.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base text-foreground mb-2">
+                  Do you work with clients outside Dubai and the UAE?
+                </h3>
+                <p className="text-sm">
+                  Absolutely. Webcore Solutions works with clients across the
+                  UK, Europe, North America, and the wider GCC region. All
+                  collaboration can be fully remote — calls, shared
+                  workspaces, and regular progress updates keep every
+                  project on track regardless of location.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base text-foreground mb-2">
+                  What should I prepare before our first call?
+                </h3>
+                <p className="text-sm">
+                  Nothing formal is required. A rough sense of your goals
+                  and timeline helps, but if those aren't fixed yet that's
+                  fine — working that out together is exactly what the
+                  call is for. Examples of products or websites you admire
+                  are always useful to share.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base text-foreground mb-2">
+                  Which services does Webcore Solutions cover?
+                </h3>
+                <p className="text-sm">
+                  We cover the full digital stack: web development, custom
+                  software and SaaS platforms, CMS development (WordPress
+                  and headless), SEO and GEO including AI search
+                  visibility, brand and graphic design, and IT
+                  consultation. Most clients work with us across more than
+                  one of these areas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       <section className="mx-auto max-w-4xl px-4 pb-24">
         <motion.div
           {...fadeUp(0.1)}
@@ -1205,20 +1338,17 @@ function Contact() {
             </h2>
 
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              45 minutes with our senior team.
-              Walk away with clarity on scope,
-              cost, and next steps — whether you
-              work with us or not.
+              We set aside 45 minutes to understand your project, share our honest take, and give you a clear view of scope, timeline, and cost — no pressure.
             </p>
 
-            <Link
-              to="/contact"
+            <a
+              href="#contact-form"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
               Book Free Consultation
 
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-            </Link>
+            </a>
 
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
               {[

@@ -1,6 +1,6 @@
 export const SITE_URL = "https://www.webcoreuae.com";
 export const SITE_NAME = "Webcore Solutions";
-export const BRAND_NAME = "Webcore UAE";
+export const BRAND_NAME = "Webcore Solutions";
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOCAL_BUSINESS_ID = `${SITE_URL}/#local-business`;
@@ -53,11 +53,11 @@ export const pageSeo = {
   home: {
     label: "Home",
     path: "/",
-    title: "Webcore UAE | Web, Software & SEO Agency Dubai",
+    title: "Webcore Solutions | Web, Software & SEO Agency Dubai",
     description:
       "Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation for UAE, UK, US and global teams.",
     keywords: [
-      "Webcore UAE",
+      "Webcore Solutions",
       "Dubai digital agency",
       "software development Dubai",
       "web development Dubai",
@@ -68,10 +68,10 @@ export const pageSeo = {
   about: {
     label: "About",
     path: "/about",
-    title: "About Webcore UAE | Dubai Digital Agency Team",
+    title: "About Webcore Solutions | Dubai Digital Agency Team",
     description:
-      "Meet Webcore UAE, a Dubai-founded software, web, SEO and design team serving clients across the UAE, UK, Europe, US and Pakistan.",
-    keywords: ["about Webcore UAE", "Dubai technology agency", "software agency UAE"],
+      "Meet Webcore Solutions, a Dubai-founded software, web, SEO and design team serving clients across the UAE, UK, Europe, US and Pakistan.",
+    keywords: ["about Webcore Solutions", "Dubai technology agency", "software agency UAE"],
     schemaType: "AboutPage",
   },
   services: {
@@ -79,26 +79,26 @@ export const pageSeo = {
     path: "/services",
     title: "Digital Services Dubai | Web, Software, SEO & CMS",
     description:
-      "Explore Webcore UAE services: web development, software development, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
+      "Explore Webcore Solutions services: web development, software development, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
     keywords: ["digital services Dubai", "web development services UAE", "software services UAE"],
     schemaType: "CollectionPage",
   },
   faqs: {
     label: "FAQs",
     path: "/faqs",
-    title: "Webcore UAE FAQs | Process, Pricing & Support",
+    title: "Webcore Solutions FAQs | Process, Pricing & Support",
     description:
-      "Answers about Webcore UAE services, pricing, project timelines, support, technology choices and international digital agency work.",
-    keywords: ["Webcore UAE FAQs", "digital agency questions", "software project pricing UAE"],
+      "Answers about Webcore Solutions services, pricing, project timelines, support, technology choices and international digital agency work.",
+    keywords: ["Webcore Solutions FAQs", "digital agency questions", "software project pricing UAE"],
     schemaType: "FAQPage",
   },
   contact: {
     label: "Contact",
     path: "/contact",
-    title: "Contact Webcore UAE | Free Digital Strategy Call",
+    title: "Contact Webcore Solutions | Free Digital Strategy Call",
     description:
-      "Contact Webcore UAE for web development, software, SEO, GEO, CMS, IT consultation, branding and ecommerce support in Dubai and globally.",
-    keywords: ["contact Webcore UAE", "Dubai software consultation", "book web development call"],
+      "Contact Webcore Solutions for web development, software, SEO, GEO, CMS, IT consultation, branding and ecommerce support in Dubai and globally.",
+    keywords: ["contact Webcore Solutions", "Dubai software consultation", "book web development call"],
     schemaType: "ContactPage",
   },
   itConsultation: {
@@ -170,32 +170,32 @@ export const seoRoutes = [
 export const pageFaqs = {
   home: [
     {
-      q: "Does Webcore UAE work with international clients?",
-      a: "Yes. Webcore UAE serves clients across Dubai, the UAE, the UK, Europe, the United States, Pakistan and remote international markets.",
+      q: "Does Webcore Solutions work with international clients?",
+      a: "Yes. Webcore Solutions serves clients across Dubai, the UAE, the UK, Europe, the United States, Pakistan and remote international markets.",
     },
     {
-      q: "Which digital services does Webcore UAE provide?",
-      a: "Webcore UAE provides web development, software development, ecommerce, CMS development, SEO, GEO, branding, UI/UX, IT consultation and business automation.",
+      q: "Which digital services does Webcore Solutions provide?",
+      a: "Webcore Solutions provides web development, software development, ecommerce, CMS development, SEO, GEO, branding, UI/UX, IT consultation and business automation.",
     },
     {
-      q: "Can Webcore UAE improve both Google rankings and AI search visibility?",
+      q: "Can Webcore Solutions improve both Google rankings and AI search visibility?",
       a: "Yes. The team combines technical SEO, content strategy, schema, GEO and answer-engine optimization to improve visibility in traditional and AI-powered search.",
     },
   ],
   about: [
     {
-      q: "Where is Webcore UAE based?",
-      a: "Webcore UAE is headquartered in Dubai, United Arab Emirates, with client operations across the UK, Europe, the United States, Pakistan and international remote markets.",
+      q: "Where is Webcore Solutions based?",
+      a: "Webcore Solutions is headquartered in Dubai, United Arab Emirates, with client operations across the UK, Europe, the United States, Pakistan and international remote markets.",
     },
     {
-      q: "What types of companies does Webcore UAE work with?",
-      a: "Webcore UAE works with startups, SMEs and enterprise teams that need senior execution across software, web, SEO, branding and technology strategy.",
+      q: "What types of companies does Webcore Solutions work with?",
+      a: "Webcore Solutions works with startups, SMEs and enterprise teams that need senior execution across software, web, SEO, branding and technology strategy.",
     },
   ],
   services: [
     {
-      q: "What services does Webcore UAE provide?",
-      a: "Webcore UAE provides web development, software development, ecommerce, CMS development, SEO, GEO, IT consultation, graphic design and branding.",
+      q: "What services does Webcore Solutions provide?",
+      a: "Webcore Solutions provides web development, software development, ecommerce, CMS development, SEO, GEO, IT consultation, graphic design and branding.",
     },
     {
       q: "Can services be combined?",
@@ -204,15 +204,15 @@ export const pageFaqs = {
   ],
   faqs: [
     {
-      q: "How long does a typical Webcore UAE project take?",
+      q: "How long does a typical Webcore Solutions project take?",
       a: "Most projects take four to twelve weeks depending on scope, with larger custom software or enterprise engagements scoped around milestones.",
     },
     {
-      q: "How does Webcore UAE price projects?",
-      a: "Webcore UAE uses fixed-scope pricing for defined projects and retainers for ongoing product, SEO, development and support work.",
+      q: "How does Webcore Solutions price projects?",
+      a: "Webcore Solutions uses fixed-scope pricing for defined projects and retainers for ongoing product, SEO, development and support work.",
     },
     {
-      q: "Does Webcore UAE provide ongoing support?",
+      q: "Does Webcore Solutions provide ongoing support?",
       a: "Yes. Ongoing retainers can cover maintenance, performance work, SEO growth, feature development and post-launch improvements.",
     },
   ],
@@ -222,37 +222,37 @@ export const pageFaqs = {
       a: "IT consultation includes technology audits, architecture planning, cloud strategy, vendor selection, automation planning and implementation roadmaps.",
     },
     {
-      q: "Can Webcore UAE audit an existing technology stack?",
-      a: "Yes. Webcore UAE can review current systems, identify risk, prioritize modernization work and create a practical roadmap for scale.",
+      q: "Can Webcore Solutions audit an existing technology stack?",
+      a: "Yes. Webcore Solutions can review current systems, identify risk, prioritize modernization work and create a practical roadmap for scale.",
     },
   ],
   cmsDevelopment: [
     {
-      q: "Does Webcore UAE build headless CMS platforms?",
-      a: "Yes. Webcore UAE builds headless CMS, WordPress and custom content platforms with structured content, editorial workflows and scalable publishing.",
+      q: "Does Webcore Solutions build headless CMS platforms?",
+      a: "Yes. Webcore Solutions builds headless CMS, WordPress and custom content platforms with structured content, editorial workflows and scalable publishing.",
     },
     {
-      q: "Can Webcore UAE migrate content from an old CMS?",
+      q: "Can Webcore Solutions migrate content from an old CMS?",
       a: "Yes. CMS migrations can include content modeling, redirects, metadata preservation, taxonomy cleanup and editorial workflow improvements.",
     },
   ],
   webDevelopment: [
     {
-      q: "What web development services does Webcore UAE offer?",
-      a: "Webcore UAE builds business websites, ecommerce stores, React websites, WordPress sites, landing pages and conversion-focused web experiences.",
+      q: "What web development services does Webcore Solutions offer?",
+      a: "Webcore Solutions builds business websites, ecommerce stores, React websites, WordPress sites, landing pages and conversion-focused web experiences.",
     },
     {
-      q: "Are Webcore UAE websites optimized for Core Web Vitals?",
+      q: "Are Webcore Solutions websites optimized for Core Web Vitals?",
       a: "Yes. Builds are planned around performance, responsive UX, accessibility, crawlability and Core Web Vitals from the start.",
     },
   ],
   softwareDevelopment: [
     {
-      q: "What custom software can Webcore UAE build?",
-      a: "Webcore UAE builds SaaS platforms, APIs, dashboards, data systems, internal tools, business automation and enterprise workflows.",
+      q: "What custom software can Webcore Solutions build?",
+      a: "Webcore Solutions builds SaaS platforms, APIs, dashboards, data systems, internal tools, business automation and enterprise workflows.",
     },
     {
-      q: "Can Webcore UAE integrate AI into business systems?",
+      q: "Can Webcore Solutions integrate AI into business systems?",
       a: "Yes. AI integrations can include workflow automation, data processing, internal assistants, API integrations and productivity tools.",
     },
   ],
@@ -262,14 +262,14 @@ export const pageFaqs = {
       a: "GEO, or generative engine optimization, structures content, entities, schema and answers so AI-powered search systems can understand and cite a brand more confidently.",
     },
     {
-      q: "Does Webcore UAE provide technical SEO audits?",
+      q: "Does Webcore Solutions provide technical SEO audits?",
       a: "Yes. Technical SEO audits can cover crawlability, indexation, metadata, schema, Core Web Vitals, internal links, rendering and content gaps.",
     },
   ],
   graphicDesign: [
     {
-      q: "What graphic design services does Webcore UAE provide?",
-      a: "Webcore UAE provides logo design, brand identity, company profiles, brochures, web visuals, marketing collateral and brand systems.",
+      q: "What graphic design services does Webcore Solutions provide?",
+      a: "Webcore Solutions provides logo design, brand identity, company profiles, brochures, web visuals, marketing collateral and brand systems.",
     },
     {
       q: "Can design work be paired with web development?",

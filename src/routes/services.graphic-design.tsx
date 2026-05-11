@@ -61,9 +61,9 @@ const stats = [
 ];
 
 const testimonials = [
-  { name: "Ahmed Khalil", role: "Founder, Dunescape",  quote: "The logo alone transformed how investors perceived our company. Webcore's design team is simply on another level.",                                    photo: "/ahmed-khalil.webp", stars: 5 },
-  { name: "Sarah Lin",    role: "CTO, NorthPeak",      quote: "Our rebrand went seamlessly. The brand system they delivered is so thorough our in-house team can work fully independently.",                         photo: "/sarah-lin.webp",   stars: 5 },
-  { name: "Connor James", role: "Managing Director",   quote: "We've worked with big agencies before. Webcore gave us better quality at a fraction of the time and cost. Remarkable.",                              photo: "/connor-james.webp",stars: 5 },
+  { name: "Isabella Moreau", role: "Brand Manager, Lune Hospitality",  quote: "Webcore Solutions took a brief that was all over the place and delivered a brand identity that felt completely right. Every team member said 'that's us' the first time they saw it.", photo: "/isabella-moreau.webp", stars: 5 },
+  { name: "Khalid Al-Farsi", role: "Founder, Prestige Auto UAE",        quote: "The company profile Webcore produced for our investor meetings is genuinely impressive — it communicates credibility in a way our old materials never did.",                    photo: "/khalid-al-farsi.webp", stars: 5 },
+  { name: "Rachel Kim",      role: "Marketing Lead, Latitude Consulting",quote: "The visual identity system Webcore designed has scaled across 40+ assets without losing consistency. The Figma file they delivered is the most organised brand library I've ever worked with.", photo: "/rachel-kim.webp", stars: 5 },
 ];
 
 const faqs = [
@@ -427,7 +427,7 @@ function GraphicDesign() {
                 <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.25, type: "tween", ease: "easeOut" }}
                   className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  From distinctive logos to editorial-grade brand systems — design that earns your audience's trust at first glance and keeps it for years.
+                  Webcore Solutions creates brand identity for businesses in Dubai and globally — from distinctive logos to editorial-grade brand systems that earn trust at first glance.
                 </motion.p>
 
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
