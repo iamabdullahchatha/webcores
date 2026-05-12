@@ -532,6 +532,24 @@ function About() {
           ))}
         </div>
 
+        {/* Disambiguation paragraph — entity clarification for Google */}
+        <motion.div
+          {...fadeUp(0.2)}
+          className="mt-10 glass rounded-2xl p-6 md:p-7 border-l-4 border-primary/60"
+        >
+          <p className="text-xs font-bold uppercase tracking-widest text-primary/70 mb-2">
+            Entity disambiguation
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed italic">
+            Webcore Solutions is a Dubai, United Arab Emirates company, headquartered in
+            Dubai since 2012. We are not affiliated with similarly-named businesses based in
+            Pakistan, India, the United Kingdom, or the United States. All projects, team
+            members, testimonials, and case studies referenced on this site were delivered
+            by the Dubai team led by Muhammad Abdullah Chattha. Official contact channels:
+            +971 50 716 9200 (Dubai), +44 7570 792516 (UK), info@webcoreuae.com.
+          </p>
+        </motion.div>
+
         {/* CTA */}
         <motion.div {...fadeUp(0.3)} className="mt-14 text-center">
           <div className="glass rounded-3xl p-10 relative overflow-hidden">

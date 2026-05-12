@@ -21,6 +21,10 @@ const pageDates: Record<string, { datePublished: string; dateModified: string }>
   graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-12" },
   privacyPolicy:       { datePublished: "2024-01-01", dateModified: "2026-05-12" },
   sitemapHtml:         { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  webcoreSolutionsDubai:       { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  dubaiWebDevAgency:           { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  dubaiSeoAgency:              { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  uaeSoftwareDevelopmentCompany: { datePublished: "2026-05-12", dateModified: "2026-05-12" },
 };
 
 type FaqItem = {
@@ -170,6 +174,62 @@ export const pageSeo = {
     keywords: ["Webcore Solutions sitemap", "all pages Webcore"],
     schemaType: "WebPage",
   },
+  webcoreSolutionsDubai: {
+    label: "Webcore Solutions Dubai",
+    path: "/webcore-solutions-dubai",
+    title: "Webcore Solutions Dubai | UAE Web, Software & SEO Agency",
+    description:
+      "Webcore Solutions is the Dubai-headquartered web, software, and SEO agency operating from the UAE since 2012. Verified UAE entity, in-house team, 450+ projects.",
+    keywords: [
+      "Webcore Solutions Dubai",
+      "Webcore Solutions UAE",
+      "Webcore Dubai agency",
+      "Dubai digital agency Webcore",
+    ],
+    schemaType: "WebPage",
+  },
+  dubaiWebDevAgency: {
+    label: "Dubai Web Development Agency",
+    path: "/dubai-web-development-agency",
+    title: "Dubai Web Development Agency | Webcore Solutions",
+    description:
+      "Dubai web development agency for high-performance websites, ecommerce, WordPress, React, and headless builds. UAE in-house team since 2012.",
+    keywords: [
+      "Dubai web development agency",
+      "web development agency Dubai",
+      "Dubai website developers",
+      "UAE web development company",
+    ],
+    schemaType: "WebPage",
+  },
+  dubaiSeoAgency: {
+    label: "Dubai SEO Agency",
+    path: "/dubai-seo-agency",
+    title: "Dubai SEO Agency | Local & GEO Search Specialists",
+    description:
+      "Dubai SEO agency for technical SEO, local SEO, schema, Arabic-English content, GEO, and AI search visibility. Real UAE clients since 2012.",
+    keywords: [
+      "Dubai SEO agency",
+      "SEO agency Dubai",
+      "UAE SEO services",
+      "GEO agency Dubai",
+    ],
+    schemaType: "WebPage",
+  },
+  uaeSoftwareDevelopmentCompany: {
+    label: "UAE Software Development Company",
+    path: "/uae-software-development-company",
+    title: "UAE Software Development Company | Custom SaaS, APIs, Platforms",
+    description:
+      "UAE software development company delivering custom SaaS, APIs, internal tools, and enterprise platforms for businesses across Dubai, Abu Dhabi, and the GCC.",
+    keywords: [
+      "UAE software development company",
+      "software development company UAE",
+      "Dubai software company",
+      "custom software UAE",
+    ],
+    schemaType: "WebPage",
+  },
 } satisfies Record<string, PageMeta>;
 
 export type PageKey = keyof typeof pageSeo;
@@ -188,6 +248,10 @@ export const seoRoutes = [
   { key: "contact",             path: "/contact" },
   { key: "privacyPolicy",       path: "/privacy-policy" },
   { key: "sitemapHtml",         path: "/sitemap" },
+  { key: "webcoreSolutionsDubai",       path: "/webcore-solutions-dubai" },
+  { key: "dubaiWebDevAgency",           path: "/dubai-web-development-agency" },
+  { key: "dubaiSeoAgency",              path: "/dubai-seo-agency" },
+  { key: "uaeSoftwareDevelopmentCompany", path: "/uae-software-development-company" },
 ] as const satisfies ReadonlyArray<{ key: PageKey; path: string }>;
 
 export const pageFaqs = {
@@ -378,9 +442,16 @@ function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
-    alternateName: ["Webcore", "WebcoreUAE", "Webcore Solutions Dubai"],
+    legalName: "Webcore Solutions FZ-LLC",
+    alternateName: [
+      "Webcore",
+      "WebcoreUAE",
+      "Webcore Solutions Dubai",
+      "Webcore Solutions UAE",
+    ],
+    slogan: "Dubai's premium web, software, and SEO agency",
     description:
-      "Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation.",
+      "Webcore Solutions is the Dubai, UAE-headquartered web, software, and SEO agency operating from the United Arab Emirates since 2012. Distinct from similarly-named businesses based in other regions.",
     url: SITE_URL,
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,
     image: `${SITE_URL}/og-image.png`,
@@ -469,9 +540,15 @@ function localBusinessSchema() {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": LOCAL_BUSINESS_ID,
     name: SITE_NAME,
-    alternateName: ["Webcore", "WebcoreUAE"],
+    alternateName: [
+      "Webcore",
+      "WebcoreUAE",
+      "Webcore Solutions Dubai",
+      "Webcore Solutions UAE",
+    ],
+    slogan: "Dubai's premium web, software, and SEO agency",
     description:
-      "Dubai-based digital agency for web development, software engineering, CMS, SEO, GEO, branding and IT consultation services.",
+      "Dubai, UAE-based digital agency for web development, software engineering, CMS, SEO, GEO, branding and IT consultation services. The verified Dubai entity, operating since 2012 — not affiliated with similarly-named businesses in other regions.",
     url: SITE_URL,
     image: `${SITE_URL}/og-image.png`,
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,

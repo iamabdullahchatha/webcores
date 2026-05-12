@@ -9,9 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WebcoreSolutionsDubaiRouteImport } from './routes/webcore-solutions-dubai'
+import { Route as UaeSoftwareDevelopmentCompanyRouteImport } from './routes/uae-software-development-company'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as FaqsRouteImport } from './routes/faqs'
+import { Route as DubaiWebDevelopmentAgencyRouteImport } from './routes/dubai-web-development-agency'
+import { Route as DubaiSeoAgencyRouteImport } from './routes/dubai-seo-agency'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +27,17 @@ import { Route as ServicesItConsultationRouteImport } from './routes/services.it
 import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
 
+const WebcoreSolutionsDubaiRoute = WebcoreSolutionsDubaiRouteImport.update({
+  id: '/webcore-solutions-dubai',
+  path: '/webcore-solutions-dubai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UaeSoftwareDevelopmentCompanyRoute =
+  UaeSoftwareDevelopmentCompanyRouteImport.update({
+    id: '/uae-software-development-company',
+    path: '/uae-software-development-company',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
@@ -36,6 +51,17 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const FaqsRoute = FaqsRouteImport.update({
   id: '/faqs',
   path: '/faqs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DubaiWebDevelopmentAgencyRoute =
+  DubaiWebDevelopmentAgencyRouteImport.update({
+    id: '/dubai-web-development-agency',
+    path: '/dubai-web-development-agency',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DubaiSeoAgencyRoute = DubaiSeoAgencyRouteImport.update({
+  id: '/dubai-seo-agency',
+  path: '/dubai-seo-agency',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -94,9 +120,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dubai-seo-agency': typeof DubaiSeoAgencyRoute
+  '/dubai-web-development-agency': typeof DubaiWebDevelopmentAgencyRoute
   '/faqs': typeof FaqsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap': typeof SitemapRoute
+  '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
+  '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -109,9 +139,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dubai-seo-agency': typeof DubaiSeoAgencyRoute
+  '/dubai-web-development-agency': typeof DubaiWebDevelopmentAgencyRoute
   '/faqs': typeof FaqsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap': typeof SitemapRoute
+  '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
+  '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -125,9 +159,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dubai-seo-agency': typeof DubaiSeoAgencyRoute
+  '/dubai-web-development-agency': typeof DubaiWebDevelopmentAgencyRoute
   '/faqs': typeof FaqsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap': typeof SitemapRoute
+  '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
+  '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -142,9 +180,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dubai-seo-agency'
+    | '/dubai-web-development-agency'
     | '/faqs'
     | '/privacy-policy'
     | '/sitemap'
+    | '/uae-software-development-company'
+    | '/webcore-solutions-dubai'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -157,9 +199,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dubai-seo-agency'
+    | '/dubai-web-development-agency'
     | '/faqs'
     | '/privacy-policy'
     | '/sitemap'
+    | '/uae-software-development-company'
+    | '/webcore-solutions-dubai'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -172,9 +218,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dubai-seo-agency'
+    | '/dubai-web-development-agency'
     | '/faqs'
     | '/privacy-policy'
     | '/sitemap'
+    | '/uae-software-development-company'
+    | '/webcore-solutions-dubai'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -188,9 +238,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  DubaiSeoAgencyRoute: typeof DubaiSeoAgencyRoute
+  DubaiWebDevelopmentAgencyRoute: typeof DubaiWebDevelopmentAgencyRoute
   FaqsRoute: typeof FaqsRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SitemapRoute: typeof SitemapRoute
+  UaeSoftwareDevelopmentCompanyRoute: typeof UaeSoftwareDevelopmentCompanyRoute
+  WebcoreSolutionsDubaiRoute: typeof WebcoreSolutionsDubaiRoute
   ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
   ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
   ServicesItConsultationRoute: typeof ServicesItConsultationRoute
@@ -202,6 +256,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/webcore-solutions-dubai': {
+      id: '/webcore-solutions-dubai'
+      path: '/webcore-solutions-dubai'
+      fullPath: '/webcore-solutions-dubai'
+      preLoaderRoute: typeof WebcoreSolutionsDubaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uae-software-development-company': {
+      id: '/uae-software-development-company'
+      path: '/uae-software-development-company'
+      fullPath: '/uae-software-development-company'
+      preLoaderRoute: typeof UaeSoftwareDevelopmentCompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap': {
       id: '/sitemap'
       path: '/sitemap'
@@ -221,6 +289,20 @@ declare module '@tanstack/react-router' {
       path: '/faqs'
       fullPath: '/faqs'
       preLoaderRoute: typeof FaqsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dubai-web-development-agency': {
+      id: '/dubai-web-development-agency'
+      path: '/dubai-web-development-agency'
+      fullPath: '/dubai-web-development-agency'
+      preLoaderRoute: typeof DubaiWebDevelopmentAgencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dubai-seo-agency': {
+      id: '/dubai-seo-agency'
+      path: '/dubai-seo-agency'
+      fullPath: '/dubai-seo-agency'
+      preLoaderRoute: typeof DubaiSeoAgencyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -300,9 +382,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  DubaiSeoAgencyRoute: DubaiSeoAgencyRoute,
+  DubaiWebDevelopmentAgencyRoute: DubaiWebDevelopmentAgencyRoute,
   FaqsRoute: FaqsRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   SitemapRoute: SitemapRoute,
+  UaeSoftwareDevelopmentCompanyRoute: UaeSoftwareDevelopmentCompanyRoute,
+  WebcoreSolutionsDubaiRoute: WebcoreSolutionsDubaiRoute,
   ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
   ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
   ServicesItConsultationRoute: ServicesItConsultationRoute,
