@@ -40,7 +40,6 @@ const services = [
     tags: ["Strategy", "Audits", "Roadmaps"],
     metric: "3× faster decisions",
     img: imgItConsulting,
-    cta: "Explore IT consultation",
   },
   {
     icon: Layers,
@@ -52,7 +51,6 @@ const services = [
     tags: ["Headless CMS", "WordPress", "Custom"],
     metric: "10× publishing speed",
     img: imgCmsDevelopment,
-    cta: "Explore CMS solutions",
   },
   {
     icon: Globe,
@@ -64,7 +62,6 @@ const services = [
     tags: ["E-commerce", "WordPress", "React"],
     metric: "Sub-1s load times",
     img: imgWebDevelopment,
-    cta: "Explore web development",
   },
   {
     icon: Database,
@@ -76,7 +73,6 @@ const services = [
     tags: ["SaaS", "APIs", "Enterprise"],
     metric: "99.9% uptime SLA",
     img: imgSoftwareDev,
-    cta: "Explore software development",
   },
   {
     icon: Search,
@@ -88,7 +84,6 @@ const services = [
     tags: ["Local SEO", "Technical SEO", "GEO"],
     metric: "Top 3 rankings",
     img: imgSeo,
-    cta: "Explore SEO & GEO",
   },
   {
     icon: Palette,
@@ -100,7 +95,6 @@ const services = [
     tags: ["Branding", "Print", "Identity"],
     metric: "Brand recognition +40%",
     img: imgGraphicsDesign,
-    cta: "Explore brand & design",
   },
 ];
 
@@ -168,7 +162,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
       >
         <Link
           to={s.to}
-          className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
+          className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
         >
           {/* ── Image banner (mirrors index.tsx pattern) ── */}
           <div className="relative h-52 w-full overflow-hidden shrink-0">
@@ -256,7 +250,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all duration-200 mt-auto"
               style={{ color: s.color }}
             >
-              {s.cta}
+              Explore service
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
 
@@ -331,7 +325,7 @@ function Services() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Webcore Solutions is a full-stack digital studio covering web development, software engineering, SEO, brand design, CMS platforms, and IT consultation — every service delivered in-house, by a senior team.
+                From strategy and engineering to brand and growth — every service delivered in-house, no outsourcing, no middlemen.
               </motion.p>
 
               {/* Per-service colored pills */}
@@ -421,7 +415,7 @@ function Services() {
             Six specialisms.<br />One trusted team.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Pick one service or bring us in as your full digital partner — the quality and process is the same either way.
+            Whether you need one service or a full-scope partner, we deliver every discipline in-house.
           </p>
         </motion.div>
 
@@ -430,80 +424,6 @@ function Services() {
             <ServiceCard key={s.t} s={s} i={i} />
           ))}
         </div>
-      </section>
-
-      {/* ── Why Webcore Solutions / body content ── */}
-      <section className="mx-auto max-w-4xl px-4 pb-16">
-        <motion.div
-          {...fadeUp()}
-          className="space-y-10 text-muted-foreground leading-relaxed"
-        >
-          <p>
-            Webcore Solutions is a full-stack digital studio based in Dubai, delivering web
-            development, software engineering, CMS platforms, SEO, brand design, and IT
-            consultation for businesses across the UAE, UK, and internationally. Every
-            service is built and managed in-house by a senior team — no subcontractors,
-            no juniors running your account.
-          </p>
-
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              Why work with a full-stack digital studio?
-            </h2>
-            <p className="mb-3">
-              Splitting your digital work across several agencies creates gaps. The web
-              developer hasn't spoken to the SEO team. The designer hasn't seen the CMS
-              architecture. The IT consultant is advising without context. When everything
-              is designed, built, and managed by one team, those gaps close.
-            </p>
-            <p className="mb-3">
-              Your website is built with SEO baked in. Your CMS is architected to support
-              your content strategy from day one. Your brand system is applied consistently
-              across every digital touchpoint. The result is a cohesive digital presence
-              that compounds in value over time — not a patchwork of vendor outputs.
-            </p>
-            <p>
-              This structural advantage is why clients who come to Webcore Solutions typically
-              stay, and why most expand their scope after the first project.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              Digital services in Dubai, delivered globally
-            </h2>
-            <p className="mb-3">
-              Our Dubai headquarters puts us in one of the world's most commercially
-              active cities. Our UK presence extends reach into European and international
-              markets. We've worked with retail brands, SaaS companies, professional
-              services firms, healthcare providers, logistics businesses, and e-commerce
-              operators across the UAE, UK, Europe, and North America.
-            </p>
-            <p>
-              The sectors change. The standard doesn't. Whether you need a five-page
-              business website or a multi-module enterprise software platform, the same
-              senior team, the same process, and the same quality bar applies.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">
-              How we approach every digital project
-            </h2>
-            <p className="mb-3">
-              Every engagement starts with discovery. We spend time understanding your
-              business, your goals, your existing systems, and your constraints before
-              recommending anything. This means the solution we design is right for your
-              actual situation — not a template carried over from the last similar project.
-            </p>
-            <p>
-              From discovery we move into planning, build, quality assurance, and launch.
-              At each stage you see the work before it moves forward. Timelines are agreed
-              up front and respected. If you're not sure which service to start with, our
-              free digital strategy call is the right first step.
-            </p>
-          </div>
-        </motion.div>
       </section>
 
       {/* ══════════════════════ BOTTOM CTA ═════════════════════════════ */}
@@ -531,7 +451,7 @@ function Services() {
               Let's build something great.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Speak directly with a senior Webcore Solutions team member. Tell us about your project and we'll give you a clear, honest picture of how we'd approach it — scope, cost, and timeline included.
+              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
             </p>
             <Link
               to="/contact"

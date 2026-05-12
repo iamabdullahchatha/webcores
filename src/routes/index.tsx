@@ -38,9 +38,8 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { SocialShare } from "@/components/SocialShare";
-import { homeTestimonials as testimonials } from "@/data/testimonials/home";
 import { getSeoHead } from "@/lib/seo";
+import { homeTestimonials as testimonials } from "@/data/testimonials/home";
 
 /* ─── Asset imports ────────────────────────────────────────────────── */
 import imgCmsDevelopment   from "@/assets/cms-development.webp";
@@ -194,6 +193,7 @@ const stats = [
   { v: "5",    l: "Countries Served",  icon: Globe,     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
 ];
 
+
 const portfolio = [
   {
     title: "NorthPeak Platform",
@@ -253,21 +253,21 @@ const values = [
     color: "#f43f5e",
     bg: "rgba(244,63,94,0.10)",
     t: "Client Obsession",
-    d: "We succeed only when you succeed. Every architectural choice, design decision, and delivery milestone traces back to your outcomes — not our convenience.",
+    d: "We succeed when you succeed. Every decision traces back to your outcomes, not our convenience.",
   },
   {
     icon: Lightbulb,
     color: "#f59e0b",
     bg: "rgba(245,158,11,0.10)",
     t: "Deep Curiosity",
-    d: "We ask sharper questions and challenge surface-level assumptions other teams accept. That's how we surface the elegant solutions everyone else overlooks.",
+    d: "We ask better questions, challenge assumptions, and consistently find solutions others miss.",
   },
   {
     icon: ShieldCheck,
     color: "#10b981",
     bg: "rgba(16,185,129,0.10)",
     t: "Radical Integrity",
-    d: "Honest scopes and transparent pricing mean no mid-project surprises. Just dependable delivery on the timeline we agreed to from day one.",
+    d: "Honest scopes. Transparent pricing. No surprises. Just dependable delivery, every single time.",
   },
 ];
 
@@ -655,24 +655,13 @@ function Index() {
               </h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.22, type: "tween", ease: "easeOut" }}
-                className="mt-5 text-base md:text-lg font-medium text-foreground/85 max-w-2xl"
-              >
-                Webcore Solutions — a Dubai web, software, and SEO agency building digital
-                products for UAE, UK, US, and global teams.
-              </motion.p>
-
-              <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
-                className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+                className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                We transform ideas into digital reality through web development, custom
-                software, and SEO. As a Dubai-based agency, we ship product trusted by 450+
-                companies across five continents.
+                We turn ambitious product ideas into fast, scalable, and beautifully
+                designed digital products — trusted by 450+ companies across 5 continents.
               </motion.p>
 
               <motion.div
@@ -773,11 +762,8 @@ function Index() {
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
               Founded in Dubai, UAE under the leadership of{" "}
               <span className="text-foreground font-semibold">Muhammad Abdullah Chattha</span>,
-              Webcore Solutions is a software, web, and SEO agency. We partner with ambitious
-              teams across Europe, the UK, America, Dubai, and Pakistan to ship product that
-              performs and endures. From first sketch to final deployment, we turn ideas into
-              measurable digital reality — not theoretical roadmaps that quietly stall before
-              reaching your customers.
+              Webcore Solutions partners with ambitious teams across Europe, UK, America, Dubai
+              and Pakistan to ship product that performs — and endures.
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
@@ -804,7 +790,7 @@ function Index() {
               to="/about"
               className="group inline-flex items-center gap-2 mt-9 text-primary font-semibold text-sm"
             >
-              Read the Webcore Solutions story
+              Learn more about us
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
           </motion.div>
@@ -851,8 +837,7 @@ function Index() {
             The principles behind<br />every pixel we ship.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            We hold ourselves to a quiet standard most agencies prefer not to discuss. That
-            standard shapes every decision from kickoff conversation to final handover.
+            We hold ourselves to a standard most agencies don't mention.
           </p>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -873,7 +858,7 @@ function Index() {
                 >
                   <v.icon className="h-7 w-7" style={{ color: v.color }} />
                 </div>
-                <p className="text-xl font-bold mb-2">{v.t}</p>
+                <h3 className="text-xl font-bold mb-2">{v.t}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.d}</p>
                 <div
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
@@ -887,7 +872,7 @@ function Index() {
 
       {/* ══════════════════════════════════════ SERVICES ════════════════════ */}
       <section className="relative mx-auto max-w-7xl px-4 py-24">
-        <motion.div {...fadeUp()} className="flex items-end justify-between flex-wrap gap-4 mb-6">
+        <motion.div {...fadeUp()} className="flex items-end justify-between flex-wrap gap-4 mb-14">
           <div>
             <SectionLabel>Services</SectionLabel>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -898,19 +883,10 @@ function Index() {
             to="/services"
             className="group inline-flex items-center gap-2 text-primary font-semibold text-sm"
           >
-            Browse the full service list
+            View all services
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
-
-        <motion.p
-          {...fadeUp(0.05)}
-          className="max-w-2xl text-muted-foreground text-base leading-relaxed mb-14"
-        >
-          Six disciplines combine into one framework for transforming ideas into digital
-          reality. Your customers actually open, use, and recommend the products we ship —
-          without the handoffs and finger-pointing that slow other Dubai agencies down.
-        </motion.p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
@@ -996,8 +972,7 @@ function Index() {
             Predictable delivery.<br />Every single time.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            A battle-tested four-step framework, refined across 450+ projects and twelve years.
-            It keeps every engagement predictable from first conversation to final handover.
+            A battle-tested 4-step framework refined across 450+ projects and 12 years.
           </p>
         </motion.div>
 
@@ -1031,7 +1006,7 @@ function Index() {
                   <p.icon className="h-8 w-8 text-white" />
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: p.color + "99" }}>{p.n}</div>
-                <p className="font-bold mb-2">{p.t}</p>
+                <h3 className="font-bold mb-2">{p.t}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
             ))}
@@ -1083,7 +1058,7 @@ function Index() {
                 </div>
                 <div>
                   <div className="text-white/60 text-xs font-semibold mb-1.5">{p.metric}</div>
-                  <p className="text-xl font-bold text-white mb-1.5">{p.title}</p>
+                  <h3 className="text-xl font-bold text-white mb-1.5">{p.title}</h3>
                   <p className="text-white/70 text-sm leading-relaxed line-clamp-2">{p.desc}</p>
                 </div>
               </div>
@@ -1109,49 +1084,46 @@ function Index() {
           </p>
         </motion.div>
 
-        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-5">
-          {testimonials.map((t, i) => (
+        {[{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
+          <div key={ri} className={`relative ${ri === 1 ? "mt-5" : ""}`}>
+            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
             <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.08, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -4 }}
-              className="glass rounded-3xl p-7 flex flex-col gap-4 hover:shadow-glow transition-all duration-300"
+              className="flex gap-5"
+              animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
+              transition={{ duration: row.speed, repeat: Infinity, repeatType: "loop", ease: "linear" }}
             >
-              <div className="flex items-center gap-0.5">
-                {Array.from({ length: t.stars }).map((_, j) => (
-                  <Star
-                    key={j}
-                    className="h-4 w-4"
-                    style={{ fill: "#f59e0b", color: "#f59e0b" }}
-                  />
-                ))}
-              </div>
-              <div className="flex-1">
-                <Quote className="h-5 w-5 text-primary/30 mb-2" />
-                <p className="text-sm md:text-base text-foreground/85 leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-              </div>
-              <div className="flex items-center gap-3 pt-4 border-t border-border/30">
-                <Avatar src={t.image} name={t.name} size={40} />
-                <div>
-                  <div className="font-semibold text-sm">{t.name}</div>
-                  <div className="text-xs text-muted-foreground">{t.role}</div>
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={i}
+                  className="shrink-0 glass rounded-3xl p-6 flex flex-col gap-4 hover:shadow-glow transition-shadow duration-300"
+                  style={{ width: 380 }}
+                >
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: t.stars }).map((_, j) => (
+                      <Star
+                        key={j}
+                        className="h-4 w-4"
+                        style={{ fill: "#f59e0b", color: "#f59e0b" }}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex-1">
+                    <Quote className="h-5 w-5 text-primary/30 mb-2" />
+                    <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
+                  </div>
+                  <div className="flex items-center gap-3 pt-3 border-t border-border/30">
+                    <Avatar src={t.image} name={t.name} size={36} />
+                    <div>
+                      <div className="font-semibold text-sm">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.role}</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════ SOCIAL SHARE ═══════════════════ */}
-      <section className="relative mx-auto max-w-7xl px-4 py-12">
-        <motion.div {...fadeUp()} className="flex justify-center">
-          <SocialShare />
-        </motion.div>
+          </div>
+        ))}
       </section>
 
       {/* ═══════════════════════════════════ GLOBAL REACH ═══════════════════ */}
@@ -1162,8 +1134,7 @@ function Index() {
             Wherever you build,<br />we're right there.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Teams across five regions rely on Webcore Solutions every day. We keep their
-            digital operations running smoothly across fifteen overlapping time zones.
+            Teams across 5 regions rely on Webcore to keep their digital operations running.
           </p>
         </motion.div>
 
@@ -1210,12 +1181,10 @@ function Index() {
           <h2 className="text-4xl md:text-5xl font-bold">
             Frequently<br /><span className="gradient-text">asked.</span>
           </h2>
-          <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">
-            Everything you wanted to know about working with us, answered in plain language.
-            Our clients say they always wished agencies offered this kind of clarity up front.
-            Still curious about your specific situation?{" "}
+          <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
+            Everything you wanted to know — answered. Still need help?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              Get in touch with our team.
+              Just ask us.
             </Link>
           </p>
         </motion.div>
@@ -1291,9 +1260,7 @@ function Index() {
               Let's talk it through.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute call about transforming ideas into a working digital
-              reality. Walk away with clarity on scope, cost, and next steps — whether you
-              hire us or not.
+              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
             </p>
             <Link
               to="/contact"
