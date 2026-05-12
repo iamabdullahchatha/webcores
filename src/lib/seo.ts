@@ -444,16 +444,21 @@ function organizationSchema() {
     name: SITE_NAME,
     legalName: "Webcore Solutions FZ-LLC",
     alternateName: [
-      "Webcore",
-      "WebcoreUAE",
       "Webcore Solutions Dubai",
       "Webcore Solutions UAE",
+      "WebcoreUAE",
+      "Webcore",
     ],
-    slogan: "Dubai's premium web, software, and SEO agency",
+    slogan: "Transforming Ideas into Digital Reality",
     description:
-      "Webcore Solutions is the Dubai, UAE-headquartered web, software, and SEO agency operating from the United Arab Emirates since 2012. Distinct from similarly-named businesses based in other regions.",
+      "Webcore Solutions is a Dubai-based digital agency in the United Arab Emirates providing web development, software engineering, SEO, GEO, ecommerce, CMS, branding, and automation services to UAE, UK, US, and global clients.",
     url: SITE_URL,
-    logo: `${SITE_URL}/web-app-manifest-512x512.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/web-app-manifest-512x512.png`,
+      width: 512,
+      height: 512,
+    },
     image: `${SITE_URL}/og-image.png`,
     email: "info@webcoreuae.com",
     telephone: "+971 50 716 9200",
@@ -461,6 +466,11 @@ function organizationSchema() {
     foundingLocation: {
       "@type": "Place",
       name: "Dubai, United Arab Emirates",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Dubai",
+        addressCountry: "AE",
+      },
     },
     founder: { "@id": FOUNDER_ID },
     address: {
