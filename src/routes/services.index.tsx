@@ -162,7 +162,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
       >
         <Link
           to={s.to}
-          className="group block relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
+          className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
         >
           {/* ── Image banner (mirrors index.tsx pattern) ── */}
           <div className="relative h-52 w-full overflow-hidden shrink-0">
