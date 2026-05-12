@@ -589,31 +589,41 @@ function reviewsSchema() {
   return [
     {
       "@type": "Review",
-      "@id": `${SITE_URL}/#review-sarah-lin`,
-      author: { "@type": "Person", name: "Sarah Lin" },
-      datePublished: "2024-09-15",
+      "@id": `${SITE_URL}/#review-layla-almansoori`,
+      author: { "@type": "Person", name: "Layla Al-Mansoori" },
+      datePublished: "2024-10-05",
       reviewBody:
-        "Webcore Solutions reimagined our entire stack from the database upward — performance scores climbed past 90 within weeks, and our checkout completions had almost doubled by the end of the first quarter post-launch.",
+        "After five months on our Arabic-English SEO rebuild, organic traffic from UAE searches climbed 84 percent. The Webcore team navigated our bilingual content workflow without missing a milestone.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },
     {
       "@type": "Review",
-      "@id": `${SITE_URL}/#review-ahmed-khalil`,
-      author: { "@type": "Person", name: "Ahmed Khalil" },
-      datePublished: "2024-08-20",
+      "@id": `${SITE_URL}/#review-rohan-verma`,
+      author: { "@type": "Person", name: "Rohan Verma" },
+      datePublished: "2024-09-12",
       reviewBody:
-        "Beyond shipping code, the team handed us a platform we still trust three years later — same architecture, same uptime, and almost none of the silent technical debt that usually accumulates as a business scales.",
+        "Webcore Solutions delivered our investor dashboard in ten focused weeks. Two larger Dubai agencies had quoted us double that timeline, and our user NPS still jumped from 42 to 71 after launch.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },
     {
       "@type": "Review",
-      "@id": `${SITE_URL}/#review-james-oconnor`,
-      author: { "@type": "Person", name: "James O'Connor" },
-      datePublished: "2024-07-10",
+      "@id": `${SITE_URL}/#review-hana-said`,
+      author: { "@type": "Person", name: "Hana Said" },
+      datePublished: "2024-08-22",
       reviewBody:
-        "Inside a single quarter, our pipeline of qualified leads had effectively doubled, and the team stayed close enough to keep iterating on conversion details long after the formal launch was complete.",
+        "The refreshed storefront and new brand identity moved our checkout conversion rate from 1.6 to 4.2 percent. First-month revenue beat our internal forecast by almost forty percent.",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
+    },
+    {
+      "@type": "Review",
+      "@id": `${SITE_URL}/#review-daniel-whittaker`,
+      author: { "@type": "Person", name: "Daniel Whittaker" },
+      datePublished: "2024-07-18",
+      reviewBody:
+        "Webcore Solutions consolidated three legacy systems into one operations platform our regional teams actually use. Manual reconciliation hours dropped 60 percent and uptime stayed above 99.9 percent all year.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },

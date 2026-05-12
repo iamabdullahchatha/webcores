@@ -9,22 +9,20 @@ import logo from "@/assets/logo.png";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 const services = [
-  { name: "IT Consultation",      to: "/services/it-consultation" },
-  { name: "CMS Development",      to: "/services/cms-development" },
-  { name: "Web Development",      to: "/services/web-development" },
-  { name: "Software Development", to: "/services/software-development" },
-  { name: "SEO & GEO",            to: "/services/seo-geo" },
-  { name: "Graphic Design",       to: "/services/graphic-design" },
+  { name: "IT consultation services",     to: "/services/it-consultation" },
+  { name: "CMS engineering",              to: "/services/cms-development" },
+  { name: "Web design and build",         to: "/services/web-development" },
+  { name: "Custom software builds",       to: "/services/software-development" },
+  { name: "Search and GEO optimization",  to: "/services/seo-geo" },
+  { name: "Branding and visual identity", to: "/services/graphic-design" },
 ];
 
 const quickLinks = [
-  { name: "Home",           to: "/" },
-  { name: "About",          to: "/about" },
-  { name: "Services",       to: "/services" },
-  { name: "FAQs",           to: "/faqs" },
-  { name: "Contact",        to: "/contact" },
-  { name: "Privacy Policy", to: "/privacy-policy" },
-  { name: "Sitemap",        to: "/sitemap" },
+  { name: "Homepage",        to: "/" },
+  { name: "Our story",       to: "/about" },
+  { name: "All services",    to: "/services" },
+  { name: "Common questions", to: "/faqs" },
+  { name: "Reach our team",  to: "/contact" },
 ];
 
 const socials = [
@@ -102,21 +100,16 @@ function MagneticSocial({
   );
 }
 
-/* ─── Hover Flip Link ───────────────────────────────────────────────── */
+/* ─── Hover Link ───────────────────────────────────────────────────── */
 function FlipLink({ children, to }: { children: React.ReactNode; to: string }) {
   return (
     <Link
       to={to}
-      className="group relative flex items-center gap-1.5 text-sm text-muted-foreground w-fit"
+      className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
     >
       <ArrowUpRight className="h-3 w-3 shrink-0 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
-      <span className="relative overflow-hidden inline-block">
-        <span className="block transition-transform duration-300 group-hover:-translate-y-full">
-          {children}
-        </span>
-        <span className="absolute inset-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0 text-primary font-medium">
-          {children}
-        </span>
+      <span className="font-medium group-hover:font-semibold transition-all duration-200">
+        {children}
       </span>
     </Link>
   );
@@ -227,7 +220,7 @@ export function Footer() {
                 to="/contact"
                 className="shrink-0 group inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-primary text-primary-foreground text-sm font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
               >
-                Book a Free Consultation
+                Schedule a discovery call
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

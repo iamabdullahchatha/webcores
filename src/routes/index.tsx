@@ -39,6 +39,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { SocialShare } from "@/components/SocialShare";
+import { homeTestimonials as testimonials } from "@/data/testimonials/home";
 import { getSeoHead } from "@/lib/seo";
 
 /* ─── Asset imports ────────────────────────────────────────────────── */
@@ -48,11 +49,6 @@ import imgItConsulting     from "@/assets/it-consulting.webp";
 import imgSeo              from "@/assets/seo.webp";
 import imgSoftwareDev      from "@/assets/software-development.webp";
 import imgWebDevelopment   from "@/assets/web-development.webp";
-
-import imgAhmedKhalil      from "@/assets/ahmed-khalil.webp";
-import imgSarahLin         from "@/assets/sarah-lin.webp";
-import imgYukiTanaka       from "@/assets/yuki-tanaka.jpg";
-import imgConnorJames      from "@/assets/connor-james.webp";
 
 export const Route = createFileRoute("/")({
   head: () => getSeoHead("home", { faqs: allFaqs }),
@@ -198,51 +194,6 @@ const stats = [
   { v: "5",    l: "Countries Served",  icon: Globe,     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
 ];
 
-const testimonials = [
-  {
-    name: "Sarah Lin",
-    role: "CTO, NorthPeak",
-    quote: "Webcore Solutions reimagined our entire stack from the database upward — performance scores climbed past 90 within weeks, and our checkout completions had almost doubled by the end of the first quarter post-launch.",
-    stars: 5,
-    image: imgSarahLin,
-  },
-  {
-    name: "Ahmed Khalil",
-    role: "Founder, Dunescape",
-    quote: "Beyond shipping code, the team handed us a platform we still trust three years later — same architecture, same uptime, and almost none of the silent technical debt that usually accumulates as a business scales.",
-    stars: 5,
-    image: imgAhmedKhalil,
-  },
-  {
-    name: "Maria Costa",
-    role: "VP Eng, Fluxio",
-    quote: "From discovery to deployment in eight focused weeks with zero surprises along the way — their process is genuinely one of the most disciplined we've worked with in fifteen years.",
-    stars: 5,
-    image: null,
-  },
-  {
-    name: "James O'Connor",
-    role: "CEO, Loomline",
-    quote: "Inside a single quarter, our pipeline of qualified leads had effectively doubled, and the team stayed close enough to keep iterating on conversion details long after the formal launch was complete.",
-    stars: 5,
-    image: imgConnorJames,
-  },
-  {
-    name: "Yuki Tanaka",
-    role: "Product Lead, Hexa",
-    quote: "Finding one partner that nails both visual craft and engineering rigor at this level is genuinely uncommon, and our user retention numbers moved noticeably the same week we shipped the refreshed product surface.",
-    stars: 5,
-    image: imgYukiTanaka,
-  },
-  {
-    name: "Priya Nair",
-    role: "Director, Ascend Co",
-    quote: "After years of working with agencies that treated deadlines as polite suggestions, partnering with Webcore felt like a reset — every milestone landed when promised, with no last-minute surprises and no quiet scope inflation along the way.",
-    stars: 5,
-    image: null,
-  },
-];
-
 const portfolio = [
   {
     title: "NorthPeak Platform",
@@ -302,21 +253,21 @@ const values = [
     color: "#f43f5e",
     bg: "rgba(244,63,94,0.10)",
     t: "Client Obsession",
-    d: "We succeed only when you succeed, which is why every architectural choice, design decision, and delivery milestone traces back to your business outcomes rather than our convenience.",
+    d: "We succeed only when you succeed. Every architectural choice, design decision, and delivery milestone traces back to your outcomes — not our convenience.",
   },
   {
     icon: Lightbulb,
     color: "#f59e0b",
     bg: "rgba(245,158,11,0.10)",
     t: "Deep Curiosity",
-    d: "We ask sharper questions and challenge the surface-level assumptions other teams quietly accept, which is how we consistently surface the elegant solutions everyone else overlooks.",
+    d: "We ask sharper questions and challenge surface-level assumptions other teams accept. That's how we surface the elegant solutions everyone else overlooks.",
   },
   {
     icon: ShieldCheck,
     color: "#10b981",
     bg: "rgba(16,185,129,0.10)",
     t: "Radical Integrity",
-    d: "Honest scopes and transparent pricing mean no mid-project surprises — just dependable delivery on the timeline we agreed to in the first conversation, every single engagement.",
+    d: "Honest scopes and transparent pricing mean no mid-project surprises. Just dependable delivery on the timeline we agreed to from day one.",
   },
 ];
 
@@ -704,15 +655,24 @@ function Index() {
               </h1>
 
               <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.22, type: "tween", ease: "easeOut" }}
+                className="mt-5 text-base md:text-lg font-medium text-foreground/85 max-w-2xl"
+              >
+                Webcore Solutions — a Dubai web, software, and SEO agency building digital
+                products for UAE, UK, US, and global teams.
+              </motion.p>
+
+              <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
-                className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+                className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                Webcore Solutions specializes in transforming ideas into digital reality,
-                turning ambitious product concepts into fast, scalable, and beautifully
-                designed digital products trusted by 450+ companies across 5 continents
-                and counting.
+                We transform ideas into digital reality through web development, custom
+                software, and SEO. As a Dubai-based agency, we ship product trusted by 450+
+                companies across five continents.
               </motion.p>
 
               <motion.div
@@ -813,11 +773,11 @@ function Index() {
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
               Founded in Dubai, UAE under the leadership of{" "}
               <span className="text-foreground font-semibold">Muhammad Abdullah Chattha</span>,
-              Webcore Solutions partners with ambitious teams across Europe, the UK, America,
-              Dubai, and Pakistan to ship product that performs — and endures. From the first
-              sketch through the final deployment, we focus on turning ideas into measurable
-              digital reality, not theoretical roadmaps that quietly stall before reaching
-              your customers.
+              Webcore Solutions is a software, web, and SEO agency. We partner with ambitious
+              teams across Europe, the UK, America, Dubai, and Pakistan to ship product that
+              performs and endures. From first sketch to final deployment, we turn ideas into
+              measurable digital reality — not theoretical roadmaps that quietly stall before
+              reaching your customers.
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
@@ -891,9 +851,8 @@ function Index() {
             The principles behind<br />every pixel we ship.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            We hold ourselves to a quiet standard most agencies prefer not to discuss out
-            loud, and that standard shapes every decision we make from kickoff conversation
-            through final handover.
+            We hold ourselves to a quiet standard most agencies prefer not to discuss. That
+            standard shapes every decision from kickoff conversation to final handover.
           </p>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -948,9 +907,9 @@ function Index() {
           {...fadeUp(0.05)}
           className="max-w-2xl text-muted-foreground text-base leading-relaxed mb-14"
         >
-          From discovery through launch, six disciplines combine into one framework for
-          transforming ideas into digital reality your customers actually open, use, and
-          recommend — without the handoffs and finger-pointing that slow most agencies down.
+          Six disciplines combine into one framework for transforming ideas into digital
+          reality. Your customers actually open, use, and recommend the products we ship —
+          without the handoffs and finger-pointing that slow other Dubai agencies down.
         </motion.p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1037,9 +996,8 @@ function Index() {
             Predictable delivery.<br />Every single time.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            A battle-tested four-step framework, refined across more than 450 projects and
-            twelve years of compounded delivery, that keeps every engagement predictable
-            from the first conversation to the final handover.
+            A battle-tested four-step framework, refined across 450+ projects and twelve years.
+            It keeps every engagement predictable from first conversation to final handover.
           </p>
         </motion.div>
 
@@ -1151,46 +1109,42 @@ function Index() {
           </p>
         </motion.div>
 
-        {[{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
-          <div key={ri} className={`relative ${ri === 1 ? "mt-5" : ""}`}>
-            <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
+        <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-5">
+          {testimonials.map((t, i) => (
             <motion.div
-              className="flex gap-5"
-              animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
-              transition={{ duration: row.speed, repeat: Infinity, repeatType: "loop", ease: "linear" }}
+              key={t.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.08, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="glass rounded-3xl p-7 flex flex-col gap-4 hover:shadow-glow transition-all duration-300"
             >
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={i}
-                  className="shrink-0 glass rounded-3xl p-6 flex flex-col gap-4 hover:shadow-glow transition-shadow duration-300"
-                  style={{ width: 380 }}
-                >
-                  <div className="flex items-center gap-0.5">
-                    {Array.from({ length: t.stars }).map((_, j) => (
-                      <Star
-                        key={j}
-                        className="h-4 w-4"
-                        style={{ fill: "#f59e0b", color: "#f59e0b" }}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex-1">
-                    <Quote className="h-5 w-5 text-primary/30 mb-2" />
-                    <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
-                  </div>
-                  <div className="flex items-center gap-3 pt-3 border-t border-border/30">
-                    <Avatar src={t.image} name={t.name} size={36} />
-                    <div>
-                      <div className="font-semibold text-sm">{t.name}</div>
-                      <div className="text-xs text-muted-foreground">{t.role}</div>
-                    </div>
-                  </div>
+              <div className="flex items-center gap-0.5">
+                {Array.from({ length: t.stars }).map((_, j) => (
+                  <Star
+                    key={j}
+                    className="h-4 w-4"
+                    style={{ fill: "#f59e0b", color: "#f59e0b" }}
+                  />
+                ))}
+              </div>
+              <div className="flex-1">
+                <Quote className="h-5 w-5 text-primary/30 mb-2" />
+                <p className="text-sm md:text-base text-foreground/85 leading-relaxed">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-border/30">
+                <Avatar src={t.image} name={t.name} size={40} />
+                <div>
+                  <div className="font-semibold text-sm">{t.name}</div>
+                  <div className="text-xs text-muted-foreground">{t.role}</div>
                 </div>
-              ))}
+              </div>
             </motion.div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* ═══════════════════════════════════ SOCIAL SHARE ═══════════════════ */}
@@ -1208,9 +1162,8 @@ function Index() {
             Wherever you build,<br />we're right there.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Teams across five regions and more than fifteen overlapping time zones rely on
-            Webcore Solutions to keep their digital operations running smoothly throughout
-            each business day.
+            Teams across five regions rely on Webcore Solutions every day. We keep their
+            digital operations running smoothly across fifteen overlapping time zones.
           </p>
         </motion.div>
 
@@ -1258,9 +1211,9 @@ function Index() {
             Frequently<br /><span className="gradient-text">asked.</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">
-            Everything you wanted to know about working with us, answered in the plain
-            language our clients say they always wished agencies offered up front. Still
-            curious about your specific situation?{" "}
+            Everything you wanted to know about working with us, answered in plain language.
+            Our clients say they always wished agencies offered this kind of clarity up front.
+            Still curious about your specific situation?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
               Get in touch with our team.
             </Link>
@@ -1338,9 +1291,9 @@ function Index() {
               Let's talk it through.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute strategy call about transforming ideas into a working digital
-              reality, and walk away with clarity on scope, cost, and next steps — whether you
-              choose to work with us or not.
+              Book a free 45-minute call about transforming ideas into a working digital
+              reality. Walk away with clarity on scope, cost, and next steps — whether you
+              hire us or not.
             </p>
             <Link
               to="/contact"
