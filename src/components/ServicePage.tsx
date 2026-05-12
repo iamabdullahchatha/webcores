@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, ChevronRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -18,6 +18,34 @@ export type ServicePageProps = {
   faqs?: { q: string; a: string }[];
 };
 
+function Breadcrumb({ label }: { label: string }) {
+  return (
+    <nav aria-label="Breadcrumb" className="relative z-10 mx-auto max-w-6xl px-4 pt-6">
+      <ol className="flex items-center gap-1.5 text-xs text-muted-foreground flex-wrap">
+        <li>
+          <Link to="/" className="hover:text-primary transition-colors duration-200">
+            Home
+          </Link>
+        </li>
+        <li aria-hidden="true">
+          <ChevronRight className="h-3 w-3 opacity-40" />
+        </li>
+        <li>
+          <Link to="/services" className="hover:text-primary transition-colors duration-200">
+            Services
+          </Link>
+        </li>
+        <li aria-hidden="true">
+          <ChevronRight className="h-3 w-3 opacity-40" />
+        </li>
+        <li aria-current="page" className="text-foreground font-medium">
+          {label}
+        </li>
+      </ol>
+    </nav>
+  );
+}
+
 export function ServicePage(p: ServicePageProps) {
   const Icon = p.icon;
   return (
@@ -27,7 +55,8 @@ export function ServicePage(p: ServicePageProps) {
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         <GridBackground />
         <FloatingShapes />
-        <div className="relative mx-auto max-w-6xl px-4 py-24">
+        <Breadcrumb label={p.eyebrow} />
+        <div className="relative mx-auto max-w-6xl px-4 py-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
             <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium mb-6">
               <Sparkles className="h-3.5 w-3.5 text-primary" />

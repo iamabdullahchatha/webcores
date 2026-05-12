@@ -18,11 +18,13 @@ const services = [
 ];
 
 const quickLinks = [
-  { name: "Home",     to: "/" },
-  { name: "About",    to: "/about" },
-  { name: "Services", to: "/services" },
-  { name: "FAQs",     to: "/faqs" },
-  { name: "Contact",  to: "/contact" },
+  { name: "Home",           to: "/" },
+  { name: "About",          to: "/about" },
+  { name: "Services",       to: "/services" },
+  { name: "FAQs",           to: "/faqs" },
+  { name: "Contact",        to: "/contact" },
+  { name: "Privacy Policy", to: "/privacy-policy" },
+  { name: "Sitemap",        to: "/sitemap" },
 ];
 
 const socials = [
@@ -268,11 +270,13 @@ export function Footer() {
               className="md:col-span-2"
             >
               <SectionHeading>Quick Links</SectionHeading>
-              <ul className="space-y-3">
-                {quickLinks.map((l) => (
-                  <li key={l.name}><FlipLink to={l.to}>{l.name}</FlipLink></li>
-                ))}
-              </ul>
+              <nav aria-label="Footer navigation">
+                <ul className="space-y-3">
+                  {quickLinks.map((l) => (
+                    <li key={l.name}><FlipLink to={l.to}>{l.name}</FlipLink></li>
+                  ))}
+                </ul>
+              </nav>
             </motion.div>
 
             {/* Services */}
@@ -343,9 +347,15 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.4, type: "tween", ease: "easeOut" }}
             className="flex flex-col md:flex-row justify-between items-center gap-3"
           >
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Webcore Solutions. All rights reserved.
-            </p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+              <p>© {new Date().getFullYear()} Webcore Solutions. All rights reserved.</p>
+              <Link to="/privacy-policy" className="hover:text-primary transition-colors duration-200">
+                Privacy Policy
+              </Link>
+              <Link to="/sitemap" className="hover:text-primary transition-colors duration-200">
+                Sitemap
+              </Link>
+            </div>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground/50">
               <motion.span
                 className="inline-block w-1.5 h-1.5 rounded-full bg-primary"

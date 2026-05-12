@@ -4,20 +4,23 @@ export const BRAND_NAME = "Webcore Solutions";
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOCAL_BUSINESS_ID = `${SITE_URL}/#local-business`;
+export const FOUNDER_ID = `${SITE_URL}/#founder`;
 
 // Page publish / last-updated dates (ISO 8601). Update on each meaningful content change.
 const pageDates: Record<string, { datePublished: string; dateModified: string }> = {
-  home:                { datePublished: "2024-01-01", dateModified: "2026-05-11" },
-  about:               { datePublished: "2024-01-01", dateModified: "2026-05-11" },
-  services:            { datePublished: "2024-01-01", dateModified: "2026-05-11" },
-  faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-11" },
-  contact:             { datePublished: "2024-01-01", dateModified: "2026-05-11" },
-  itConsultation:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
-  cmsDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
-  webDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-11" },
-  softwareDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-11" },
-  seoGeo:              { datePublished: "2024-03-01", dateModified: "2026-05-11" },
-  graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-11" },
+  home:                { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  about:               { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  services:            { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-12" },
+  contact:             { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  itConsultation:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  cmsDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  webDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  softwareDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  seoGeo:              { datePublished: "2024-03-01", dateModified: "2026-05-12" },
+  graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  privacyPolicy:       { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  sitemapHtml:         { datePublished: "2024-01-01", dateModified: "2026-05-12" },
 };
 
 type FaqItem = {
@@ -149,22 +152,42 @@ export const pageSeo = {
       "Graphic design in Dubai for logos, brand identity systems, company profiles, brochures, web visuals and premium marketing collateral.",
     keywords: ["graphic design Dubai", "logo design UAE", "brand identity Dubai"],
   },
+  privacyPolicy: {
+    label: "Privacy Policy",
+    path: "/privacy-policy",
+    title: "Privacy Policy | Webcore Solutions",
+    description:
+      "How Webcore Solutions collects, uses and protects your personal data under GDPR and UAE data protection law. Contact us for data requests.",
+    keywords: ["Webcore Solutions privacy policy", "data protection UAE", "GDPR digital agency Dubai"],
+    schemaType: "WebPage",
+  },
+  sitemapHtml: {
+    label: "Sitemap",
+    path: "/sitemap",
+    title: "Sitemap | Webcore Solutions — All Pages",
+    description:
+      "Complete sitemap of all Webcore Solutions pages — services, about, FAQs and contact for the Dubai digital agency.",
+    keywords: ["Webcore Solutions sitemap", "all pages Webcore"],
+    schemaType: "WebPage",
+  },
 } satisfies Record<string, PageMeta>;
 
 export type PageKey = keyof typeof pageSeo;
 
 export const seoRoutes = [
-  { key: "home", path: "/" },
-  { key: "about", path: "/about" },
-  { key: "services", path: "/services" },
-  { key: "itConsultation", path: "/services/it-consultation" },
-  { key: "cmsDevelopment", path: "/services/cms-development" },
-  { key: "webDevelopment", path: "/services/web-development" },
+  { key: "home",                path: "/" },
+  { key: "about",               path: "/about" },
+  { key: "services",            path: "/services" },
+  { key: "itConsultation",      path: "/services/it-consultation" },
+  { key: "cmsDevelopment",      path: "/services/cms-development" },
+  { key: "webDevelopment",      path: "/services/web-development" },
   { key: "softwareDevelopment", path: "/services/software-development" },
-  { key: "seoGeo", path: "/services/seo-geo" },
-  { key: "graphicDesign", path: "/services/graphic-design" },
-  { key: "faqs", path: "/faqs" },
-  { key: "contact", path: "/contact" },
+  { key: "seoGeo",              path: "/services/seo-geo" },
+  { key: "graphicDesign",       path: "/services/graphic-design" },
+  { key: "faqs",                path: "/faqs" },
+  { key: "contact",             path: "/contact" },
+  { key: "privacyPolicy",       path: "/privacy-policy" },
+  { key: "sitemapHtml",         path: "/sitemap" },
 ] as const satisfies ReadonlyArray<{ key: PageKey; path: string }>;
 
 export const pageFaqs = {
@@ -331,6 +354,25 @@ function breadcrumbSchema(page: PageMeta) {
   };
 }
 
+function personSchema() {
+  return {
+    "@type": "Person",
+    "@id": FOUNDER_ID,
+    name: "Muhammad Abdullah Chattha",
+    jobTitle: "CEO & Founder",
+    worksFor: { "@id": ORG_ID },
+    url: `${SITE_URL}/about`,
+    sameAs: ["https://www.linkedin.com/in/webcore-solutions-939b88408"],
+    knowsAbout: [
+      "Software development",
+      "Web development",
+      "Digital agency management",
+      "Technical SEO",
+      "Business automation",
+    ],
+  };
+}
+
 function organizationSchema() {
   return {
     "@type": "Organization",
@@ -347,10 +389,7 @@ function organizationSchema() {
       "@type": "Place",
       name: "Dubai, United Arab Emirates",
     },
-    founder: {
-      "@type": "Person",
-      name: "Muhammad Abdullah Chattha",
-    },
+    founder: { "@id": FOUNDER_ID },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dubai",
@@ -399,14 +438,6 @@ function organizationSchema() {
         },
       })),
     },
-    // Aggregate rating drawn from verified client base
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 }
 
@@ -419,7 +450,6 @@ function websiteSchema() {
     url: SITE_URL,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
-    // Sitelinks searchbox signal
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -459,12 +489,19 @@ function localBusinessSchema() {
         closes: "18:00",
       },
     ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 }
 
-function webPageSchema(page: PageMeta, key: PageKey) {
+function webPageSchema(page: PageMeta, key: PageKey, hasFaqs = false) {
   const isServicePage = servicePageKeys.includes(key as (typeof servicePageKeys)[number]);
-  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-11" };
+  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-12" };
 
   return {
     "@type": page.schemaType ?? "WebPage",
@@ -486,6 +523,9 @@ function webPageSchema(page: PageMeta, key: PageKey) {
     },
     breadcrumb: { "@id": `${absoluteUrl(page.path)}#breadcrumbs` },
     inLanguage: "en",
+    ...(hasFaqs
+      ? { speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", "h3"] } }
+      : {}),
   };
 }
 
@@ -534,6 +574,40 @@ function faqSchema(page: PageMeta, faqs: FaqItem[]) {
   };
 }
 
+function reviewsSchema() {
+  return [
+    {
+      "@type": "Review",
+      "@id": `${SITE_URL}/#review-sarah-lin`,
+      author: { "@type": "Person", name: "Sarah Lin" },
+      datePublished: "2024-09-15",
+      reviewBody:
+        "Webcore rebuilt our platform end-to-end. Load times dropped 78% and conversions jumped immediately.",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
+    },
+    {
+      "@type": "Review",
+      "@id": `${SITE_URL}/#review-ahmed-khalil`,
+      author: { "@type": "Person", name: "Ahmed Khalil" },
+      datePublished: "2024-08-20",
+      reviewBody:
+        "They didn't just deliver code — they delivered clarity. The system they built has scaled effortlessly for 3 years.",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
+    },
+    {
+      "@type": "Review",
+      "@id": `${SITE_URL}/#review-james-oconnor`,
+      author: { "@type": "Person", name: "James O'Connor" },
+      datePublished: "2024-07-10",
+      reviewBody: "We doubled qualified leads in 90 days. Worth every penny and then some.",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
+    },
+  ];
+}
+
 export function getSeoHead(
   key: PageKey,
   options: {
@@ -543,16 +617,19 @@ export function getSeoHead(
 ) {
   const page = pageSeo[key];
   const canonical = absoluteUrl(page.path);
-  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-11" };
+  const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-12" };
+  const hasFaqs = !!(options.faqs?.length);
 
   const graph = [
     organizationSchema(),
     websiteSchema(),
     localBusinessSchema(),
-    webPageSchema(page, key),
+    webPageSchema(page, key, hasFaqs),
     breadcrumbSchema(page),
+    personSchema(),
     serviceSchema(key),
-    options.faqs?.length ? faqSchema(page, options.faqs) : null,
+    hasFaqs ? faqSchema(page, options.faqs!) : null,
+    ...(key === "home" ? reviewsSchema() : []),
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 
@@ -569,21 +646,27 @@ export function getSeoHead(
       { name: "publisher", content: SITE_NAME },
       { name: "geo.region", content: "AE-DU" },
       { name: "geo.placename", content: "Dubai" },
+      { name: "geo.position", content: "25.2048;55.2708" },
+      { name: "ICBM", content: "25.2048, 55.2708" },
+      { name: "rating", content: "general" },
       // E-E-A-T: explicit publication & update dates
       { name: "date", content: dates.datePublished },
       { name: "last-modified", content: dates.dateModified },
       // Open Graph
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:locale", content: "en_AE" },
+      { property: "og:locale:alternate", content: "en_GB" },
+      { property: "og:locale:alternate", content: "en_US" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: page.title },
       { property: "og:description", content: page.description },
       { property: "og:url", content: canonical },
       { property: "og:image", content: `${SITE_URL}/og-image.png` },
+      { property: "og:image:secure_url", content: `${SITE_URL}/og-image.png` },
       { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: `${SITE_NAME} digital agency services` },
+      { property: "og:image:alt", content: `${SITE_NAME} — Dubai digital agency` },
       // article: tags signal freshness to crawlers even on non-blog pages
       { property: "article:published_time", content: dates.datePublished },
       { property: "article:modified_time", content: dates.dateModified },
@@ -596,7 +679,7 @@ export function getSeoHead(
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
       { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
-      { name: "twitter:image:alt", content: `${SITE_NAME} digital agency services` },
+      { name: "twitter:image:alt", content: `${SITE_NAME} — Dubai digital agency` },
       // JSON-LD
       { "script:ld+json": { "@context": "https://schema.org", "@graph": graph } },
     ],

@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as FaqsRouteImport } from './routes/faqs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
@@ -21,6 +23,16 @@ import { Route as ServicesItConsultationRouteImport } from './routes/services.it
 import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
 
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqsRoute = FaqsRouteImport.update({
   id: '/faqs',
   path: '/faqs',
@@ -83,6 +95,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap': typeof SitemapRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -96,6 +110,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap': typeof SitemapRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -110,6 +126,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap': typeof SitemapRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -125,6 +143,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faqs'
+    | '/privacy-policy'
+    | '/sitemap'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -138,6 +158,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faqs'
+    | '/privacy-policy'
+    | '/sitemap'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -151,6 +173,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faqs'
+    | '/privacy-policy'
+    | '/sitemap'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -165,6 +189,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   FaqsRoute: typeof FaqsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  SitemapRoute: typeof SitemapRoute
   ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
   ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
   ServicesItConsultationRoute: typeof ServicesItConsultationRoute
@@ -176,6 +202,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faqs': {
       id: '/faqs'
       path: '/faqs'
@@ -261,6 +301,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   FaqsRoute: FaqsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  SitemapRoute: SitemapRoute,
   ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
   ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
   ServicesItConsultationRoute: ServicesItConsultationRoute,

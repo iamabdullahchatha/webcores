@@ -94,6 +94,7 @@ const services = [
     tag: "Strategy",
     metric: "3× faster decisions",
     image: imgItConsulting,
+    to: "/services/it-consultation" as const,
   },
   {
     icon: Layers,
@@ -104,6 +105,7 @@ const services = [
     tag: "Platform",
     metric: "10× publishing speed",
     image: imgCmsDevelopment,
+    to: "/services/cms-development" as const,
   },
   {
     icon: Globe,
@@ -114,6 +116,7 @@ const services = [
     tag: "Web",
     metric: "Sub-1s load times",
     image: imgWebDevelopment,
+    to: "/services/web-development" as const,
   },
   {
     icon: Code2,
@@ -124,6 +127,7 @@ const services = [
     tag: "Engineering",
     metric: "99.9% uptime SLA",
     image: imgSoftwareDev,
+    to: "/services/software-development" as const,
   },
   {
     icon: Search,
@@ -134,6 +138,7 @@ const services = [
     tag: "Growth",
     metric: "Top 3 rankings",
     image: imgSeo,
+    to: "/services/seo-geo" as const,
   },
   {
     icon: Palette,
@@ -144,6 +149,7 @@ const services = [
     tag: "Design",
     metric: "Brand recognition +40%",
     image: imgGraphicsDesign,
+    to: "/services/graphic-design" as const,
   },
 ];
 
@@ -983,7 +989,7 @@ function Index() {
                   <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-5">{s.desc}</p>
 
                   <Link
-                    to="/services"
+                    to={s.to}
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all duration-200 mt-auto"
                   >
                     Learn more <ArrowRight className="h-3.5 w-3.5" />
