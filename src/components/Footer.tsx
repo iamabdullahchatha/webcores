@@ -125,10 +125,10 @@ function FlipLink({ children, to }: { children: React.ReactNode; to: string }) {
 /* ─── Section Heading ───────────────────────────────────────────────── */
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h4 className="font-semibold text-sm mb-6 inline-flex items-center gap-2">
+    <p className="font-semibold text-sm mb-6 inline-flex items-center gap-2">
       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
       {children}
-    </h4>
+    </p>
   );
 }
 

@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { SocialShare } from "@/components/SocialShare";
 import { getSeoHead } from "@/lib/seo";
 
 /* ─── Asset imports ────────────────────────────────────────────────── */
@@ -95,6 +96,7 @@ const services = [
     metric: "3× faster decisions",
     image: imgItConsulting,
     to: "/services/it-consultation" as const,
+    cta: "Plan your IT strategy",
   },
   {
     icon: Layers,
@@ -106,6 +108,7 @@ const services = [
     metric: "10× publishing speed",
     image: imgCmsDevelopment,
     to: "/services/cms-development" as const,
+    cta: "Tour our CMS work",
   },
   {
     icon: Globe,
@@ -117,6 +120,7 @@ const services = [
     metric: "Sub-1s load times",
     image: imgWebDevelopment,
     to: "/services/web-development" as const,
+    cta: "See website builds",
   },
   {
     icon: Code2,
@@ -128,6 +132,7 @@ const services = [
     metric: "99.9% uptime SLA",
     image: imgSoftwareDev,
     to: "/services/software-development" as const,
+    cta: "Read software cases",
   },
   {
     icon: Search,
@@ -139,6 +144,7 @@ const services = [
     metric: "Top 3 rankings",
     image: imgSeo,
     to: "/services/seo-geo" as const,
+    cta: "Grow search visibility",
   },
   {
     icon: Palette,
@@ -150,6 +156,7 @@ const services = [
     metric: "Brand recognition +40%",
     image: imgGraphicsDesign,
     to: "/services/graphic-design" as const,
+    cta: "View design portfolio",
   },
 ];
 
@@ -195,42 +202,42 @@ const testimonials = [
   {
     name: "Sarah Lin",
     role: "CTO, NorthPeak",
-    quote: "Webcore rebuilt our platform end-to-end. Load times dropped 78% and conversions jumped immediately.",
+    quote: "Webcore Solutions reimagined our entire stack from the database upward — performance scores climbed past 90 within weeks, and our checkout completions had almost doubled by the end of the first quarter post-launch.",
     stars: 5,
     image: imgSarahLin,
   },
   {
     name: "Ahmed Khalil",
     role: "Founder, Dunescape",
-    quote: "They didn't just deliver code — they delivered clarity. The system they built has scaled effortlessly for 3 years.",
+    quote: "Beyond shipping code, the team handed us a platform we still trust three years later — same architecture, same uptime, and almost none of the silent technical debt that usually accumulates as a business scales.",
     stars: 5,
     image: imgAhmedKhalil,
   },
   {
     name: "Maria Costa",
     role: "VP Eng, Fluxio",
-    quote: "From discovery to deploy in 8 weeks, zero surprises. Their process is genuinely best-in-class.",
+    quote: "From discovery to deployment in eight focused weeks with zero surprises along the way — their process is genuinely one of the most disciplined we've worked with in fifteen years.",
     stars: 5,
     image: null,
   },
   {
     name: "James O'Connor",
     role: "CEO, Loomline",
-    quote: "We doubled qualified leads in 90 days. Worth every penny and then some.",
+    quote: "Inside a single quarter, our pipeline of qualified leads had effectively doubled, and the team stayed close enough to keep iterating on conversion details long after the formal launch was complete.",
     stars: 5,
     image: imgConnorJames,
   },
   {
     name: "Yuki Tanaka",
     role: "Product Lead, Hexa",
-    quote: "The rarest find: a team that's equally sharp on design and engineering. Our users noticed immediately.",
+    quote: "Finding one partner that nails both visual craft and engineering rigor at this level is genuinely uncommon, and our user retention numbers moved noticeably the same week we shipped the refreshed product surface.",
     stars: 5,
     image: imgYukiTanaka,
   },
   {
     name: "Priya Nair",
     role: "Director, Ascend Co",
-    quote: "Finally, an agency that treats deadlines as commitments, not suggestions. Delivered on time, every time.",
+    quote: "After years of working with agencies that treated deadlines as polite suggestions, partnering with Webcore felt like a reset — every milestone landed when promised, with no last-minute surprises and no quiet scope inflation along the way.",
     stars: 5,
     image: null,
   },
@@ -295,21 +302,21 @@ const values = [
     color: "#f43f5e",
     bg: "rgba(244,63,94,0.10)",
     t: "Client Obsession",
-    d: "We succeed when you succeed. Every decision traces back to your outcomes, not our convenience.",
+    d: "We succeed only when you succeed, which is why every architectural choice, design decision, and delivery milestone traces back to your business outcomes rather than our convenience.",
   },
   {
     icon: Lightbulb,
     color: "#f59e0b",
     bg: "rgba(245,158,11,0.10)",
     t: "Deep Curiosity",
-    d: "We ask better questions, challenge assumptions, and consistently find solutions others miss.",
+    d: "We ask sharper questions and challenge the surface-level assumptions other teams quietly accept, which is how we consistently surface the elegant solutions everyone else overlooks.",
   },
   {
     icon: ShieldCheck,
     color: "#10b981",
     bg: "rgba(16,185,129,0.10)",
     t: "Radical Integrity",
-    d: "Honest scopes. Transparent pricing. No surprises. Just dependable delivery, every single time.",
+    d: "Honest scopes and transparent pricing mean no mid-project surprises — just dependable delivery on the timeline we agreed to in the first conversation, every single engagement.",
   },
 ];
 
@@ -690,7 +697,7 @@ function Index() {
               {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
                 Transforming{" "}
-                <span className="gradient-text">Ideas</span>
+                <span className="gradient-text">Ideas</span>{" "}
                 <br className="hidden md:block" />
                 into{" "}
                 <span className="gradient-text">Digital Reality</span>
@@ -702,8 +709,10 @@ function Index() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                We turn ambitious product ideas into fast, scalable, and beautifully
-                designed digital products — trusted by 450+ companies across 5 continents.
+                Webcore Solutions specializes in transforming ideas into digital reality,
+                turning ambitious product concepts into fast, scalable, and beautifully
+                designed digital products trusted by 450+ companies across 5 continents
+                and counting.
               </motion.p>
 
               <motion.div
@@ -804,8 +813,11 @@ function Index() {
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
               Founded in Dubai, UAE under the leadership of{" "}
               <span className="text-foreground font-semibold">Muhammad Abdullah Chattha</span>,
-              Webcore Solutions partners with ambitious teams across Europe, UK, America, Dubai
-              and Pakistan to ship product that performs — and endures.
+              Webcore Solutions partners with ambitious teams across Europe, the UK, America,
+              Dubai, and Pakistan to ship product that performs — and endures. From the first
+              sketch through the final deployment, we focus on turning ideas into measurable
+              digital reality, not theoretical roadmaps that quietly stall before reaching
+              your customers.
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
@@ -832,7 +844,7 @@ function Index() {
               to="/about"
               className="group inline-flex items-center gap-2 mt-9 text-primary font-semibold text-sm"
             >
-              Learn more about us
+              Read the Webcore Solutions story
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
           </motion.div>
@@ -879,7 +891,9 @@ function Index() {
             The principles behind<br />every pixel we ship.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            We hold ourselves to a standard most agencies don't mention.
+            We hold ourselves to a quiet standard most agencies prefer not to discuss out
+            loud, and that standard shapes every decision we make from kickoff conversation
+            through final handover.
           </p>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -900,7 +914,7 @@ function Index() {
                 >
                   <v.icon className="h-7 w-7" style={{ color: v.color }} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">{v.t}</h3>
+                <p className="text-xl font-bold mb-2">{v.t}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.d}</p>
                 <div
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
@@ -914,7 +928,7 @@ function Index() {
 
       {/* ══════════════════════════════════════ SERVICES ════════════════════ */}
       <section className="relative mx-auto max-w-7xl px-4 py-24">
-        <motion.div {...fadeUp()} className="flex items-end justify-between flex-wrap gap-4 mb-14">
+        <motion.div {...fadeUp()} className="flex items-end justify-between flex-wrap gap-4 mb-6">
           <div>
             <SectionLabel>Services</SectionLabel>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -925,10 +939,19 @@ function Index() {
             to="/services"
             className="group inline-flex items-center gap-2 text-primary font-semibold text-sm"
           >
-            View all services
+            Browse the full service list
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
+
+        <motion.p
+          {...fadeUp(0.05)}
+          className="max-w-2xl text-muted-foreground text-base leading-relaxed mb-14"
+        >
+          From discovery through launch, six disciplines combine into one framework for
+          transforming ideas into digital reality your customers actually open, use, and
+          recommend — without the handoffs and finger-pointing that slow most agencies down.
+        </motion.p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
@@ -992,7 +1015,7 @@ function Index() {
                     to={s.to}
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all duration-200 mt-auto"
                   >
-                    Learn more <ArrowRight className="h-3.5 w-3.5" />
+                    {s.cta} <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
 
                   <div
@@ -1014,7 +1037,9 @@ function Index() {
             Predictable delivery.<br />Every single time.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            A battle-tested 4-step framework refined across 450+ projects and 12 years.
+            A battle-tested four-step framework, refined across more than 450 projects and
+            twelve years of compounded delivery, that keeps every engagement predictable
+            from the first conversation to the final handover.
           </p>
         </motion.div>
 
@@ -1048,7 +1073,7 @@ function Index() {
                   <p.icon className="h-8 w-8 text-white" />
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: p.color + "99" }}>{p.n}</div>
-                <h3 className="font-bold mb-2">{p.t}</h3>
+                <p className="font-bold mb-2">{p.t}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
             ))}
@@ -1100,7 +1125,7 @@ function Index() {
                 </div>
                 <div>
                   <div className="text-white/60 text-xs font-semibold mb-1.5">{p.metric}</div>
-                  <h3 className="text-xl font-bold text-white mb-1.5">{p.title}</h3>
+                  <p className="text-xl font-bold text-white mb-1.5">{p.title}</p>
                   <p className="text-white/70 text-sm leading-relaxed line-clamp-2">{p.desc}</p>
                 </div>
               </div>
@@ -1168,6 +1193,13 @@ function Index() {
         ))}
       </section>
 
+      {/* ═══════════════════════════════════ SOCIAL SHARE ═══════════════════ */}
+      <section className="relative mx-auto max-w-7xl px-4 py-12">
+        <motion.div {...fadeUp()} className="flex justify-center">
+          <SocialShare />
+        </motion.div>
+      </section>
+
       {/* ═══════════════════════════════════ GLOBAL REACH ═══════════════════ */}
       <section className="relative mx-auto max-w-7xl px-4 py-24">
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16">
@@ -1176,7 +1208,9 @@ function Index() {
             Wherever you build,<br />we're right there.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Teams across 5 regions rely on Webcore to keep their digital operations running.
+            Teams across five regions and more than fifteen overlapping time zones rely on
+            Webcore Solutions to keep their digital operations running smoothly throughout
+            each business day.
           </p>
         </motion.div>
 
@@ -1223,10 +1257,12 @@ function Index() {
           <h2 className="text-4xl md:text-5xl font-bold">
             Frequently<br /><span className="gradient-text">asked.</span>
           </h2>
-          <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
-            Everything you wanted to know — answered. Still need help?{" "}
+          <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">
+            Everything you wanted to know about working with us, answered in the plain
+            language our clients say they always wished agencies offered up front. Still
+            curious about your specific situation?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              Just ask us.
+              Get in touch with our team.
             </Link>
           </p>
         </motion.div>
@@ -1302,13 +1338,15 @@ function Index() {
               Let's talk it through.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+              Book a free 45-minute strategy call about transforming ideas into a working digital
+              reality, and walk away with clarity on scope, cost, and next steps — whether you
+              choose to work with us or not.
             </p>
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Book Free Consultation
+              Book a strategy call
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">

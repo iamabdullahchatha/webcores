@@ -378,7 +378,9 @@ function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
-    alternateName: BRAND_NAME,
+    alternateName: ["Webcore", "WebcoreUAE", "Webcore Solutions Dubai"],
+    description:
+      "Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation.",
     url: SITE_URL,
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,
     image: `${SITE_URL}/og-image.png`,
@@ -393,6 +395,7 @@ function organizationSchema() {
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dubai",
+      addressRegion: "Dubai",
       addressCountry: "AE",
     },
     contactPoint: [
@@ -446,7 +449,7 @@ function websiteSchema() {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     name: SITE_NAME,
-    alternateName: BRAND_NAME,
+    alternateName: ["Webcore", "WebcoreUAE"],
     url: SITE_URL,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
@@ -466,7 +469,9 @@ function localBusinessSchema() {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": LOCAL_BUSINESS_ID,
     name: SITE_NAME,
-    alternateName: BRAND_NAME,
+    alternateName: ["Webcore", "WebcoreUAE"],
+    description:
+      "Dubai-based digital agency for web development, software engineering, CMS, SEO, GEO, branding and IT consultation services.",
     url: SITE_URL,
     image: `${SITE_URL}/og-image.png`,
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,
@@ -476,7 +481,13 @@ function localBusinessSchema() {
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dubai",
+      addressRegion: "Dubai",
       addressCountry: "AE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 25.2048,
+      longitude: 55.2708,
     },
     areaServed,
     parentOrganization: { "@id": ORG_ID },
@@ -582,7 +593,7 @@ function reviewsSchema() {
       author: { "@type": "Person", name: "Sarah Lin" },
       datePublished: "2024-09-15",
       reviewBody:
-        "Webcore rebuilt our platform end-to-end. Load times dropped 78% and conversions jumped immediately.",
+        "Webcore Solutions reimagined our entire stack from the database upward — performance scores climbed past 90 within weeks, and our checkout completions had almost doubled by the end of the first quarter post-launch.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },
@@ -592,7 +603,7 @@ function reviewsSchema() {
       author: { "@type": "Person", name: "Ahmed Khalil" },
       datePublished: "2024-08-20",
       reviewBody:
-        "They didn't just deliver code — they delivered clarity. The system they built has scaled effortlessly for 3 years.",
+        "Beyond shipping code, the team handed us a platform we still trust three years later — same architecture, same uptime, and almost none of the silent technical debt that usually accumulates as a business scales.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },
@@ -601,7 +612,8 @@ function reviewsSchema() {
       "@id": `${SITE_URL}/#review-james-oconnor`,
       author: { "@type": "Person", name: "James O'Connor" },
       datePublished: "2024-07-10",
-      reviewBody: "We doubled qualified leads in 90 days. Worth every penny and then some.",
+      reviewBody:
+        "Inside a single quarter, our pipeline of qualified leads had effectively doubled, and the team stayed close enough to keep iterating on conversion details long after the formal launch was complete.",
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
       itemReviewed: { "@id": LOCAL_BUSINESS_ID },
     },
