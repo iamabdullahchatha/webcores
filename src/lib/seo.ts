@@ -41,7 +41,15 @@ type PageMeta = {
   schemaType?: "WebPage" | "AboutPage" | "CollectionPage" | "FAQPage" | "ContactPage";
 };
 
-const areaServed = [
+const orgAreaServed = ["UAE", "UK", "US", "Pakistan", "Europe"];
+
+const orgSameAs = [
+  "https://www.linkedin.com/in/webcore-solutions-939b88408",
+  "https://www.facebook.com/profile.php?id=61587249472207",
+  "https://wa.me/447570792516",
+];
+
+const serviceAreaServed = [
   { "@type": "City", name: "Dubai" },
   { "@type": "Country", name: "United Arab Emirates" },
   { "@type": "Country", name: "United Kingdom" },
@@ -50,19 +58,13 @@ const areaServed = [
   { "@type": "Country", name: "Pakistan" },
 ];
 
-const sameAs = [
-  "https://www.linkedin.com/in/webcore-solutions-939b88408",
-  "https://www.facebook.com/profile.php?id=61587249472207",
-  "https://wa.me/447570792516",
-];
-
 export const pageSeo = {
   home: {
     label: "Home",
     path: "/",
-    title: "Webcore Solutions | Web, Software & SEO Agency Dubai",
+    title: "Web Development & SEO Agency Dubai | Webcore Solutions",
     description:
-      "Dubai digital agency for web development, software, ecommerce, CMS, SEO, GEO, branding and automation for UAE, UK, US and global teams.",
+      "Webcore Solutions is a Dubai digital agency building fast websites, custom software, SEO, GEO and brand systems for 450+ clients worldwide.",
     keywords: [
       "Webcore Solutions",
       "Dubai digital agency",
@@ -75,51 +77,50 @@ export const pageSeo = {
   about: {
     label: "About",
     path: "/about",
-    title: "About Webcore Solutions | Dubai Digital Agency Team",
+    title: "About Webcore Solutions | Digital Agency Dubai",
     description:
-      "Meet Webcore Solutions, a Dubai-founded software, web, SEO and design team serving clients across the UAE, UK, Europe, US and Pakistan.",
+      "About Webcore Solutions, a Dubai digital agency delivering software, web, SEO and design for UAE, UK, US and Pakistan clients.",
     keywords: ["about Webcore Solutions", "Dubai technology agency", "software agency UAE"],
     schemaType: "AboutPage",
   },
   services: {
     label: "Services",
     path: "/services",
-    title: "Digital Services Dubai | Web, Software, SEO & CMS",
+    title: "Digital Services in Dubai | Web, Software, SEO, CMS",
     description:
-      "Explore Webcore Solutions services: web development, software development, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
+      "Webcore Solutions digital services in Dubai: web, software, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
     keywords: ["digital services Dubai", "web development services UAE", "software services UAE"],
     schemaType: "CollectionPage",
   },
   faqs: {
     label: "FAQs",
     path: "/faqs",
-    title: "Webcore Solutions FAQs | Process, Pricing & Support",
+    title: "FAQs | Web Development & SEO in Dubai — Webcore",
     description:
-      "Answers about Webcore Solutions services, pricing, project timelines, support, technology choices and international digital agency work.",
+      "Webcore Solutions FAQs on services, pricing, timelines, support and technology choices for our Dubai digital agency clients.",
     keywords: ["Webcore Solutions FAQs", "digital agency questions", "software project pricing UAE"],
-    schemaType: "FAQPage",
   },
   contact: {
     label: "Contact",
     path: "/contact",
-    title: "Contact Webcore Solutions | Free Digital Strategy Call",
+    title: "Contact Webcore Solutions | Digital Agency Dubai",
     description:
-      "Contact Webcore Solutions for web development, software, SEO, GEO, CMS, IT consultation, branding and ecommerce support in Dubai and globally.",
+      "Contact Webcore Solutions in Dubai for web, software, SEO, GEO, CMS, branding and IT consultation. Book a free strategy call.",
     keywords: ["contact Webcore Solutions", "Dubai software consultation", "book web development call"],
     schemaType: "ContactPage",
   },
   itConsultation: {
     label: "IT Consultation",
     path: "/services/it-consultation",
-    title: "IT Consultation Dubai | Technology Audits & Roadmaps",
+    title: "IT Consulting Services Dubai | IT Consultancy UAE",
     description:
-      "Strategic IT consultation in Dubai for audits, architecture, cloud strategy, vendor selection, automation and scale-ready roadmaps.",
+      "Strategic IT consultation in Dubai for audits, architecture, cloud strategy, vendor selection and scale-ready roadmaps.",
     keywords: ["IT consultation Dubai", "technology audit UAE", "fractional CTO Dubai"],
   },
   cmsDevelopment: {
     label: "CMS Development",
     path: "/services/cms-development",
-    title: "CMS Development Dubai | Headless & WordPress CMS",
+    title: "CMS Development Dubai | WordPress & Headless CMS",
     description:
       "Headless CMS, WordPress and composable content platform development for Dubai, UK and global teams that need scalable publishing.",
     keywords: ["CMS development Dubai", "headless CMS UAE", "WordPress development Dubai"],
@@ -127,15 +128,15 @@ export const pageSeo = {
   webDevelopment: {
     label: "Web Development",
     path: "/services/web-development",
-    title: "Web Development Dubai | High-Performance Websites",
+    title: "Web Development Company in Dubai | Webcore Solutions",
     description:
-      "Web development in Dubai for fast business websites, ecommerce stores, WordPress builds, React apps and conversion-focused experiences.",
+      "Web development in Dubai for fast business websites, ecommerce stores, WordPress sites, React apps and conversion-led experiences.",
     keywords: ["web development Dubai", "website development UAE", "ecommerce development Dubai"],
   },
   softwareDevelopment: {
     label: "Software Development",
     path: "/services/software-development",
-    title: "Software Development Dubai | SaaS, APIs & Systems",
+    title: "Software Development Company Dubai | Custom Software UAE",
     description:
       "Custom software development for SaaS platforms, APIs, data systems, internal tools, enterprise workflows and AI integrations.",
     keywords: ["software development Dubai", "custom software UAE", "SaaS development Dubai"],
@@ -143,7 +144,7 @@ export const pageSeo = {
   seoGeo: {
     label: "SEO & GEO",
     path: "/services/seo-geo",
-    title: "SEO & GEO Services Dubai | Google & AI Search",
+    title: "SEO Agency Dubai | SEO & GEO Services in UAE",
     description:
       "SEO and GEO services in Dubai for technical SEO, local SEO, content, schema, AI search readiness and sustainable authority growth.",
     keywords: ["SEO services Dubai", "GEO services UAE", "AI search optimization Dubai"],
@@ -151,9 +152,9 @@ export const pageSeo = {
   graphicDesign: {
     label: "Graphic Design",
     path: "/services/graphic-design",
-    title: "Graphic Design Dubai | Logo & Brand Identity",
+    title: "Graphic Design & Branding Agency Dubai | Logo Design",
     description:
-      "Graphic design in Dubai for logos, brand identity systems, company profiles, brochures, web visuals and premium marketing collateral.",
+      "Graphic design in Dubai for logos, brand identity, company profiles, brochures, web visuals and premium marketing collateral.",
     keywords: ["graphic design Dubai", "logo design UAE", "brand identity Dubai"],
   },
   privacyPolicy: {
@@ -161,7 +162,7 @@ export const pageSeo = {
     path: "/privacy-policy",
     title: "Privacy Policy | Webcore Solutions",
     description:
-      "How Webcore Solutions collects, uses and protects your personal data under GDPR and UAE data protection law. Contact us for data requests.",
+      "Webcore Solutions privacy policy: how we collect, use and protect your data under GDPR and UAE law. Contact us for data requests.",
     keywords: ["Webcore Solutions privacy policy", "data protection UAE", "GDPR digital agency Dubai"],
     schemaType: "WebPage",
   },
@@ -179,7 +180,7 @@ export const pageSeo = {
     path: "/webcore-solutions-dubai",
     title: "Webcore Solutions Dubai | UAE Web, Software & SEO Agency",
     description:
-      "Webcore Solutions is the Dubai-headquartered web, software, and SEO agency operating from the UAE since 2012. Verified UAE entity, in-house team, 450+ projects.",
+      "Webcore Solutions Dubai: the verified UAE web, software and SEO agency operating from Dubai since 2012 with 450+ projects.",
     keywords: [
       "Webcore Solutions Dubai",
       "Webcore Solutions UAE",
@@ -193,7 +194,7 @@ export const pageSeo = {
     path: "/dubai-web-development-agency",
     title: "Dubai Web Development Agency | Webcore Solutions",
     description:
-      "Dubai web development agency for high-performance websites, ecommerce, WordPress, React, and headless builds. UAE in-house team since 2012.",
+      "Dubai web development agency for fast websites, ecommerce, WordPress, React and headless builds. UAE in-house team since 2012.",
     keywords: [
       "Dubai web development agency",
       "web development agency Dubai",
@@ -207,7 +208,7 @@ export const pageSeo = {
     path: "/dubai-seo-agency",
     title: "Dubai SEO Agency | Local & GEO Search Specialists",
     description:
-      "Dubai SEO agency for technical SEO, local SEO, schema, Arabic-English content, GEO, and AI search visibility. Real UAE clients since 2012.",
+      "Dubai SEO agency for technical SEO, local SEO, schema, Arabic-English content, GEO and AI search visibility. UAE since 2012.",
     keywords: [
       "Dubai SEO agency",
       "SEO agency Dubai",
@@ -221,7 +222,7 @@ export const pageSeo = {
     path: "/uae-software-development-company",
     title: "UAE Software Development Company | Custom SaaS, APIs, Platforms",
     description:
-      "UAE software development company delivering custom SaaS, APIs, internal tools, and enterprise platforms for businesses across Dubai, Abu Dhabi, and the GCC.",
+      "UAE software development company building custom SaaS, APIs, internal tools and enterprise platforms across Dubai and the GCC.",
     keywords: [
       "UAE software development company",
       "software development company UAE",
@@ -388,7 +389,9 @@ const serviceTypes: Record<(typeof servicePageKeys)[number], string> = {
 };
 
 export function absoluteUrl(path: string) {
-  return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
+  if (path === "/") return `${SITE_URL}/`;
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return `${SITE_URL}${withSlash}`;
 }
 
 function getBreadcrumbItems(page: PageMeta) {
@@ -428,11 +431,12 @@ function personSchema() {
     url: `${SITE_URL}/about`,
     sameAs: ["https://www.linkedin.com/in/webcore-solutions-939b88408"],
     knowsAbout: [
-      "Software development",
-      "Web development",
+      "Web Development",
+      "Software",
+      "SEO",
+      "GEO",
+      "CMS",
       "Digital agency management",
-      "Technical SEO",
-      "Business automation",
     ],
   };
 }
@@ -442,86 +446,69 @@ function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
-    legalName: "Webcore Solutions FZ-LLC",
-    alternateName: [
-      "Webcore Solutions Dubai",
-      "Webcore Solutions UAE",
-      "WebcoreUAE",
-      "Webcore",
-    ],
-    slogan: "Transforming Ideas into Digital Reality",
-    description:
-      "Webcore Solutions is a Dubai-based digital agency in the United Arab Emirates providing web development, software engineering, SEO, GEO, ecommerce, CMS, branding, and automation services to UAE, UK, US, and global clients.",
-    url: SITE_URL,
+    alternateName: ["Webcore", "Webcore UAE"],
+    url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}/web-app-manifest-512x512.png`,
       width: 512,
       height: 512,
     },
-    image: `${SITE_URL}/og-image.png`,
-    email: "info@webcoreuae.com",
-    telephone: "+971 50 716 9200",
+    description:
+      "Dubai digital agency for web development, software, SEO, GEO, CMS, IT consulting and brand design.",
     foundingDate: "2012",
-    foundingLocation: {
-      "@type": "Place",
-      name: "Dubai, United Arab Emirates",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Dubai",
-        addressCountry: "AE",
-      },
+    founder: {
+      "@type": "Person",
+      "@id": FOUNDER_ID,
+      name: "Muhammad Abdullah Chattha",
+      jobTitle: "CEO & Founder",
     },
-    founder: { "@id": FOUNDER_ID },
+    numberOfEmployees: {
+      "@type": "QuantitativeValue",
+      value: 25,
+    },
+    areaServed: orgAreaServed,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dubai",
-      addressRegion: "Dubai",
       addressCountry: "AE",
     },
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+971 50 716 9200",
+        telephone: "+971507169200",
         contactType: "sales",
         areaServed: "AE",
         availableLanguage: ["en"],
       },
       {
         "@type": "ContactPoint",
-        telephone: "+44 7570 792516",
+        telephone: "+447570792516",
         contactType: "customer support",
         areaServed: ["GB", "AE", "PK", "US"],
         availableLanguage: ["en"],
       },
+      {
+        "@type": "ContactPoint",
+        email: "info@webcoreuae.com",
+        contactType: "customer service",
+        availableLanguage: ["en"],
+      },
     ],
-    areaServed,
-    sameAs,
+    sameAs: orgSameAs,
     knowsAbout: [
-      "Software development",
-      "Web development",
-      "Technical SEO",
-      "Generative engine optimization",
-      "Answer engine optimization",
-      "Local SEO",
-      "CMS development",
-      "IT consultation",
-      "Graphic design",
-      "Core Web Vitals",
+      "Web Development",
+      "Software",
+      "SEO",
+      "GEO",
+      "CMS",
+      "WordPress",
+      "Next.js",
+      "React",
+      "Ecommerce",
+      "IT Consulting",
+      "Brand Design",
     ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Digital agency services",
-      itemListElement: servicePageKeys.map((key) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: pageSeo[key].label,
-          serviceType: serviceTypes[key],
-          url: absoluteUrl(pageSeo[key].path),
-        },
-      })),
-    },
   };
 }
 
@@ -530,8 +517,7 @@ function websiteSchema() {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     name: SITE_NAME,
-    alternateName: ["Webcore", "WebcoreUAE"],
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
     potentialAction: {
@@ -545,30 +531,18 @@ function websiteSchema() {
   };
 }
 
-function localBusinessSchema() {
+function professionalServiceSchema() {
   return {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": LOCAL_BUSINESS_ID,
     name: SITE_NAME,
-    alternateName: [
-      "Webcore",
-      "WebcoreUAE",
-      "Webcore Solutions Dubai",
-      "Webcore Solutions UAE",
-    ],
-    slogan: "Dubai's premium web, software, and SEO agency",
-    description:
-      "Dubai, UAE-based digital agency for web development, software engineering, CMS, SEO, GEO, branding and IT consultation services. The verified Dubai entity, operating since 2012 — not affiliated with similarly-named businesses in other regions.",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     image: `${SITE_URL}/og-image.png`,
-    logo: `${SITE_URL}/web-app-manifest-512x512.png`,
-    telephone: "+971 50 716 9200",
-    email: "info@webcoreuae.com",
-    priceRange: "$$$",
+    telephone: "+971507169200",
+    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Dubai",
-      addressRegion: "Dubai",
       addressCountry: "AE",
     },
     geo: {
@@ -576,24 +550,23 @@ function localBusinessSchema() {
       latitude: 25.2048,
       longitude: 55.2708,
     },
-    areaServed,
+    areaServed: orgAreaServed,
     parentOrganization: { "@id": ORG_ID },
-    sameAs,
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
         opens: "09:00",
         closes: "18:00",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 }
 
@@ -611,7 +584,6 @@ function webPageSchema(page: PageMeta, key: PageKey, hasFaqs = false) {
     dateModified: dates.dateModified,
     isPartOf: { "@id": WEBSITE_ID },
     publisher: { "@id": ORG_ID },
-    author: { "@id": ORG_ID },
     about: isServicePage ? { "@id": `${absoluteUrl(page.path)}#service` } : { "@id": ORG_ID },
     primaryImageOfPage: {
       "@type": "ImageObject",
@@ -643,7 +615,7 @@ function serviceSchema(key: PageKey) {
     serviceType: serviceTypes[serviceKey],
     url: absoluteUrl(page.path),
     provider: { "@id": ORG_ID },
-    areaServed,
+    areaServed: serviceAreaServed,
     audience: {
       "@type": "BusinessAudience",
       audienceType: "Startups, SMEs and enterprise teams",
@@ -672,51 +644,6 @@ function faqSchema(page: PageMeta, faqs: FaqItem[]) {
   };
 }
 
-function reviewsSchema() {
-  return [
-    {
-      "@type": "Review",
-      "@id": `${SITE_URL}/#review-layla-almansoori`,
-      author: { "@type": "Person", name: "Layla Al-Mansoori" },
-      datePublished: "2024-10-05",
-      reviewBody:
-        "After five months on our Arabic-English SEO rebuild, organic traffic from UAE searches climbed 84 percent. The Webcore team navigated our bilingual content workflow without missing a milestone.",
-      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
-    },
-    {
-      "@type": "Review",
-      "@id": `${SITE_URL}/#review-rohan-verma`,
-      author: { "@type": "Person", name: "Rohan Verma" },
-      datePublished: "2024-09-12",
-      reviewBody:
-        "Webcore Solutions delivered our investor dashboard in ten focused weeks. Two larger Dubai agencies had quoted us double that timeline, and our user NPS still jumped from 42 to 71 after launch.",
-      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
-    },
-    {
-      "@type": "Review",
-      "@id": `${SITE_URL}/#review-hana-said`,
-      author: { "@type": "Person", name: "Hana Said" },
-      datePublished: "2024-08-22",
-      reviewBody:
-        "The refreshed storefront and new brand identity moved our checkout conversion rate from 1.6 to 4.2 percent. First-month revenue beat our internal forecast by almost forty percent.",
-      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
-    },
-    {
-      "@type": "Review",
-      "@id": `${SITE_URL}/#review-daniel-whittaker`,
-      author: { "@type": "Person", name: "Daniel Whittaker" },
-      datePublished: "2024-07-18",
-      reviewBody:
-        "Webcore Solutions consolidated three legacy systems into one operations platform our regional teams actually use. Manual reconciliation hours dropped 60 percent and uptime stayed above 99.9 percent all year.",
-      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      itemReviewed: { "@id": LOCAL_BUSINESS_ID },
-    },
-  ];
-}
-
 export function getSeoHead(
   key: PageKey,
   options: {
@@ -729,16 +656,18 @@ export function getSeoHead(
   const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-12" };
   const hasFaqs = !!(options.faqs?.length);
 
+  const isHome = key === "home";
+  const isAbout = key === "about";
+
   const graph = [
-    organizationSchema(),
-    websiteSchema(),
-    localBusinessSchema(),
+    isHome ? organizationSchema() : null,
+    isHome ? professionalServiceSchema() : null,
+    isHome ? websiteSchema() : null,
     webPageSchema(page, key, hasFaqs),
     breadcrumbSchema(page),
-    personSchema(),
     serviceSchema(key),
     hasFaqs ? faqSchema(page, options.faqs!) : null,
-    ...(key === "home" ? reviewsSchema() : []),
+    isAbout ? personSchema() : null,
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 
@@ -794,7 +723,9 @@ export function getSeoHead(
     ],
     links: [
       { rel: "canonical", href: canonical },
-      { rel: "alternate", hrefLang: "en", href: canonical },
+      { rel: "alternate", hrefLang: "en-AE", href: canonical },
+      { rel: "alternate", hrefLang: "en-GB", href: canonical },
+      { rel: "alternate", hrefLang: "en-US", href: canonical },
       { rel: "alternate", hrefLang: "x-default", href: canonical },
     ],
   };

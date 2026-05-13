@@ -58,8 +58,16 @@ export function Header() {
   const [drop, setDrop] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -94,7 +102,15 @@ export function Header() {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
             aria-label="Home"
           >
-            <img src={logo} alt="Webcore Solutions" className="h-10 md:h-12 w-auto" />
+            <img
+              src={logo}
+              alt="Webcore Solutions"
+              width={1180}
+              height={319}
+              decoding="async"
+              fetchPriority="high"
+              className="h-10 md:h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

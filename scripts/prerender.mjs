@@ -63,8 +63,8 @@ function renderHead(key) {
 
 function injectRouteHtml(html, rootHtml, headHtml) {
   return html
-    .replace(/<head>([\s\S]*?)<\/head>/i, `<head>$1\n    ${headHtml}\n  </head>`)
-    .replace('<div id="root"></div>', `<div id="root">${rootHtml}</div>`);
+    .replace(/<head>([\s\S]*?)<\/head>/i, (_match, inner) => `<head>${inner}\n    ${headHtml}\n  </head>`)
+    .replace('<div id="root"></div>', () => `<div id="root">${rootHtml}</div>`);
 }
 
 function outputPathForRoute(routePath) {

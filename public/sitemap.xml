@@ -1,224 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
     <loc>https://www.webcoreuae.com/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Webcore Solutions — Dubai Digital Agency</image:title>
-      <image:caption>Premium web development, software and SEO agency based in Dubai, UAE</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/"/>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/about</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://www.webcoreuae.com/about/</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>About Webcore Solutions — Dubai Digital Agency Team</image:title>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/about"/>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://www.webcoreuae.com/services/</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Digital Services Dubai — Webcore Solutions</image:title>
-      <image:caption>Web development, software, CMS, SEO, GEO, branding and IT consultation services in Dubai</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services"/>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/it-consultation</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>IT Consultation Dubai — Technology Audits and Roadmaps</image:title>
-      <image:caption>Strategic IT consultation in Dubai for audits, architecture, cloud strategy and technology roadmaps</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/it-consultation"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/it-consultation"/>
+    <loc>https://www.webcoreuae.com/services/web-development/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/cms-development</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>CMS Development Dubai — Headless and WordPress CMS</image:title>
-      <image:caption>Headless CMS, WordPress and composable content platform development for Dubai and global teams</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/cms-development"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/cms-development"/>
+    <loc>https://www.webcoreuae.com/services/software-development/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/web-development</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Web Development Dubai — High-Performance Websites</image:title>
-      <image:caption>Web development in Dubai for fast business websites, ecommerce stores and conversion-focused experiences</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/web-development"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/web-development"/>
+    <loc>https://www.webcoreuae.com/services/seo-geo/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/software-development</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Software Development Dubai — SaaS, APIs and Systems</image:title>
-      <image:caption>Custom software development for SaaS platforms, APIs, data systems and AI integrations in Dubai</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/software-development"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/software-development"/>
+    <loc>https://www.webcoreuae.com/services/cms-development/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/seo-geo</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>SEO and GEO Services Dubai — Google and AI Search</image:title>
-      <image:caption>SEO and GEO services in Dubai for technical SEO, local SEO, schema and AI search readiness</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/seo-geo"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/seo-geo"/>
+    <loc>https://www.webcoreuae.com/services/it-consultation/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/services/graphic-design</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Graphic Design Dubai — Logo and Brand Identity</image:title>
-      <image:caption>Graphic design in Dubai for logos, brand identity systems, brochures and premium marketing collateral</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/services/graphic-design"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/services/graphic-design"/>
+    <loc>https://www.webcoreuae.com/services/graphic-design/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/faqs</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/faqs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/faqs"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/contact</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://www.webcoreuae.com/faqs/</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/contact"/>
   </url>
 
   <url>
-    <loc>https://www.webcoreuae.com/webcore-solutions-dubai</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://www.webcoreuae.com/contact/</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Webcore Solutions Dubai — UAE Web, Software and SEO Agency</image:title>
-      <image:caption>The verified Dubai entity. Webcore Solutions has operated from the United Arab Emirates since 2012.</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/webcore-solutions-dubai"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/webcore-solutions-dubai"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/dubai-web-development-agency</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Dubai Web Development Agency — Webcore Solutions</image:title>
-      <image:caption>Dubai web development agency since 2012. Fixed-scope pricing, in-house team, Core Web Vitals on every release.</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/dubai-web-development-agency"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/dubai-web-development-agency"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/dubai-seo-agency</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>Dubai SEO Agency — Webcore Solutions</image:title>
-      <image:caption>Dubai SEO agency for technical SEO, local SEO, Arabic-English content, GEO and AI search optimization.</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/dubai-seo-agency"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/dubai-seo-agency"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/uae-software-development-company</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.webcoreuae.com/og-image.png</image:loc>
-      <image:title>UAE Software Development Company — Webcore Solutions</image:title>
-      <image:caption>UAE software development company building custom SaaS, APIs, data systems and AI integrations from Dubai since 2012.</image:caption>
-    </image:image>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/uae-software-development-company"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/uae-software-development-company"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/privacy-policy</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/privacy-policy"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/privacy-policy"/>
-  </url>
-
-  <url>
-    <loc>https://www.webcoreuae.com/sitemap</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.webcoreuae.com/sitemap"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.webcoreuae.com/sitemap"/>
+    <priority>0.7</priority>
   </url>
 
 </urlset>

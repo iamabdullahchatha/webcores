@@ -237,7 +237,15 @@ export function Footer() {
               className="md:col-span-4 space-y-5"
             >
               <Link to="/" className="inline-block">
-                <img src={logo} alt="Webcore Solutions" className="h-12 w-auto" />
+                <img
+                  src={logo}
+                  alt="Webcore Solutions"
+                  width={1180}
+                  height={319}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-12 w-auto"
+                />
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
                 Transforming ideas into digital reality. Premium software, web & IT solutions built for the modern world.
