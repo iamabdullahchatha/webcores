@@ -8,7 +8,7 @@ export const FOUNDER_ID = `${SITE_URL}/#founder`;
 
 // Page publish / last-updated dates (ISO 8601). Update on each meaningful content change.
 const pageDates: Record<string, { datePublished: string; dateModified: string }> = {
-  home:                { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  home:                { datePublished: "2024-01-01", dateModified: "2026-05-15" },
   about:               { datePublished: "2024-01-01", dateModified: "2026-05-12" },
   services:            { datePublished: "2024-01-01", dateModified: "2026-05-12" },
   faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-12" },
@@ -64,7 +64,7 @@ export const pageSeo = {
     path: "/",
     title: "Web Development & SEO Agency Dubai | Webcore Solutions",
     description:
-      "Webcore Solutions is a Dubai digital agency building fast websites, custom software, SEO, GEO and brand systems for 450+ clients worldwide.",
+      "Webcore Solutions is a Dubai web development and SEO agency delivering production-grade websites, custom software and brand systems — trusted by 450+ companies across five continents.",
     keywords: [
       "Webcore Solutions",
       "Dubai digital agency",
@@ -72,6 +72,7 @@ export const pageSeo = {
       "web development Dubai",
       "SEO agency UAE",
       "GEO optimization",
+      "web development agency",
     ],
   },
   about: {
@@ -450,13 +451,13 @@ function organizationSchema() {
     url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/web-app-manifest-512x512.png`,
+      url: `${SITE_URL}/assets/logo-cacVyZP_.png`,
       width: 512,
       height: 512,
     },
     description:
-      "Dubai digital agency for web development, software, SEO, GEO, CMS, IT consulting and brand design.",
-    foundingDate: "2012",
+      "Webcore Solutions is a Dubai web development and SEO agency building production-grade websites, custom software, CMS platforms, GEO and brand systems for clients worldwide.",
+    foundingDate: "2013",
     founder: {
       "@type": "Person",
       "@id": FOUNDER_ID,
@@ -476,9 +477,10 @@ function organizationSchema() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+971507169200",
+        telephone: "+971-50-716-9200",
         contactType: "sales",
-        areaServed: "AE",
+        email: "info@webcoreuae.com",
+        areaServed: ["AE", "GB", "US", "EU", "PK"],
         availableLanguage: ["en"],
       },
       {
@@ -486,12 +488,6 @@ function organizationSchema() {
         telephone: "+447570792516",
         contactType: "customer support",
         areaServed: ["GB", "AE", "PK", "US"],
-        availableLanguage: ["en"],
-      },
-      {
-        "@type": "ContactPoint",
-        email: "info@webcoreuae.com",
-        contactType: "customer service",
         availableLanguage: ["en"],
       },
     ],
@@ -704,7 +700,7 @@ export function getSeoHead(
       { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: `${SITE_NAME} — Dubai digital agency` },
+      { property: "og:image:alt", content: `${SITE_NAME} — digital studio` },
       // article: tags signal freshness to crawlers even on non-blog pages
       { property: "article:published_time", content: dates.datePublished },
       { property: "article:modified_time", content: dates.dateModified },
@@ -717,16 +713,15 @@ export function getSeoHead(
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
       { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
-      { name: "twitter:image:alt", content: `${SITE_NAME} — Dubai digital agency` },
+      { name: "twitter:image:alt", content: `${SITE_NAME} — digital studio` },
       // JSON-LD
       { "script:ld+json": { "@context": "https://schema.org", "@graph": graph } },
     ],
     links: [
       { rel: "canonical", href: canonical },
-      { rel: "alternate", hrefLang: "en-AE", href: canonical },
-      { rel: "alternate", hrefLang: "en-GB", href: canonical },
-      { rel: "alternate", hrefLang: "en-US", href: canonical },
-      { rel: "alternate", hrefLang: "x-default", href: canonical },
+      { rel: "alternate", hrefLang: "en-ae", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "en", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "x-default", href: `${SITE_URL}/` },
     ],
   };
 }

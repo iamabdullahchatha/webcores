@@ -660,8 +660,9 @@ function Index() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                We turn ambitious product ideas into fast, scalable, and beautifully
-                designed digital products — trusted by 450+ companies across 5 continents.
+                A digital studio building production-grade websites, custom software,
+                and growth systems. We pair senior engineers with proven SEO and brand
+                strategy to ship products 450+ companies trust across five continents.
               </motion.p>
 
               <motion.div
@@ -674,7 +675,7 @@ function Index() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-1 hover:scale-[1.03] active:scale-95"
                 >
-                  Book Free Consultation
+                  Start a Project
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
                 <Link
@@ -762,8 +763,8 @@ function Index() {
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
               Founded in Dubai, UAE under the leadership of{" "}
               <span className="text-foreground font-semibold">Muhammad Abdullah Chattha</span>,
-              Webcore Solutions partners with ambitious teams across Europe, UK, America, Dubai
-              and Pakistan to ship product that performs — and endures.
+              Webcore Solutions is a full-service digital agency partnering with ambitious teams
+              across Europe, UK, America, Dubai and Pakistan to ship product that performs — and endures.
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
@@ -790,7 +791,7 @@ function Index() {
               to="/about"
               className="group inline-flex items-center gap-2 mt-9 text-primary font-semibold text-sm"
             >
-              Learn more about us
+              Our Story
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
           </motion.div>
@@ -858,7 +859,7 @@ function Index() {
                 >
                   <v.icon className="h-7 w-7" style={{ color: v.color }} />
                 </div>
-                <h3 className="text-xl font-bold mb-2">{v.t}</h3>
+                <p className="text-xl font-bold mb-2">{v.t}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.d}</p>
                 <div
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
@@ -903,7 +904,7 @@ function Index() {
                 <div className="relative h-44 w-full overflow-hidden shrink-0">
                   <img
                     src={s.image}
-                    alt={s.title}
+                    alt={`${s.title} services by Webcore Solutions`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
@@ -1093,9 +1094,42 @@ function Index() {
               animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
               transition={{ duration: row.speed, repeat: Infinity, repeatType: "loop", ease: "linear" }}
             >
-              {[...testimonials, ...testimonials].map((t, i) => (
+              {/* Real cards — indexable by crawlers (row 0 only; row 1 is aria-hidden entirely) */}
+              {testimonials.map((t) => (
                 <div
-                  key={i}
+                  key={t.name}
+                  aria-hidden={ri === 1 ? true : undefined}
+                  className="shrink-0 glass rounded-3xl p-6 flex flex-col gap-4 hover:shadow-glow transition-shadow duration-300"
+                  style={{ width: 380 }}
+                >
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: t.stars }).map((_, j) => (
+                      <Star
+                        key={j}
+                        className="h-4 w-4"
+                        style={{ fill: "#f59e0b", color: "#f59e0b" }}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex-1">
+                    <Quote className="h-5 w-5 text-primary/30 mb-2" />
+                    <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
+                  </div>
+                  <div className="flex items-center gap-3 pt-3 border-t border-border/30">
+                    <Avatar src={t.image} name={t.name} size={36} />
+                    <div>
+                      <div className="font-semibold text-sm">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/* Visual-only duplicate — keeps the seamless loop; hidden from crawlers and AT */}
+              {testimonials.map((t) => (
+                <div
+                  key={`${t.name}-clone`}
+                  aria-hidden="true"
+                  role="presentation"
                   className="shrink-0 glass rounded-3xl p-6 flex flex-col gap-4 hover:shadow-glow transition-shadow duration-300"
                   style={{ width: 380 }}
                 >
@@ -1184,7 +1218,7 @@ function Index() {
           <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
             Everything you wanted to know — answered. Still need help?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              Just ask us.
+              ask us directly.
             </Link>
           </p>
         </motion.div>
@@ -1256,9 +1290,9 @@ function Index() {
               <MessageCircle className="h-7 w-7 text-primary-foreground" />
             </div>
             <SectionLabel>Still unsure?</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <p className="text-3xl md:text-4xl font-bold mb-3">
               Let's talk it through.
-            </h2>
+            </p>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
               Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
             </p>
@@ -1266,7 +1300,7 @@ function Index() {
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Book a strategy call
+              Speak with Our Team
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
