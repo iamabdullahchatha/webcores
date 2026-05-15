@@ -64,7 +64,7 @@ export const pageSeo = {
     path: "/",
     title: "Web Development & SEO Agency Dubai | Webcore Solutions",
     description:
-      "Webcore Solutions is a Dubai web development and SEO agency delivering production-grade websites, custom software and brand systems — trusted by 450+ companies across five continents.",
+      "Webcore Solutions is a digital studio delivering production-grade websites, custom software and brand systems for 450+ clients worldwide.",
     keywords: [
       "Webcore Solutions",
       "Dubai digital agency",
@@ -701,11 +701,6 @@ export function getSeoHead(
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: `${SITE_NAME} — digital studio` },
-      // article: tags signal freshness to crawlers even on non-blog pages
-      { property: "article:published_time", content: dates.datePublished },
-      { property: "article:modified_time", content: dates.dateModified },
-      { property: "article:author", content: `${SITE_URL}/about` },
-      { property: "article:publisher", content: "https://www.facebook.com/profile.php?id=61587249472207" },
       // Twitter / X
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@webcoresolutions" },
