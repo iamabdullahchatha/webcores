@@ -44,7 +44,7 @@ function LoginPage() {
             alt="Webcore Solutions"
             width={120}
             height={32}
-            className="w-[120px] h-auto"
+            className="w-30 h-auto"
             decoding="async"
           />
         </div>

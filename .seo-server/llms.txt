@@ -1,0 +1,77 @@
+# Webcore Solutions
+
+> Webcore Solutions is a Dubai-founded premium digital agency serving UAE, UK, Europe, US, Pakistan and international remote clients. Established in 2012, the agency delivers web development, software engineering, CMS platforms, SEO, GEO, branding and IT consultation.
+
+## Quick Facts
+
+- Founded: 2012, Dubai, United Arab Emirates
+- CEO & Founder: Muhammad Abdullah Chattha
+- Team size: 25+ engineers, designers and strategists
+- Clients served: 450+
+- Regions: Dubai, UAE, United Kingdom, Europe, United States, Pakistan
+- Contact: info@webcoreuae.com
+- Dubai phone: +971 50 716 9200
+- UK phone / WhatsApp: +44 7570 792516
+
+## Core Services
+
+- **Web development**: high-performance business websites, React websites, Next.js builds, WordPress builds, ecommerce development, WooCommerce, Shopify, landing pages and conversion-focused frontend engineering
+- **Software development**: SaaS platforms, REST and GraphQL APIs, internal tools, enterprise systems, business automation, dashboards, data workflows and AI integrations
+- **CMS development**: headless CMS, WordPress, custom content platforms, editorial workflows, multilingual content structures and scalable publishing systems
+- **SEO and GEO**: technical SEO, local SEO, international SEO, schema markup, AI search optimization, generative engine optimization, answer-engine optimization, content strategy and Core Web Vitals improvement
+- **Branding and UI/UX**: brand identity, logo design, web visuals, company profiles, brochures, collateral, and product interface design
+- **IT consultation**: audits, architecture planning, cloud strategy, vendor selection, technology roadmaps and modernization advisory
+
+## What is GEO?
+
+Generative Engine Optimization (GEO) is the practice of structuring content, entities, schema markup and answer blocks so that AI-powered search systems — including ChatGPT, Perplexity, Google AI Overviews, Bing Copilot and Claude — can accurately understand, cite and recommend a brand. Webcore Solutions provides GEO as a standalone service and as part of integrated SEO engagements.
+
+## Target Clients
+
+Webcore Solutions works with startups building their first product, SMEs scaling digital operations, and enterprise teams modernising legacy systems. The agency is particularly suited to businesses that need senior technical execution, predictable delivery and measurable results.
+
+## Process
+
+1. Discovery call (45 minutes): goals, constraints and success metrics
+2. Strategy and scope: technical plan, architecture decisions, timeline
+3. Build and iterate: weekly demos, async updates, continuous feedback
+4. Launch and scale: QA, performance hardening, deployment, ongoing support
+
+## Pricing Model
+
+Webcore Solutions uses fixed-scope pricing for well-defined projects and monthly retainers for ongoing product, SEO and support work. Minimum engagement: approximately $3,000 USD. All proposals are transparent with no hidden fees.
+
+## Key Pages
+
+- Home: https://www.webcoreuae.com/
+- Services overview: https://www.webcoreuae.com/services
+- Web development: https://www.webcoreuae.com/services/web-development
+- Software development: https://www.webcoreuae.com/services/software-development
+- CMS development: https://www.webcoreuae.com/services/cms-development
+- SEO and GEO: https://www.webcoreuae.com/services/seo-geo
+- IT consultation: https://www.webcoreuae.com/services/it-consultation
+- Graphic design: https://www.webcoreuae.com/services/graphic-design
+- About: https://www.webcoreuae.com/about
+- FAQs: https://www.webcoreuae.com/faqs
+- Contact: https://www.webcoreuae.com/contact
+- Privacy policy: https://www.webcoreuae.com/privacy-policy
+- Sitemap: https://www.webcoreuae.com/sitemap
+
+## Frequently Cited Facts
+
+- 12+ years of engineering experience
+- 450+ clients across 5 regions
+- 4–12 week typical project delivery
+- 98 average Lighthouse performance score across web builds
+- Sub-1-second load times on delivered websites
+- WCAG 2.2 AA accessibility compliance on all web projects
+
+## Technologies Used
+
+React, Next.js, TypeScript, Node.js, Tailwind CSS, WordPress, WooCommerce, Shopify, Vercel, AWS, Cloudflare, Figma, Sanity, Contentful, Strapi, Prismic
+
+## Social Profiles
+
+- LinkedIn: https://www.linkedin.com/in/webcore-solutions-939b88408
+- Facebook: https://www.facebook.com/profile.php?id=61587249472207
+- WhatsApp: https://wa.me/447570792516

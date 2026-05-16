@@ -14,9 +14,25 @@
 -- existing static PageKey in src/lib/seo.ts (kept identical on purpose).
 --
 -- Safe to re-run: clears service_page_content before inserting.
+-- Also upserts the 6 parent rows in public.services (FK dependency).
 -- =============================================================================
 
 TRUNCATE public.service_page_content;
+
+-- =============================================================================
+-- Parent rows: public.services  (required by FK service_page_content_service_slug_fkey)
+-- =============================================================================
+
+INSERT INTO public.services
+  (slug, title, description, tag, metric, icon_name, color, href, cta_text, sort_order, is_active)
+VALUES
+  ('it-consultation',    'IT Consultation',    'Vendor-neutral technology strategy, architecture audits and roadmap planning.',  'Strategy',     '120+ audits',         'Lightbulb', '#6366f1', '/services/it-consultation',    'Learn more', 1, true),
+  ('cms-development',    'CMS Development',    'Headless and composable CMS platforms that give editorial teams full control.',   'Content',      '10× publishing speed','Layers',    '#8b5cf6', '/services/cms-development',    'Learn more', 2, true),
+  ('web-development',    'Web Development',    'Fast, conversion-optimised websites from marketing sites to e-commerce.',        'Engineering',  '98 avg. Lighthouse',  'Globe',     '#6366f1', '/services/web-development',    'Learn more', 3, true),
+  ('software-development','Software Development','Custom SaaS, ERPs, internal tools and data systems built to scale.',           'Engineering',  '200+ products shipped','Database', '#06b6d4', '/services/software-development','Learn more', 4, true),
+  ('seo-geo',            'SEO & GEO',          'Technical SEO, content strategy and generative engine optimisation.',            'Growth',       '3× avg. traffic',    'Search',    '#10b981', '/services/seo-geo',            'Learn more', 5, true),
+  ('graphic-design',     'Graphic Design',     'Brand identity systems, editorial collateral and UI design.',                    'Design',       '300+ brands built',   'Palette',   '#ec4899', '/services/graphic-design',     'Learn more', 6, true)
+ON CONFLICT (slug) DO NOTHING;
 
 -- =============================================================================
 -- 1. IT CONSULTATION  (slug: it-consultation)

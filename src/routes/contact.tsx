@@ -40,6 +40,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
+import { useSiteSettings } from "@/lib/content/useSiteSettings";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /* WhatsApp SVG Icon */
@@ -78,60 +79,6 @@ export const Route = createFileRoute("/contact")({
 /* Data */
 /* ──────────────────────────────────────────────────────────────────── */
 
-const contactInfo = [
-  {
-    icon: Phone,
-    label: "UK",
-    value: "+44 7570 792516",
-    color: "#06b6d4",
-    bg: "rgba(6,182,212,0.10)",
-  },
-  {
-    icon: Phone,
-    label: "Dubai",
-    value: "+971 50 716 9200",
-    color: "#3b82f6",
-    bg: "rgba(59,130,246,0.10)",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "info@webcoreuae.com",
-    color: "#8b5cf6",
-    bg: "rgba(139,92,246,0.10)",
-  },
-  {
-    icon: MapPin,
-    label: "HQ",
-    value: "Dubai, UAE",
-    color: "#10b981",
-    bg: "rgba(16,185,129,0.10)",
-  },
-];
-
-const socials = [
-  {
-    icon: WhatsAppIcon,
-    label: "WhatsApp",
-    color: "#25d366",
-    bg: "rgba(37,211,102,0.10)",
-    href: "https://wa.me/447570792516",
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    color: "#06b6d4",
-    bg: "rgba(6,182,212,0.10)",
-    href: "https://www.linkedin.com/in/webcore-solutions-939b88408",
-  },
-  {
-    icon: Facebook,
-    label: "Facebook",
-    color: "#3b82f6",
-    bg: "rgba(59,130,246,0.10)",
-    href: "https://www.facebook.com/profile.php?id=61587249472207",
-  },
-];
 
 const weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
@@ -829,6 +776,20 @@ function ContactForm() {
 
 function Contact() {
   const heroRef = useRef<HTMLElement>(null);
+  const { data: settings } = useSiteSettings();
+
+  const contactInfo = [
+    { icon: Phone,  label: "UK",    value: settings?.phoneUk    ?? "+44 7570 792516",    color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
+    { icon: Phone,  label: "Dubai", value: settings?.phoneUae   ?? "+971 50 716 9200",   color: "#3b82f6", bg: "rgba(59,130,246,0.10)" },
+    { icon: Mail,   label: "Email", value: settings?.email      ?? "info@webcoreuae.com", color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
+    { icon: MapPin, label: "HQ",    value: settings?.addressLine1 ?? "Dubai, UAE",        color: "#10b981", bg: "rgba(16,185,129,0.10)" },
+  ];
+
+  const socials = [
+    { icon: WhatsAppIcon, label: "WhatsApp", color: "#25d366", bg: "rgba(37,211,102,0.10)", href: settings?.whatsappUrl    ?? "https://wa.me/447570792516" },
+    { icon: Linkedin,     label: "LinkedIn",  color: "#06b6d4", bg: "rgba(6,182,212,0.10)",  href: settings?.socialLinkedin ?? "https://www.linkedin.com/in/webcore-solutions-939b88408" },
+    { icon: Facebook,     label: "Facebook",  color: "#3b82f6", bg: "rgba(59,130,246,0.10)", href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207" },
+  ];
 
   const { scrollYProgress } = useScroll({
     target: heroRef,

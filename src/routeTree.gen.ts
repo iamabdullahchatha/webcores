@@ -26,8 +26,11 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as IndexBackupRouteImport } from './routes/index.backup'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminAcceptInviteRouteImport } from './routes/admin.accept-invite'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminPagesServicesRouteImport } from './routes/admin.pages.services'
 import { Route as AdminPagesHomeRouteImport } from './routes/admin.pages.home'
@@ -122,14 +125,29 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSecurityRoute = AdminSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAcceptInviteRoute = AdminAcceptInviteRouteImport.update({
+  id: '/accept-invite',
+  path: '/accept-invite',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
@@ -175,8 +193,11 @@ export interface FileRoutesByFullPath {
   '/sitemap': typeof SitemapRoute
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
+  '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -201,8 +222,11 @@ export interface FileRoutesByTo {
   '/sitemap': typeof SitemapRoute
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
+  '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -229,8 +253,11 @@ export interface FileRoutesById {
   '/sitemap': typeof SitemapRoute
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
+  '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -258,8 +285,11 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
+    | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/security'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
@@ -284,8 +314,11 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
+    | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/security'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
@@ -311,8 +344,11 @@ export interface FileRouteTypes {
     | '/sitemap'
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
+    | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/security'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
@@ -467,6 +503,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -474,11 +517,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/security': {
+      id: '/admin/security'
+      path: '/security'
+      fullPath: '/admin/security'
+      preLoaderRoute: typeof AdminSecurityRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/accept-invite': {
+      id: '/admin/accept-invite'
+      path: '/accept-invite'
+      fullPath: '/admin/accept-invite'
+      preLoaderRoute: typeof AdminAcceptInviteRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/blog/': {
@@ -538,8 +595,11 @@ const AdminPagesServicesRouteWithChildren =
   AdminPagesServicesRoute._addFileChildren(AdminPagesServicesRouteChildren)
 
 interface AdminRouteChildren {
+  AdminAcceptInviteRoute: typeof AdminAcceptInviteRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminBlogIdRoute: typeof AdminBlogIdRoute
   AdminBlogNewRoute: typeof AdminBlogNewRoute
@@ -549,8 +609,11 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAcceptInviteRoute: AdminAcceptInviteRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminSecurityRoute: AdminSecurityRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminTeamRoute: AdminTeamRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminBlogIdRoute: AdminBlogIdRoute,
   AdminBlogNewRoute: AdminBlogNewRoute,
