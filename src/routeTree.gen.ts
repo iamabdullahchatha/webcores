@@ -31,6 +31,9 @@ import { Route as ServicesGraphicDesignRouteImport } from './routes/services.gra
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
+import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
+import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
 
 const WebcoreSolutionsDubaiRoute = WebcoreSolutionsDubaiRouteImport.update({
   id: '/webcore-solutions-dubai',
@@ -145,6 +148,21 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogNewRoute = AdminBlogNewRouteImport.update({
+  id: '/blog/new',
+  path: '/blog/new',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogIdRoute = AdminBlogIdRouteImport.update({
+  id: '/blog/$id',
+  path: '/blog/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -169,6 +187,9 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -192,6 +213,9 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/services': typeof ServicesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/blog': typeof AdminBlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -217,6 +241,9 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -243,6 +270,9 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/blog/'
     | '/services/'
+    | '/admin/blog/$id'
+    | '/admin/blog/new'
+    | '/admin/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -266,6 +296,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/services'
+    | '/admin/blog/$id'
+    | '/admin/blog/new'
+    | '/admin/blog'
   id:
     | '__root__'
     | '/'
@@ -290,6 +323,9 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/blog/'
     | '/services/'
+    | '/admin/blog/$id'
+    | '/admin/blog/new'
+    | '/admin/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -471,17 +507,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/blog/': {
+      id: '/admin/blog/'
+      path: '/blog'
+      fullPath: '/admin/blog/'
+      preLoaderRoute: typeof AdminBlogIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog/new': {
+      id: '/admin/blog/new'
+      path: '/blog/new'
+      fullPath: '/admin/blog/new'
+      preLoaderRoute: typeof AdminBlogNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog/$id': {
+      id: '/admin/blog/$id'
+      path: '/blog/$id'
+      fullPath: '/admin/blog/$id'
+      preLoaderRoute: typeof AdminBlogIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminBlogIdRoute: typeof AdminBlogIdRoute
+  AdminBlogNewRoute: typeof AdminBlogNewRoute
+  AdminBlogIndexRoute: typeof AdminBlogIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminBlogIdRoute: AdminBlogIdRoute,
+  AdminBlogNewRoute: AdminBlogNewRoute,
+  AdminBlogIndexRoute: AdminBlogIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

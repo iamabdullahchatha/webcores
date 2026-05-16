@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { FileText, CheckCircle2, Users, Clock } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
@@ -84,8 +84,8 @@ function Dashboard() {
   }, [userId]);
 
   const cards = [
-    { label: "Blog Posts", value: stats.totalPosts, icon: FileText },
-    { label: "Published Posts", value: stats.publishedPosts, icon: CheckCircle2 },
+    { label: "Blog Posts", value: stats.totalPosts, icon: FileText, to: "/admin/blog" as const },
+    { label: "Published Posts", value: stats.publishedPosts, icon: CheckCircle2, to: "/admin/blog" as const },
     { label: "Team Members", value: stats.teamMembers, icon: Users },
     {
       label: "Last Login",
@@ -108,23 +108,38 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {cards.map((c) => (
-          <div key={c.label} className="glass rounded-2xl p-5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                {c.label}
-              </span>
-              <c.icon className="h-4 w-4 text-primary/60" />
-            </div>
-            <div
-              className={`mt-3 font-display font-bold text-foreground ${
-                c.small ? "text-sm" : "text-3xl"
-              }`}
+        {cards.map((c) => {
+          const inner = (
+            <>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  {c.label}
+                </span>
+                <c.icon className="h-4 w-4 text-primary/60" />
+              </div>
+              <div
+                className={`mt-3 font-display font-bold text-foreground ${
+                  c.small ? "text-sm" : "text-3xl"
+                }`}
+              >
+                {loading ? "…" : c.value}
+              </div>
+            </>
+          );
+          return "to" in c && c.to ? (
+            <Link
+              key={c.label}
+              to={c.to}
+              className="glass rounded-2xl p-5 hover:bg-primary/5 transition-colors duration-200"
             >
-              {loading ? "…" : c.value}
+              {inner}
+            </Link>
+          ) : (
+            <div key={c.label} className="glass rounded-2xl p-5">
+              {inner}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="glass rounded-2xl p-6">

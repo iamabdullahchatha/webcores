@@ -1,19 +1,25 @@
 import { useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Menu, X, LogOut } from "lucide-react";
+import { LayoutDashboard, Menu, X, LogOut, FileText, Plus } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
 import logo from "@/assets/logo.png";
 
-type NavItem = {
-  label: string;
-  to: string;
-  icon: typeof LayoutDashboard;
-};
+type NavChild = { label: string; to: string; icon: typeof FileText };
+type NavItem =
+  | { label: string; to: string; icon: typeof LayoutDashboard; children?: never }
+  | { label: string; to?: never; icon: typeof LayoutDashboard; children: NavChild[] };
 
-// Grows each phase. Phase 3: Dashboard only.
-const NAV_ITEMS: NavItem[] = [
+const NAV: NavItem[] = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
+  {
+    label: "Blog",
+    icon: FileText,
+    children: [
+      { label: "All Posts", to: "/admin/blog", icon: FileText },
+      { label: "New Post", to: "/admin/blog/new", icon: Plus },
+    ],
+  },
 ];
 
 const ROLE_LABEL: Record<string, string> = {
@@ -28,8 +34,19 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (l) => l.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const currentTitle =
-    NAV_ITEMS.find((n) => n.to === pathname)?.label ?? "Dashboard";
+  const currentTitle = (() => {
+    for (const item of NAV) {
+      if ("to" in item && item.to && item.to === pathname) return item.label;
+      if (item.children) {
+        const child = item.children.find((c) => c.to === pathname);
+        if (child) return child.label;
+      }
+    }
+    if (pathname.startsWith("/admin/blog/new")) return "New Post";
+    if (pathname.startsWith("/admin/blog/")) return "Edit Post";
+    if (pathname.startsWith("/admin/blog")) return "Blog Posts";
+    return "Admin";
+  })();
 
   async function handleSignOut() {
     await signOut();
@@ -49,23 +66,60 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         />
       </div>
 
-      <nav className="flex-1 px-3 py-2" aria-label="Admin navigation">
-        {NAV_ITEMS.map((item) => {
-          const active = pathname === item.to;
+      <nav className="flex-1 px-3 py-2 space-y-0.5" aria-label="Admin navigation">
+        {NAV.map((item) => {
+          if ("to" in item && item.to) {
+            const active = pathname === item.to;
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${
+                  active
+                    ? "gradient-primary text-primary-foreground shadow-elegant"
+                    : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                }`}
+              >
+                <item.icon className="h-4 w-4 shrink-0" />
+                {item.label}
+              </Link>
+            );
+          }
+
+          // Parent with children
+          const anyChildActive = item.children?.some((c) => pathname === c.to || pathname.startsWith(c.to + "/"));
           return (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${
-                active
-                  ? "gradient-primary text-primary-foreground shadow-elegant"
-                  : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
-              }`}
-            >
-              <item.icon className="h-4 w-4 shrink-0" />
-              {item.label}
-            </Link>
+            <div key={item.label}>
+              <div
+                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors duration-200 ${
+                  anyChildActive ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                <item.icon className="h-4 w-4 shrink-0" />
+                {item.label}
+              </div>
+              <div className="ml-3 pl-4 border-l border-border/40 space-y-0.5">
+                {item.children?.map((child) => {
+                  const active = pathname === child.to || (child.to !== "/admin/blog" && pathname.startsWith(child.to));
+                  return (
+                    <Link
+                      key={child.to}
+                      to={child.to}
+                      onClick={() => setMobileOpen(false)}
+                      className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors duration-200 ${
+                        active
+                          ? "gradient-primary text-primary-foreground shadow-elegant font-medium"
+                          : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                      }`}
+                    >
+                      <child.icon className="h-3.5 w-3.5 shrink-0" />
+                      {child.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           );
         })}
       </nav>
