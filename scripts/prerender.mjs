@@ -89,4 +89,8 @@ for (const route of seoRoutes) {
   console.log(`prerendered ${route.path} -> ${path.relative(rootDir, outputPath)}`);
 }
 
+// Vercel SPA fallback: serve index.html for any unmatched route (e.g. /admin/login)
+await writeFile(path.join(distDir, "404.html"), template, "utf8");
+console.log("wrote dist/404.html (Vercel SPA fallback)");
+
 await rm(ssrDir, { recursive: true, force: true });
