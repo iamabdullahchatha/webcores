@@ -23,12 +23,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ServicesWebDevelopmentRouteImport } from './routes/services.web-development'
-import { Route as ServicesSoftwareDevelopmentRouteImport } from './routes/services.software-development'
-import { Route as ServicesSeoGeoRouteImport } from './routes/services.seo-geo'
-import { Route as ServicesItConsultationRouteImport } from './routes/services.it-consultation'
-import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
-import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as IndexBackupRouteImport } from './routes/index.backup'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -111,37 +105,6 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const ServicesWebDevelopmentRoute = ServicesWebDevelopmentRouteImport.update({
-  id: '/services/web-development',
-  path: '/services/web-development',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesSoftwareDevelopmentRoute =
-  ServicesSoftwareDevelopmentRouteImport.update({
-    id: '/services/software-development',
-    path: '/services/software-development',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ServicesSeoGeoRoute = ServicesSeoGeoRouteImport.update({
-  id: '/services/seo-geo',
-  path: '/services/seo-geo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesItConsultationRoute = ServicesItConsultationRouteImport.update({
-  id: '/services/it-consultation',
-  path: '/services/it-consultation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesGraphicDesignRoute = ServicesGraphicDesignRouteImport.update({
-  id: '/services/graphic-design',
-  path: '/services/graphic-design',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesCmsDevelopmentRoute = ServicesCmsDevelopmentRouteImport.update({
-  id: '/services/cms-development',
-  path: '/services/cms-development',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
   path: '/services/$slug',
@@ -205,12 +168,6 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/services/cms-development': typeof ServicesCmsDevelopmentRoute
-  '/services/graphic-design': typeof ServicesGraphicDesignRoute
-  '/services/it-consultation': typeof ServicesItConsultationRoute
-  '/services/seo-geo': typeof ServicesSeoGeoRoute
-  '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
-  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
@@ -235,12 +192,6 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/services/cms-development': typeof ServicesCmsDevelopmentRoute
-  '/services/graphic-design': typeof ServicesGraphicDesignRoute
-  '/services/it-consultation': typeof ServicesItConsultationRoute
-  '/services/seo-geo': typeof ServicesSeoGeoRoute
-  '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
-  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/services': typeof ServicesIndexRoute
@@ -267,12 +218,6 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/services/cms-development': typeof ServicesCmsDevelopmentRoute
-  '/services/graphic-design': typeof ServicesGraphicDesignRoute
-  '/services/it-consultation': typeof ServicesItConsultationRoute
-  '/services/seo-geo': typeof ServicesSeoGeoRoute
-  '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
-  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
@@ -300,12 +245,6 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
-    | '/services/cms-development'
-    | '/services/graphic-design'
-    | '/services/it-consultation'
-    | '/services/seo-geo'
-    | '/services/software-development'
-    | '/services/web-development'
     | '/admin/'
     | '/blog/'
     | '/services/'
@@ -330,12 +269,6 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
-    | '/services/cms-development'
-    | '/services/graphic-design'
-    | '/services/it-consultation'
-    | '/services/seo-geo'
-    | '/services/software-development'
-    | '/services/web-development'
     | '/admin'
     | '/blog'
     | '/services'
@@ -361,12 +294,6 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/index/backup'
     | '/services/$slug'
-    | '/services/cms-development'
-    | '/services/graphic-design'
-    | '/services/it-consultation'
-    | '/services/seo-geo'
-    | '/services/software-development'
-    | '/services/web-development'
     | '/admin/'
     | '/blog/'
     | '/services/'
@@ -391,12 +318,6 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   IndexBackupRoute: typeof IndexBackupRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
-  ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
-  ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
-  ServicesItConsultationRoute: typeof ServicesItConsultationRoute
-  ServicesSeoGeoRoute: typeof ServicesSeoGeoRoute
-  ServicesSoftwareDevelopmentRoute: typeof ServicesSoftwareDevelopmentRoute
-  ServicesWebDevelopmentRoute: typeof ServicesWebDevelopmentRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
@@ -501,48 +422,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/services/web-development': {
-      id: '/services/web-development'
-      path: '/services/web-development'
-      fullPath: '/services/web-development'
-      preLoaderRoute: typeof ServicesWebDevelopmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/software-development': {
-      id: '/services/software-development'
-      path: '/services/software-development'
-      fullPath: '/services/software-development'
-      preLoaderRoute: typeof ServicesSoftwareDevelopmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/seo-geo': {
-      id: '/services/seo-geo'
-      path: '/services/seo-geo'
-      fullPath: '/services/seo-geo'
-      preLoaderRoute: typeof ServicesSeoGeoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/it-consultation': {
-      id: '/services/it-consultation'
-      path: '/services/it-consultation'
-      fullPath: '/services/it-consultation'
-      preLoaderRoute: typeof ServicesItConsultationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/graphic-design': {
-      id: '/services/graphic-design'
-      path: '/services/graphic-design'
-      fullPath: '/services/graphic-design'
-      preLoaderRoute: typeof ServicesGraphicDesignRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/cms-development': {
-      id: '/services/cms-development'
-      path: '/services/cms-development'
-      fullPath: '/services/cms-development'
-      preLoaderRoute: typeof ServicesCmsDevelopmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/services/$slug'
@@ -646,12 +525,6 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   IndexBackupRoute: IndexBackupRoute,
   ServicesSlugRoute: ServicesSlugRoute,
-  ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
-  ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
-  ServicesItConsultationRoute: ServicesItConsultationRoute,
-  ServicesSeoGeoRoute: ServicesSeoGeoRoute,
-  ServicesSoftwareDevelopmentRoute: ServicesSoftwareDevelopmentRoute,
-  ServicesWebDevelopmentRoute: ServicesWebDevelopmentRoute,
   BlogIndexRoute: BlogIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
