@@ -14,12 +14,48 @@ export type PortfolioItem = {
 };
 
 const FALLBACK: PortfolioItem[] = [
-  { title: "NorthPeak Platform",   category: "SaaS Dashboard",       desc: "Enterprise analytics platform serving 50K+ users with real-time data pipelines.",      gradientStyle: { background: "linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%)" }, metric: "4× performance uplift"   },
-  { title: "Dunescape E-Commerce", category: "Web Development",      desc: "High-converting luxury retail store built on custom WooCommerce architecture.",         gradientStyle: { background: "linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%)" }, metric: "$2M+ first-year GMV"     },
-  { title: "Fluxio CMS",           category: "CMS Development",      desc: "Headless content platform empowering a 40-person editorial team globally.",             gradientStyle: { background: "linear-gradient(135deg, #047857 0%, #0d9488 100%)" }, metric: "10× publishing speed"   },
-  { title: "Loomline SEO",         category: "SEO & Growth",         desc: "Comprehensive organic strategy that tripled qualified traffic within 6 months.",         gradientStyle: { background: "linear-gradient(135deg, #c2410c 0%, #d97706 100%)" }, metric: "3× organic traffic"     },
-  { title: "Hexa Brand System",    category: "Brand & Design",       desc: "Full visual identity and design system for a Series-A fintech startup.",                 gradientStyle: { background: "linear-gradient(135deg, #be185d 0%, #e11d48 100%)" }, metric: "NPS score +34 pts"      },
-  { title: "Ascend ERP",           category: "Software Development", desc: "Custom ERP system unifying operations across 12 regional offices.",                      gradientStyle: { background: "linear-gradient(135deg, #0369a1 0%, #2563eb 100%)" }, metric: "40% ops cost reduction" },
+  {
+    title: "Pinnacle Properties",
+    category: "Web Development",
+    desc: "High-performance real-estate marketing site with Lighthouse 97, bilingual Arabic-English content and a custom property search — live six weeks from brief.",
+    gradientStyle: { background: "linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%)" },
+    metric: "2× organic leads in 90 days",
+  },
+  {
+    title: "Gulf Media Network CMS",
+    category: "CMS Development",
+    desc: "Headless Sanity platform for a 40-person editorial team publishing across 3 regional sites. Role-based workflows replaced a ticket queue that cost 2 hours per story.",
+    gradientStyle: { background: "linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%)" },
+    metric: "10× publishing speed",
+  },
+  {
+    title: "FinTrack MENA Dashboard",
+    category: "Software Development",
+    desc: "Custom SaaS analytics platform with real-time data pipelines, multi-tenant auth, and a Figma-to-code design system — delivered in 10 weeks for a Series-A fintech.",
+    gradientStyle: { background: "linear-gradient(135deg, #047857 0%, #0d9488 100%)" },
+    metric: "NPS 42 → 71 post-launch",
+  },
+  {
+    title: "ClearRoute SEO & GEO",
+    category: "SEO & GEO",
+    desc: "Full technical SEO overhaul, AI-search optimisation and authority link-building for a B2B SaaS — from page 4 to position 1 for their primary keyword in 90 days.",
+    gradientStyle: { background: "linear-gradient(135deg, #c2410c 0%, #d97706 100%)" },
+    metric: "3× qualified organic traffic",
+  },
+  {
+    title: "Vestro Capital Brand",
+    category: "Graphic Design",
+    desc: "Full visual identity — logo suite, brand guidelines, investor deck and business collateral — built for a Series-A fintech pitch. Closed the round within two weeks of launch.",
+    gradientStyle: { background: "linear-gradient(135deg, #be185d 0%, #e11d48 100%)" },
+    metric: "Series-A closed in 2 weeks",
+  },
+  {
+    title: "Brightline Ops Platform",
+    category: "IT Consultation & Software",
+    desc: "Technology audit across 12 regional offices followed by a custom ERP build that unified operations, eliminated three legacy systems and cut reconciliation time by 60%.",
+    gradientStyle: { background: "linear-gradient(135deg, #0369a1 0%, #2563eb 100%)" },
+    metric: "60% ops cost reduction",
+  },
 ];
 
 export function usePortfolioItems() {

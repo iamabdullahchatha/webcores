@@ -1,14 +1,14 @@
 import { useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Menu, X, LogOut, FileText, Plus, Layout, Settings } from "lucide-react";
+import { LayoutDashboard, Menu, X, LogOut, FileText, Plus, Layout, Settings, Users, Shield } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
 import logo from "@/assets/logo.png";
 
 type NavChild = { label: string; to: string; icon: typeof FileText };
 type NavItem =
-  | { label: string; to: string; icon: typeof LayoutDashboard; children?: never }
-  | { label: string; to?: never; icon: typeof LayoutDashboard; children: NavChild[] };
+  | { label: string; to: string; icon: typeof LayoutDashboard; children?: never; ownerOnly?: boolean }
+  | { label: string; to?: never; icon: typeof LayoutDashboard; children: NavChild[]; ownerOnly?: boolean };
 
 const NAV: NavItem[] = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
@@ -28,6 +28,8 @@ const NAV: NavItem[] = [
       { label: "Services", to: "/admin/pages/services", icon: Layout },
     ],
   },
+  { label: "Team", to: "/admin/team", icon: Users },
+  { label: "Security", to: "/admin/security", icon: Shield },
   { label: "Settings", to: "/admin/settings", icon: Settings },
 ];
 
@@ -58,6 +60,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/admin/pages/services/")) return "Edit Service Page";
     if (pathname.startsWith("/admin/pages/services")) return "Service Pages";
     if (pathname.startsWith("/admin/settings")) return "Site Settings";
+    if (pathname.startsWith("/admin/team")) return "Team Members";
+    if (pathname.startsWith("/admin/security")) return "Security";
+    if (pathname.startsWith("/admin/accept-invite")) return "Accept Invitation";
     return "Admin";
   })();
 
