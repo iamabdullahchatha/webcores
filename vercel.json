@@ -33,7 +33,7 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/admin", "destination": "/index.html" },
-    { "source": "/admin/:path*", "destination": "/index.html" },
-    { "source": "/blog/:slug", "destination": "/index.html" }
+    { "source": "/admin/(.*)", "destination": "/index.html" },
+    { "source": "/blog/(.*)", "destination": "/index.html" }
   ]
 }
