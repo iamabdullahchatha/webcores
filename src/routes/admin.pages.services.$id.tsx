@@ -15,12 +15,32 @@ export const Route = createFileRoute("/admin/pages/services/$id")({
 });
 
 type ServiceRow = Database["public"]["Tables"]["services"]["Row"];
+type ServiceUpdate = Database["public"]["Tables"]["services"]["Update"];
 type SectionRow = Database["public"]["Tables"]["service_page_content"]["Row"];
+type SectionInsert = Database["public"]["Tables"]["service_page_content"]["Insert"];
+type SectionUpdate = Database["public"]["Tables"]["service_page_content"]["Update"];
+type MutationError = { message: string };
+type UpdateBuilder = {
+  eq(column: string, value: string | number | boolean): Promise<{ error: MutationError | null }>;
+};
+type InsertBuilder<T> = {
+  select(): {
+    single(): Promise<{ data: T | null; error: MutationError | null }>;
+  };
+};
+type MutableTable<T> = {
+  update(values: unknown): UpdateBuilder;
+  insert(values: unknown): InsertBuilder<T>;
+};
 
 const SECTION_TYPES = [
   "hero", "overview", "features", "deliverables",
   "tech_stack", "process", "stats", "testimonials", "faqs", "cta",
 ] as const;
+
+function mutableTable<T>(table: "services" | "service_page_content") {
+  return supabase.from(table) as unknown as MutableTable<T>;
+}
 
 function ServiceEditor() {
   const { id } = Route.useParams();
@@ -66,8 +86,7 @@ function ServiceEditor() {
   async function saveMeta() {
     if (!service) return;
     setSavingMeta(true);
-    const { error } = await supabase
-      .from("services")
+    const { error } = await mutableTable<ServiceRow>("services")
       .update({
         title: service.title,
         slug: service.slug,
@@ -76,7 +95,7 @@ function ServiceEditor() {
         image_url: service.image_url,
         cta_text: service.cta_text,
         is_active: service.is_active,
-      } as unknown as ServiceRow)
+      } satisfies ServiceUpdate)
       .eq("id", service.id);
     setSavingMeta(false);
     if (error) { toast.error(error.message); return; }
@@ -93,7 +112,7 @@ function ServiceEditor() {
     setSections(newRows);
     await Promise.all(
       newRows.map((r, i) =>
-        supabase.from("service_page_content").update({ sort_order: i + 1 } as unknown as SectionRow).eq("id", r.id),
+        mutableTable<SectionRow>("service_page_content").update({ sort_order: i + 1 } satisfies SectionUpdate).eq("id", r.id),
       ),
     );
     if (service) qc.invalidateQueries({ queryKey: ["content", "service-page", service.slug] });
@@ -115,15 +134,14 @@ function ServiceEditor() {
     }
 
     setSavingSection(rowId);
-    const { error } = await supabase
-      .from("service_page_content")
+    const { error } = await mutableTable<SectionRow>("service_page_content")
       .update({
         heading: row.heading,
         subheading: row.subheading,
         body: row.body,
         data_json: parsed as Database["public"]["Tables"]["service_page_content"]["Row"]["data_json"],
         is_visible: row.is_visible,
-      } as unknown as SectionRow)
+      } satisfies SectionUpdate)
       .eq("id", rowId);
     setSavingSection(null);
     if (error) { toast.error(error.message); return; }
@@ -133,14 +151,16 @@ function ServiceEditor() {
 
   async function addSection() {
     if (!service) return;
-    const { data, error } = await supabase
-      .from("service_page_content")
+    const { data, error } = await mutableTable<SectionRow>("service_page_content")
       .insert({
         service_slug: service.slug,
         section_type: addType,
         heading: "New section",
+        subheading: null,
+        body: null,
+        data_json: null,
         sort_order: sections.length + 1,
-      } as unknown as SectionRow)
+      } satisfies SectionInsert)
       .select()
       .single();
     if (error) { toast.error(error.message); return; }
@@ -297,7 +317,7 @@ function ServiceEditor() {
                       spellCheck={false}
                       value={jsonText[row.id] ?? "{}"}
                       onChange={(e) => setJsonText((p) => ({ ...p, [row.id]: e.target.value }))}
-                      className="w-full glass rounded-xl px-4 py-3 text-xs font-mono leading-relaxed bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground min-h-[220px]"
+                      className="w-full glass rounded-xl px-4 py-3 text-xs font-mono leading-relaxed bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground min-h-55"
                     />
                   </FormField>
 
