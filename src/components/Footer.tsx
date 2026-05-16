@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import {
   Linkedin, Facebook, Mail, Phone, MessageCircle,
-  ArrowUpRight, MapPin, Globe, Zap,
+  ArrowUpRight, MapPin, Globe, Zap, Lock,
 } from "lucide-react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
@@ -364,6 +364,13 @@ export function Footer() {
                 transition={{ duration: 2, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
               />
               Crafting digital excellence, one pixel at a time.
+              <Link
+                to="/admin/login"
+                aria-label="Admin login"
+                className="text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-300 ml-4"
+              >
+                <Lock className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </motion.div>
 
