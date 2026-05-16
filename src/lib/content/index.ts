@@ -9,6 +9,7 @@ export { useFaqs }           from "./useFaqs";
 export { useTrustLogos }     from "./useTrustLogos";
 export { useGlobalRegions }  from "./useGlobalRegions";
 export { useSiteSettings }   from "./useSiteSettings";
+export { useServicePage, resolveServiceImage } from "./useServicePage";
 
 export type { HomeHero }        from "./useHomeHero";
 export type { HomeStat }        from "./useHomeStats";
@@ -20,3 +21,4 @@ export type { Testimonial }     from "./useTestimonials";
 export type { Faq, FaqCategory } from "./useFaqs";
 export type { GlobalRegion }    from "./useGlobalRegions";
 export type { SiteSettings }    from "./useSiteSettings";
+export type { ServicePage }     from "./useServicePage";

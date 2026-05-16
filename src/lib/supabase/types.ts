@@ -118,6 +118,7 @@ type ServicePageContent = Timestamps & {
   service_slug: string;
   section_type:
     | "hero"
+    | "overview"
     | "features"
     | "process"
     | "deliverables"

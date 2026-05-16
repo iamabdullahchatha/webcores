@@ -29,6 +29,7 @@ import { Route as ServicesSeoGeoRouteImport } from './routes/services.seo-geo'
 import { Route as ServicesItConsultationRouteImport } from './routes/services.it-consultation'
 import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as IndexBackupRouteImport } from './routes/index.backup'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -141,6 +142,11 @@ const ServicesCmsDevelopmentRoute = ServicesCmsDevelopmentRouteImport.update({
   path: '/services/cms-development',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexBackupRoute = IndexBackupRouteImport.update({
   id: '/index/backup',
   path: '/index/backup',
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -258,6 +266,7 @@ export interface FileRoutesById {
   '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/index/backup': typeof IndexBackupRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -290,6 +299,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/blog/$slug'
     | '/index/backup'
+    | '/services/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/blog/$slug'
     | '/index/backup'
+    | '/services/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/blog/$slug'
     | '/index/backup'
+    | '/services/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -378,6 +390,7 @@ export interface RootRouteChildren {
   WebcoreSolutionsDubaiRoute: typeof WebcoreSolutionsDubaiRoute
   BlogSlugRoute: typeof BlogSlugRoute
   IndexBackupRoute: typeof IndexBackupRoute
+  ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
   ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
   ServicesItConsultationRoute: typeof ServicesItConsultationRoute
@@ -530,6 +543,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesCmsDevelopmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/index/backup': {
       id: '/index/backup'
       path: '/index/backup'
@@ -625,6 +645,7 @@ const rootRouteChildren: RootRouteChildren = {
   WebcoreSolutionsDubaiRoute: WebcoreSolutionsDubaiRoute,
   BlogSlugRoute: BlogSlugRoute,
   IndexBackupRoute: IndexBackupRoute,
+  ServicesSlugRoute: ServicesSlugRoute,
   ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
   ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
   ServicesItConsultationRoute: ServicesItConsultationRoute,
