@@ -93,6 +93,14 @@ export const pageSeo = {
     keywords: ["digital services Dubai", "web development services UAE", "software services UAE"],
     schemaType: "CollectionPage",
   },
+  blog: {
+    label: "Blog",
+    path: "/blog",
+    title: "Insights & Field Notes | Webcore Solutions",
+    description:
+      "Practical articles on web development, software, SEO, GEO and e-commerce from the Webcore Solutions team.",
+    keywords: ["Webcore Solutions blog", "web development insights", "SEO articles", "GEO articles"],
+  },
   faqs: {
     label: "FAQs",
     path: "/faqs",
@@ -246,6 +254,7 @@ export const seoRoutes = [
   { key: "softwareDevelopment", path: "/services/software-development" },
   { key: "seoGeo",              path: "/services/seo-geo" },
   { key: "graphicDesign",       path: "/services/graphic-design" },
+  { key: "blog",                path: "/blog" },
   { key: "faqs",                path: "/faqs" },
   { key: "contact",             path: "/contact" },
   { key: "privacyPolicy",       path: "/privacy-policy" },

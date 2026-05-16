@@ -21,6 +21,7 @@ const quickLinks = [
   { name: "Homepage",        to: "/" },
   { name: "Our story",       to: "/about" },
   { name: "All services",    to: "/services" },
+  { name: "Blog",            to: "/blog" },
   { name: "Common questions", to: "/faqs" },
   { name: "Reach our team",  to: "/contact" },
 ];

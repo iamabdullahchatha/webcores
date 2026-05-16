@@ -21,6 +21,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesWebDevelopmentRouteImport } from './routes/services.web-development'
 import { Route as ServicesSoftwareDevelopmentRouteImport } from './routes/services.software-development'
@@ -28,6 +29,7 @@ import { Route as ServicesSeoGeoRouteImport } from './routes/services.seo-geo'
 import { Route as ServicesItConsultationRouteImport } from './routes/services.it-consultation'
 import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 
 const WebcoreSolutionsDubaiRoute = WebcoreSolutionsDubaiRouteImport.update({
@@ -92,6 +94,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   path: '/services/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -128,6 +135,11 @@ const ServicesCmsDevelopmentRoute = ServicesCmsDevelopmentRouteImport.update({
   path: '/services/cms-development',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -147,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -154,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
   '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -168,6 +182,7 @@ export interface FileRoutesByTo {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -175,6 +190,7 @@ export interface FileRoutesByTo {
   '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
   '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin': typeof AdminIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -191,6 +207,7 @@ export interface FileRoutesById {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -198,6 +215,7 @@ export interface FileRoutesById {
   '/services/software-development': typeof ServicesSoftwareDevelopmentRoute
   '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -215,6 +233,7 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/blog/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -222,6 +241,7 @@ export interface FileRouteTypes {
     | '/services/software-development'
     | '/services/web-development'
     | '/admin/'
+    | '/blog/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -236,6 +256,7 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/blog/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -243,6 +264,7 @@ export interface FileRouteTypes {
     | '/services/software-development'
     | '/services/web-development'
     | '/admin'
+    | '/blog'
     | '/services'
   id:
     | '__root__'
@@ -258,6 +280,7 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/blog/$slug'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -265,6 +288,7 @@ export interface FileRouteTypes {
     | '/services/software-development'
     | '/services/web-development'
     | '/admin/'
+    | '/blog/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
@@ -280,12 +304,14 @@ export interface RootRouteChildren {
   SitemapRoute: typeof SitemapRoute
   UaeSoftwareDevelopmentCompanyRoute: typeof UaeSoftwareDevelopmentCompanyRoute
   WebcoreSolutionsDubaiRoute: typeof WebcoreSolutionsDubaiRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
   ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
   ServicesItConsultationRoute: typeof ServicesItConsultationRoute
   ServicesSeoGeoRoute: typeof ServicesSeoGeoRoute
   ServicesSoftwareDevelopmentRoute: typeof ServicesSoftwareDevelopmentRoute
   ServicesWebDevelopmentRoute: typeof ServicesWebDevelopmentRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -375,6 +401,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -424,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesCmsDevelopmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -458,12 +498,14 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapRoute: SitemapRoute,
   UaeSoftwareDevelopmentCompanyRoute: UaeSoftwareDevelopmentCompanyRoute,
   WebcoreSolutionsDubaiRoute: WebcoreSolutionsDubaiRoute,
+  BlogSlugRoute: BlogSlugRoute,
   ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
   ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
   ServicesItConsultationRoute: ServicesItConsultationRoute,
   ServicesSeoGeoRoute: ServicesSeoGeoRoute,
   ServicesSoftwareDevelopmentRoute: ServicesSoftwareDevelopmentRoute,
   ServicesWebDevelopmentRoute: ServicesWebDevelopmentRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport

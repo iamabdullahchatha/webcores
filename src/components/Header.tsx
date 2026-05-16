@@ -19,6 +19,7 @@ const nav = [
   { name: "About", to: "/about" },
   { name: "Services", to: "/services", dropdown: true },
   { name: "FAQs", to: "/faqs" },
+  { name: "Blog", to: "/blog" },
   { name: "Contact", to: "/contact" },
 ];
 

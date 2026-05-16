@@ -76,6 +76,10 @@ function outputPathForRoute(routePath) {
   return path.join(distDir, ...segments, "index.html");
 }
 
+// NOTE: /blog is in seoRoutes so its static shell + meta is prerendered.
+// Individual /blog/[slug] posts are intentionally NOT prerendered here —
+// they are client-rendered from Supabase so the build never depends on
+// DB availability. Post URLs are listed in public/sitemap.xml for crawlers.
 for (const route of seoRoutes) {
   const html = injectRouteHtml(template, await renderRoute(route.path), renderHead(route.key));
   const outputPath = outputPathForRoute(route.path);
