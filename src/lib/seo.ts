@@ -400,8 +400,7 @@ const serviceTypes: Record<(typeof servicePageKeys)[number], string> = {
 
 export function absoluteUrl(path: string) {
   if (path === "/") return `${SITE_URL}/`;
-  const withSlash = path.endsWith("/") ? path : `${path}/`;
-  return `${SITE_URL}${withSlash}`;
+  return `${SITE_URL}${path}`;
 }
 
 function getBreadcrumbItems(page: PageMeta) {

@@ -8,6 +8,27 @@ import { Layout } from "@/components/Layout";
 import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/blog/$slug")({
+  head: ({ params }) => ({
+    meta: [
+      { title: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
+      { name: "description", content: "Read the latest insights on web development, software, SEO and GEO from Webcore Solutions." },
+      { property: "og:type", content: "article" },
+      { property: "og:site_name", content: "Webcore Solutions" },
+      { property: "og:title", content: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
+      { property: "og:description", content: "Read the latest insights on web development, software, SEO and GEO from Webcore Solutions." },
+      { property: "og:url", content: `https://www.webcoreuae.com/blog/${params.slug}` },
+      { property: "og:image", content: "https://www.webcoreuae.com/og-image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@webcoresolutions" },
+      { name: "twitter:title", content: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
+      { name: "twitter:description", content: "Read the latest insights on web development, software, SEO and GEO from Webcore Solutions." },
+      { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.png" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+    ],
+    links: [
+      { rel: "canonical", href: `https://www.webcoreuae.com/blog/${params.slug}` },
+    ],
+  }),
   component: BlogPost,
 });
 
