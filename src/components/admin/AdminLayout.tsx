@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Menu, X, LogOut, FileText, Plus } from "lucide-react";
+import { LayoutDashboard, Menu, X, LogOut, FileText, Plus, Layout, Settings } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
 import logo from "@/assets/logo.png";
 
@@ -20,6 +20,14 @@ const NAV: NavItem[] = [
       { label: "New Post", to: "/admin/blog/new", icon: Plus },
     ],
   },
+  {
+    label: "Pages",
+    icon: Layout,
+    children: [
+      { label: "Homepage", to: "/admin/pages/home", icon: Layout },
+    ],
+  },
+  { label: "Settings", to: "/admin/settings", icon: Settings },
 ];
 
 const ROLE_LABEL: Record<string, string> = {
@@ -45,6 +53,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/admin/blog/new")) return "New Post";
     if (pathname.startsWith("/admin/blog/")) return "Edit Post";
     if (pathname.startsWith("/admin/blog")) return "Blog Posts";
+    if (pathname.startsWith("/admin/pages/home")) return "Homepage Editor";
+    if (pathname.startsWith("/admin/settings")) return "Site Settings";
     return "Admin";
   })();
 

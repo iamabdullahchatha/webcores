@@ -6,6 +6,7 @@ import {
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
 import logo from "@/assets/logo.png";
+import { useSiteSettings } from "@/lib/content/useSiteSettings";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 const services = [
@@ -26,11 +27,7 @@ const quickLinks = [
   { name: "Reach our team",  to: "/contact" },
 ];
 
-const socials = [
-  { icon: Linkedin,      label: "LinkedIn", href: "https://www.linkedin.com/in/webcore-solutions-939b88408", color: "#0A66C2" },
-  { icon: Facebook,      label: "Facebook", href: "https://www.facebook.com/profile.php?id=61587249472207", color: "#1877F2" },
-  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/447570792516",      color: "#25D366" },
-];
+const SOCIAL_COLORS = { LinkedIn: "#0A66C2", Facebook: "#1877F2", WhatsApp: "#25D366" };
 
 /* ─── Floating Orb ─────────────────────────────────────────────────── */
 function FloatingOrb({
@@ -163,9 +160,23 @@ function Ticker() {
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { data: settings } = useSiteSettings();
 
   const show   = { opacity: 1, y: 0 };
   const hidden = { opacity: 0, y: 28 };
+
+  const socials = [
+    { icon: Linkedin,      label: "LinkedIn", href: settings?.socialLinkedin ?? "https://www.linkedin.com/in/webcore-solutions-939b88408", color: SOCIAL_COLORS.LinkedIn },
+    { icon: Facebook,      label: "Facebook", href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207", color: SOCIAL_COLORS.Facebook },
+    { icon: MessageCircle, label: "WhatsApp", href: settings?.whatsappUrl    ?? "https://wa.me/447570792516", color: SOCIAL_COLORS.WhatsApp },
+  ];
+
+  const contactItems = [
+    { icon: Phone,  label: "UK",    value: settings?.phoneUk   ?? "+44 7570 792516" },
+    { icon: Phone,  label: "Dubai", value: settings?.phoneUae  ?? "+971 50 716 9200" },
+    { icon: Mail,   label: "Email", value: settings?.email     ?? "info@webcoreuae.com" },
+    { icon: MapPin, label: "HQ",    value: settings?.addressLine1 ?? "Dubai, United Arab Emirates" },
+  ];
 
   return (
     <footer ref={ref} className="relative mt-24 overflow-hidden">
@@ -313,12 +324,7 @@ export function Footer() {
             >
               <SectionHeading>Get in Touch</SectionHeading>
               <ul className="space-y-4">
-                {[
-                  { icon: Phone,  label: "UK",    value: "+44 7570 792516" },
-                  { icon: Phone,  label: "Dubai", value: "+971 50 716 9200" },
-                  { icon: Mail,   label: "Email", value: "info@webcoreuae.com" },
-                  { icon: MapPin, label: "HQ",    value: "Dubai, United Arab Emirates" },
-                ].map(({ icon: Icon, label, value }) => (
+                {contactItems.map(({ icon: Icon, label, value }) => (
                   <li key={label} className="group flex items-start gap-3">
                     <span className="mt-0.5 p-1.5 rounded-lg bg-primary/10 group-hover:bg-primary/25 transition-all duration-200 shrink-0 group-hover:scale-110">
                       <Icon className="h-3.5 w-3.5 text-primary" />

@@ -29,9 +29,12 @@ import { Route as ServicesSeoGeoRouteImport } from './routes/services.seo-geo'
 import { Route as ServicesItConsultationRouteImport } from './routes/services.it-consultation'
 import { Route as ServicesGraphicDesignRouteImport } from './routes/services.graphic-design'
 import { Route as ServicesCmsDevelopmentRouteImport } from './routes/services.cms-development'
+import { Route as IndexBackupRouteImport } from './routes/index.backup'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
+import { Route as AdminPagesHomeRouteImport } from './routes/admin.pages.home'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
 
@@ -138,10 +141,20 @@ const ServicesCmsDevelopmentRoute = ServicesCmsDevelopmentRouteImport.update({
   path: '/services/cms-development',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexBackupRoute = IndexBackupRouteImport.update({
+  id: '/index/backup',
+  path: '/index/backup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
@@ -151,6 +164,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesHomeRoute = AdminPagesHomeRouteImport.update({
+  id: '/pages/home',
+  path: '/pages/home',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBlogNewRoute = AdminBlogNewRouteImport.update({
@@ -177,7 +195,9 @@ export interface FileRoutesByFullPath {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/index/backup': typeof IndexBackupRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -189,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/services/': typeof ServicesIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/pages/home': typeof AdminPagesHomeRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -203,7 +224,9 @@ export interface FileRoutesByTo {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/index/backup': typeof IndexBackupRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -215,6 +238,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/pages/home': typeof AdminPagesHomeRoute
   '/admin/blog': typeof AdminBlogIndexRoute
 }
 export interface FileRoutesById {
@@ -231,7 +255,9 @@ export interface FileRoutesById {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/index/backup': typeof IndexBackupRoute
   '/services/cms-development': typeof ServicesCmsDevelopmentRoute
   '/services/graphic-design': typeof ServicesGraphicDesignRoute
   '/services/it-consultation': typeof ServicesItConsultationRoute
@@ -243,6 +269,7 @@ export interface FileRoutesById {
   '/services/': typeof ServicesIndexRoute
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/pages/home': typeof AdminPagesHomeRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -260,7 +287,9 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/admin/settings'
     | '/blog/$slug'
+    | '/index/backup'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -272,6 +301,7 @@ export interface FileRouteTypes {
     | '/services/'
     | '/admin/blog/$id'
     | '/admin/blog/new'
+    | '/admin/pages/home'
     | '/admin/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -286,7 +316,9 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/admin/settings'
     | '/blog/$slug'
+    | '/index/backup'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -298,6 +330,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/admin/blog/$id'
     | '/admin/blog/new'
+    | '/admin/pages/home'
     | '/admin/blog'
   id:
     | '__root__'
@@ -313,7 +346,9 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/login'
+    | '/admin/settings'
     | '/blog/$slug'
+    | '/index/backup'
     | '/services/cms-development'
     | '/services/graphic-design'
     | '/services/it-consultation'
@@ -325,6 +360,7 @@ export interface FileRouteTypes {
     | '/services/'
     | '/admin/blog/$id'
     | '/admin/blog/new'
+    | '/admin/pages/home'
     | '/admin/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -341,6 +377,7 @@ export interface RootRouteChildren {
   UaeSoftwareDevelopmentCompanyRoute: typeof UaeSoftwareDevelopmentCompanyRoute
   WebcoreSolutionsDubaiRoute: typeof WebcoreSolutionsDubaiRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  IndexBackupRoute: typeof IndexBackupRoute
   ServicesCmsDevelopmentRoute: typeof ServicesCmsDevelopmentRoute
   ServicesGraphicDesignRoute: typeof ServicesGraphicDesignRoute
   ServicesItConsultationRoute: typeof ServicesItConsultationRoute
@@ -493,12 +530,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesCmsDevelopmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/index/backup': {
+      id: '/index/backup'
+      path: '/index/backup'
+      fullPath: '/index/backup'
+      preLoaderRoute: typeof IndexBackupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/login': {
       id: '/admin/login'
@@ -512,6 +563,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/admin/blog/'
       preLoaderRoute: typeof AdminBlogIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pages/home': {
+      id: '/admin/pages/home'
+      path: '/pages/home'
+      fullPath: '/admin/pages/home'
+      preLoaderRoute: typeof AdminPagesHomeRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/blog/new': {
@@ -533,17 +591,21 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminBlogIdRoute: typeof AdminBlogIdRoute
   AdminBlogNewRoute: typeof AdminBlogNewRoute
+  AdminPagesHomeRoute: typeof AdminPagesHomeRoute
   AdminBlogIndexRoute: typeof AdminBlogIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminBlogIdRoute: AdminBlogIdRoute,
   AdminBlogNewRoute: AdminBlogNewRoute,
+  AdminPagesHomeRoute: AdminPagesHomeRoute,
   AdminBlogIndexRoute: AdminBlogIndexRoute,
 }
 
@@ -562,6 +624,7 @@ const rootRouteChildren: RootRouteChildren = {
   UaeSoftwareDevelopmentCompanyRoute: UaeSoftwareDevelopmentCompanyRoute,
   WebcoreSolutionsDubaiRoute: WebcoreSolutionsDubaiRoute,
   BlogSlugRoute: BlogSlugRoute,
+  IndexBackupRoute: IndexBackupRoute,
   ServicesCmsDevelopmentRoute: ServicesCmsDevelopmentRoute,
   ServicesGraphicDesignRoute: ServicesGraphicDesignRoute,
   ServicesItConsultationRoute: ServicesItConsultationRoute,

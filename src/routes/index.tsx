@@ -14,11 +14,6 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Sparkles,
-  Code2,
-  Globe,
-  Layers,
-  Search,
-  Palette,
   CheckCircle2,
   Star,
   Users,
@@ -26,9 +21,6 @@ import {
   Briefcase,
   Quote,
   MapPin,
-  Lightbulb,
-  ShieldCheck,
-  Heart,
   Zap,
   ArrowUpRight,
   ExternalLink,
@@ -39,18 +31,21 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
-import { homeTestimonials as testimonials } from "@/data/testimonials/home";
-
-/* ─── Asset imports ────────────────────────────────────────────────── */
-import imgCmsDevelopment   from "@/assets/cms-development.webp";
-import imgGraphicsDesign   from "@/assets/graphics-design.webp";
-import imgItConsulting     from "@/assets/it-consulting.webp";
-import imgSeo              from "@/assets/seo.webp";
-import imgSoftwareDev      from "@/assets/software-development.webp";
-import imgWebDevelopment   from "@/assets/web-development.webp";
+import {
+  useHomeHero,
+  useHomeStats,
+  useServices,
+  useWhyChooseUs,
+  useProcessSteps,
+  usePortfolioItems,
+  useTestimonials,
+  useFaqs,
+  useTrustLogos,
+  useGlobalRegions,
+} from "@/lib/content";
 
 export const Route = createFileRoute("/")({
-  head: () => getSeoHead("home", { faqs: allFaqs }),
+  head: () => getSeoHead("home", { faqs: [] }),
   component: Index,
 });
 
@@ -78,266 +73,6 @@ const scaleIn = (delay = 0) => ({
     ease: [0.22, 1, 0.36, 1] as const,
   },
 });
-
-/* ─── Data ─────────────────────────────────────────────────────────── */
-const services = [
-  {
-    icon: Lightbulb,
-    color: "#f59e0b",
-    bg: "rgba(245,158,11,0.10)",
-    title: "IT Consultation",
-    desc: "Cut through complexity with a roadmap built for scale. We align your tech strategy with your growth goals.",
-    tag: "Strategy",
-    metric: "3× faster decisions",
-    image: imgItConsulting,
-    to: "/services/it-consultation" as const,
-    cta: "Plan your IT strategy",
-  },
-  {
-    icon: Layers,
-    color: "#8b5cf6",
-    bg: "rgba(139,92,246,0.10)",
-    title: "CMS Development",
-    desc: "Headless, composable content platforms that give your team full editorial control — without dev bottlenecks.",
-    tag: "Platform",
-    metric: "10× publishing speed",
-    image: imgCmsDevelopment,
-    to: "/services/cms-development" as const,
-    cta: "Tour our CMS work",
-  },
-  {
-    icon: Globe,
-    color: "#06b6d4",
-    bg: "rgba(6,182,212,0.10)",
-    title: "Web Development",
-    desc: "High-performance websites and e-commerce stores designed to convert visitors into paying customers.",
-    tag: "Web",
-    metric: "Sub-1s load times",
-    image: imgWebDevelopment,
-    to: "/services/web-development" as const,
-    cta: "See website builds",
-  },
-  {
-    icon: Code2,
-    color: "#10b981",
-    bg: "rgba(16,185,129,0.10)",
-    title: "Software Development",
-    desc: "Custom data systems and applications engineered to scale from day one — built on solid architecture.",
-    tag: "Engineering",
-    metric: "99.9% uptime SLA",
-    image: imgSoftwareDev,
-    to: "/services/software-development" as const,
-    cta: "Read software cases",
-  },
-  {
-    icon: Search,
-    color: "#3b82f6",
-    bg: "rgba(59,130,246,0.10)",
-    title: "SEO & GEO",
-    desc: "Dominate search rankings locally and globally with data-driven organic growth strategies.",
-    tag: "Growth",
-    metric: "Top 3 rankings",
-    image: imgSeo,
-    to: "/services/seo-geo" as const,
-    cta: "Grow search visibility",
-  },
-  {
-    icon: Palette,
-    color: "#ec4899",
-    bg: "rgba(236,72,153,0.10)",
-    title: "Brand & Design",
-    desc: "Visual identities that communicate authority instantly — logos, brand systems, and marketing collateral.",
-    tag: "Design",
-    metric: "Brand recognition +40%",
-    image: imgGraphicsDesign,
-    to: "/services/graphic-design" as const,
-    cta: "View design portfolio",
-  },
-];
-
-const process = [
-  {
-    n: "01",
-    t: "Discovery Call",
-    d: "We map your vision, constraints and success metrics in a focused 45-min session.",
-    icon: Sparkles,
-    color: "#ec4899",
-  },
-  {
-    n: "02",
-    t: "Strategy & Scope",
-    d: "A clear technical plan, architecture decisions and timeline — before a single line of code.",
-    icon: Lightbulb,
-    color: "#f59e0b",
-  },
-  {
-    n: "03",
-    t: "Build & Iterate",
-    d: "Weekly demos, async updates, and continuous feedback loops keep you fully in control.",
-    icon: Code2,
-    color: "#10b981",
-  },
-  {
-    n: "04",
-    t: "Launch & Scale",
-    d: "QA, performance hardening, live deployment, and ongoing support built into every engagement.",
-    icon: Zap,
-    color: "#8b5cf6",
-  },
-];
-
-const stats = [
-  { v: "12+", l: "Years Experience",  icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
-  { v: "450+", l: "Clients Worldwide", icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.10)"   },
-  { v: "25+",  l: "Team Members",      icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)"  },
-  { v: "5",    l: "Countries Served",  icon: Globe,     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
-];
-
-
-const portfolio = [
-  {
-    title: "NorthPeak Platform",
-    category: "SaaS Dashboard",
-    desc: "Enterprise analytics platform serving 50K+ users with real-time data pipelines.",
-    gradientStyle: { background: "linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%)" },
-    metric: "4× performance uplift",
-  },
-  {
-    title: "Dunescape E-Commerce",
-    category: "Web Development",
-    desc: "High-converting luxury retail store built on custom WooCommerce architecture.",
-    gradientStyle: { background: "linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%)" },
-    metric: "$2M+ first-year GMV",
-  },
-  {
-    title: "Fluxio CMS",
-    category: "CMS Development",
-    desc: "Headless content platform empowering a 40-person editorial team globally.",
-    gradientStyle: { background: "linear-gradient(135deg, #047857 0%, #0d9488 100%)" },
-    metric: "10× publishing speed",
-  },
-  {
-    title: "Loomline SEO",
-    category: "SEO & Growth",
-    desc: "Comprehensive organic strategy that tripled qualified traffic within 6 months.",
-    gradientStyle: { background: "linear-gradient(135deg, #c2410c 0%, #d97706 100%)" },
-    metric: "3× organic traffic",
-  },
-  {
-    title: "Hexa Brand System",
-    category: "Brand & Design",
-    desc: "Full visual identity and design system for a Series-A fintech startup.",
-    gradientStyle: { background: "linear-gradient(135deg, #be185d 0%, #e11d48 100%)" },
-    metric: "NPS score +34 pts",
-  },
-  {
-    title: "Ascend ERP",
-    category: "Software Development",
-    desc: "Custom ERP system unifying operations across 12 regional offices.",
-    gradientStyle: { background: "linear-gradient(135deg, #0369a1 0%, #2563eb 100%)" },
-    metric: "40% ops cost reduction",
-  },
-];
-
-const regions = [
-  { name: "Europe",   emoji: "🇪🇺" },
-  { name: "UK",       emoji: "🇬🇧" },
-  { name: "America",  emoji: "🇺🇸" },
-  { name: "Dubai",    emoji: "🇦🇪" },
-  { name: "Pakistan", emoji: "🇵🇰" },
-];
-
-const values = [
-  {
-    icon: Heart,
-    color: "#f43f5e",
-    bg: "rgba(244,63,94,0.10)",
-    t: "Client Obsession",
-    d: "We succeed when you succeed. Every decision traces back to your outcomes, not our convenience.",
-  },
-  {
-    icon: Lightbulb,
-    color: "#f59e0b",
-    bg: "rgba(245,158,11,0.10)",
-    t: "Deep Curiosity",
-    d: "We ask better questions, challenge assumptions, and consistently find solutions others miss.",
-  },
-  {
-    icon: ShieldCheck,
-    color: "#10b981",
-    bg: "rgba(16,185,129,0.10)",
-    t: "Radical Integrity",
-    d: "Honest scopes. Transparent pricing. No surprises. Just dependable delivery, every single time.",
-  },
-];
-
-const clientLogos = [
-  "NorthPeak", "Dunescape", "Fluxio", "Loomline",
-  "Hexa", "Ascend Co", "Vantara", "CloudSync", "Meridian", "Proxia",
-];
-
-/* ─── FAQ Data ──────────────────────────────────────────────────────── */
-const faqCategories = [
-  {
-    label: "Process",
-    icon: Zap,
-    color: "from-blue-600 to-cyan-500",
-    faqs: [
-      {
-        q: "How long does a typical project take?",
-        a: "Most engagements run 4–12 weeks depending on scope. We share a detailed timeline after the discovery call so you know exactly what to expect at every milestone.",
-      },
-      {
-        q: "Can you redesign an existing product?",
-        a: "Yes — we frequently rebuild legacy systems and refresh brand experiences end-to-end. We audit what exists, identify what's worth keeping, and rebuild the rest with precision.",
-      },
-      {
-        q: "What happens during the discovery call?",
-        a: "We spend 45 minutes understanding your goals, constraints, and current challenges. You'll leave with clarity on scope, timeline, and cost — whether you work with us or not.",
-      },
-    ],
-  },
-  {
-    label: "Pricing",
-    icon: ShieldCheck,
-    color: "from-violet-600 to-purple-500",
-    faqs: [
-      {
-        q: "How do you price projects?",
-        a: "Fixed-price for well-defined scopes, retainer-based for evolving roadmaps. We provide transparent, itemised quotes after discovery — no hidden fees, ever.",
-      },
-      {
-        q: "Do you offer ongoing support?",
-        a: "Absolutely. We offer monthly retainers for maintenance, growth work, and feature development after launch. Most clients continue working with us long-term.",
-      },
-      {
-        q: "Is there a minimum project size?",
-        a: "We typically work with projects starting from $3,000 USD. For smaller needs we offer advisory sessions or point-in-time audits at a flat rate.",
-      },
-    ],
-  },
-  {
-    label: "Global",
-    icon: Globe,
-    color: "from-emerald-600 to-teal-500",
-    faqs: [
-      {
-        q: "Do you work with international clients?",
-        a: "Yes — we serve clients across Europe, the UK, America, Dubai and Pakistan with async-friendly workflows and overlapping time zone availability.",
-      },
-      {
-        q: "What technologies do you use?",
-        a: "Modern stacks: React, Next.js, Node.js, TypeScript, WordPress, WooCommerce, and cloud-native infrastructure. We choose the right tool for each project, not the trendiest one.",
-      },
-      {
-        q: "Can we meet in person?",
-        a: "Our team is based in Dubai and Pakistan. We meet in-person with Dubai-based clients and arrange travel for larger engagements when needed.",
-      },
-    ],
-  },
-];
-
-const allFaqs = faqCategories.flatMap((c) => c.faqs);
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -367,7 +102,11 @@ function useCountUp(target: number, duration = 2000, start = false) {
   return count;
 }
 
-function StatCard({ s, delay }: { s: (typeof stats)[0]; delay: number }) {
+type StatCardProps = {
+  s: { v: string; l: string; icon: React.ElementType; color: string; bg: string };
+  delay: number;
+};
+function StatCard({ s, delay }: StatCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const numericVal = parseInt(s.v.replace(/\D/g, ""));
@@ -552,11 +291,12 @@ function FaqItem({
 }
 
 /* ─── Category Tab ─────────────────────────────────────────────────── */
-function CategoryTab({
-  cat, active, onClick,
-}: {
-  cat: typeof faqCategories[0]; active: boolean; onClick: () => void;
-}) {
+type CategoryTabProps = {
+  cat: { label: string; icon: React.ElementType; color: string };
+  active: boolean;
+  onClick: () => void;
+};
+function CategoryTab({ cat, active, onClick }: CategoryTabProps) {
   return (
     <button
       type="button"
@@ -575,6 +315,17 @@ function CategoryTab({
   );
 }
 
+/* ─── Skeleton helpers ──────────────────────────────────────────────── */
+function StatSkeleton() {
+  return (
+    <div className="glass rounded-2xl px-5 py-5 animate-pulse">
+      <div className="w-8 h-8 rounded-xl bg-muted mb-3" />
+      <div className="h-9 w-20 bg-muted rounded mb-2" />
+      <div className="h-3 w-24 bg-muted rounded" />
+    </div>
+  );
+}
+
 /* ─── Index Page ────────────────────────────────────────────────────── */
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
@@ -582,10 +333,24 @@ function Index() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
+  /* Content hooks */
+  const { data: hero } = useHomeHero();
+  const { data: stats = [], isLoading: statsLoading } = useHomeStats();
+  const { data: services = [] } = useServices();
+  const { data: values = [] } = useWhyChooseUs();
+  const { data: process = [] } = useProcessSteps();
+  const { data: portfolio = [] } = usePortfolioItems();
+  const { data: testimonials = [] } = useTestimonials("home");
+  const { data: faqCategories = [] } = useFaqs("home");
+  const { data: clientLogos = [] } = useTrustLogos();
+  const { data: regions = [] } = useGlobalRegions();
+
+  const allFaqs = faqCategories.flatMap((c) => c.faqs);
+
   /* FAQ state */
   const [openQuestions, setOpenQuestions] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
-  const displayedFaqs = activeCategory !== null ? faqCategories[activeCategory].faqs : allFaqs;
+  const displayedFaqs = activeCategory !== null ? faqCategories[activeCategory]?.faqs ?? [] : allFaqs;
   const handleCategoryChange = (next: number | null) => {
     setActiveCategory(next);
     setOpenQuestions([]);
@@ -625,7 +390,6 @@ function Index() {
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
-          {/* ↓ FIX: increased horizontal padding on mobile (px-6 sm:px-8 md:px-4) */}
           <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-4 pt-20 pb-36 md:pt-24 md:pb-44">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -640,12 +404,11 @@ function Index() {
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-9"
               >
                 <Sparkles className="h-3.5 w-3.5 text-primary" />
-                Premium Software & Digital Studio
+                {hero?.badgeLabel ?? "Premium Software & Digital Studio"}
                 <span className="w-px h-3 bg-border/60" />
-                <span className="text-primary">Est. Dubai, UAE</span>
+                <span className="text-primary">{hero?.badgeFlag ?? "Est. Dubai, UAE"}</span>
               </motion.div>
 
-              {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>{" "}
@@ -660,9 +423,7 @@ function Index() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                A digital studio building production-grade websites, custom software,
-                and growth systems. We pair senior engineers with proven SEO and brand
-                strategy to ship products 450+ companies trust across five continents.
+                {hero?.subtitle ?? "A digital studio building production-grade websites, custom software, and growth systems. We pair senior engineers with proven SEO and brand strategy to ship products 450+ companies trust across five continents."}
               </motion.p>
 
               <motion.div
@@ -672,17 +433,17 @@ function Index() {
                 className="mt-10 flex flex-wrap gap-4"
               >
                 <Link
-                  to="/contact"
+                  to={(hero?.ctaPrimaryHref ?? "/contact") as "/contact"}
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-1 hover:scale-[1.03] active:scale-95"
                 >
-                  Start a Project
+                  {hero?.ctaPrimaryText ?? "Start a Project"}
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
                 <Link
-                  to="/services"
+                  to={(hero?.ctaSecondaryHref ?? "/services") as "/services"}
                   className="group inline-flex items-center gap-2 rounded-2xl glass px-8 py-4 font-semibold hover:shadow-glow transition-all duration-200 hover:-translate-y-1"
                 >
-                  View Our Work
+                  {hero?.ctaSecondaryText ?? "View Our Work"}
                   <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
               </motion.div>
@@ -715,9 +476,11 @@ function Index() {
                 transition={{ duration: 0.7, delay: 0.55, type: "tween", ease: "easeOut" }}
                 className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4"
               >
-                {stats.map((s, i) => (
-                  <StatCard key={s.l} s={s} delay={0.6 + i * 0.08} />
-                ))}
+                {statsLoading
+                  ? Array.from({ length: 4 }).map((_, i) => <StatSkeleton key={i} />)
+                  : stats.map((s, i) => (
+                      <StatCard key={s.l} s={s} delay={0.6 + i * 0.08} />
+                    ))}
               </motion.div>
             </motion.div>
           </div>
@@ -734,20 +497,22 @@ function Index() {
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
-            <motion.div
-              className="flex gap-10 items-center"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 22, repeat: Infinity, repeatType: "loop", ease: "linear" }}
-            >
-              {[...clientLogos, ...clientLogos].map((logo, i) => (
-                <div
-                  key={i}
-                  className="shrink-0 px-5 py-2 rounded-xl glass text-sm font-bold text-muted-foreground/60 hover:text-foreground transition-colors duration-200 cursor-default whitespace-nowrap"
-                >
-                  {logo}
-                </div>
-              ))}
-            </motion.div>
+            {clientLogos.length > 0 && (
+              <motion.div
+                className="flex gap-10 items-center"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 22, repeat: Infinity, repeatType: "loop", ease: "linear" }}
+              >
+                {[...clientLogos, ...clientLogos].map((logo, i) => (
+                  <div
+                    key={i}
+                    className="shrink-0 px-5 py-2 rounded-xl glass text-sm font-bold text-muted-foreground/60 hover:text-foreground transition-colors duration-200 cursor-default whitespace-nowrap"
+                  >
+                    {logo}
+                  </div>
+                ))}
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
@@ -802,12 +567,12 @@ function Index() {
               className="relative grid grid-cols-2 gap-4 p-6 rounded-3xl glass"
               style={{ transform: "perspective(900px) rotateY(-5deg) rotateX(3deg)" }}
             >
-              {[
-                { icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.15)",  v: "12+",  l: "Years Experience" },
-                { icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.15)",   v: "450+", l: "Clients Worldwide" },
-                { icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.15)",  v: "25+",  l: "Team Members"     },
-                { icon: Star,      color: "#ec4899", bg: "rgba(236,72,153,0.15)",  v: "5★",   l: "Avg. Rating"      },
-              ].map((item, i) => (
+              {([
+                { Icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.15)",  v: "12+",  l: "Years Experience" },
+                { Icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.15)",   v: "450+", l: "Clients Worldwide" },
+                { Icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.15)",  v: "25+",  l: "Team Members"     },
+                { Icon: Star,      color: "#ec4899", bg: "rgba(236,72,153,0.15)",  v: "5★",   l: "Avg. Rating"      },
+              ] as const).map((item, i) => (
                 <motion.div
                   key={item.l}
                   animate={{ y: [0, -8, 0] }}
@@ -819,7 +584,7 @@ function Index() {
                     className="h-12 w-12 rounded-xl flex items-center justify-center shadow-elegant group-hover:scale-110 transition-transform duration-200"
                     style={{ background: item.bg }}
                   >
-                    <item.icon className="h-6 w-6" style={{ color: item.color }} />
+                    <item.Icon className="h-6 w-6" style={{ color: item.color }} />
                   </div>
                   <div className="text-2xl font-bold gradient-text">{item.v}</div>
                   <div className="text-xs text-muted-foreground text-center leading-tight">{item.l}</div>
@@ -1085,7 +850,7 @@ function Index() {
           </p>
         </motion.div>
 
-        {[{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
+        {testimonials.length > 0 && [{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
           <div key={ri} className={`relative ${ri === 1 ? "mt-5" : ""}`}>
             <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
@@ -1094,7 +859,6 @@ function Index() {
               animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
               transition={{ duration: row.speed, repeat: Infinity, repeatType: "loop", ease: "linear" }}
             >
-              {/* Real cards — indexable by crawlers (row 0 only; row 1 is aria-hidden entirely) */}
               {testimonials.map((t) => (
                 <div
                   key={t.name}
@@ -1124,7 +888,6 @@ function Index() {
                   </div>
                 </div>
               ))}
-              {/* Visual-only duplicate — keeps the seamless loop; hidden from crawlers and AT */}
               {testimonials.map((t) => (
                 <div
                   key={`${t.name}-clone`}
