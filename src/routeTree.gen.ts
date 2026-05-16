@@ -29,9 +29,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
+import { Route as AdminPagesServicesRouteImport } from './routes/admin.pages.services'
 import { Route as AdminPagesHomeRouteImport } from './routes/admin.pages.home'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
+import { Route as AdminPagesServicesIdRouteImport } from './routes/admin.pages.services.$id'
 
 const WebcoreSolutionsDubaiRoute = WebcoreSolutionsDubaiRouteImport.update({
   id: '/webcore-solutions-dubai',
@@ -135,6 +137,11 @@ const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPagesServicesRoute = AdminPagesServicesRouteImport.update({
+  id: '/pages/services',
+  path: '/pages/services',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPagesHomeRoute = AdminPagesHomeRouteImport.update({
   id: '/pages/home',
   path: '/pages/home',
@@ -149,6 +156,11 @@ const AdminBlogIdRoute = AdminBlogIdRouteImport.update({
   id: '/blog/$id',
   path: '/blog/$id',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesServicesIdRoute = AdminPagesServicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminPagesServicesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -174,7 +186,9 @@ export interface FileRoutesByFullPath {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -198,7 +212,9 @@ export interface FileRoutesByTo {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog': typeof AdminBlogIndexRoute
+  '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -224,7 +240,9 @@ export interface FileRoutesById {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -251,7 +269,9 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/services'
     | '/admin/blog/'
+    | '/admin/pages/services/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -275,7 +295,9 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/services'
     | '/admin/blog'
+    | '/admin/pages/services/$id'
   id:
     | '__root__'
     | '/'
@@ -300,7 +322,9 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/services'
     | '/admin/blog/'
+    | '/admin/pages/services/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -464,6 +488,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/pages/services': {
+      id: '/admin/pages/services'
+      path: '/pages/services'
+      fullPath: '/admin/pages/services'
+      preLoaderRoute: typeof AdminPagesServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/pages/home': {
       id: '/admin/pages/home'
       path: '/pages/home'
@@ -485,8 +516,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/pages/services/$id': {
+      id: '/admin/pages/services/$id'
+      path: '/$id'
+      fullPath: '/admin/pages/services/$id'
+      preLoaderRoute: typeof AdminPagesServicesIdRouteImport
+      parentRoute: typeof AdminPagesServicesRoute
+    }
   }
 }
+
+interface AdminPagesServicesRouteChildren {
+  AdminPagesServicesIdRoute: typeof AdminPagesServicesIdRoute
+}
+
+const AdminPagesServicesRouteChildren: AdminPagesServicesRouteChildren = {
+  AdminPagesServicesIdRoute: AdminPagesServicesIdRoute,
+}
+
+const AdminPagesServicesRouteWithChildren =
+  AdminPagesServicesRoute._addFileChildren(AdminPagesServicesRouteChildren)
 
 interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
@@ -495,6 +544,7 @@ interface AdminRouteChildren {
   AdminBlogIdRoute: typeof AdminBlogIdRoute
   AdminBlogNewRoute: typeof AdminBlogNewRoute
   AdminPagesHomeRoute: typeof AdminPagesHomeRoute
+  AdminPagesServicesRoute: typeof AdminPagesServicesRouteWithChildren
   AdminBlogIndexRoute: typeof AdminBlogIndexRoute
 }
 
@@ -505,6 +555,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogIdRoute: AdminBlogIdRoute,
   AdminBlogNewRoute: AdminBlogNewRoute,
   AdminPagesHomeRoute: AdminPagesHomeRoute,
+  AdminPagesServicesRoute: AdminPagesServicesRouteWithChildren,
   AdminBlogIndexRoute: AdminBlogIndexRoute,
 }
 

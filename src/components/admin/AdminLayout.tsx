@@ -25,6 +25,7 @@ const NAV: NavItem[] = [
     icon: Layout,
     children: [
       { label: "Homepage", to: "/admin/pages/home", icon: Layout },
+      { label: "Services", to: "/admin/pages/services", icon: Layout },
     ],
   },
   { label: "Settings", to: "/admin/settings", icon: Settings },
@@ -54,6 +55,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/admin/blog/")) return "Edit Post";
     if (pathname.startsWith("/admin/blog")) return "Blog Posts";
     if (pathname.startsWith("/admin/pages/home")) return "Homepage Editor";
+    if (pathname.startsWith("/admin/pages/services/")) return "Edit Service Page";
+    if (pathname.startsWith("/admin/pages/services")) return "Service Pages";
     if (pathname.startsWith("/admin/settings")) return "Site Settings";
     return "Admin";
   })();
