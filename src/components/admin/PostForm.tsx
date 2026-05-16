@@ -4,9 +4,7 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
-import { Calendar, ChevronDown, ChevronUp, Clock, ExternalLink } from "lucide-react";
+import { Calendar, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Clock, ExternalLink } from "lucide-react";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { DirtyBanner } from "@/components/admin/ui/DirtyBanner";
@@ -50,6 +48,110 @@ function slugify(title: string) {
 function readingTime(content: string) {
   const words = content.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
+}
+
+const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const MONTHS = [
+  "January","February","March","April","May","June",
+  "July","August","September","October","November","December",
+];
+
+function MiniCalendar({
+  selected,
+  onSelect,
+}: {
+  selected: Date | null;
+  onSelect: (d: Date) => void;
+}) {
+  const today = new Date();
+  const [view, setView] = useState(() => {
+    const d = selected ?? today;
+    return { year: d.getFullYear(), month: d.getMonth() };
+  });
+
+  const { year, month } = view;
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const prev = () =>
+    setView(month === 0 ? { year: year - 1, month: 11 } : { year, month: month - 1 });
+  const next = () =>
+    setView(month === 11 ? { year: year + 1, month: 0 } : { year, month: month + 1 });
+
+  const cells: (number | null)[] = [
+    ...Array(firstDay).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
+  // pad to full grid rows
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  return (
+    <div className="rounded-xl border border-border/40 bg-background/60 p-3 select-none">
+      {/* Month/year header */}
+      <div className="flex items-center justify-between mb-3">
+        <button
+          type="button"
+          onClick={prev}
+          className="p-1 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors duration-150"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <span className="text-sm font-semibold text-foreground">
+          {MONTHS[month]} {year}
+        </span>
+        <button
+          type="button"
+          onClick={next}
+          className="p-1 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors duration-150"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Day-of-week headers */}
+      <div className="grid grid-cols-7 mb-1">
+        {DAYS.map((d) => (
+          <div key={d} className="text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground py-1">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Day cells */}
+      <div className="grid grid-cols-7 gap-y-0.5">
+        {cells.map((day, i) => {
+          if (!day) return <div key={i} />;
+          const date = new Date(year, month, day);
+          const isToday =
+            today.getFullYear() === year &&
+            today.getMonth() === month &&
+            today.getDate() === day;
+          const isSelected =
+            selected &&
+            selected.getFullYear() === year &&
+            selected.getMonth() === month &&
+            selected.getDate() === day;
+
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => onSelect(date)}
+              className={`mx-auto flex h-7 w-7 items-center justify-center rounded-lg text-xs font-medium transition-all duration-150 ${
+                isSelected
+                  ? "gradient-primary text-primary-foreground shadow-elegant"
+                  : isToday
+                  ? "border border-primary/50 text-primary"
+                  : "text-foreground hover:bg-primary/10 hover:text-primary"
+              }`}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export function PostForm({
@@ -292,16 +394,12 @@ export function PostForm({
                 )}
               </button>
               {showDatePicker && (
-                <div className="mt-2">
-                  <DayPicker
-                    mode="single"
-                    selected={data.published_at ?? undefined}
+                <div className="mt-3">
+                  <MiniCalendar
+                    selected={data.published_at}
                     onSelect={(d) => {
-                      set("published_at", d ?? null);
+                      set("published_at", d);
                       setShowDatePicker(false);
-                    }}
-                    classNames={{
-                      root: "text-sm",
                     }}
                   />
                 </div>
