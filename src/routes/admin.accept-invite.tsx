@@ -50,35 +50,22 @@ function AcceptInvitePage() {
     setErrorMsg("");
 
     try {
-      // Create auth user via the invite endpoint would require service-role.
-      // Instead we use signUp — the profile row already exists with their email,
-      // so we just link the auth.users record.
+      // Server endpoint handles: create auth user, swap placeholder profile, activate
+      const res = await fetch("/api/team/accept-invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, password }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? "Something went wrong.");
+
+      // Sign in with the now-active account
       const client = getSupabase();
-      const { data: signUpData, error: signUpErr } = await client.auth.signUp({
+      const { error: signInErr } = await client.auth.signInWithPassword({
         email: profile.email,
         password,
-        options: { emailRedirectTo: undefined },
       });
-
-      if (signUpErr) throw new Error(signUpErr.message);
-      const authUserId = signUpData.user?.id;
-      if (!authUserId) throw new Error("Sign-up did not return a user.");
-
-      // Update the profile: link the real auth UUID, clear invite_token, activate
-      const { error: updErr } = await supabase
-        .from("profiles")
-        .update({
-          id: authUserId,
-          invite_token: null,
-          is_active: true,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any)
-        .eq("invite_token", token);
-
-      if (updErr) throw new Error(updErr.message);
-
-      // Sign in immediately
-      await client.auth.signInWithPassword({ email: profile.email, password });
+      if (signInErr) throw new Error(signInErr.message);
 
       setStep("success");
       setTimeout(() => navigate({ to: "/admin" }), 1800);

@@ -7,6 +7,7 @@
 --
 -- Also re-applies the overview section_type fix from 0002 so this
 -- migration is self-contained and safe to run on a fresh DB.
+-- Safe to re-run: all DROPs use IF EXISTS.
 -- =============================================================================
 
 -- ---------------------------------------------------------------------------
@@ -38,11 +39,11 @@ DECLARE
   ];
 BEGIN
   FOREACH tbl IN ARRAY content_tables LOOP
-    -- Drop old policies (both naming conventions used historically)
-    EXECUTE format('DROP POLICY IF EXISTS "%s cms write"   ON public.%I', tbl, tbl);
-    EXECUTE format('DROP POLICY IF EXISTS "%s cms write"   ON public.%I', tbl, tbl);
-
-    -- Public read (keep as-is — anon + authenticated can SELECT)
+    -- Drop old policy names (both naming conventions used historically)
+    EXECUTE format('DROP POLICY IF EXISTS "%s cms write" ON public.%I', tbl, tbl);
+    -- Also drop the new name in case this migration was partially run before
+    EXECUTE format('DROP POLICY IF EXISTS "%s authenticated write" ON public.%I', tbl, tbl);
+    -- Drop and recreate public read to ensure it's up to date
     EXECUTE format('DROP POLICY IF EXISTS "%s public read" ON public.%I', tbl, tbl);
     EXECUTE format(
       'CREATE POLICY "%s public read" ON public.%I
