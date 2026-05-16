@@ -73,7 +73,10 @@ function ServiceEditor() {
       const rows = (secs ?? []) as unknown as SectionRow[];
       setSections(rows.map((r) => ({ ...r })));
       const jt: Record<string, string> = {};
-      for (const r of rows) jt[r.id] = JSON.stringify(r.data_json ?? {}, null, 2);
+      for (const r of rows) jt[r.id] = JSON.stringify(
+        (r.data_json !== null && r.data_json !== undefined) ? r.data_json : {},
+        null, 2
+      );
       setJsonText(jt);
       setLoading(false);
     })();
@@ -84,7 +87,7 @@ function ServiceEditor() {
   }
 
   async function saveMeta() {
-    if (!service) return;
+    if (!service) { toast.error("Service not loaded. Please refresh."); return; }
     setSavingMeta(true);
     const { error } = await mutableTable<ServiceRow>("services")
       .update({
@@ -95,6 +98,9 @@ function ServiceEditor() {
         image_url: service.image_url,
         cta_text: service.cta_text,
         is_active: service.is_active,
+        seo_title: service.seo_title,
+        seo_description: service.seo_description,
+        seo_keywords: service.seo_keywords,
       } satisfies ServiceUpdate)
       .eq("id", service.id);
     setSavingMeta(false);
@@ -166,7 +172,10 @@ function ServiceEditor() {
     if (error) { toast.error(error.message); return; }
     const r = data as unknown as SectionRow;
     setSections((p) => [...p, { ...r }]);
-    setJsonText((p) => ({ ...p, [r.id]: JSON.stringify(r.data_json ?? {}, null, 2) }));
+    setJsonText((p) => ({ ...p, [r.id]: JSON.stringify(
+      (r.data_json !== null && r.data_json !== undefined) ? r.data_json : {},
+      null, 2
+    ) }));
     if (service) qc.invalidateQueries({ queryKey: ["content", "service-page", service.slug] });
   }
 
@@ -230,6 +239,20 @@ function ServiceEditor() {
           <input type="checkbox" checked={service.is_active} onChange={(e) => updateMeta({ is_active: e.target.checked })} className="h-4 w-4 rounded accent-primary" />
           Active (visible on the public site)
         </label>
+        <div className="border-t border-border/40 pt-5 mt-1">
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">SEO Overrides</p>
+          <div className="grid md:grid-cols-2 gap-5">
+            <FormField label="SEO Title" htmlFor="svc-seo-title" hint="Overrides the default page title in search results">
+              <input id="svc-seo-title" className={inputClass} value={service.seo_title ?? ""} onChange={(e) => updateMeta({ seo_title: e.target.value || null })} />
+            </FormField>
+            <FormField label="SEO Keywords" htmlFor="svc-seo-keywords" hint="Comma-separated keywords">
+              <input id="svc-seo-keywords" className={inputClass} value={service.seo_keywords ?? ""} onChange={(e) => updateMeta({ seo_keywords: e.target.value || null })} />
+            </FormField>
+            <FormField label="SEO Description" htmlFor="svc-seo-desc" hint="Overrides the default meta description">
+              <textarea id="svc-seo-desc" rows={3} className={inputClass} value={service.seo_description ?? ""} onChange={(e) => updateMeta({ seo_description: e.target.value || null })} />
+            </FormField>
+          </div>
+        </div>
       </SectionShell>
 
       {/* ─── Sections ─── */}

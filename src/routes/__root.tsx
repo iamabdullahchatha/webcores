@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, useLocation, HeadContent } from "@tanstack/react-router";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { getRootHead } from "@/lib/seo";
+import { trackPageView } from "@/lib/analytics";
 
 function NotFoundComponent() {
   return (
@@ -98,6 +99,16 @@ function ScrollToTop() {
   return null;
 }
 
+function PageViewTracker() {
+  const pathname = useLocation({ select: (l) => l.pathname });
+
+  useEffect(() => {
+    trackPageView(pathname);
+  }, [pathname]);
+
+  return null;
+}
+
 function ClientHeadContent() {
   const [mounted, setMounted] = useState(false);
 
@@ -113,6 +124,7 @@ function RootComponent() {
     <>
       <ClientHeadContent />
       <ScrollToTop />
+      <PageViewTracker />
       <Outlet />
     </>
   );

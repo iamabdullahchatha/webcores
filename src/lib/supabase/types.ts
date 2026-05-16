@@ -70,6 +70,8 @@ type SiteSettings = Timestamps & {
   address_line2: string | null;
   social_linkedin: string | null;
   social_facebook: string | null;
+  logo_url: string | null;
+  logo_alt: string | null;
 };
 
 type HomeHero = Timestamps & {
@@ -83,6 +85,9 @@ type HomeHero = Timestamps & {
   cta_primary_href: string | null;
   cta_secondary_text: string | null;
   cta_secondary_href: string | null;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
 };
 
 type HomeStat = Timestamps & {
@@ -111,6 +116,9 @@ type Service = Timestamps & {
   cta_text: string | null;
   sort_order: number;
   is_active: boolean;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
 };
 
 type ServicePageContent = Timestamps & {
@@ -216,6 +224,26 @@ type MediaLibrary = Timestamps & {
   uploaded_by: string | null;
 };
 
+type PageSeoOverride = {
+  id: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
+  og_title: string | null;
+  og_description: string | null;
+  updated_at: string;
+};
+
+type PageView = {
+  id: string;
+  page_path: string;
+  session_id: string;
+  referrer: string | null;
+  user_agent: string | null;
+  country_code: string | null;
+  viewed_at: string;
+};
+
 /**
  * Row / Insert / Update split.
  *
@@ -255,6 +283,16 @@ export type Database = {
       trust_logos: Table<TrustLogo, "sort_order" | "is_active">;
       global_regions: Table<GlobalRegion, "sort_order">;
       media_library: Table<MediaLibrary, "bucket">;
+      page_seo_overrides: {
+        Row: PageSeoOverride;
+        Insert: Omit<PageSeoOverride, "updated_at"> & Partial<Pick<PageSeoOverride, "updated_at">>;
+        Update: Partial<PageSeoOverride>;
+      };
+      page_views: {
+        Row: PageView;
+        Insert: Omit<PageView, "id" | "viewed_at"> & Partial<Pick<PageView, "id" | "viewed_at">>;
+        Update: Partial<PageView>;
+      };
     };
     Views: Record<string, never>;
     Functions: {

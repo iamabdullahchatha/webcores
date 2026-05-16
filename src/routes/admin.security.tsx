@@ -4,6 +4,7 @@ import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, Shield } from "lucide
 import { UAParser } from "ua-parser-js";
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { useRequireRole } from "@/lib/auth/useRequireRole";
 import type { Database } from "@/lib/supabase/types";
 
 export const Route = createFileRoute("/admin/security")({
@@ -38,6 +39,7 @@ function SummaryCard({ label, value, sub }: { label: string; value: number | str
 }
 
 function SecurityPage() {
+  useRequireRole(["owner", "admin"]);
   const { profile: me, session } = useAuth();
   const isOwner = me?.role === "owner";
   const myId = session?.user.id ?? "";
@@ -138,7 +140,7 @@ function SecurityPage() {
               <select
                 value={filterUser}
                 onChange={(e) => { setFilterUser(e.target.value); setPage(0); }}
-                className="glass rounded-xl px-3 py-2 text-sm bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none min-w-[180px]"
+                className="glass rounded-xl px-3 py-2 text-sm bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none min-w-45"
               >
                 <option value="" className="bg-background">All users</option>
                 {users.map((u) => (

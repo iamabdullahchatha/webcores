@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useBeforeUnload } from "@/hooks/useBeforeUnload";
 import * as Tabs from "@radix-ui/react-tabs";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Trash2, Star } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
+import { pageSeo } from "@/lib/seo";
 import { SortableList, type SortableItem } from "@/components/admin/SortableList";
 import { SectionShell } from "@/components/admin/ui/SectionShell";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
@@ -112,29 +114,73 @@ function StarSelector({ value, onChange }: { value: number; onChange: (n: number
    TAB: HERO
 ══════════════════════════════════════════════════════════════════════ */
 function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
-  const [form, setForm] = useState({
+  const HERO_DEFAULTS = {
     badge_label: "", badge_flag: "",
     heading_line1: "", heading_line2: "",
     subtitle: "",
     cta_primary_text: "", cta_primary_href: "",
     cta_secondary_text: "", cta_secondary_href: "",
-  });
+  };
+  const SEO_DEFAULTS = { seo_title: "", seo_description: "", seo_keywords: "" };
+
+  const [form, setForm] = useState(HERO_DEFAULTS);
+  const savedForm = useRef(HERO_DEFAULTS);
+  const [seoFields, setSeoFields] = useState(SEO_DEFAULTS);
+  const savedSeo = useRef(SEO_DEFAULTS);
   const [saving, setSaving] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
+  const isDirty =
+    JSON.stringify(form) !== JSON.stringify(savedForm.current) ||
+    JSON.stringify(seoFields) !== JSON.stringify(savedSeo.current);
+  useBeforeUnload(isDirty);
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.from("home_hero").select("*").eq("id", "main").single();
-      if (data) setForm(data as unknown as typeof form);
+      const [heroRes, seoRes] = await Promise.all([
+        supabase.from("home_hero").select("*").eq("id", "main").single(),
+        supabase.from("page_seo_overrides").select("*").eq("id", "home").maybeSingle(),
+      ]);
+      if (heroRes.data) {
+        const loaded = heroRes.data as unknown as typeof HERO_DEFAULTS;
+        setForm(loaded);
+        savedForm.current = loaded;
+      }
+      if (seoRes.data) {
+        const s = seoRes.data as unknown as { seo_title: string | null; seo_description: string | null; seo_keywords: string | null };
+        const loaded: typeof SEO_DEFAULTS = {
+          seo_title: s.seo_title ?? "",
+          seo_description: s.seo_description ?? "",
+          seo_keywords: s.seo_keywords ?? "",
+        };
+        setSeoFields(loaded);
+        savedSeo.current = loaded;
+      }
     })();
   }, []);
 
   async function save() {
     setSaving(true);
-    const { error } = await supabase.from("home_hero").upsert({ id: "main", ...form } as unknown as HeroRow);
+    const [heroRes, seoRes] = await Promise.all([
+      supabase.from("home_hero").upsert({ id: "main", ...form } as unknown as HeroRow),
+      supabase.from("page_seo_overrides").upsert({
+        id: "home",
+        seo_title: seoFields.seo_title || null,
+        seo_description: seoFields.seo_description || null,
+        seo_keywords: seoFields.seo_keywords || null,
+      } as unknown as Database["public"]["Tables"]["page_seo_overrides"]["Insert"]),
+    ]);
     setSaving(false);
-    if (error) { toast.error(error.message); return; }
-    toast.success("Hero saved");
-    qc.invalidateQueries({ queryKey: ["content", "home-hero"] });
+    if (heroRes.error || seoRes.error) {
+      toast.error(heroRes.error?.message ?? seoRes.error?.message ?? "Save failed");
+      return;
+    }
+    savedForm.current = form;
+    savedSeo.current = seoFields;
+    setLastSaved(new Date());
+    toast.success("Hero & SEO saved");
+    void qc.invalidateQueries({ queryKey: ["content", "home-hero"] });
+    void qc.invalidateQueries({ queryKey: ["content", "page-seo-overrides"] });
   }
 
   const f = (key: keyof typeof form) => (
@@ -146,8 +192,12 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     />
   );
 
+  const homeSeo = pageSeo.home;
+  const titleLen = seoFields.seo_title.length;
+  const descLen = seoFields.seo_description.length;
+
   return (
-    <SectionShell heading="Hero Section" onSave={save} saving={saving}>
+    <SectionShell heading="Hero Section" onSave={save} saving={saving} lastSaved={lastSaved}>
       <div className="grid sm:grid-cols-2 gap-5">
         <FormField label="Badge label" htmlFor="badge_label">{f("badge_label")}</FormField>
         <FormField label="Badge flag / subtitle" htmlFor="badge_flag">{f("badge_flag")}</FormField>
@@ -168,6 +218,46 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         <FormField label="Primary CTA href" htmlFor="cta_primary_href">{f("cta_primary_href")}</FormField>
         <FormField label="Secondary CTA text" htmlFor="cta_secondary_text">{f("cta_secondary_text")}</FormField>
         <FormField label="Secondary CTA href" htmlFor="cta_secondary_href">{f("cta_secondary_href")}</FormField>
+      </div>
+
+      <div className="border-t border-border/40 pt-5 mt-1">
+        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">SEO Overrides</p>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <FormField label="SEO Title" htmlFor="seo_title" hint="Overrides title tag — ideal 50–60 chars">
+            <input
+              id="seo_title"
+              value={seoFields.seo_title}
+              onChange={(e) => setSeoFields((p) => ({ ...p, seo_title: e.target.value }))}
+              placeholder={homeSeo.title}
+              className={inputClass}
+            />
+            <p className={`text-xs mt-1 ${titleLen > 60 ? "text-destructive" : "text-muted-foreground"}`}>
+              {titleLen}/60
+            </p>
+          </FormField>
+          <FormField label="SEO Keywords" htmlFor="seo_keywords" hint="Comma-separated">
+            <input
+              id="seo_keywords"
+              value={seoFields.seo_keywords}
+              onChange={(e) => setSeoFields((p) => ({ ...p, seo_keywords: e.target.value }))}
+              placeholder={homeSeo.keywords.join(", ")}
+              className={inputClass}
+            />
+          </FormField>
+        </div>
+        <FormField label="SEO Description" htmlFor="seo_description" hint="Overrides meta description — ideal 120–160 chars">
+          <textarea
+            id="seo_description"
+            rows={3}
+            value={seoFields.seo_description}
+            onChange={(e) => setSeoFields((p) => ({ ...p, seo_description: e.target.value }))}
+            placeholder={homeSeo.description}
+            className={inputClass}
+          />
+          <p className={`text-xs mt-1 ${descLen > 160 ? "text-destructive" : "text-muted-foreground"}`}>
+            {descLen}/160
+          </p>
+        </FormField>
       </div>
     </SectionShell>
   );
@@ -302,7 +392,12 @@ function ServicesTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     setSaving(true);
     await Promise.all(
       rows.map((r, i) =>
-        supabase.from("services").update({ title: r.title, description: r.description, tag: r.tag, metric: r.metric, cta_text: r.cta_text, is_active: r.is_active, sort_order: i + 1 } as unknown as ServiceRow).eq("id", r.id)
+        supabase.from("services").update({
+          title: r.title, description: r.description, tag: r.tag, metric: r.metric,
+          cta_text: r.cta_text, is_active: r.is_active, sort_order: i + 1,
+          icon_name: r.icon_name, color: r.color, bg: r.bg,
+          image_url: r.image_url, image_alt: r.image_alt, href: r.href,
+        } as unknown as ServiceRow).eq("id", r.id)
       )
     );
     setSaving(false);
@@ -334,9 +429,37 @@ function ServicesTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">CTA text</label>
                 <input value={row.cta_text ?? ""} onChange={(e) => update(row.id, { cta_text: e.target.value })} className={inputClass + " mt-1"} />
               </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Icon name</label>
+                <input value={row.icon_name ?? ""} onChange={(e) => update(row.id, { icon_name: e.target.value })} placeholder="Lightbulb" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Href</label>
+                <input value={row.href ?? ""} onChange={(e) => update(row.id, { href: e.target.value })} placeholder="/services/web-development" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Color</label>
+                <input value={row.color ?? ""} onChange={(e) => update(row.id, { color: e.target.value })} placeholder="#6366f1" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">BG</label>
+                <input value={row.bg ?? ""} onChange={(e) => update(row.id, { bg: e.target.value })} placeholder="rgba(99,102,241,0.10)" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Image alt</label>
+                <input value={row.image_alt ?? ""} onChange={(e) => update(row.id, { image_alt: e.target.value })} className={inputClass + " mt-1"} />
+              </div>
               <div className="sm:col-span-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Description</label>
                 <textarea rows={2} value={row.description ?? ""} onChange={(e) => update(row.id, { description: e.target.value })} className={inputClass + " mt-1"} />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-2">Card image</label>
+                <ImageUpload
+                  bucket="site-media"
+                  currentUrl={row.image_url ?? undefined}
+                  onUpload={(url) => update(row.id, { image_url: url })}
+                />
               </div>
               <div className="flex items-center gap-2">
                 <input
@@ -385,7 +508,10 @@ function WhyUsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     setSaving(true);
     await Promise.all(
       rows.map((r, i) =>
-        supabase.from("why_choose_us").update({ title: r.title, description: r.description, icon_name: r.icon_name, sort_order: i + 1 } as unknown as ValueRow).eq("id", r.id)
+        supabase.from("why_choose_us").update({
+          title: r.title, description: r.description, icon_name: r.icon_name,
+          color: r.color, bg: r.bg, sort_order: i + 1,
+        } as unknown as ValueRow).eq("id", r.id)
       )
     );
     setSaving(false);
@@ -408,6 +534,14 @@ function WhyUsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Icon name</label>
                 <input value={row.icon_name ?? ""} onChange={(e) => update(row.id, { icon_name: e.target.value })} placeholder="Heart" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Color</label>
+                <input value={row.color ?? ""} onChange={(e) => update(row.id, { color: e.target.value })} placeholder="#6366f1" className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">BG</label>
+                <input value={row.bg ?? ""} onChange={(e) => update(row.id, { bg: e.target.value })} placeholder="rgba(99,102,241,0.10)" className={inputClass + " mt-1"} />
               </div>
               <div className="sm:col-span-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Description</label>
@@ -904,8 +1038,12 @@ function TrustLogosTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
                 <input value={row.name} onChange={(e) => update(row.id, { name: e.target.value })} className={inputClass + " mt-1"} />
               </div>
               <div className="sm:col-span-1">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Logo URL</label>
-                <input value={row.logo_url ?? ""} onChange={(e) => update(row.id, { logo_url: e.target.value })} placeholder="https://…" className={inputClass + " mt-1"} />
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-2">Logo</label>
+                <ImageUpload
+                  bucket="site-media"
+                  currentUrl={row.logo_url ?? undefined}
+                  onUpload={(url) => update(row.id, { logo_url: url })}
+                />
               </div>
               <div className="flex items-center gap-2 mt-5">
                 <input

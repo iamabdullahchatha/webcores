@@ -8,6 +8,7 @@ import {
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/AuthContext";
 import { requireRole } from "@/lib/auth";
+import { useRequireRole } from "@/lib/auth/useRequireRole";
 import type { Database } from "@/lib/supabase/types";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
 import { ConfirmDialog } from "@/components/admin/ui/ConfirmDialog";
@@ -186,6 +187,7 @@ function InviteModal({
 
 /* ─── Page ─────────────────────────────────────────────────────────────── */
 function TeamPage() {
+  useRequireRole(["owner", "admin"]);
   const { profile: me, session } = useAuth();
   const myId = session?.user.id;
   const isOwner = me?.role === "owner";

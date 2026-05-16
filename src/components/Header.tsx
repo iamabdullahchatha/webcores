@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Easing } from "framer-motion";
 import logo from "@/assets/logo.png";
+import { useSiteSettings } from "@/lib/content";
 
 const services = [
   { name: "IT Consultation", to: "/services/it-consultation" },
@@ -57,6 +58,9 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
+  const { data: settings } = useSiteSettings();
+  const logoSrc = settings?.logoUrl ?? logo;
+  const logoAlt = settings?.logoAlt ?? "Webcore Solutions";
 
   useEffect(() => {
     let ticking = false;
@@ -104,8 +108,8 @@ export function Header() {
             aria-label="Home"
           >
             <img
-              src={logo}
-              alt="Webcore Solutions"
+              src={logoSrc}
+              alt={logoAlt}
               width={1180}
               height={319}
               decoding="async"

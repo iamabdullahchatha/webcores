@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   motion,
   AnimatePresence,
@@ -11,7 +11,8 @@ import {
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { getSeoHead } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
+import { usePageSeoOverrides } from "@/lib/content";
 import {
   Plus, ArrowRight, CheckCircle2, MessageCircle,
   Zap, Globe, Clock, Shield, Star, HelpCircle,
@@ -282,6 +283,11 @@ function CategoryTab({
 
 /* ─── Main Component ───────────────────────────────────────────────── */
 function FAQs() {
+  const { data: seoOverrides } = usePageSeoOverrides();
+  useEffect(() => {
+    applyPageSeo("faqs", seoOverrides?.["faqs"] ?? null, pageSeo.faqs);
+  }, [seoOverrides]);
+
   const [openQuestions, setOpenQuestions] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);

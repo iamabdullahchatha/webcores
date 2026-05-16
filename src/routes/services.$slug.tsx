@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { getStaticSeoHead, type PageKey } from "@/lib/seo";
 import { useServicePage } from "@/lib/content";
+import { DynamicSeo } from "@/components/DynamicSeo";
 import { ServiceSections } from "@/components/service/sections";
 import { SectionLabel } from "@/components/service/primitives";
 import { ArrowLeft } from "lucide-react";
@@ -16,6 +18,8 @@ const SLUG_TO_PAGEKEY: Record<string, PageKey> = {
 };
 
 export const Route = createFileRoute("/services/$slug")({
+  // TODO: When SSR/loaders land, pass page_seo_overrides data into head() so
+  // title/description are SSR-rendered. Until then, DynamicSeo patches client-side.
   head: ({ params }) => {
     const key = SLUG_TO_PAGEKEY[params.slug];
     return key ? getStaticSeoHead(key) : {};
@@ -107,7 +111,24 @@ function ServiceDetail() {
   const { slug } = Route.useParams();
   const { data, isLoading, isError } = useServicePage(slug);
 
-  if (isLoading) {
+  useEffect(() => {
+    const svc = data?.service;
+    if (!svc) return;
+    if (svc.seo_title) {
+      document.title = svc.seo_title;
+    }
+    if (svc.seo_description) {
+      let el = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute("name", "description");
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", svc.seo_description);
+    }
+  }, [data?.service]);
+
+  if (isLoading && !data?.sections?.length) {
     return (
       <Layout>
         <ServiceSkeleton />
@@ -138,6 +159,7 @@ function ServiceDetail() {
 
   return (
     <Layout>
+      <DynamicSeo pageId={`service:${slug}`} />
       <ServiceSections sections={data.sections} />
     </Layout>
   );

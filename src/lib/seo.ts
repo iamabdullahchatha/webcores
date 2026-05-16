@@ -730,6 +730,42 @@ export function getSeoHead(
   };
 }
 
+type SeoOverrideShape = {
+  seo_title?: string | null;
+  seo_description?: string | null;
+  og_title?: string | null;
+  og_description?: string | null;
+};
+
+function setMetaTag(name: string, content: string, prop = false) {
+  const attr = prop ? "property" : "name";
+  let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+export function applyPageSeo(
+  key: PageKey,
+  overrides: SeoOverrideShape | null | undefined,
+  fallback: { title: string; description: string },
+) {
+  const title = overrides?.seo_title || fallback.title;
+  const description = overrides?.seo_description || fallback.description;
+  const ogTitle = overrides?.og_title || title;
+  const ogDescription = overrides?.og_description || description;
+
+  document.title = title;
+  setMetaTag("description", description);
+  setMetaTag("og:title", ogTitle, true);
+  setMetaTag("og:description", ogDescription, true);
+  setMetaTag("twitter:title", title);
+  setMetaTag("twitter:description", description);
+}
+
 export function getRootHead() {
   return {
     meta: [

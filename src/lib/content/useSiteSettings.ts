@@ -14,6 +14,8 @@ export type SiteSettings = {
   addressLine2: string | null;
   socialLinkedin: string;
   socialFacebook: string;
+  logoUrl: string | null;
+  logoAlt: string | null;
 };
 
 const FALLBACK: SiteSettings = {
@@ -26,6 +28,8 @@ const FALLBACK: SiteSettings = {
   addressLine2: null,
   socialLinkedin: "https://www.linkedin.com/in/webcore-solutions-939b88408",
   socialFacebook: "https://www.facebook.com/profile.php?id=61587249472207",
+  logoUrl: null,
+  logoAlt: null,
 };
 
 export function useSiteSettings() {
@@ -52,6 +56,8 @@ export function useSiteSettings() {
         addressLine2: row.address_line2 ?? null,
         socialLinkedin: row.social_linkedin ?? FALLBACK.socialLinkedin,
         socialFacebook: row.social_facebook ?? FALLBACK.socialFacebook,
+        logoUrl: row.logo_url ?? null,
+        logoAlt: row.logo_alt ?? null,
       };
     },
   });

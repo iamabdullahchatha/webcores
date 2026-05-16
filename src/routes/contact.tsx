@@ -7,7 +7,7 @@ import {
   useSpring,
   AnimatePresence,
 } from "framer-motion";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import type { CSSProperties, ChangeEvent, FormEvent, ReactNode } from "react";
 
 import {
@@ -39,8 +39,9 @@ import {
 
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { getSeoHead } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { useSiteSettings } from "@/lib/content/useSiteSettings";
+import { usePageSeoOverrides } from "@/lib/content";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /* WhatsApp SVG Icon */
@@ -775,6 +776,11 @@ function ContactForm() {
 /* ──────────────────────────────────────────────────────────────────── */
 
 function Contact() {
+  const { data: seoOverrides } = usePageSeoOverrides();
+  useEffect(() => {
+    applyPageSeo("contact", seoOverrides?.["contact"] ?? null, pageSeo.contact);
+  }, [seoOverrides]);
+
   const heroRef = useRef<HTMLElement>(null);
   const { data: settings } = useSiteSettings();
 

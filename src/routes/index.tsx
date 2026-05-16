@@ -30,7 +30,8 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { getSeoHead } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   useHomeHero,
   useHomeStats,
@@ -42,6 +43,8 @@ import {
   useFaqs,
   useTrustLogos,
   useGlobalRegions,
+  fetchServicePage,
+  usePageSeoOverrides,
 } from "@/lib/content";
 
 export const Route = createFileRoute("/")({
@@ -332,6 +335,14 @@ function Index() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+
+  const qc = useQueryClient();
+
+  /* SEO overrides */
+  const { data: seoOverrides } = usePageSeoOverrides();
+  useEffect(() => {
+    applyPageSeo("home", seoOverrides?.["home"] ?? null, pageSeo.home);
+  }, [seoOverrides]);
 
   /* Content hooks */
   const { data: hero } = useHomeHero();
@@ -664,6 +675,7 @@ function Index() {
                 transition={{ delay: i * 0.07, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -10 }}
                 className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-300 h-full flex flex-col"
+                onMouseEnter={() => fetchServicePage(s.to.split("/").pop() ?? "", qc)}
               >
                 {/* ── Service image banner ── */}
                 <div className="relative h-44 w-full overflow-hidden shrink-0">

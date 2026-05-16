@@ -29,10 +29,12 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
+import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminAcceptInviteRouteImport } from './routes/admin.accept-invite'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminPagesServicesRouteImport } from './routes/admin.pages.services'
+import { Route as AdminPagesSeoRouteImport } from './routes/admin.pages.seo'
 import { Route as AdminPagesHomeRouteImport } from './routes/admin.pages.home'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
@@ -140,6 +142,11 @@ const AdminSecurityRoute = AdminSecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -158,6 +165,11 @@ const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
 const AdminPagesServicesRoute = AdminPagesServicesRouteImport.update({
   id: '/pages/services',
   path: '/pages/services',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesSeoRoute = AdminPagesSeoRouteImport.update({
+  id: '/pages/seo',
+  path: '/pages/seo',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPagesHomeRoute = AdminPagesHomeRouteImport.update({
@@ -195,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -207,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/seo': typeof AdminPagesSeoRoute
   '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
@@ -224,6 +238,7 @@ export interface FileRoutesByTo {
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -236,6 +251,7 @@ export interface FileRoutesByTo {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/seo': typeof AdminPagesSeoRoute
   '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog': typeof AdminBlogIndexRoute
   '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
@@ -255,6 +271,7 @@ export interface FileRoutesById {
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -267,6 +284,7 @@ export interface FileRoutesById {
   '/admin/blog/$id': typeof AdminBlogIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/pages/home': typeof AdminPagesHomeRoute
+  '/admin/pages/seo': typeof AdminPagesSeoRoute
   '/admin/pages/services': typeof AdminPagesServicesRouteWithChildren
   '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/pages/services/$id': typeof AdminPagesServicesIdRoute
@@ -287,6 +305,7 @@ export interface FileRouteTypes {
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/media'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -299,6 +318,7 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/seo'
     | '/admin/pages/services'
     | '/admin/blog/'
     | '/admin/pages/services/$id'
@@ -316,6 +336,7 @@ export interface FileRouteTypes {
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/media'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -328,6 +349,7 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/seo'
     | '/admin/pages/services'
     | '/admin/blog'
     | '/admin/pages/services/$id'
@@ -346,6 +368,7 @@ export interface FileRouteTypes {
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
     | '/admin/login'
+    | '/admin/media'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -358,6 +381,7 @@ export interface FileRouteTypes {
     | '/admin/blog/$id'
     | '/admin/blog/new'
     | '/admin/pages/home'
+    | '/admin/pages/seo'
     | '/admin/pages/services'
     | '/admin/blog/'
     | '/admin/pages/services/$id'
@@ -524,6 +548,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSecurityRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -550,6 +581,13 @@ declare module '@tanstack/react-router' {
       path: '/pages/services'
       fullPath: '/admin/pages/services'
       preLoaderRoute: typeof AdminPagesServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pages/seo': {
+      id: '/admin/pages/seo'
+      path: '/pages/seo'
+      fullPath: '/admin/pages/seo'
+      preLoaderRoute: typeof AdminPagesSeoRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/pages/home': {
@@ -597,6 +635,7 @@ const AdminPagesServicesRouteWithChildren =
 interface AdminRouteChildren {
   AdminAcceptInviteRoute: typeof AdminAcceptInviteRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaRoute: typeof AdminMediaRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
@@ -604,6 +643,7 @@ interface AdminRouteChildren {
   AdminBlogIdRoute: typeof AdminBlogIdRoute
   AdminBlogNewRoute: typeof AdminBlogNewRoute
   AdminPagesHomeRoute: typeof AdminPagesHomeRoute
+  AdminPagesSeoRoute: typeof AdminPagesSeoRoute
   AdminPagesServicesRoute: typeof AdminPagesServicesRouteWithChildren
   AdminBlogIndexRoute: typeof AdminBlogIndexRoute
 }
@@ -611,6 +651,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAcceptInviteRoute: AdminAcceptInviteRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminMediaRoute: AdminMediaRoute,
   AdminSecurityRoute: AdminSecurityRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
@@ -618,6 +659,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogIdRoute: AdminBlogIdRoute,
   AdminBlogNewRoute: AdminBlogNewRoute,
   AdminPagesHomeRoute: AdminPagesHomeRoute,
+  AdminPagesSeoRoute: AdminPagesSeoRoute,
   AdminPagesServicesRoute: AdminPagesServicesRouteWithChildren,
   AdminBlogIndexRoute: AdminBlogIndexRoute,
 }

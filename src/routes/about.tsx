@@ -7,7 +7,7 @@ import {
   useSpring,
   AnimatePresence,
 } from "framer-motion";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Award, Users, Briefcase, Target, Eye, Heart,
@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { getSeoHead } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
+import { usePageSeoOverrides } from "@/lib/content";
 
 export const Route = createFileRoute("/about")({
   head: () => getSeoHead("about", { faqs }),
@@ -185,6 +186,11 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
 
 /* ─── About Page ─────────────────────────────────────────────────── */
 function About() {
+  const { data: seoOverrides } = usePageSeoOverrides();
+  useEffect(() => {
+    applyPageSeo("about", seoOverrides?.["about"] ?? null, pageSeo.about);
+  }, [seoOverrides]);
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);

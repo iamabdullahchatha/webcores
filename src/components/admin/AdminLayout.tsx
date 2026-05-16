@@ -1,7 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Menu, X, LogOut, FileText, Plus, Layout, Settings, Users, Shield } from "lucide-react";
+import { LayoutDashboard, Menu, X, LogOut, FileText, Plus, Layout, Settings, Users, Shield, Search, Image } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
 import logo from "@/assets/logo.png";
 
@@ -26,11 +26,26 @@ const NAV: NavItem[] = [
     children: [
       { label: "Homepage", to: "/admin/pages/home", icon: Layout },
       { label: "Services", to: "/admin/pages/services", icon: Layout },
+      { label: "Page SEO", to: "/admin/pages/seo", icon: Search },
     ],
   },
+  { label: "Media Library", to: "/admin/media", icon: Image },
   { label: "Team", to: "/admin/team", icon: Users },
   { label: "Security", to: "/admin/security", icon: Shield },
   { label: "Settings", to: "/admin/settings", icon: Settings },
+];
+
+const ALL_ROUTES: { label: string; to: string }[] = [
+  { label: "Dashboard", to: "/admin" },
+  { label: "All Posts", to: "/admin/blog" },
+  { label: "New Post", to: "/admin/blog/new" },
+  { label: "Homepage Editor", to: "/admin/pages/home" },
+  { label: "Service Pages", to: "/admin/pages/services" },
+  { label: "Page SEO", to: "/admin/pages/seo" },
+  { label: "Media Library", to: "/admin/media" },
+  { label: "Team Members", to: "/admin/team" },
+  { label: "Security", to: "/admin/security" },
+  { label: "Site Settings", to: "/admin/settings" },
 ];
 
 const ROLE_LABEL: Record<string, string> = {
@@ -39,11 +54,90 @@ const ROLE_LABEL: Record<string, string> = {
   editor: "Editor",
 };
 
+function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setQuery("");
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [open]);
+
+  const results = query.trim()
+    ? ALL_ROUTES.filter((r) => r.label.toLowerCase().includes(query.toLowerCase()))
+    : ALL_ROUTES;
+
+  function go(to: string) {
+    navigate({ to: to as Parameters<typeof navigate>[0]["to"] });
+    onClose();
+  }
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh]">
+      <div
+        className="absolute inset-0 bg-foreground/30 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-md mx-4 glass rounded-2xl border border-border/60 shadow-2xl overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-border/40">
+          <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Go to…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") onClose();
+              if (e.key === "Enter" && results.length > 0) go(results[0].to);
+            }}
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+          />
+          <kbd className="text-xs text-muted-foreground bg-muted/40 rounded px-1.5 py-0.5">Esc</kbd>
+        </div>
+        <div className="max-h-72 overflow-y-auto py-2">
+          {results.length === 0 ? (
+            <p className="px-4 py-3 text-sm text-muted-foreground">No results.</p>
+          ) : (
+            results.map((r) => (
+              <button
+                key={r.to}
+                type="button"
+                onClick={() => go(r.to)}
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-primary/8 transition-colors text-left"
+              >
+                {r.label}
+              </button>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AdminLayout({ children }: { children: ReactNode }) {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
   const pathname = useLocation({ select: (l) => l.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const currentTitle = (() => {
     for (const item of NAV) {
@@ -58,7 +152,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/admin/blog")) return "Blog Posts";
     if (pathname.startsWith("/admin/pages/home")) return "Homepage Editor";
     if (pathname.startsWith("/admin/pages/services/")) return "Edit Service Page";
+    if (pathname.startsWith("/admin/pages/seo")) return "SEO Settings";
     if (pathname.startsWith("/admin/pages/services")) return "Service Pages";
+    if (pathname.startsWith("/admin/media")) return "Media Library";
     if (pathname.startsWith("/admin/settings")) return "Site Settings";
     if (pathname.startsWith("/admin/team")) return "Team Members";
     if (pathname.startsWith("/admin/security")) return "Security";
@@ -105,7 +201,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             );
           }
 
-          // Parent with children
           const anyChildActive = item.children?.some((c) => pathname === c.to || pathname.startsWith(c.to + "/"));
           return (
             <div key={item.label}>
@@ -160,6 +255,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background">
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+
       {/* Desktop sidebar */}
       <aside className="hidden md:block fixed left-0 top-0 bottom-0 w-60 bg-card border-r border-border/60 z-30">
         {SidebarContent}
@@ -207,11 +304,22 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </h1>
           </div>
 
-          {profile && (
-            <span className="rounded-full bg-primary/10 text-primary text-xs font-bold px-3 py-1">
-              {ROLE_LABEL[profile.role] ?? profile.role}
-            </span>
-          )}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setPaletteOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 rounded-xl glass border border-border/40 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border/70 transition-colors duration-200"
+            >
+              <Search className="h-3.5 w-3.5" />
+              Quick nav
+              <kbd className="bg-muted/40 rounded px-1 py-0.5 text-[10px]">⌘K</kbd>
+            </button>
+            {profile && (
+              <span className="rounded-full bg-primary/10 text-primary text-xs font-bold px-3 py-1">
+                {ROLE_LABEL[profile.role] ?? profile.role}
+              </span>
+            )}
+          </div>
         </div>
       </header>
 

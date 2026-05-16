@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
 import { SectionShell } from "@/components/admin/ui/SectionShell";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
+import { ImageUpload } from "@/components/admin/ImageUpload";
+import { useBeforeUnload } from "@/hooks/useBeforeUnload";
 
 export const Route = createFileRoute("/admin/settings")({
   component: SiteSettingsPage,
@@ -23,6 +25,8 @@ type Fields = {
   address_line2: string;
   social_linkedin: string;
   social_facebook: string;
+  logo_url: string;
+  logo_alt: string;
 };
 
 const DEFAULTS: Fields = {
@@ -35,13 +39,20 @@ const DEFAULTS: Fields = {
   address_line2: "",
   social_linkedin: "https://www.linkedin.com/in/webcore-solutions-939b88408",
   social_facebook: "https://www.facebook.com/profile.php?id=61587249472207",
+  logo_url: "",
+  logo_alt: "",
 };
 
 function SiteSettingsPage() {
   const qc = useQueryClient();
   const [fields, setFields] = useState<Fields>(DEFAULTS);
+  const [savedFields, setSavedFields] = useState<Fields>(DEFAULTS);
   const [saving, setSaving] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
+  const isDirty = JSON.stringify(fields) !== JSON.stringify(savedFields);
+  useBeforeUnload(isDirty);
 
   useEffect(() => {
     (async () => {
@@ -53,7 +64,7 @@ function SiteSettingsPage() {
 
       if (data) {
         const row = data as unknown as Row;
-        setFields({
+        const loaded: Fields = {
           site_name: row.site_name ?? DEFAULTS.site_name,
           phone_uae: row.phone_uae ?? DEFAULTS.phone_uae,
           phone_uk: row.phone_uk ?? DEFAULTS.phone_uk,
@@ -63,7 +74,11 @@ function SiteSettingsPage() {
           address_line2: row.address_line2 ?? "",
           social_linkedin: row.social_linkedin ?? DEFAULTS.social_linkedin,
           social_facebook: row.social_facebook ?? DEFAULTS.social_facebook,
-        });
+          logo_url: row.logo_url ?? "",
+          logo_alt: row.logo_alt ?? "",
+        };
+        setFields(loaded);
+        setSavedFields(loaded);
       }
       setLoaded(true);
     })();
@@ -90,11 +105,15 @@ function SiteSettingsPage() {
           address_line2: fields.address_line2 || null,
           social_linkedin: fields.social_linkedin,
           social_facebook: fields.social_facebook,
+          logo_url: fields.logo_url || null,
+          logo_alt: fields.logo_alt || null,
           updated_at: new Date().toISOString(),
         });
 
       if (error) throw error;
       await qc.invalidateQueries({ queryKey: ["content", "site-settings"] });
+      setSavedFields(fields);
+      setLastSaved(new Date());
       toast.success("Site settings saved.");
     } catch (err) {
       console.error(err);
@@ -117,7 +136,27 @@ function SiteSettingsPage() {
   return (
     <div className="max-w-2xl space-y-6">
 
-      <SectionShell heading="Contact Information" onSave={save} saving={saving}>
+      <SectionShell heading="Branding & Logo" onSave={save} saving={saving} lastSaved={lastSaved}>
+        <FormField label="Logo Image" htmlFor="logo_upload" hint="Replaces the bundled logo in the header. Leave empty to use the default.">
+          <ImageUpload
+            bucket="site-media"
+            currentUrl={fields.logo_url || undefined}
+            onUpload={(url) => setFields((prev) => ({ ...prev, logo_url: url }))}
+          />
+        </FormField>
+        <FormField label="Logo Alt Text" htmlFor="logo_alt" hint="Accessible name shown to screen readers">
+          <input
+            id="logo_alt"
+            type="text"
+            className={inputClass}
+            value={fields.logo_alt}
+            onChange={set("logo_alt")}
+            placeholder="Webcore Solutions"
+          />
+        </FormField>
+      </SectionShell>
+
+      <SectionShell heading="Contact Information" onSave={save} saving={saving} lastSaved={lastSaved}>
         <FormField label="Site Name" htmlFor="site_name">
           <input
             id="site_name"
@@ -165,7 +204,7 @@ function SiteSettingsPage() {
         </FormField>
       </SectionShell>
 
-      <SectionShell heading="Address" onSave={save} saving={saving}>
+      <SectionShell heading="Address" onSave={save} saving={saving} lastSaved={lastSaved}>
         <FormField label="Address Line 1" htmlFor="address_line1">
           <input
             id="address_line1"
@@ -187,7 +226,7 @@ function SiteSettingsPage() {
         </FormField>
       </SectionShell>
 
-      <SectionShell heading="Social Links" onSave={save} saving={saving}>
+      <SectionShell heading="Social Links" onSave={save} saving={saving} lastSaved={lastSaved}>
         <FormField label="LinkedIn URL" htmlFor="social_linkedin">
           <input
             id="social_linkedin"

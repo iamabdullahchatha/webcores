@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type QueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
 
@@ -30,33 +30,44 @@ export type ServicePage = {
   sections: SectionRow[];
 };
 
+async function queryFn(slug: string): Promise<ServicePage | null> {
+  const { data: service, error: svcErr } = await supabase
+    .from("services")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (svcErr || !service) return null;
+
+  const { data: sections, error: secErr } = await supabase
+    .from("service_page_content")
+    .select("*")
+    .eq("service_slug", slug)
+    .eq("is_visible", true)
+    .order("sort_order");
+
+  if (secErr) return null;
+
+  return {
+    service: service as unknown as ServiceRow,
+    sections: (sections ?? []) as unknown as SectionRow[],
+  };
+}
+
+export function fetchServicePage(slug: string, qc: QueryClient) {
+  return qc.prefetchQuery({
+    queryKey: ["content", "service-page", slug],
+    staleTime: 60_000,
+    queryFn: () => queryFn(slug),
+  });
+}
+
 export function useServicePage(slug: string) {
   return useQuery<ServicePage | null>({
     queryKey: ["content", "service-page", slug],
-    staleTime: 5 * 60 * 1000,
-    queryFn: async () => {
-      const { data: service, error: svcErr } = await supabase
-        .from("services")
-        .select("*")
-        .eq("slug", slug)
-        .eq("is_active", true)
-        .maybeSingle();
-
-      if (svcErr || !service) return null;
-
-      const { data: sections, error: secErr } = await supabase
-        .from("service_page_content")
-        .select("*")
-        .eq("service_slug", slug)
-        .eq("is_visible", true)
-        .order("sort_order");
-
-      if (secErr) return null;
-
-      return {
-        service: service as unknown as ServiceRow,
-        sections: (sections ?? []) as unknown as SectionRow[],
-      };
-    },
+    staleTime: 60_000,
+    placeholderData: (prev) => prev ?? undefined,
+    queryFn: () => queryFn(slug),
   });
 }

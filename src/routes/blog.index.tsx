@@ -5,7 +5,8 @@ import { useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
-import { getSeoHead } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
+import { usePageSeoOverrides } from "@/lib/content";
 import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/blog/")({
@@ -52,6 +53,11 @@ function formatDate(iso: string | null): string {
 }
 
 function BlogIndex() {
+  const { data: seoOverrides } = usePageSeoOverrides();
+  useEffect(() => {
+    applyPageSeo("blog", seoOverrides?.["blog"] ?? null, pageSeo.blog);
+  }, [seoOverrides]);
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
