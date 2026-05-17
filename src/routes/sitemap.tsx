@@ -138,7 +138,7 @@ const mainPages: SitemapEntry[] = [
 
 const servicePages: SitemapEntry[] = [
   {
-    label: "IT Consultation",
+    label: "IT Consulting Services Dubai",
     path: "/services/it-consultation",
     description: "Technology audits, architecture planning, cloud strategy and roadmaps.",
     icon: Lightbulb,
@@ -146,7 +146,7 @@ const servicePages: SitemapEntry[] = [
     bg: "rgba(245,158,11,0.10)",
   },
   {
-    label: "CMS Development",
+    label: "CMS Development Dubai",
     path: "/services/cms-development",
     description: "Headless CMS, WordPress and composable content platform development.",
     icon: Layers,
@@ -154,7 +154,7 @@ const servicePages: SitemapEntry[] = [
     bg: "rgba(139,92,246,0.10)",
   },
   {
-    label: "Web Development",
+    label: "Web Development Dubai",
     path: "/services/web-development",
     description: "High-performance websites, ecommerce stores and React applications.",
     icon: Globe,
@@ -162,7 +162,7 @@ const servicePages: SitemapEntry[] = [
     bg: "rgba(6,182,212,0.10)",
   },
   {
-    label: "Software Development",
+    label: "Software Development Dubai",
     path: "/services/software-development",
     description: "Custom SaaS platforms, APIs, data systems and AI integrations.",
     icon: Code2,
@@ -170,7 +170,7 @@ const servicePages: SitemapEntry[] = [
     bg: "rgba(16,185,129,0.10)",
   },
   {
-    label: "SEO & GEO",
+    label: "SEO & GEO Services Dubai",
     path: "/services/seo-geo",
     description: "Technical SEO, local SEO, schema, AI search and GEO optimization.",
     icon: Search,
@@ -178,7 +178,7 @@ const servicePages: SitemapEntry[] = [
     bg: "rgba(59,130,246,0.10)",
   },
   {
-    label: "Graphic Design",
+    label: "Graphic Design Dubai",
     path: "/services/graphic-design",
     description: "Logos, brand identity, company profiles and marketing collateral.",
     icon: Palette,
@@ -224,7 +224,7 @@ const locationPages: SitemapEntry[] = [
     bg: "rgba(59,130,246,0.10)",
   },
   {
-    label: "UAE Software Development Company",
+    label: "UAE Software Development",
     path: "/uae-software-development-company",
     description: "Custom SaaS, APIs, data systems, and AI integrations built by our UAE team since 2012.",
     icon: Code2,
@@ -244,8 +244,7 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
         whileHover={{ y: -6 }}
         className="h-full"
       >
-        <Link
-          to={entry.path}
+        <div
           className="group relative glass rounded-2xl p-5 flex items-start gap-4 hover:shadow-glow transition-all duration-300 overflow-hidden h-full"
         >
           <div
@@ -261,7 +260,12 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
           <div className="relative min-w-0 flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h3 className="font-bold text-sm md:text-base text-foreground group-hover:text-primary transition-colors duration-200">
-                {entry.label}
+                <Link
+                  to={entry.path}
+                  className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:rounded-sm"
+                >
+                  {entry.label}
+                </Link>
               </h3>
               <ArrowUpRight className="h-3.5 w-3.5 text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
             </div>
@@ -276,7 +280,7 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
             className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
             style={{ background: `linear-gradient(to right, transparent, ${entry.color}55, transparent)` }}
           />
-        </Link>
+        </div>
       </motion.div>
     </TiltCard>
   );

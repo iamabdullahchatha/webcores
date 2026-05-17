@@ -35,6 +35,7 @@ const services = [
     color: "#f59e0b",
     bg: "rgba(245,158,11,0.10)",
     t: "IT Consultation",
+    anchor: "IT Consulting Services Dubai",
     d: "Strategic guidance, technology audits and clear roadmaps to help your team scale with confidence and precision.",
     to: "/services/it-consultation" as const,
     tags: ["Strategy", "Audits", "Roadmaps"],
@@ -46,6 +47,7 @@ const services = [
     color: "#8b5cf6",
     bg: "rgba(139,92,246,0.10)",
     t: "CMS Development",
+    anchor: "CMS Development Dubai",
     d: "Headless and custom content platforms built to evolve with your business — fast, flexible and editor-friendly.",
     to: "/services/cms-development" as const,
     tags: ["Headless CMS", "WordPress", "Custom"],
@@ -57,6 +59,7 @@ const services = [
     color: "#06b6d4",
     bg: "rgba(6,182,212,0.10)",
     t: "Web Development",
+    anchor: "Web Development Dubai",
     d: "Business sites, e-commerce stores and custom design solutions engineered to perform and convert.",
     to: "/services/web-development" as const,
     tags: ["E-commerce", "WordPress", "React"],
@@ -68,6 +71,7 @@ const services = [
     color: "#10b981",
     bg: "rgba(16,185,129,0.10)",
     t: "Software Development",
+    anchor: "Software Development Dubai",
     d: "SaaS products, internal tools, APIs and enterprise data systems built for reliability and growth.",
     to: "/services/software-development" as const,
     tags: ["SaaS", "APIs", "Enterprise"],
@@ -79,6 +83,7 @@ const services = [
     color: "#3b82f6",
     bg: "rgba(59,130,246,0.10)",
     t: "SEO & GEO",
+    anchor: "SEO & GEO Services Dubai",
     d: "Rank higher locally and globally through sustainable, technically sound search and geo-optimisation strategies.",
     to: "/services/seo-geo" as const,
     tags: ["Local SEO", "Technical SEO", "GEO"],
@@ -90,6 +95,7 @@ const services = [
     color: "#ec4899",
     bg: "rgba(236,72,153,0.10)",
     t: "Graphic Design",
+    anchor: "Graphic Design Dubai",
     d: "Logos, brochures, brand profiles and complete visual identity systems that make your business unforgettable.",
     to: "/services/graphic-design" as const,
     tags: ["Branding", "Print", "Identity"],
@@ -160,10 +166,8 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
         transition={{ delay: i * 0.08, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
         className="h-full"
       >
-        <Link
-          to={s.to}
-          className="group 
-        relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
+        <div
+          className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
         >
           {/* ── Image banner (mirrors index.tsx pattern) ── */}
           <div className="relative h-52 w-full overflow-hidden shrink-0">
@@ -233,7 +237,9 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
 
               <div className="flex items-start justify-between gap-3 flex-1 min-w-0">
                 <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary truncate">
-                  {s.t}
+                  <Link to={s.to} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:rounded-sm">
+                    {s.anchor}
+                  </Link>
                 </h3>
                 {/* Slide-in arrow */}
                 <div
@@ -261,7 +267,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               style={{ background: `linear-gradient(to right, ${s.color}88, transparent)` }}
             />
           </div>
-        </Link>
+        </div>
       </motion.div>
     </TiltCard>
   );
