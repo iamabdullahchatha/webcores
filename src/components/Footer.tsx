@@ -73,7 +73,7 @@ function MagneticSocial({
       ref={btnRef}
       href={href}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="nofollow noopener noreferrer"
       aria-label={label}
       onMouseMove={handleMouse}
       onMouseLeave={reset}

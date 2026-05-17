@@ -87,6 +87,22 @@ const categories = [
         q: "Can we meet in person?",
         a: "Our team is based in Dubai and Pakistan. We meet in-person with Dubai-based clients and arrange travel for larger engagements when needed.",
       },
+      {
+        q: "Do you work with clients outside the UAE?",
+        a: "Yes — we work with businesses across the UK, Europe, Pakistan, and the United States. Most of our project work is handled remotely with regular check-ins, and we're comfortable working across time zones.",
+      },
+      {
+        q: "How long does a typical project take?",
+        a: "Timelines vary by scope. A website project typically takes 4–8 weeks, while custom software or platform builds range from 8 to 20 weeks depending on complexity.",
+      },
+      {
+        q: "Do you offer ongoing support after launch?",
+        a: "We do. Most clients stay with us on a retainer basis for maintenance, updates, performance monitoring, and ongoing SEO work.",
+      },
+      {
+        q: "What industries do you specialise in?",
+        a: "We've worked across real estate, e-commerce, healthcare, fintech, logistics, and professional services — both in the Gulf region and internationally.",
+      },
     ],
   },
 ];
@@ -363,7 +379,7 @@ function FAQs() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Everything you need to know about working with Webcore Solutions — answered. Still have a question?{" "}
+                Everything frequently asked about working with Webcore Solutions — answered. Still have a question?{" "}
                 <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
                   Book a strategy call
                 </Link>

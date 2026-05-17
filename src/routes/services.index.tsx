@@ -326,7 +326,7 @@ function Services() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                From strategy and engineering to brand and growth — every service delivered in-house, no outsourcing, no middlemen.
+                From strategy and engineering to brand and growth — every service delivered in-house, no outsourcing, no middlemen. Every service we offer is engineered around business outcomes — not just deliverables. From startups in Karachi to enterprises in London and Dubai, our clients trust us to handle the full digital stack.
               </motion.p>
 
               {/* Per-service colored pills */}

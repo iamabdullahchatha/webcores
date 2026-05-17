@@ -122,7 +122,7 @@ function DubaiWebDevAgency() {
             className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
           >
             Webcore Solutions is a Dubai web development agency that has built 180+ websites
-            for UAE businesses since 2012. Fixed-scope pricing, in-house team, Core Web
+            for UAE businesses since 2012 — websites that ships on time and ranks on Google. Fixed-scope pricing, in-house team, Core Web
             Vitals on every release.
           </motion.p>
 
@@ -211,7 +211,7 @@ function DubaiWebDevAgency() {
             <p>
               Those are the projects where twelve years of in-house UAE delivery, a fixed-scope quote
               process, and a senior team who answer Dubai timezone calls make the difference between
-              a website that launches and a website that performs.
+              a website that launches and a website that performs. Our process starts with architecture — we plan the data layer, routing, and performance targets before writing a single line of code. Every site we ship is tested across devices, optimised for Core Web Vitals, and built to be handed over cleanly with full documentation.
             </p>
           </div>
         </motion.div>

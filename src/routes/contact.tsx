@@ -626,7 +626,7 @@ function ContactForm() {
 
             <p className="text-muted-foreground text-sm mb-7">
               Fill out the form and we'll get back to you
-              shortly.
+              shortly — let's build something great together.
             </p>
 
             <form
@@ -955,7 +955,7 @@ function Contact() {
               </h2>
 
               <p className="text-muted-foreground text-sm mb-7">
-                We're just a message away.
+                We're a digital agency serving clients across Dubai, the UK, Europe, Pakistan, and the US — just a message away.
               </p>
 
               <div className="space-y-4">
@@ -1001,7 +1001,7 @@ function Contact() {
                       <a
                         href={s.href}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="nofollow noopener noreferrer"
                         aria-label={s.label}
                         className="h-9 w-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-glow"
                         style={{ background: s.bg }}

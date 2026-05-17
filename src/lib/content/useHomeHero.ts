@@ -33,6 +33,7 @@ export function useHomeHero() {
   return useQuery<HomeHero>({
     queryKey: ["content", "home-hero"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("home_hero")

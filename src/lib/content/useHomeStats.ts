@@ -31,6 +31,7 @@ export function useHomeStats() {
   return useQuery<HomeStat[]>({
     queryKey: ["content", "home-stats"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("home_stats")

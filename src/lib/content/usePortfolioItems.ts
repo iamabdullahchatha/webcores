@@ -62,6 +62,7 @@ export function usePortfolioItems() {
   return useQuery<PortfolioItem[]>({
     queryKey: ["content", "portfolio-items"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("portfolio_items")

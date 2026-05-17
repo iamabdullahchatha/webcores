@@ -26,6 +26,7 @@ export function useProcessSteps() {
   return useQuery<ProcessStep[]>({
     queryKey: ["content", "process-steps"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("process_steps")

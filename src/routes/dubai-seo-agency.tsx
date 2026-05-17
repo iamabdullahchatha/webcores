@@ -121,9 +121,9 @@ function DubaiSeoAgency() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
           >
-            Webcore Solutions is a Dubai SEO agency that combines technical SEO, local
+            Webcore Solutions is a Dubai SEO agency whose specialists combine technical SEO, local
             citations, Arabic-English content, and Generative Engine Optimization (GEO) for
-            UAE businesses. Fixed retainers, no guaranteed-ranking nonsense.
+            businesses in the UAE, UK, Europe, Pakistan, and the US. Fixed retainers, no guaranteed-ranking nonsense.
           </motion.p>
 
           <motion.div
@@ -191,9 +191,9 @@ function DubaiSeoAgency() {
           </h2>
           <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
             <p>
-              Most SEO agencies in Dubai quote a price and promise first-page rankings inside 30 days.
+              Most SEO agencies in Dubai quote a price and promise first-page rankings inside 30 days on Google, Bing, and AI search.
               That claim is either dishonest or relies on short-term tactics that will earn a manual
-              penalty from Google. Webcore Solutions does neither, and we say so on the first call.
+              penalty. Webcore Solutions does neither, and we say so on the first call.
             </p>
             <p>
               What our Dubai SEO retainer actually delivers: a full technical audit in weeks one and two,
@@ -206,7 +206,7 @@ function DubaiSeoAgency() {
               meaningful organic traction takes six to twelve months of consistent execution. We communicate
               this in writing before any engagement begins. SEO compounds like interest: the returns are
               real, but they require patience and discipline, not shortcuts that vanish after the next
-              algorithm update.
+              algorithm update. Our methodology combines technical audits, content gap analysis, and structured link-building — adapted for both traditional search and the AI-driven search results that are rapidly reshaping how businesses get found. We track rankings across Google, Bing, and AI answer engines so nothing slips through.
             </p>
           </div>
         </motion.div>

@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowRight, ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { supabase } from "@/lib/supabase/client";
+import { blogPostFallback } from "@/lib/content/seedFallback.generated";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => ({
@@ -85,13 +86,15 @@ const SITE_URL = "https://www.webcoreuae.com";
 
 function BlogPost() {
   const { slug } = Route.useParams();
-  const [state, setState] = useState<"loading" | "found" | "notfound">("loading");
-  const [post, setPost] = useState<Post | null>(null);
+  const seedPost = blogPostFallback[slug] ?? null;
+  const [state, setState] = useState<"loading" | "found" | "notfound">(
+    seedPost ? "found" : "loading",
+  );
+  const [post, setPost] = useState<Post | null>(seedPost as Post | null);
   const [related, setRelated] = useState<RelatedPost[]>([]);
 
   useEffect(() => {
     let active = true;
-    setState("loading");
     (async () => {
       const { data, error } = await supabase
         .from("blog_posts")
@@ -105,7 +108,8 @@ function BlogPost() {
       if (!active) return;
 
       if (error || !data) {
-        setState("notfound");
+        // Only fall to notfound if we also have no seed fallback.
+        if (!seedPost) setState("notfound");
         return;
       }
 

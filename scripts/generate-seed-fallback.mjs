@@ -287,6 +287,26 @@ const blogFallback = blogRows
     published_at: null,
   }));
 
+// Full-post fallback keyed by slug — used by blog.$slug route so individual
+// post pages render without a live Supabase hit (mirrors listing page pattern).
+const blogPostFallbackMap = {};
+for (const r of blogRows.filter((r) => r.status === "published")) {
+  blogPostFallbackMap[r.slug] = {
+    id: r.slug,
+    slug: r.slug,
+    title: r.title,
+    excerpt: r.excerpt ?? null,
+    content: r.content ?? null,
+    cover_image_url: r.cover_image_url ?? null,
+    cover_image_alt: r.cover_image_alt ?? null,
+    tags: Array.isArray(r.tags) ? r.tags : null,
+    reading_time_min: typeof r.reading_time_min === "number" ? r.reading_time_min : null,
+    published_at: null,
+    seo_title: r.seo_title ?? null,
+    seo_description: r.seo_description ?? null,
+  };
+}
+
 /* ── Emit the generated module ─────────────────────────────────────────── */
 
 const sectionCount = Object.values(serviceFallback).reduce((a, s) => a + s.sections.length, 0);
@@ -320,9 +340,17 @@ export type BlogFallbackPost = {
   published_at: string | null;
 };
 
+export type BlogFallbackFullPost = BlogFallbackPost & {
+  content: string | null;
+  seo_title: string | null;
+  seo_description: string | null;
+};
+
 export const serviceFallback = ${JSON.stringify(serviceFallback, null, 2)} as unknown as Record<string, ServicePage>;
 
 export const blogFallback: BlogFallbackPost[] = ${JSON.stringify(blogFallback, null, 2)};
+
+export const blogPostFallback: Record<string, BlogFallbackFullPost> = ${JSON.stringify(blogPostFallbackMap, null, 2)};
 `;
 
 await writeFile(outFile, body, "utf8");

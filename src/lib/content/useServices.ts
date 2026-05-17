@@ -54,6 +54,7 @@ export function useServices() {
   return useQuery<Service[]>({
     queryKey: ["content", "services"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("services")

@@ -197,7 +197,7 @@ function UaeSoftwareDevelopmentCompany() {
               the first call.
             </p>
             <p>
-              For projects above that line, the calculus changes. Multi-month builds need
+              For serious projects above that line, the calculus changes. Multi-month builds need
               proper version control, code review, security baselines, infrastructure
               automation, documentation, and a team that does not vanish when one person
               gets sick. Most UAE freelancers cannot offer that. We can.
@@ -206,7 +206,7 @@ function UaeSoftwareDevelopmentCompany() {
               Webcore Solutions is a registered Dubai software development company with
               a 25-person team. We have shipped 130+ custom software products since 2012,
               with measurable uptime, observable systems, and source code clients
-              actually own at the end of the engagement.
+              actually own at the end of the engagement. Our core stack includes React, Next.js, Node.js, Python, and PostgreSQL — with experience across AWS, Azure, and GCP for infrastructure. Whether you need a customer-facing platform, an internal operations tool, or a third-party API integration, we scope and build it to scale.
             </p>
           </div>
         </motion.div>

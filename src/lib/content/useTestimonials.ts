@@ -30,6 +30,7 @@ export function useTestimonials(pageScope: string = "home") {
   return useQuery<Testimonial[]>({
     queryKey: ["content", "testimonials", pageScope],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => (pageScope === "home" ? HOME_FALLBACK : []),
     queryFn: async () => {
       const { data, error } = await supabase
         .from("testimonials")

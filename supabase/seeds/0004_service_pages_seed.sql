@@ -44,7 +44,7 @@ VALUES
 ('it-consultation', 'hero',
  'Strategic clarity for modern technology.',
  'Strategic clarity for|modern technology.',
- 'Webcore Solutions helps businesses in Dubai and globally make confident technology decisions — from architecture audits to vendor selection and long-term roadmap planning.',
+ 'Our IT consulting team helps businesses make confident technology decisions — working with clients across Dubai, the UAE, UK, Europe, Pakistan, and America, from architecture audits to vendor selection and long-term roadmap planning.',
  '{
    "badge": { "icon": "Lightbulb", "label": "IT Consultation" },
    "glow_color": "#6366f1",
@@ -67,7 +67,7 @@ VALUES
 ('it-consultation', 'overview',
  'Technology decisions your board can stand behind.',
  'Strategy Overview',
- 'We work alongside your leadership team to cut through complexity — turning ambiguous technology choices into clear, confident decisions backed by real-world data and senior practitioner experience.',
+ 'We work alongside your leadership team to cut through complexity and deliver strategic clarity — turning ambiguous technology choices into clear, confident decisions backed by real-world data and senior practitioner experience.',
  '{
    "heading_accent": "board can stand behind.",
    "image": "it-1",
@@ -168,9 +168,9 @@ VALUES
  'Start your IT consultation',
  '{
    "items": [
-     { "name": "Michael Torres", "role": "Head of Engineering, Avanta Systems", "quote": "The technology roadmap Webcore Solutions produced was the most actionable document we''d had in three years. It cut our infrastructure costs by 30% in the first quarter.", "photo": "/michael-torres.webp", "stars": 5, "color": "#f59e0b" },
-     { "name": "Rania Aziz", "role": "COO, Meridian Group", "quote": "We were locked into a stack that couldn''t scale. Webcore''s IT audit identified exactly what to rip out and what to keep. Six months later, our systems are stable and our team moves faster.", "photo": "/rania-aziz.webp", "stars": 5, "color": "#6366f1" },
-     { "name": "James Hartley", "role": "VP Technology, Apex Financial", "quote": "Webcore''s cloud migration roadmap was thorough and risk-aware. The phased approach they recommended meant we didn''t lose a single day of uptime during the transition.", "photo": "/james-hartley.webp", "stars": 5, "color": "#06b6d4" }
+     { "name": "Michael Torres", "role": "Head of Engineering, Avanta Systems", "quote": "The technology roadmap Webcore Solutions produced was the most actionable document we''d had in three years. It cut our infrastructure costs by 30% in the first quarter.", "photo": "https://ui-avatars.com/api/?name=Michael+Torres&background=f59e0b&color=fff&size=80", "stars": 5, "color": "#f59e0b" },
+     { "name": "Rania Aziz", "role": "COO, Meridian Group", "quote": "We were locked into a stack that couldn''t scale. Webcore''s IT audit identified exactly what to rip out and what to keep. Six months later, our systems are stable and our team moves faster.", "photo": "https://ui-avatars.com/api/?name=Rania+Aziz&background=6366f1&color=fff&size=80", "stars": 5, "color": "#6366f1" },
+     { "name": "James Hartley", "role": "VP Technology, Apex Financial", "quote": "Webcore''s cloud migration roadmap was thorough and risk-aware. The phased approach they recommended meant we didn''t lose a single day of uptime during the transition.", "photo": "https://ui-avatars.com/api/?name=James+Hartley&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" }
    ]
  }'::jsonb,
  7, true),
@@ -243,7 +243,7 @@ VALUES
 ('cms-development', 'overview',
  'A CMS your editors will actually love using.',
  'Platform Overview',
- 'Purpose-built for editorial speed — every workflow is designed around the people who use it daily. No tickets, no queues, no waiting. Your team publishes on their own terms from day one.',
+ 'Purpose-built to empower editorial teams — every workflow is designed around the people who use it daily. No tickets, no queues, no waiting. Your team publishes on their own terms from day one.',
  '{
    "heading_accent": "actually love",
    "image": "cms-1",
@@ -344,9 +344,9 @@ VALUES
  'Start your CMS project',
  '{
    "items": [
-     { "name": "Sophie Carver", "role": "Head of Content, Resolve Media", "quote": "We moved from a rigid CMS that required a developer for every change to a headless platform built by Webcore. Our editors were fully independent within a week of training.", "photo": "/sophie-carver.webp", "stars": 5, "color": "#f59e0b" },
-     { "name": "Omar Al Nasser", "role": "Digital Director, Kestrel Retail", "quote": "The composable content platform Webcore Solutions built handles our 10,000-SKU catalogue without breaking a sweat. Publishing time went from 2 hours to 15 minutes.", "photo": "/omar-al-nasser.webp", "stars": 5, "color": "#8b5cf6" },
-     { "name": "Emma Clarke", "role": "Marketing Manager, Horizon Group", "quote": "We needed a WordPress build that non-technical editors could actually use. Webcore designed the editorial workflow from scratch and it''s genuinely a pleasure to work in.", "photo": "/emma-clarke.webp", "stars": 5, "color": "#06b6d4" }
+     { "name": "Sophie Carver", "role": "Head of Content, Resolve Media", "quote": "We moved from a rigid CMS that required a developer for every change to a headless platform built by Webcore. Our editors were fully independent within a week of training.", "photo": "https://ui-avatars.com/api/?name=Sophie+Carver&background=f59e0b&color=fff&size=80", "stars": 5, "color": "#f59e0b" },
+     { "name": "Omar Al Nasser", "role": "Digital Director, Kestrel Retail", "quote": "The composable content platform Webcore Solutions built handles our 10,000-SKU catalogue without breaking a sweat. Publishing time went from 2 hours to 15 minutes.", "photo": "https://ui-avatars.com/api/?name=Omar+Al+Nasser&background=8b5cf6&color=fff&size=80", "stars": 5, "color": "#8b5cf6" },
+     { "name": "Emma Clarke", "role": "Marketing Manager, Horizon Group", "quote": "We needed a WordPress build that non-technical editors could actually use. Webcore designed the editorial workflow from scratch and it''s genuinely a pleasure to work in.", "photo": "https://ui-avatars.com/api/?name=Emma+Clarke&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" }
    ]
  }'::jsonb,
  7, true),
@@ -395,7 +395,7 @@ VALUES
 ('web-development', 'hero',
  'Websites that convert and scale.',
  'Websites that|convert and scale.',
- 'Webcore Solutions designs and builds websites for businesses in Dubai and internationally — from marketing sites to high-traffic e-commerce, engineered for performance, SEO and long-term growth.',
+ 'As a web development company trusted by clients in Dubai, the UK, Europe, Pakistan, and the US, Webcore Solutions designs and builds websites — from marketing sites to high-traffic e-commerce, engineered for performance, SEO and long-term growth.',
  '{
    "badge": { "icon": "Globe", "label": "Web Development" },
    "glow_color": "#6366f1",
@@ -483,7 +483,7 @@ VALUES
 ('web-development', 'tech_stack',
  'We speak your stack.',
  'Tech Stack',
- 'Deep hands-on experience across all major cloud platforms and infrastructure tooling — so our advice is always grounded in real-world implementation.',
+ 'Deep hands-on experience across the full web development stack — from React and Next.js frontends to Node.js APIs and headless CMS integrations — so every build is grounded in production-proven tooling.',
  '{
    "glow_color": "#06b6d4",
    "items": [
@@ -520,9 +520,9 @@ VALUES
  'Start your web project',
  '{
    "items": [
-     { "name": "Ahmed Khalil", "role": "Founder, Dunescape", "quote": "Our new site loads in under a second and our conversion rate jumped 40% in the first month. The team''s attention to detail — from animations to accessibility — is genuinely elite.", "photo": "/ahmed-khalil.webp", "stars": 5, "color": "#6366f1" },
-     { "name": "Sarah Lin", "role": "CTO, NorthPeak", "quote": "We moved from a sluggish WordPress theme to a custom Next.js build. The difference is night and day — both for our users and for our developers maintaining it.", "photo": "/sarah-lin.webp", "stars": 5, "color": "#06b6d4" },
-     { "name": "Connor James", "role": "Managing Director", "quote": "The Figma design system they built has transformed how fast we can iterate. We launch new landing pages in hours, not weeks — and they look consistent every time.", "photo": "/connor-james.webp", "stars": 5, "color": "#10b981" }
+     { "name": "Ahmed Khalil", "role": "Founder, Dunescape", "quote": "Our new site loads in under a second and our conversion rate jumped 40% in the first month. The team''s attention to detail — from animations to accessibility — is genuinely elite.", "photo": "https://ui-avatars.com/api/?name=Ahmed+Khalil&background=6366f1&color=fff&size=80", "stars": 5, "color": "#6366f1" },
+     { "name": "Sarah Lin", "role": "CTO, NorthPeak", "quote": "We moved from a sluggish WordPress theme to a custom Next.js build. The difference is night and day — both for our users and for our developers maintaining it.", "photo": "https://ui-avatars.com/api/?name=Sarah+Lin&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" },
+     { "name": "Connor James", "role": "Managing Director", "quote": "The Figma design system they built has transformed how fast we can iterate. We launch new landing pages in hours, not weeks — and they look consistent every time.", "photo": "https://ui-avatars.com/api/?name=Connor+James&background=10b981&color=fff&size=80", "stars": 5, "color": "#10b981" }
    ]
  }'::jsonb,
  7, true),
@@ -571,7 +571,7 @@ VALUES
 ('software-development', 'hero',
  'Custom software, engineered to scale.',
  'Custom software,|engineered to scale.',
- 'Webcore Solutions builds custom software for businesses in Dubai and internationally — SaaS platforms, ERPs, internal tools and data systems built with the rigour your business deserves.',
+ 'As a software development company serving businesses across the UAE, UK, Europe, Pakistan, and America, Webcore Solutions builds custom software — SaaS platforms, ERPs, internal tools and data systems built with the rigour your business deserves.',
  '{
    "badge": { "icon": "Database", "label": "Software Development" },
    "glow_color": "#06b6d4",
@@ -595,7 +595,7 @@ VALUES
 ('software-development', 'overview',
  'Production-grade code, built to last.',
  'Our Engineering',
- 'Every system we ship is architected for the long term — clean separation of concerns, comprehensive test coverage and CI/CD pipelines that let your team move fast without breaking things.',
+ 'Every system we ship is engineered and architected for the long term — clean separation of concerns, comprehensive test coverage and CI/CD pipelines that let your team move fast without breaking things.',
  '{
    "heading_accent": "built to last.",
    "image": "software-1",
@@ -697,9 +697,9 @@ VALUES
  'Start your software project',
  '{
    "items": [
-     { "name": "Liam Chen", "role": "CTO, Pillar SaaS", "quote": "Webcore Solutions took a complex data architecture and built a system that''s handled 10× the load we originally projected. The codebase is clean and our engineers love maintaining it.", "photo": "/liam-chen.webp", "stars": 5, "color": "#6366f1" },
-     { "name": "Nadia Petrov", "role": "Founder, Fieldwork Tools", "quote": "From discovery to our first paying users was fourteen weeks. The team understood what a B2B SaaS needs at early stage — fast iteration, clean APIs, a solid auth layer.", "photo": "/nadia-petrov.webp", "stars": 5, "color": "#06b6d4" },
-     { "name": "Andrew Walsh", "role": "Head of Product, CoreBridge", "quote": "We had a legacy internal tool that cost our ops team hours every day. Webcore rebuilt it in eight weeks. The time savings paid for the engagement within the first month.", "photo": "/andrew-walsh.webp", "stars": 5, "color": "#10b981" }
+     { "name": "Liam Chen", "role": "CTO, Pillar SaaS", "quote": "Webcore Solutions took a complex data architecture and built a system that''s handled 10× the load we originally projected. The codebase is clean and our engineers love maintaining it.", "photo": "https://ui-avatars.com/api/?name=Liam+Chen&background=6366f1&color=fff&size=80", "stars": 5, "color": "#6366f1" },
+     { "name": "Nadia Petrov", "role": "Founder, Fieldwork Tools", "quote": "From discovery to our first paying users was fourteen weeks. The team understood what a B2B SaaS needs at early stage — fast iteration, clean APIs, a solid auth layer.", "photo": "https://ui-avatars.com/api/?name=Nadia+Petrov&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" },
+     { "name": "Andrew Walsh", "role": "Head of Product, CoreBridge", "quote": "We had a legacy internal tool that cost our ops team hours every day. Webcore rebuilt it in eight weeks. The time savings paid for the engagement within the first month.", "photo": "https://ui-avatars.com/api/?name=Andrew+Walsh&background=10b981&color=fff&size=80", "stars": 5, "color": "#10b981" }
    ]
  }'::jsonb,
  7, true),
@@ -872,9 +872,9 @@ VALUES
  'Start your SEO project',
  '{
    "items": [
-     { "name": "Tariq Hassan", "role": "Marketing Director, Atlas Commerce", "quote": "Our organic traffic doubled in five months after Webcore Solutions restructured our technical SEO foundation. The keyword strategy they produced was the most thorough we''ve seen from any agency.", "photo": "/tariq-hassan.webp", "stars": 5, "color": "#10b981" },
-     { "name": "Claire Bennett", "role": "CMO, Nexus Digital", "quote": "We were invisible on AI search tools. Webcore''s GEO work changed that — we''re now being cited by Perplexity and Gemini for queries in our core market.", "photo": "/claire-bennett.webp", "stars": 5, "color": "#06b6d4" },
-     { "name": "Daniyar Bekova", "role": "CEO, Steppe Commerce", "quote": "The SEO audit identified seventeen critical issues we had no idea about. Within three months of fixes, we climbed from page 5 to position 2 for our primary keyword.", "photo": "/daniyar-bekova.webp", "stars": 5, "color": "#f59e0b" }
+     { "name": "Tariq Hassan", "role": "Marketing Director, Atlas Commerce", "quote": "Our organic traffic doubled in five months after Webcore Solutions restructured our technical SEO foundation. The keyword strategy they produced was the most thorough we''ve seen from any agency.", "photo": "https://ui-avatars.com/api/?name=Tariq+Hassan&background=10b981&color=fff&size=80", "stars": 5, "color": "#10b981" },
+     { "name": "Claire Bennett", "role": "CMO, Nexus Digital", "quote": "We were invisible on AI search tools. Webcore''s GEO work changed that — we''re now being cited by Perplexity and Gemini for queries in our core market.", "photo": "https://ui-avatars.com/api/?name=Claire+Bennett&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" },
+     { "name": "Daniyar Bekova", "role": "CEO, Steppe Commerce", "quote": "The SEO audit identified seventeen critical issues we had no idea about. Within three months of fixes, we climbed from page 5 to position 2 for our primary keyword.", "photo": "https://ui-avatars.com/api/?name=Daniyar+Bekova&background=f59e0b&color=fff&size=80", "stars": 5, "color": "#f59e0b" }
    ]
  }'::jsonb,
  7, true),
@@ -923,7 +923,7 @@ VALUES
 ('graphic-design', 'hero',
  'Brand identity that commands attention.',
  'Brand identity that|commands attention.',
- 'Webcore Solutions creates brand identity for businesses in Dubai and globally — from distinctive logos to editorial-grade brand systems that earn trust at first glance.',
+ 'As a graphic design and branding agency working with clients across Dubai, the UK, Europe, Pakistan, and the US, Webcore Solutions creates brand identity — from distinctive logos to editorial-grade brand systems that earn trust at first glance.',
  '{
    "badge": { "icon": "Palette", "label": "Graphic Design" },
    "glow_color": "#ec4899",
@@ -947,7 +947,7 @@ VALUES
 ('graphic-design', 'overview',
  'Design that earns trust at first glance.',
  'Our Creative Craft',
- 'Every brand we build starts with strategy and ends with a system — not just a logo. We create visual identities that are distinctive, consistent and built to work everywhere your business shows up.',
+ 'Every brand we build starts with strategy and ends with a system — not just a logo. We create visual identities that command attention, are distinctive and consistent, and built to work everywhere your business shows up.',
  '{
    "heading_accent": "at first glance.",
    "image": "graphics-1",
@@ -1046,9 +1046,9 @@ VALUES
  'Start your brand project',
  '{
    "items": [
-     { "name": "Isabella Moreau", "role": "Brand Manager, Lune Hospitality", "quote": "Webcore Solutions took a brief that was all over the place and delivered a brand identity that felt completely right. Every team member said ''that''s us'' the first time they saw it.", "photo": "/isabella-moreau.webp", "stars": 5, "color": "#ec4899" },
-     { "name": "Khalid Al-Farsi", "role": "Founder, Prestige Auto UAE", "quote": "The company profile Webcore produced for our investor meetings is genuinely impressive — it communicates credibility in a way our old materials never did.", "photo": "/khalid-al-farsi.webp", "stars": 5, "color": "#8b5cf6" },
-     { "name": "Rachel Kim", "role": "Marketing Lead, Latitude Consulting", "quote": "The visual identity system Webcore designed has scaled across 40+ assets without losing consistency. The Figma file they delivered is the most organised brand library I''ve ever worked with.", "photo": "/rachel-kim.webp", "stars": 5, "color": "#06b6d4" }
+     { "name": "Isabella Moreau", "role": "Brand Manager, Lune Hospitality", "quote": "Webcore Solutions took a brief that was all over the place and delivered a brand identity that felt completely right. Every team member said ''that''s us'' the first time they saw it.", "photo": "https://ui-avatars.com/api/?name=Isabella+Moreau&background=ec4899&color=fff&size=80", "stars": 5, "color": "#ec4899" },
+     { "name": "Khalid Al-Farsi", "role": "Founder, Prestige Auto UAE", "quote": "The company profile Webcore produced for our investor meetings is genuinely impressive — it communicates credibility in a way our old materials never did.", "photo": "https://ui-avatars.com/api/?name=Khalid+Al+Farsi&background=8b5cf6&color=fff&size=80", "stars": 5, "color": "#8b5cf6" },
+     { "name": "Rachel Kim", "role": "Marketing Lead, Latitude Consulting", "quote": "The visual identity system Webcore designed has scaled across 40+ assets without losing consistency. The Figma file they delivered is the most organised brand library I''ve ever worked with.", "photo": "https://ui-avatars.com/api/?name=Rachel+Kim&background=06b6d4&color=fff&size=80", "stars": 5, "color": "#06b6d4" }
    ]
  }'::jsonb,
  7, true),

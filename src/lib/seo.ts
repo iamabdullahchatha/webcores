@@ -229,7 +229,7 @@ export const pageSeo = {
   uaeSoftwareDevelopmentCompany: {
     label: "UAE Software Development Company",
     path: "/uae-software-development-company",
-    title: "UAE Software Development Company | Custom SaaS, APIs, Platforms",
+    title: "UAE Software Development Company | Webcore",
     description:
       "UAE software development company building custom SaaS, APIs, internal tools and enterprise platforms across Dubai and the GCC.",
     keywords: [
@@ -723,7 +723,6 @@ export function getSeoHead(
     links: [
       { rel: "canonical", href: canonical },
       { rel: "alternate", hrefLang: "en-ae", href: canonical },
-      { rel: "alternate", hrefLang: "en", href: canonical },
       { rel: "alternate", hrefLang: "x-default", href: canonical },
     ],
   };

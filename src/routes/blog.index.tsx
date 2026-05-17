@@ -119,8 +119,8 @@ function BlogIndex() {
               {...fadeUp(0.18)}
               className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
-              Practical thinking on web development, software, SEO and growth — written
-              by the team that ships it.
+              Practical thinking on web development, software, SEO and growth — field notes written
+              by the team that ships it. We publish on web performance, SEO, software architecture, and the tools shaping digital business in 2025 and beyond. Posts go out regularly — written by the team actually doing the work, not generated for volume.
             </motion.p>
           </div>
         </motion.div>

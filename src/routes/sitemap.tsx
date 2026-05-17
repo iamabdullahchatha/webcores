@@ -15,6 +15,7 @@ import {
   Users,
   HelpCircle,
   Mail,
+  MapPin,
   ArrowRight,
   ArrowUpRight,
 } from "lucide-react";
@@ -197,6 +198,41 @@ const legalPages: SitemapEntry[] = [
   },
 ];
 
+const locationPages: SitemapEntry[] = [
+  {
+    label: "Webcore Solutions Dubai",
+    path: "/webcore-solutions-dubai",
+    description: "Full-service digital agency headquartered in Dubai — web, software, SEO, and design since 2012.",
+    icon: MapPin,
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.10)",
+  },
+  {
+    label: "Dubai Web Development Agency",
+    path: "/dubai-web-development-agency",
+    description: "Dubai web development for high-performance sites, ecommerce stores, and React applications.",
+    icon: Globe,
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.10)",
+  },
+  {
+    label: "Dubai SEO Agency",
+    path: "/dubai-seo-agency",
+    description: "Technical SEO, GEO, and Arabic-English bilingual search optimisation for Dubai businesses.",
+    icon: Search,
+    color: "#3b82f6",
+    bg: "rgba(59,130,246,0.10)",
+  },
+  {
+    label: "UAE Software Development Company",
+    path: "/uae-software-development-company",
+    description: "Custom SaaS, APIs, data systems, and AI integrations built by our UAE team since 2012.",
+    icon: Code2,
+    color: "#8b5cf6",
+    bg: "rgba(139,92,246,0.10)",
+  },
+];
+
 function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
   return (
     <TiltCard>
@@ -277,7 +313,7 @@ function SitemapPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const totalPages = mainPages.length + servicePages.length + legalPages.length;
+  const totalPages = mainPages.length + servicePages.length + legalPages.length + locationPages.length;
 
   return (
     <Layout>
@@ -338,7 +374,7 @@ function SitemapPage() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Every page on Webcore Solutions — organised by section, easy to scan and built for fast
+                Every page on Webcore Solutions, mapped and organised by section — easy to scan and built for fast
                 navigation.
               </motion.p>
 
@@ -350,7 +386,7 @@ function SitemapPage() {
               >
                 {[
                   { label: `${totalPages} Pages`, color: "#06b6d4" },
-                  { label: "3 Sections", color: "#8b5cf6" },
+                  { label: "4 Sections", color: "#8b5cf6" },
                   { label: "Updated 17 May 2026", color: "#10b981" },
                 ].map((tag) => (
                   <span
@@ -375,8 +411,16 @@ function SitemapPage() {
       >
         <SitemapGroup title="Main Pages" entries={mainPages} delay={0} columns={2} />
         <SitemapGroup title="Services" entries={servicePages} delay={0.05} columns={2} />
-        <SitemapGroup title="Legal" entries={legalPages} delay={0.1} columns={2} />
+        <SitemapGroup title="Location Pages" entries={locationPages} delay={0.1} columns={2} />
+        <SitemapGroup title="Legal" entries={legalPages} delay={0.15} columns={2} />
       </nav>
+
+      {/* ══════════════════════ INTRO PARAGRAPH ══════════════════════════ */}
+      <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
+        <motion.p {...fadeUp()} className="text-base text-muted-foreground leading-relaxed">
+          Use this sitemap to quickly navigate to any section of the Webcore Solutions website. Whether you're looking for our core services, recent blog articles, or contact information, every page is listed and linked here for your convenience. Every page on this site is built to be useful — whether you're exploring our services, reading about our approach, or looking for a specific solution. If you can't find what you need, the contact page is always the fastest way to reach us directly.
+        </motion.p>
+      </section>
 
       {/* ══════════════════════ XML SITEMAP CTA ══════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-28">

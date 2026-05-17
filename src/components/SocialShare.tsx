@@ -51,7 +51,7 @@ export function SocialShare({
           key={name}
           href={href}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           aria-label={`Visit us on ${name}`}
           className="group relative inline-flex h-10 w-10 items-center justify-center rounded-xl glass border border-border/30 hover:border-primary/40 hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5"
         >

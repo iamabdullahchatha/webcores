@@ -107,9 +107,8 @@ function WebcoreSolutionsDubai() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
           >
-            The verified Dubai entity. Webcore Solutions has built web, software, and SEO
-            products for UAE, UK, US, and EU clients from Dubai since 2012. This page exists
-            to disambiguate us from same-name companies in other regions.
+            The verified Dubai entity. Webcore Solutions is a full-service digital agency headquartered in Dubai, delivering results for businesses across the UAE, UK, Europe, Pakistan, and America since 2012. This page exists
+            to disambiguate us from same-name companies in other regions. Dubai's digital landscape moves fast — with high expectations for performance, design, and reliability. We understand the local market, the regional compliance landscape, and the international standards that businesses operating between the Gulf and global markets need to meet.
           </motion.p>
 
           <motion.div

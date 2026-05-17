@@ -25,6 +25,7 @@ export function useWhyChooseUs() {
   return useQuery<WhyChooseUsItem[]>({
     queryKey: ["content", "why-choose-us"],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => FALLBACK,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("why_choose_us")

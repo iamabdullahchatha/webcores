@@ -51,6 +51,7 @@ export function useFaqs(pageScope: string = "home") {
   return useQuery<FaqCategory[]>({
     queryKey: ["content", "faqs", pageScope],
     staleTime: 5 * 60 * 1000,
+    placeholderData: () => (pageScope === "home" ? HOME_FALLBACK : []),
     queryFn: async () => {
       const { data, error } = await supabase
         .from("faqs")
