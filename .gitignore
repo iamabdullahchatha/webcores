@@ -15,6 +15,12 @@ dist-ssr
 .nitro
 *.local
 
+# Build artifacts
+.seo-server
+build*.log
+# Generated at build time from supabase/seeds/*.sql (see scripts/generate-seed-fallback.mjs)
+src/lib/content/seedFallback.generated.ts
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

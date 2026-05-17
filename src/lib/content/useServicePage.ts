@@ -1,6 +1,7 @@
 import { useQuery, type QueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
+import { serviceFallback } from "./seedFallback.generated";
 
 import imgIt1       from "@/assets/it-1.webp";
 import imgCms1      from "@/assets/cms-1.webp";
@@ -67,7 +68,10 @@ export function useServicePage(slug: string) {
   return useQuery<ServicePage | null>({
     queryKey: ["content", "service-page", slug],
     staleTime: 60_000,
-    placeholderData: (prev) => prev ?? undefined,
+    // Show the seeded content during SSR / first paint so crawlers and users
+    // see a real page instead of a skeleton. The live Supabase fetch still
+    // runs and replaces this — the DB stays the source of truth.
+    placeholderData: (prev) => prev ?? serviceFallback[slug] ?? undefined,
     queryFn: () => queryFn(slug),
   });
 }

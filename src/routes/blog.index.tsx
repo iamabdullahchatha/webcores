@@ -7,6 +7,7 @@ import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { usePageSeoOverrides } from "@/lib/content";
+import { blogFallback } from "@/lib/content/seedFallback.generated";
 import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/blog/")({
@@ -63,7 +64,10 @@ function BlogIndex() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const [posts, setPosts] = useState<PostCard[] | null>(null);
+  // Seed with the same published posts the DB ships, so SSR/first paint has
+  // real content for crawlers. The effect below still fetches live data and
+  // replaces this — Supabase remains the source of truth.
+  const [posts, setPosts] = useState<PostCard[] | null>(blogFallback as PostCard[]);
 
   useEffect(() => {
     let active = true;

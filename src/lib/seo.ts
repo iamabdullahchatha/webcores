@@ -722,9 +722,9 @@ export function getSeoHead(
     ],
     links: [
       { rel: "canonical", href: canonical },
-      { rel: "alternate", hrefLang: "en-ae", href: `${SITE_URL}/` },
-      { rel: "alternate", hrefLang: "en", href: `${SITE_URL}/` },
-      { rel: "alternate", hrefLang: "x-default", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "en-ae", href: canonical },
+      { rel: "alternate", hrefLang: "en", href: canonical },
+      { rel: "alternate", hrefLang: "x-default", href: canonical },
     ],
   };
 }

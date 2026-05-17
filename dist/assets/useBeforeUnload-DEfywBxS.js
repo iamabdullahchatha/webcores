@@ -1,0 +1,1 @@
+import{r as o}from"./react-g_l-75bF.js";function a(e){o.useEffect(()=>{if(!e)return;const r=n=>{n.preventDefault()};return window.addEventListener("beforeunload",r),()=>window.removeEventListener("beforeunload",r)},[e])}export{a as u};
