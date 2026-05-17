@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { SocialShare } from "@/components/SocialShare";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -420,7 +421,10 @@ function Index() {
                 <span className="text-primary">{hero?.badgeFlag ?? "Est. Dubai, UAE"}</span>
               </motion.div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
+              <h1
+                className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word"
+                aria-label="Web Development & SEO Agency Dubai — Transforming Ideas into Digital Reality"
+              >
                 Transforming{" "}
                 <span className="gradient-text">Ideas</span>{" "}
                 <br className="hidden md:block" />
@@ -1089,6 +1093,47 @@ function Index() {
           </div>
         </motion.div>
       </section>
+
+      <section className="py-10 flex justify-center">
+        <SocialShare />
+      </section>
+
+    {/* SEO text mirror — crawler-only, aria-hidden, sr-only */}
+    <section aria-hidden="true" className="sr-only">
+      <h2>Web Development Agency Dubai</h2>
+      <p>
+        Webcore Solutions is a digital studio in Dubai delivering production-grade websites,
+        custom software, CMS development, SEO, GEO optimization, graphic design, and IT
+        consultation for 450+ companies worldwide. We serve clients across the UAE, United
+        Kingdom, United States, Europe, and Pakistan.
+      </p>
+      <h2>Our Services</h2>
+      <ul>
+        <li>Web Development — custom, performance-first websites built for conversion and scale.</li>
+        <li>Software Development — bespoke applications, SaaS platforms, and business automation.</li>
+        <li>CMS Development — headless and traditional CMS builds on WordPress, Sanity, and more.</li>
+        <li>SEO and GEO Optimization — technical SEO, content strategy, and AI-search visibility.</li>
+        <li>Graphic Design — brand identity, UI/UX design, and visual systems.</li>
+        <li>IT Consultation — architecture reviews, cloud strategy, and fractional CTO services.</li>
+      </ul>
+      <h2>Why Choose Webcore Solutions</h2>
+      <p>
+        Client Obsession: every decision traces back to your outcomes. Deep Curiosity: we ask
+        better questions and find solutions others miss. Radical Integrity: honest scopes,
+        transparent pricing, no surprises — dependable delivery every time.
+      </p>
+      <h2>Our Process</h2>
+      <p>
+        We start with a discovery call to understand your goals and constraints. We design and
+        prototype rapidly, then build with senior engineers using modern frameworks. After launch
+        we provide ongoing SEO, performance monitoring, and growth support.
+      </p>
+      <p>
+        Based in Dubai, United Arab Emirates. Contact us to book a free 45-minute strategy call.
+        Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+        No commitment required. Response within 24 hours. Completely free.
+      </p>
+    </section>
 
     </Layout>
   );

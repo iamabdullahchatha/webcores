@@ -105,7 +105,7 @@ export function Header() {
           <Link
             to="/"
             className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
-            aria-label="Home"
+            aria-label="Webcore Solutions — Home"
           >
             <img
               src={logoSrc}
@@ -116,6 +116,7 @@ export function Header() {
               fetchPriority="high"
               className="h-10 md:h-12 w-auto"
             />
+            <span className="sr-only">Webcore Solutions</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -198,6 +199,7 @@ export function Header() {
             >
               <Link
                 to="/contact"
+                aria-label="Get in Touch — start a project"
                 className="inline-flex items-center rounded-xl gradient-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold shadow-elegant hover:shadow-glow transition-all duration-200"
               >
                 Get in Touch
@@ -274,6 +276,7 @@ export function Header() {
                 >
                   <Link
                     to="/contact"
+                    aria-label="Get in Touch — mobile menu"
                     onClick={() => setOpen(false)}
                     className="block px-4 py-3 rounded-lg gradient-primary text-primary-foreground text-sm font-semibold text-center transition-all duration-200 hover:shadow-glow"
                   >

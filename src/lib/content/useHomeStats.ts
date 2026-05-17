@@ -39,7 +39,14 @@ export function useHomeStats() {
 
       if (error || !data?.length) return FALLBACK;
 
-      return (data as unknown as Row[]).map((row, i) => ({
+      // Filter out any placeholder/invalid rows (e.g. "New stat" created by accident)
+      const validRows = (data as unknown as Row[]).filter(
+        (row) => row.value && row.label && row.label !== "New stat" && row.value !== "0"
+      );
+
+      if (!validRows.length) return FALLBACK;
+
+      return validRows.map((row, i) => ({
         v: row.value,
         l: row.label,
         icon: ICON_MAP[row.icon_name ?? ""] ?? FALLBACK[i % FALLBACK.length].icon,
