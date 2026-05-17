@@ -351,7 +351,7 @@ function SitemapPage() {
                 {[
                   { label: `${totalPages} Pages`, color: "#06b6d4" },
                   { label: "3 Sections", color: "#8b5cf6" },
-                  { label: "Updated 12 May 2026", color: "#10b981" },
+                  { label: "Updated 17 May 2026", color: "#10b981" },
                 ].map((tag) => (
                   <span
                     key={tag.label}

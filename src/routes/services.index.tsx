@@ -316,8 +316,8 @@ function Services() {
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                A full-stack{" "}
-                <span className="gradient-text">digital studio.</span>
+                Digital services{" "}
+                <span className="gradient-text">in Dubai.</span>
               </motion.h1>
 
               <motion.p
@@ -452,7 +452,7 @@ function Services() {
               Let's build something great.
             </h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+              Tell us what you need. We'll map the right services, estimate effort and timeline, then send a fixed-scope proposal within 48 hours.
             </p>
             <Link
               to="/contact"

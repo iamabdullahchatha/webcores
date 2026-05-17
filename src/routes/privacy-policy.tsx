@@ -154,7 +154,7 @@ function PrivacyPolicy() {
       <article className="mx-auto max-w-4xl px-4 py-20 pb-28 space-y-6">
         <Section title="Who We Are" index={0}>
           <p>
-            <strong className="text-foreground">Webcore Solutions</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;)
+            <span className="font-bold text-foreground">Webcore Solutions</span> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;)
             is a digital agency headquartered in Dubai, United Arab Emirates. We provide web development,
             software development, CMS development, SEO, GEO, branding, UI/UX design and IT consultation
             services to clients globally.
@@ -162,7 +162,7 @@ function PrivacyPolicy() {
           <p>
             For the purposes of this policy, Webcore Solutions is the Data Controller for personal data
             collected through this website (
-            <strong className="text-foreground">webcoreuae.com</strong>).
+            <span className="font-bold text-foreground">webcoreuae.com</span>).
           </p>
           <p>
             Contact us regarding privacy matters at{" "}
@@ -180,21 +180,21 @@ function PrivacyPolicy() {
           <p>We collect personal data only when you interact with us or our website:</p>
           <ul className="list-disc list-inside space-y-2 pl-2 marker:text-primary">
             <li>
-              <strong className="text-foreground">Contact and inquiry data</strong> &mdash; name, email
+              <span className="font-bold text-foreground">Contact and inquiry data</span> &mdash; name, email
               address, phone number, company name and project details you submit through contact forms or
               direct email.
             </li>
             <li>
-              <strong className="text-foreground">Communication data</strong> &mdash; email correspondence,
+              <span className="font-bold text-foreground">Communication data</span> &mdash; email correspondence,
               WhatsApp messages and call records related to project discussions.
             </li>
             <li>
-              <strong className="text-foreground">Analytics data</strong> &mdash; aggregated usage data
+              <span className="font-bold text-foreground">Analytics data</span> &mdash; aggregated usage data
               (pages visited, session duration, referring source) collected by Ahrefs Analytics. This data
               does not identify individual users.
             </li>
             <li>
-              <strong className="text-foreground">Technical data</strong> &mdash; IP address, browser type,
+              <span className="font-bold text-foreground">Technical data</span> &mdash; IP address, browser type,
               device type and operating system, collected automatically by server infrastructure.
             </li>
           </ul>
@@ -225,20 +225,20 @@ function PrivacyPolicy() {
           </p>
           <ul className="list-disc list-inside space-y-2 pl-2 marker:text-primary">
             <li>
-              <strong className="text-foreground">Contract</strong> &mdash; processing is necessary to
+              <span className="font-bold text-foreground">Contract</span> &mdash; processing is necessary to
               fulfil a contract or take pre-contractual steps at your request.
             </li>
             <li>
-              <strong className="text-foreground">Legitimate interests</strong> &mdash; responding to
+              <span className="font-bold text-foreground">Legitimate interests</span> &mdash; responding to
               inquiries and managing client relationships, where our legitimate interests do not override
               your rights.
             </li>
             <li>
-              <strong className="text-foreground">Legal obligation</strong> &mdash; processing required to
+              <span className="font-bold text-foreground">Legal obligation</span> &mdash; processing required to
               comply with applicable law.
             </li>
             <li>
-              <strong className="text-foreground">Consent</strong> &mdash; where you have explicitly
+              <span className="font-bold text-foreground">Consent</span> &mdash; where you have explicitly
               agreed (for example, when subscribing to updates).
             </li>
           </ul>
@@ -251,15 +251,15 @@ function PrivacyPolicy() {
           </p>
           <ul className="list-disc list-inside space-y-2 pl-2 marker:text-primary">
             <li>
-              <strong className="text-foreground">Resend</strong> &mdash; transactional email delivery for
+              <span className="font-bold text-foreground">Resend</span> &mdash; transactional email delivery for
               contact form responses and project communications.
             </li>
             <li>
-              <strong className="text-foreground">Ahrefs Analytics</strong> &mdash; aggregated website
+              <span className="font-bold text-foreground">Ahrefs Analytics</span> &mdash; aggregated website
               analytics (no personal data transmitted).
             </li>
             <li>
-              <strong className="text-foreground">Vercel</strong> &mdash; website hosting and serverless
+              <span className="font-bold text-foreground">Vercel</span> &mdash; website hosting and serverless
               infrastructure.
             </li>
           </ul>
@@ -286,15 +286,15 @@ function PrivacyPolicy() {
           <p>We retain personal data for as long as necessary for the purposes outlined above:</p>
           <ul className="list-disc list-inside space-y-2 pl-2 marker:text-primary">
             <li>
-              <strong className="text-foreground">Inquiry data</strong> &mdash; 12 months from last contact
+              <span className="font-bold text-foreground">Inquiry data</span> &mdash; 12 months from last contact
               if no engagement follows.
             </li>
             <li>
-              <strong className="text-foreground">Client project data</strong> &mdash; 7 years after
+              <span className="font-bold text-foreground">Client project data</span> &mdash; 7 years after
               project completion for legal and financial compliance.
             </li>
             <li>
-              <strong className="text-foreground">Analytics data</strong> &mdash; as configured by Ahrefs
+              <span className="font-bold text-foreground">Analytics data</span> &mdash; as configured by Ahrefs
               Analytics (typically 24 months of aggregated data).
             </li>
           </ul>
@@ -307,31 +307,31 @@ function PrivacyPolicy() {
           </p>
           <ul className="list-disc list-inside space-y-2 pl-2 marker:text-primary">
             <li>
-              <strong className="text-foreground">Access</strong> &mdash; request a copy of the personal
+              <span className="font-bold text-foreground">Access</span> &mdash; request a copy of the personal
               data we hold about you.
             </li>
             <li>
-              <strong className="text-foreground">Rectification</strong> &mdash; request correction of
+              <span className="font-bold text-foreground">Rectification</span> &mdash; request correction of
               inaccurate or incomplete data.
             </li>
             <li>
-              <strong className="text-foreground">Erasure</strong> &mdash; request deletion of your
+              <span className="font-bold text-foreground">Erasure</span> &mdash; request deletion of your
               personal data where we no longer have a lawful basis to retain it.
             </li>
             <li>
-              <strong className="text-foreground">Restriction</strong> &mdash; request that we limit
+              <span className="font-bold text-foreground">Restriction</span> &mdash; request that we limit
               processing while a dispute is resolved.
             </li>
             <li>
-              <strong className="text-foreground">Portability</strong> &mdash; receive your data in a
+              <span className="font-bold text-foreground">Portability</span> &mdash; receive your data in a
               structured, machine-readable format (EEA/UK residents).
             </li>
             <li>
-              <strong className="text-foreground">Objection</strong> &mdash; object to processing based on
+              <span className="font-bold text-foreground">Objection</span> &mdash; object to processing based on
               legitimate interests.
             </li>
             <li>
-              <strong className="text-foreground">Withdraw consent</strong> &mdash; where processing is
+              <span className="font-bold text-foreground">Withdraw consent</span> &mdash; where processing is
               based on consent, you may withdraw it at any time.
             </li>
           </ul>

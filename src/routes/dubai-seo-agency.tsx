@@ -191,23 +191,22 @@ function DubaiSeoAgency() {
           </h2>
           <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
             <p>
-              Most SEO agencies in Dubai will quote you a price and promise rankings inside
-              30 days. They are either lying or they are pursuing risky tactics that will
-              get the site penalised. Webcore Solutions does neither.
+              Most SEO agencies in Dubai quote a price and promise first-page rankings inside 30 days.
+              That claim is either dishonest or relies on short-term tactics that will earn a manual
+              penalty from Google. Webcore Solutions does neither, and we say so on the first call.
             </p>
             <p>
-              What we actually deliver: a technical audit in the first two weeks, an
-              implementation plan in the second month, measurable indexation and crawl
-              improvements by month three, and competitive ranking movements typically
-              between months four and six — depending on the industry and the starting
-              point.
+              What our Dubai SEO retainer actually delivers: a full technical audit in weeks one and two,
+              a prioritised implementation plan in month two, measurable crawl and indexation improvements
+              by month three, and competitive ranking movements for target UAE queries typically between
+              months four and six — depending on domain age, competition, and the starting baseline.
             </p>
             <p>
-              For new domains targeting competitive UAE queries, real ranking traction
-              takes six to twelve months. We tell every Dubai client this on the first
-              call, and we tell them again in writing in the proposal. SEO is the
-              compound-interest investment of digital marketing — it works, but it does
-              not work fast.
+              For new domains entering competitive UAE markets — real estate, fintech, healthcare, legal —
+              meaningful organic traction takes six to twelve months of consistent execution. We communicate
+              this in writing before any engagement begins. SEO compounds like interest: the returns are
+              real, but they require patience and discipline, not shortcuts that vanish after the next
+              algorithm update.
             </p>
           </div>
         </motion.div>

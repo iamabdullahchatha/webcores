@@ -910,10 +910,10 @@ function Contact() {
                 }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Drop us a message or book a free
-                45-minute strategy call. You'll leave
-                with clarity — whether you work with us
-                or not.
+                Send the form or book a free
+                45-minute call — we reply within
+                24 hours with scope, timeline and
+                a fixed quote.
               </motion.p>
 
               <motion.div
@@ -1170,10 +1170,10 @@ function Contact() {
             </h2>
 
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              45 minutes with our senior team.
-              Walk away with clarity on scope,
-              cost, and next steps — whether you
-              work with us or not.
+              45 minutes with the engineers who
+              do the work — architecture options,
+              realistic estimates, and a clear
+              path to launch.
             </p>
 
             <Link

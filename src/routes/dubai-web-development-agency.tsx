@@ -191,26 +191,27 @@ function DubaiWebDevAgency() {
           </h2>
           <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
             <p>
-              Dubai has hundreds of web development agencies. Most are good. A few are
-              great. Webcore Solutions is in the second group, and we will not pretend
-              otherwise.
+              Dubai has hundreds of web development agencies. Most are competent. A smaller group
+              delivers work that earns client trust for years after launch. Webcore Solutions is in
+              that second group, and we have 450+ projects and a 4.9-star average to show for it.
             </p>
             <p>
-              We are also not the cheapest option. Dubai shoppers searching for
-              &ldquo;web development agency&rdquo; on the cheap end will find dozens of
-              freelancers and offshore resellers undercutting our rate. That is fair —
-              they may be the right fit for some projects.
+              We are not the cheapest Dubai web development option. Businesses searching for
+              bargain-rate agency work will find dozens of freelancers and offshore resellers who
+              undercut our quotes. For small, straightforward projects that is a legitimate choice.
+              We refer those enquiries elsewhere rather than compete on price we cannot match without
+              cutting corners.
             </p>
             <p>
-              Where we win is when the project actually has to work: a high-traffic
-              ecommerce launch, a custom Next.js platform that needs to load under one
-              second, a WordPress migration without breaking SEO equity, a brand site
-              that has to be accessible under UAE Federal Law No. 29.
+              Where a Dubai web development agency like Webcore Solutions earns its rate: high-traffic
+              WooCommerce or Shopify launches, custom Next.js platforms built for sub-one-second load
+              times, WordPress migrations that preserve years of accumulated SEO equity, and brand
+              sites that must meet UAE Federal Law No. 29 accessibility requirements.
             </p>
             <p>
-              Those are the engagements where a fixed-scope quote, a senior in-house team
-              based in Dubai, and twelve years of compounded delivery make the difference
-              between &ldquo;launched&rdquo; and &ldquo;launched well&rdquo;.
+              Those are the projects where twelve years of in-house UAE delivery, a fixed-scope quote
+              process, and a senior team who answer Dubai timezone calls make the difference between
+              a website that launches and a website that performs.
             </p>
           </div>
         </motion.div>

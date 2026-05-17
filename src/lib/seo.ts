@@ -8,9 +8,9 @@ export const FOUNDER_ID = `${SITE_URL}/#founder`;
 
 // Page publish / last-updated dates (ISO 8601). Update on each meaningful content change.
 const pageDates: Record<string, { datePublished: string; dateModified: string }> = {
-  home:                { datePublished: "2024-01-01", dateModified: "2026-05-15" },
-  about:               { datePublished: "2024-01-01", dateModified: "2026-05-12" },
-  services:            { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  home:                { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  about:               { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  services:            { datePublished: "2024-01-01", dateModified: "2026-05-17" },
   faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-12" },
   contact:             { datePublished: "2024-01-01", dateModified: "2026-05-12" },
   itConsultation:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
@@ -20,7 +20,7 @@ const pageDates: Record<string, { datePublished: string; dateModified: string }>
   seoGeo:              { datePublished: "2024-03-01", dateModified: "2026-05-12" },
   graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-12" },
   privacyPolicy:       { datePublished: "2024-01-01", dateModified: "2026-05-12" },
-  sitemapHtml:         { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  sitemapHtml:         { datePublished: "2024-01-01", dateModified: "2026-05-17" },
   webcoreSolutionsDubai:       { datePublished: "2026-05-12", dateModified: "2026-05-12" },
   dubaiWebDevAgency:           { datePublished: "2026-05-12", dateModified: "2026-05-12" },
   dubaiSeoAgency:              { datePublished: "2026-05-12", dateModified: "2026-05-12" },
@@ -104,7 +104,7 @@ export const pageSeo = {
   faqs: {
     label: "FAQs",
     path: "/faqs",
-    title: "FAQs | Web Development & SEO in Dubai — Webcore",
+    title: "FAQs | Web Development & SEO in Dubai | Webcore Solutions",
     description:
       "Webcore Solutions FAQs on services, pricing, timelines, support and technology choices for our Dubai digital agency clients.",
     keywords: ["Webcore Solutions FAQs", "digital agency questions", "software project pricing UAE"],
@@ -178,7 +178,7 @@ export const pageSeo = {
   sitemapHtml: {
     label: "Sitemap",
     path: "/sitemap",
-    title: "Sitemap | Webcore Solutions — All Pages",
+    title: "Sitemap | All Pages | Webcore Solutions Dubai",
     description:
       "Complete sitemap of all Webcore Solutions pages — services, about, FAQs and contact for the Dubai digital agency.",
     keywords: ["Webcore Solutions sitemap", "all pages Webcore"],
@@ -459,7 +459,7 @@ function organizationSchema() {
     url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/assets/logo-cacVyZP_.png`,
+      url: `${SITE_URL}/logo.png`,
       width: 512,
       height: 512,
     },

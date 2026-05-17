@@ -238,9 +238,8 @@ function About() {
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                We design and ship{" "}
-                <span className="gradient-text">premium digital</span>
-                {" "}<span className="gradient-text">products.</span>
+                Dubai digital agency{" "}
+                <span className="gradient-text">built on craft.</span>
               </motion.h1>
 
               <motion.p
@@ -355,7 +354,7 @@ function About() {
                 performance, accessibility, maintainability.
               </p>
               <p>
-                Over a decade later, we serve clients across Europe, the UK, America, Dubai and Pakistan —
+                Over a decade later, we serve clients across Dubai, the UAE, the UK, Europe, America and Pakistan —
                 building everything from custom software to e-commerce platforms, brand systems, and growth engines.
                 The team is bigger, the work is more complex, but the obsession hasn't changed.
               </p>
@@ -474,7 +473,7 @@ function About() {
             <div>
               <SectionLabel>What We Do</SectionLabel>
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
-                Six specialisms.<br />One trusted team.
+                Everything in-house.<br />Nothing outsourced.
               </h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Whether you need a single service or an end-to-end digital partner, we deliver every discipline in-house — no outsourcing, no middlemen.
@@ -572,7 +571,7 @@ function About() {
               </div>
               <h3 className="text-2xl font-bold mb-2">Still have questions?</h3>
               <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">
-                Book a free 45-minute strategy call. Walk away with clarity — whether you work with us or not.
+                Get the senior team on a free 45-minute call — honest answers on scope, timeline and budget, no sales script.
               </p>
               <Link
                 to="/contact"
