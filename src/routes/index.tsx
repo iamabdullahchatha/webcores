@@ -421,13 +421,12 @@ function Index() {
                 <span className="text-primary">{hero?.badgeFlag ?? "Est. Dubai, UAE"}</span>
               </motion.div>
 
-              <h1
-                className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word"
-              >
-                Web Development
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
+                Transforming{" "}
+                <span className="gradient-text">Ideas</span>{" "}
                 <br className="hidden md:block" />
-                &amp;{" "}
-                <span className="gradient-text">SEO Agency</span>
+                into{" "}
+                <span className="gradient-text">Digital Reality</span>
               </h1>
 
               <motion.p
