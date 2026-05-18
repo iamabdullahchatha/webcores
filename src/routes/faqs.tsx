@@ -369,8 +369,8 @@ function FAQs() {
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                Frequently{" "}
-                <span className="gradient-text">asked.</span>
+                Frequently Asked{" "}
+                <span className="gradient-text">Questions</span>
               </motion.h1>
 
               <motion.p

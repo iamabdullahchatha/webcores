@@ -423,13 +423,11 @@ function Index() {
 
               <h1
                 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word"
-                aria-label="Web Development & SEO Agency Dubai — Transforming Ideas into Digital Reality"
               >
-                Transforming{" "}
-                <span className="gradient-text">Ideas</span>{" "}
+                Web Development
                 <br className="hidden md:block" />
-                into{" "}
-                <span className="gradient-text">Digital Reality</span>
+                &amp;{" "}
+                <span className="gradient-text">SEO Agency</span>
               </h1>
 
               <motion.p
