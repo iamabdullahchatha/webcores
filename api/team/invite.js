@@ -1,10 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { validate } from "../_validate.js";
 
 /**
  * POST /api/team/invite
  * Body: { full_name, email, role: 'admin'|'editor' }
  * Auth: Bearer <supabase-access-token>. Caller must be owner or admin.
+ *
+ * Resend flow: if a pending (is_active=false) invite already exists for the
+ * email, the token and expiry are refreshed and the email is resent.
+ * Returns { success: true, resent: true } in that case.
+ *
+ * 409 is only returned when the existing profile is already active.
  */
 
 const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL ?? "https://www.webcoreuae.com";
@@ -12,87 +19,10 @@ const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", PUBLIC_SITE_URL);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") return res.status(204).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+const INVITE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-  if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
-    return res.status(500).json({ error: "Server not configured" });
-  }
-
-  const authHeader = req.headers.authorization ?? "";
-  const accessToken = authHeader.replace(/^Bearer\s+/i, "").trim();
-  if (!accessToken) return res.status(401).json({ error: "Unauthorized" });
-
-  // Use service-role client for everything — bypasses RLS and lets us verify
-  // the JWT without needing the anon key
-  const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  // Verify the caller's JWT
-  const { data: { user }, error: userErr } = await admin.auth.getUser(accessToken);
-  if (userErr || !user) return res.status(401).json({ error: "Unauthorized" });
-
-  // Check the caller's role in profiles
-  const { data: callerProfile } = await admin
-    .from("profiles")
-    .select("role, full_name, is_active")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  if (!callerProfile?.is_active || !["owner", "admin"].includes(callerProfile.role)) {
-    return res.status(403).json({ error: "Forbidden" });
-  }
-
-  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body ?? {});
-  const { full_name, email, role } = body;
-
-  if (!full_name?.trim() || !email?.trim() || !["admin", "editor"].includes(role)) {
-    return res.status(400).json({ error: "full_name, email, and role (admin|editor) are required" });
-  }
-
-  // Admin can only invite editors
-  if (callerProfile.role === "admin" && role !== "editor") {
-    return res.status(403).json({ error: "Admins can only invite editors" });
-  }
-
-  // Check for existing profile with this email
-  const { data: existing } = await admin.from("profiles").select("id").eq("email", email.trim()).maybeSingle();
-  if (existing) return res.status(409).json({ error: "A user with this email already exists" });
-
-  const inviteToken = crypto.randomUUID();
-
-  // Insert pending profile — profiles.id FK to auth.users has been dropped
-  // in migration 0004, so this placeholder UUID is allowed until accept-invite
-  // swaps it with the real auth UUID.
-  const { error: insertErr } = await admin.from("profiles").insert({
-    id: crypto.randomUUID(),
-    email: email.trim(),
-    full_name: full_name.trim(),
-    role,
-    invite_token: inviteToken,
-    invited_by: user.id,
-    is_active: false,
-  });
-
-  if (insertErr) return res.status(500).json({ error: insertErr.message });
-
-  // Send invite email via Resend
-  if (RESEND_API_KEY) {
-    try {
-      const resend = new Resend(RESEND_API_KEY);
-      const acceptUrl = `${PUBLIC_SITE_URL}/admin/accept-invite?token=${inviteToken}`;
-      const inviterName = callerProfile.full_name ?? "Webcore Admin";
-
-      await resend.emails.send({
-        from: "no-reply@webcoreuae.com",
-        to: email.trim(),
-        subject: "You've been invited to Webcore CMS",
-        html: `<!DOCTYPE html>
+function buildInviteHtml(inviterName, role, acceptUrl) {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
@@ -124,8 +54,130 @@ export default async function handler(req, res) {
     </td></tr>
   </table>
 </body>
-</html>`,
-      });
+</html>`;
+}
+
+async function sendInviteEmail(resend, { to, inviterName, role, acceptUrl }) {
+  await resend.emails.send({
+    from: "no-reply@webcoreuae.com",
+    to,
+    subject: "You've been invited to Webcore CMS",
+    html: buildInviteHtml(inviterName, role, acceptUrl),
+  });
+}
+
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", PUBLIC_SITE_URL);
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
+    return res.status(500).json({ error: "Server not configured" });
+  }
+
+  const authHeader = req.headers.authorization ?? "";
+  const accessToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+  if (!accessToken) return res.status(401).json({ error: "Unauthorized" });
+
+  const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+  // Verify the caller's JWT
+  const { data: { user }, error: userErr } = await admin.auth.getUser(accessToken);
+  if (userErr || !user) return res.status(401).json({ error: "Unauthorized" });
+
+  // Check the caller's role in profiles
+  const { data: callerProfile } = await admin
+    .from("profiles")
+    .select("role, full_name, is_active")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (!callerProfile?.is_active || !["owner", "admin"].includes(callerProfile.role)) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body ?? {});
+
+  const { valid, errors } = validate(body, {
+    full_name: { required: true, minLen: 2, maxLen: 100, pattern: /^[\p{L}\s\-'.]+$/u, patternMsg: "Name contains invalid characters" },
+    email:     { required: true, type: "email" },
+    role:      { required: true, oneOf: ["admin", "editor"] },
+  });
+  if (!valid) return res.status(400).json({ error: Object.values(errors)[0] });
+
+  const { full_name, email, role } = body;
+
+  // Admin can only invite editors
+  if (callerProfile.role === "admin" && role !== "editor") {
+    return res.status(403).json({ error: "Admins can only invite editors" });
+  }
+
+  // Check for existing profile with this email
+  const { data: existing } = await admin
+    .from("profiles")
+    .select("id, is_active, invite_token")
+    .eq("email", email.trim())
+    .maybeSingle();
+
+  // Active user — cannot overwrite
+  if (existing?.is_active) {
+    return res.status(409).json({ error: "A user with this email already exists" });
+  }
+
+  const inviteToken = crypto.randomUUID();
+  const inviteExpiresAt = new Date(Date.now() + INVITE_TTL_MS).toISOString();
+  const inviterName = callerProfile.full_name ?? "Webcore Admin";
+  const acceptUrl = `${PUBLIC_SITE_URL}/admin/accept-invite?token=${inviteToken}`;
+
+  // Pending invite exists — refresh token and expiry (resend flow)
+  if (existing && existing.invite_token !== null) {
+    const { error: updateErr } = await admin
+      .from("profiles")
+      .update({
+        invite_token: inviteToken,
+        invite_expires_at: inviteExpiresAt,
+        invited_by: user.id,
+        full_name: full_name.trim(),
+        role,
+      })
+      .eq("email", email.trim())
+      .eq("is_active", false);
+
+    if (updateErr) return res.status(500).json({ error: updateErr.message });
+
+    if (RESEND_API_KEY) {
+      try {
+        await sendInviteEmail(new Resend(RESEND_API_KEY), { to: email.trim(), inviterName, role, acceptUrl });
+      } catch (emailErr) {
+        console.error("Resend error:", emailErr?.message ?? emailErr);
+      }
+    }
+    return res.status(200).json({ success: true, resent: true });
+  }
+
+  // No existing profile — insert a new pending row.
+  // profiles.id FK to auth.users has been dropped in migration 0004,
+  // so this placeholder UUID is allowed until accept-invite swaps it.
+  const { error: insertErr } = await admin.from("profiles").insert({
+    id: crypto.randomUUID(),
+    email: email.trim(),
+    full_name: full_name.trim(),
+    role,
+    invite_token: inviteToken,
+    invite_expires_at: inviteExpiresAt,
+    invited_by: user.id,
+    is_active: false,
+  });
+
+  if (insertErr) return res.status(500).json({ error: insertErr.message });
+
+  if (RESEND_API_KEY) {
+    try {
+      await sendInviteEmail(new Resend(RESEND_API_KEY), { to: email.trim(), inviterName, role, acceptUrl });
     } catch (emailErr) {
       // Log but don't fail — the profile row is already created, the invite link works
       console.error("Resend error:", emailErr?.message ?? emailErr);

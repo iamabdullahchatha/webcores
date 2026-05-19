@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/ui/StatusBadge";
 import { ConfirmDialog } from "@/components/admin/ui/ConfirmDialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Database } from "@/lib/supabase/types";
 
 export const Route = createFileRoute("/admin/blog/")({
@@ -104,9 +105,19 @@ function BlogList() {
       {/* Table */}
       <div className="glass rounded-2xl overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="h-6 w-6 animate-spin-slow rounded-full border-2 border-primary border-t-transparent" />
-          </div>
+          <>
+            <div className="px-6 py-4 border-b border-border/40">
+              <Skeleton className="h-5 w-32" />
+            </div>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="px-6 py-4 border-b border-border/20 flex items-center gap-4">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-40 flex-1" />
+                <Skeleton className="h-6 w-20 rounded-full" />
+                <Skeleton className="h-8 w-16 rounded-lg" />
+              </div>
+            ))}
+          </>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <svg

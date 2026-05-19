@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowRight, ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { supabase } from "@/lib/supabase/client";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { blogPostFallback } from "@/lib/content/seedFallback.generated";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -265,7 +266,9 @@ function BlogPost() {
           {...fadeUp(0.05)}
           className="prose prose-webcore max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:no-underline hover:prose-a:underline"
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content ?? ""}</ReactMarkdown>
+          <ErrorBoundary variant="section" fallbackMessage="Error rendering post content.">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content ?? ""}</ReactMarkdown>
+          </ErrorBoundary>
         </motion.div>
 
         {/* End CTA — matches service-page CTA style */}

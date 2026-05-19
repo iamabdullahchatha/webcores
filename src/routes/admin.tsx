@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-
 import { AuthProvider, useAuth } from "@/lib/auth/AuthContext";
 import { getSession } from "@/lib/auth";
 import { AdminLayout } from "@/components/admin/AdminLayout";
+import { AdminErrorBoundary } from "@/components/admin/AdminErrorBoundary";
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async ({ location }) => {
@@ -57,7 +58,9 @@ function AdminGate() {
 
   return (
     <AdminLayout>
-      <Outlet />
+      <AdminErrorBoundary>
+        <Outlet />
+      </AdminErrorBoundary>
     </AdminLayout>
   );
 }

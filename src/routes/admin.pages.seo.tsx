@@ -96,7 +96,7 @@ function SeoTab({
   async function save() {
     setSaving(true);
     try {
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from("page_seo_overrides")
         .upsert({
           id: pageKey,

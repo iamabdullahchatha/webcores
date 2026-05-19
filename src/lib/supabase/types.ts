@@ -29,6 +29,7 @@ type Profile = Timestamps & {
   is_active: boolean;
   invite_token: string | null;
   invited_by: string | null;
+  invite_expires_at: string | null;
 };
 
 type LoginHistory = {
@@ -237,11 +238,49 @@ type PageSeoOverride = {
 type PageView = {
   id: string;
   page_path: string;
+  page_title: string | null;
   session_id: string;
   referrer: string | null;
   user_agent: string | null;
   country_code: string | null;
+  device_type: "mobile" | "tablet" | "desktop" | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
   viewed_at: string;
+};
+
+type NewsletterSubscriber = {
+  id: string;
+  email: string;
+  source: string | null;
+  is_active: boolean;
+  subscribed_at: string;
+};
+
+type AdminNotification = {
+  id: string;
+  type: "contact" | "subscriber" | "team";
+  title: string;
+  body: string | null;
+  link: string | null;
+  recipient_role: "owner" | "admin" | "all";
+  is_read: boolean;
+  created_at: string;
+};
+
+type ContactSubmission = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  service: string | null;
+  subject: string | null;
+  message: string;
+  ip_address: string | null;
+  status: "new" | "in_progress" | "resolved";
+  honeypot_triggered: boolean;
+  submitted_at: string;
 };
 
 /**
@@ -257,6 +296,7 @@ type Table<Row, InsertOmit extends keyof Row = never> = {
   Insert: Omit<Row, "id" | "created_at" | "updated_at" | InsertOmit> &
     Partial<Pick<Row, Extract<"id" | "created_at" | "updated_at" | InsertOmit, keyof Row>>>;
   Update: Partial<Row>;
+  Relationships: [];
 };
 
 export type Database = {
@@ -268,6 +308,7 @@ export type Database = {
         Insert: Omit<LoginHistory, "id" | "logged_in_at"> &
           Partial<Pick<LoginHistory, "id" | "logged_in_at">>;
         Update: Partial<LoginHistory>;
+        Relationships: [];
       };
       blog_posts: Table<BlogPost, "status">;
       site_settings: Table<SiteSettings>;
@@ -287,18 +328,34 @@ export type Database = {
         Row: PageSeoOverride;
         Insert: Omit<PageSeoOverride, "updated_at"> & Partial<Pick<PageSeoOverride, "updated_at">>;
         Update: Partial<PageSeoOverride>;
+        Relationships: [];
       };
       page_views: {
         Row: PageView;
         Insert: Omit<PageView, "id" | "viewed_at"> & Partial<Pick<PageView, "id" | "viewed_at">>;
         Update: Partial<PageView>;
+        Relationships: [];
       };
+      contact_submissions: Table<ContactSubmission, "status" | "submitted_at">;
+      newsletter_subscribers: Table<NewsletterSubscriber, "is_active" | "subscribed_at">;
+      admin_notifications: Table<AdminNotification, "is_read" | "recipient_role" | "created_at">;
     };
     Views: Record<string, never>;
     Functions: {
       is_cms_user: {
         Args: Record<string, never>;
         Returns: boolean;
+      };
+      get_dashboard_stats: {
+        Args: Record<string, never>;
+        Returns: {
+          total_posts: number;
+          published_posts: number;
+          draft_posts: number;
+          team_members: number;
+          today_logins: number;
+          failed_logins_today: number;
+        };
       };
     };
     Enums: Record<string, never>;

@@ -2,13 +2,18 @@
  * Shared blog post form used by both /admin/blog/new and /admin/blog/$id.
  * Caller owns the save/publish actions and passes them as props.
  */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
-import { Calendar, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Clock, ExternalLink } from "lucide-react";
+import { format } from "date-fns";
+import {
+  Calendar, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
+  Clock, ExternalLink, X,
+} from "lucide-react";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { DirtyBanner } from "@/components/admin/ui/DirtyBanner";
 import { StatusBadge } from "@/components/admin/ui/StatusBadge";
+import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/lib/supabase/client";
 
 export type PostFormData = {
@@ -30,7 +35,7 @@ export type PostFormErrors = Partial<Record<keyof PostFormData, string>>;
 type Props = {
   initial: PostFormData;
   errors: PostFormErrors;
-  onSaveDraft: (data: PostFormData) => Promise<void>;
+  onSaveDraft: (data: PostFormData, opts?: { silent?: boolean }) => Promise<void>;
   onPublish: (data: PostFormData) => Promise<void>;
   saving: boolean;
   lastSaved: Date | null;
@@ -40,14 +45,11 @@ type Props = {
 function slugify(title: string) {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 100);
-}
-
-function readingTime(content: string) {
-  const words = content.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / 200));
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 80);
 }
 
 const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -82,12 +84,10 @@ function MiniCalendar({
     ...Array(firstDay).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ];
-  // pad to full grid rows
   while (cells.length % 7 !== 0) cells.push(null);
 
   return (
     <div className="rounded-xl border border-border/40 bg-background/60 p-3 select-none">
-      {/* Month/year header */}
       <div className="flex items-center justify-between mb-3">
         <button
           type="button"
@@ -108,7 +108,6 @@ function MiniCalendar({
         </button>
       </div>
 
-      {/* Day-of-week headers */}
       <div className="grid grid-cols-7 mb-1">
         {DAYS.map((d) => (
           <div key={d} className="text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground py-1">
@@ -117,7 +116,6 @@ function MiniCalendar({
         ))}
       </div>
 
-      {/* Day cells */}
       <div className="grid grid-cols-7 gap-y-0.5">
         {cells.map((day, i) => {
           if (!day) return <div key={i} />;
@@ -170,6 +168,13 @@ export function PostForm({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [slugChecking, setSlugChecking] = useState(false);
   const [slugTaken, setSlugTaken] = useState(false);
+  const [lastAutosaved, setLastAutosaved] = useState<Date | null>(null);
+
+  const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Derived stats
+  const wordCount = data.content.trim().split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   const set = useCallback(
     <K extends keyof PostFormData>(key: K, value: PostFormData[K]) => {
@@ -191,6 +196,36 @@ export function PostForm({
     [slugManual],
   );
 
+  // Autosave: 60 s after last change when dirty
+  useEffect(() => {
+    if (!dirty) return;
+    if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+    autosaveTimer.current = setTimeout(async () => {
+      await onSaveDraft({ ...data, reading_time_min: readingTime } as PostFormData, { silent: true });
+      setLastAutosaved(new Date());
+      setDirty(false);
+    }, 60_000);
+    return () => {
+      if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dirty, data.title, data.slug, data.content, data.excerpt, data.status]);
+
+  // Keyboard save: ⌘S / Ctrl+S
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+        e.preventDefault();
+        if (!saving) {
+          setDirty(false);
+          onSaveDraft(data);
+        }
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [saving, data, onSaveDraft]);
+
   // Slug uniqueness check (debounced)
   useEffect(() => {
     if (!data.slug) return;
@@ -201,19 +236,22 @@ export function PostForm({
         .select("id")
         .eq("slug", data.slug)
         .maybeSingle();
-      // If editing (initial.slug === data.slug), not taken
       setSlugTaken(!!existing && initial.slug !== data.slug);
       setSlugChecking(false);
     }, 600);
     return () => clearTimeout(t);
   }, [data.slug, initial.slug]);
 
-  const rt = readingTime(data.content);
   const isDraft = data.status === "draft";
 
   function handleDiscard() {
     setData(initial);
     setDirty(false);
+  }
+
+  function resetSlug() {
+    setSlugManual(false);
+    setData((prev) => ({ ...prev, slug: slugify(prev.title) }));
   }
 
   return (
@@ -246,7 +284,23 @@ export function PostForm({
 
           {/* Slug */}
           <FormField
-            label="Slug"
+            label={
+              <span className="flex items-center gap-2">
+                Slug
+                {!slugManual && (
+                  <span className="text-xs bg-primary/10 text-primary rounded px-1.5 py-0.5">Auto</span>
+                )}
+                {slugManual && (
+                  <button
+                    type="button"
+                    onClick={resetSlug}
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    ↺ Reset
+                  </button>
+                )}
+              </span>
+            }
             htmlFor="post-slug"
             error={slugTaken ? "Slug already in use" : errors.slug}
             hint={slugChecking ? "Checking availability…" : undefined}
@@ -295,6 +349,12 @@ export function PostForm({
                 }}
               />
             </div>
+            {/* Word count + reading time */}
+            <div className="flex items-center gap-4 text-xs text-muted-foreground mt-2">
+              <span>{wordCount.toLocaleString()} words</span>
+              <span>·</span>
+              <span>~{readingTime} min read</span>
+            </div>
           </FormField>
         </div>
 
@@ -305,6 +365,30 @@ export function PostForm({
             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
               Cover Image
             </h3>
+
+            {/* Preview */}
+            {data.cover_image_url ? (
+              <div className="relative rounded-xl overflow-hidden aspect-video mb-3 bg-muted/10">
+                <img
+                  src={data.cover_image_url}
+                  alt="Cover preview"
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => set("cover_image_url", "")}
+                  className="absolute top-2 right-2 rounded-lg bg-background/80 p-1.5 hover:bg-background transition-colors"
+                  title="Remove cover image"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ) : (
+              <div className="rounded-xl border-2 border-dashed border-border/40 aspect-video flex items-center justify-center mb-3 text-sm text-muted-foreground">
+                No cover image
+              </div>
+            )}
+
             <ImageUpload
               bucket="blog-images"
               currentUrl={data.cover_image_url || undefined}
@@ -346,28 +430,26 @@ export function PostForm({
             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
               Status
             </h3>
-            <div className="flex gap-2">
-              {(["draft", "published"] as const).map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => {
-                    set("status", s);
-                    if (s === "published" && !data.published_at) {
-                      set("published_at", new Date());
-                    }
-                  }}
-                  className={`flex-1 rounded-xl py-2 text-xs font-bold uppercase tracking-widest transition-all duration-200 ${
-                    data.status === s
-                      ? s === "published"
-                        ? "gradient-primary text-primary-foreground shadow-elegant"
-                        : "bg-muted text-muted-foreground"
-                      : "border border-border/40 text-muted-foreground hover:border-primary/30"
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
+
+            {/* Publish toggle */}
+            <div className="flex items-center gap-3">
+              <Switch
+                id="publish-toggle"
+                checked={data.status === "published"}
+                onCheckedChange={(checked) => {
+                  set("status", checked ? "published" : "draft");
+                  if (checked && !data.published_at) {
+                    set("published_at", new Date());
+                  }
+                }}
+              />
+              <label htmlFor="publish-toggle" className="text-sm font-medium cursor-pointer select-none">
+                {data.status === "published" ? (
+                  <span className="text-emerald-400">Published</span>
+                ) : (
+                  <span className="text-amber-400">Draft</span>
+                )}
+              </label>
             </div>
 
             {/* Published date */}
@@ -409,7 +491,7 @@ export function PostForm({
             {/* Reading time chip */}
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="h-3.5 w-3.5" />
-              <span>~{rt} min read</span>
+              <span>~{readingTime} min read</span>
               <span className="ml-auto">
                 <StatusBadge status={data.status} />
               </span>
@@ -456,23 +538,30 @@ export function PostForm({
 
       {/* Sticky bottom bar */}
       <div className="sticky bottom-0 left-0 right-0 z-20 bg-background/80 backdrop-blur border-t border-border/40 px-0 py-3 flex items-center justify-between gap-4">
-        <div className="text-xs text-muted-foreground">
-          {lastSaved
-            ? `Last saved: ${lastSaved.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}`
-            : "Last saved: never"}
+        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          {lastAutosaved && !lastSaved && (
+            <span>Autosaved {format(lastAutosaved, "HH:mm")}</span>
+          )}
+          {lastSaved && (
+            <span>Last saved: {format(lastSaved, "HH:mm")}</span>
+          )}
+          {!lastSaved && !lastAutosaved && (
+            <span>Last saved: never</span>
+          )}
           {viewSlug && (
             <a
               href={`/blog/${viewSlug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-4 inline-flex items-center gap-1 text-primary hover:underline"
+              className="inline-flex items-center gap-1 text-primary hover:underline"
             >
               <ExternalLink className="h-3 w-3" />
               View live
             </a>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:block text-xs text-muted-foreground/60">⌘S to save</span>
           <button
             type="button"
             disabled={saving}

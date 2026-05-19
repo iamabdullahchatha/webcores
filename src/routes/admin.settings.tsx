@@ -92,7 +92,7 @@ function SiteSettingsPage() {
   async function save() {
     setSaving(true);
     try {
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from("site_settings")
         .upsert({
           id: "main",

@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SocialShare } from "@/components/SocialShare";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { useQueryClient } from "@tanstack/react-query";
@@ -379,8 +380,10 @@ function Index() {
       {/* ══════════════════════════════════════════ HERO ══════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-        <GridBackground />
-        <FloatingShapes />
+        <ErrorBoundary variant="section" fallbackMessage="3D scene unavailable in this browser.">
+          <GridBackground />
+          <FloatingShapes />
+        </ErrorBoundary>
 
         <motion.div
           animate={{ scale: [1, 1.18, 1], opacity: [0.25, 0.55, 0.25] }}

@@ -6,6 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Plus, Trash2, Star } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Database } from "@/lib/supabase/types";
 import { pageSeo } from "@/lib/seo";
 import { SortableList, type SortableItem } from "@/components/admin/SortableList";
@@ -110,6 +111,19 @@ function StarSelector({ value, onChange }: { value: number; onChange: (n: number
   );
 }
 
+function TabSkeleton() {
+  return (
+    <div className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="glass rounded-2xl p-4 animate-pulse">
+          <Skeleton className="h-4 w-3/4 mb-2" />
+          <Skeleton className="h-3 w-1/2" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    TAB: HERO
 ══════════════════════════════════════════════════════════════════════ */
@@ -129,6 +143,7 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const savedSeo = useRef(SEO_DEFAULTS);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const isDirty =
     JSON.stringify(form) !== JSON.stringify(savedForm.current) ||
@@ -138,7 +153,7 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   useEffect(() => {
     (async () => {
       const [heroRes, seoRes] = await Promise.all([
-        supabase.from("home_hero").select("*").eq("id", "main").single(),
+        supabase.from("home_hero").select("*").eq("id", "main").maybeSingle(),
         supabase.from("page_seo_overrides").select("*").eq("id", "home").maybeSingle(),
       ]);
       if (heroRes.data) {
@@ -156,6 +171,7 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         setSeoFields(loaded);
         savedSeo.current = loaded;
       }
+      setLoading(false);
     })();
   }, []);
 
@@ -195,6 +211,8 @@ function HeroTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const homeSeo = pageSeo.home;
   const titleLen = seoFields.seo_title.length;
   const descLen = seoFields.seo_description.length;
+
+  if (loading) return <TabSkeleton />;
 
   return (
     <SectionShell heading="Hero Section" onSave={save} saving={saving} lastSaved={lastSaved}>
@@ -270,10 +288,12 @@ function StatsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(StatRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("home_stats").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as StatRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -318,6 +338,8 @@ function StatsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     qc.invalidateQueries({ queryKey: ["content", "home-stats"] });
   }
 
+  if (loading) return <TabSkeleton />;
+
   return (
     <SectionShell
       heading="Stats"
@@ -329,6 +351,9 @@ function StatsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         </button>
       }
     >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No stats yet. Click “Add stat” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
@@ -369,10 +394,13 @@ function StatsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 function ServicesTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(ServiceRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("services").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as ServiceRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -390,32 +418,77 @@ function ServicesTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 
   async function saveAll() {
     setSaving(true);
-    await Promise.all(
-      rows.map((r, i) =>
-        supabase.from("services").update({
-          title: r.title, description: r.description, tag: r.tag, metric: r.metric,
-          cta_text: r.cta_text, is_active: r.is_active, sort_order: i + 1,
-          icon_name: r.icon_name, color: r.color, bg: r.bg,
-          image_url: r.image_url, image_alt: r.image_alt, href: r.href,
-        } as unknown as ServiceRow).eq("id", r.id)
-      )
+    const { error } = await supabase.from("services").upsert(
+      rows.map((r, i) => ({
+        id: r.id, slug: r.slug, title: r.title, description: r.description,
+        tag: r.tag, metric: r.metric, cta_text: r.cta_text, is_active: r.is_active,
+        sort_order: i + 1, icon_name: r.icon_name, color: r.color, bg: r.bg,
+        image_url: r.image_url, image_alt: r.image_alt, href: r.href,
+      })) as unknown as ServiceRow[]
     );
     setSaving(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Services saved");
     qc.invalidateQueries({ queryKey: ["content", "services"] });
   }
 
+  async function addService() {
+    const slug = `service-${Date.now()}`;
+    const { data, error } = await supabase
+      .from("services")
+      .insert({ slug, title: "New service", is_active: true, sort_order: rows.length + 1 } as unknown as ServiceRow)
+      .select().single();
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    if (data) setRows((p) => [...p, { ...(data as unknown as ServiceRow) }]);
+  }
+
+  async function deleteService(id: string) {
+    setDeleting(id);
+    const { error } = await supabase.from("services").delete().eq("id", id);
+    setDeleting(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setRows((p) => p.filter((r) => r.id !== id));
+    qc.invalidateQueries({ queryKey: ["content", "services"] });
+  }
+
+  if (loading) return <TabSkeleton />;
+
   return (
-    <SectionShell heading="Services (homepage cards)" onSave={saveAll} saving={saving}>
+    <SectionShell
+      heading="Services (homepage cards)"
+      onSave={saveAll}
+      saving={saving}
+      footer={
+        <button type="button" onClick={addService} className="inline-flex items-center gap-1.5 text-sm text-primary font-semibold hover:opacity-80 transition-opacity">
+          <Plus className="h-4 w-4" /> Add service
+        </button>
+      }
+    >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No services yet. Click “Add service” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
         renderItem={(row, dragHandle) => (
-          <RowShell dragHandle={dragHandle}>
+          <RowShell dragHandle={dragHandle} onDelete={() => deleteService(row.id)} deleting={deleting === row.id} deleteTitle="Delete service">
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Title</label>
                 <input value={row.title} onChange={(e) => update(row.id, { title: e.target.value })} className={inputClass + " mt-1"} />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Slug</label>
+                <input value={row.slug} onChange={(e) => update(row.id, { slug: e.target.value })} placeholder="web-development" className={inputClass + " mt-1"} />
               </div>
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Tag</label>
@@ -485,10 +558,13 @@ function ServicesTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 function WhyUsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(ValueRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("why_choose_us").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as ValueRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -506,26 +582,66 @@ function WhyUsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 
   async function saveAll() {
     setSaving(true);
-    await Promise.all(
-      rows.map((r, i) =>
-        supabase.from("why_choose_us").update({
-          title: r.title, description: r.description, icon_name: r.icon_name,
-          color: r.color, bg: r.bg, sort_order: i + 1,
-        } as unknown as ValueRow).eq("id", r.id)
-      )
+    const { error } = await supabase.from("why_choose_us").upsert(
+      rows.map((r, i) => ({
+        id: r.id, title: r.title, description: r.description, icon_name: r.icon_name,
+        color: r.color, bg: r.bg, sort_order: i + 1,
+      })) as unknown as ValueRow[]
     );
     setSaving(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Why Us saved");
     qc.invalidateQueries({ queryKey: ["content", "why-choose-us"] });
   }
 
+  async function addItem() {
+    const { data, error } = await supabase
+      .from("why_choose_us")
+      .insert({ title: "New reason", sort_order: rows.length + 1 } as unknown as ValueRow)
+      .select().single();
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    if (data) setRows((p) => [...p, { ...(data as unknown as ValueRow) }]);
+  }
+
+  async function deleteItem(id: string) {
+    setDeleting(id);
+    const { error } = await supabase.from("why_choose_us").delete().eq("id", id);
+    setDeleting(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setRows((p) => p.filter((r) => r.id !== id));
+    qc.invalidateQueries({ queryKey: ["content", "why-choose-us"] });
+  }
+
+  if (loading) return <TabSkeleton />;
+
   return (
-    <SectionShell heading="Why Choose Us" onSave={saveAll} saving={saving}>
+    <SectionShell
+      heading="Why Choose Us"
+      onSave={saveAll}
+      saving={saving}
+      footer={
+        <button type="button" onClick={addItem} className="inline-flex items-center gap-1.5 text-sm text-primary font-semibold hover:opacity-80 transition-opacity">
+          <Plus className="h-4 w-4" /> Add item
+        </button>
+      }
+    >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No items yet. Click “Add item” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
         renderItem={(row, dragHandle) => (
-          <RowShell dragHandle={dragHandle}>
+          <RowShell dragHandle={dragHandle} onDelete={() => deleteItem(row.id)} deleting={deleting === row.id} deleteTitle="Delete item">
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Title</label>
@@ -561,10 +677,13 @@ function WhyUsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 function ProcessTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(ProcessRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("process_steps").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as ProcessRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -582,23 +701,66 @@ function ProcessTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 
   async function saveAll() {
     setSaving(true);
-    await Promise.all(
-      rows.map((r, i) =>
-        supabase.from("process_steps").update({ number: r.number, title: r.title, description: r.description, icon_name: r.icon_name, color: r.color, sort_order: i + 1 } as unknown as ProcessRow).eq("id", r.id)
-      )
+    const { error } = await supabase.from("process_steps").upsert(
+      rows.map((r, i) => ({
+        id: r.id, number: r.number, title: r.title, description: r.description,
+        icon_name: r.icon_name, color: r.color, sort_order: i + 1,
+      })) as unknown as ProcessRow[]
     );
     setSaving(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Process saved");
     qc.invalidateQueries({ queryKey: ["content", "process-steps"] });
   }
 
+  async function addStep() {
+    const { data, error } = await supabase
+      .from("process_steps")
+      .insert({ number: String(rows.length + 1).padStart(2, "0"), title: "New step", sort_order: rows.length + 1 } as unknown as ProcessRow)
+      .select().single();
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    if (data) setRows((p) => [...p, { ...(data as unknown as ProcessRow) }]);
+  }
+
+  async function deleteStep(id: string) {
+    setDeleting(id);
+    const { error } = await supabase.from("process_steps").delete().eq("id", id);
+    setDeleting(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setRows((p) => p.filter((r) => r.id !== id));
+    qc.invalidateQueries({ queryKey: ["content", "process-steps"] });
+  }
+
+  if (loading) return <TabSkeleton />;
+
   return (
-    <SectionShell heading="Process Steps" onSave={saveAll} saving={saving}>
+    <SectionShell
+      heading="Process Steps"
+      onSave={saveAll}
+      saving={saving}
+      footer={
+        <button type="button" onClick={addStep} className="inline-flex items-center gap-1.5 text-sm text-primary font-semibold hover:opacity-80 transition-opacity">
+          <Plus className="h-4 w-4" /> Add step
+        </button>
+      }
+    >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No steps yet. Click “Add step” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
         renderItem={(row, dragHandle) => (
-          <RowShell dragHandle={dragHandle}>
+          <RowShell dragHandle={dragHandle} onDelete={() => deleteStep(row.id)} deleting={deleting === row.id} deleteTitle="Delete step">
             <div className="grid sm:grid-cols-3 gap-3">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Number</label>
@@ -635,10 +797,12 @@ function PortfolioTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(PortfolioRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("portfolio_items").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as PortfolioRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -686,6 +850,8 @@ function PortfolioTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     qc.invalidateQueries({ queryKey: ["content", "portfolio-items"] });
   }
 
+  if (loading) return <TabSkeleton />;
+
   return (
     <SectionShell
       heading="Portfolio"
@@ -697,6 +863,9 @@ function PortfolioTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         </button>
       }
     >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No portfolio items yet. Click “Add item” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
@@ -756,10 +925,12 @@ function TestimonialsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(TestRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("testimonials").select("*").eq("page_scope", "home").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as TestRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -806,6 +977,8 @@ function TestimonialsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     qc.invalidateQueries({ queryKey: ["content", "testimonials", "home"] });
   }
 
+  if (loading) return <TabSkeleton />;
+
   return (
     <SectionShell
       heading="Testimonials (homepage)"
@@ -817,6 +990,9 @@ function TestimonialsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         </button>
       }
     >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No testimonials yet. Click “Add testimonial” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
@@ -876,10 +1052,12 @@ function FaqsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(FaqRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("faqs").select("*").eq("page_scope", "home").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as FaqRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -923,6 +1101,8 @@ function FaqsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     qc.invalidateQueries({ queryKey: ["content", "faqs", "home"] });
   }
 
+  if (loading) return <TabSkeleton />;
+
   return (
     <SectionShell
       heading="FAQs (homepage)"
@@ -934,6 +1114,9 @@ function FaqsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         </button>
       }
     >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No FAQs yet. Click “Add FAQ” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
@@ -969,10 +1152,12 @@ function TrustLogosTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(LogoRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("trust_logos").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as LogoRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -1016,6 +1201,8 @@ function TrustLogosTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
     qc.invalidateQueries({ queryKey: ["content", "trust-logos"] });
   }
 
+  if (loading) return <TabSkeleton />;
+
   return (
     <SectionShell
       heading="Trust Logos"
@@ -1027,6 +1214,9 @@ function TrustLogosTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
         </button>
       }
     >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No logos yet. Click “Add logo” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
@@ -1069,10 +1259,13 @@ function TrustLogosTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 function RegionsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
   const [rows, setRows] = useState<(RegionRow & SortableItem)[]>([]);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.from("global_regions").select("*").order("sort_order").then(({ data }) => {
       if (data) setRows(toSortable(data as unknown as RegionRow[]));
+      setLoading(false);
     });
   }, []);
 
@@ -1090,23 +1283,65 @@ function RegionsTab({ qc }: { qc: ReturnType<typeof useQueryClient> }) {
 
   async function saveAll() {
     setSaving(true);
-    await Promise.all(
-      rows.map((r, i) =>
-        supabase.from("global_regions").update({ name: r.name, flag: r.flag, sort_order: i + 1 } as unknown as RegionRow).eq("id", r.id)
-      )
+    const { error } = await supabase.from("global_regions").upsert(
+      rows.map((r, i) => ({
+        id: r.id, name: r.name, flag: r.flag, sort_order: i + 1,
+      })) as unknown as RegionRow[]
     );
     setSaving(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Regions saved");
     qc.invalidateQueries({ queryKey: ["content", "global-regions"] });
   }
 
+  async function addRegion() {
+    const { data, error } = await supabase
+      .from("global_regions")
+      .insert({ name: "New region", flag: "🌍", sort_order: rows.length + 1 } as unknown as RegionRow)
+      .select().single();
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    if (data) setRows((p) => [...p, { ...(data as unknown as RegionRow) }]);
+  }
+
+  async function deleteRegion(id: string) {
+    setDeleting(id);
+    const { error } = await supabase.from("global_regions").delete().eq("id", id);
+    setDeleting(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setRows((p) => p.filter((r) => r.id !== id));
+    qc.invalidateQueries({ queryKey: ["content", "global-regions"] });
+  }
+
+  if (loading) return <TabSkeleton />;
+
   return (
-    <SectionShell heading="Global Regions" onSave={saveAll} saving={saving}>
+    <SectionShell
+      heading="Global Regions"
+      onSave={saveAll}
+      saving={saving}
+      footer={
+        <button type="button" onClick={addRegion} className="inline-flex items-center gap-1.5 text-sm text-primary font-semibold hover:opacity-80 transition-opacity">
+          <Plus className="h-4 w-4" /> Add region
+        </button>
+      }
+    >
+      {rows.length === 0 && (
+        <p className="text-sm text-muted-foreground text-center py-6">No regions yet. Click “Add region” to create one.</p>
+      )}
       <SortableList
         items={rows}
         onReorder={saveOrder}
         renderItem={(row, dragHandle) => (
-          <RowShell dragHandle={dragHandle}>
+          <RowShell dragHandle={dragHandle} onDelete={() => deleteRegion(row.id)} deleting={deleting === row.id} deleteTitle="Delete region">
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Name</label>

@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, useLocation, HeadContent } from "@tansta
 import { useEffect, useLayoutEffect, useState } from "react";
 import { getRootHead } from "@/lib/seo";
 import { trackPageView } from "@/lib/analytics";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 function NotFoundComponent() {
   return (
@@ -125,7 +126,9 @@ function RootComponent() {
       <ClientHeadContent />
       <ScrollToTop />
       <PageViewTracker />
-      <Outlet />
+      <ErrorBoundary variant="page">
+        <Outlet />
+      </ErrorBoundary>
     </>
   );
 }

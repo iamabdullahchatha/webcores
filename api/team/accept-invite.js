@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { validate } from "../_validate.js";
 
 /**
  * POST /api/team/accept-invite
@@ -28,11 +29,14 @@ export default async function handler(req, res) {
   }
 
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body ?? {});
-  const { token, password } = body;
 
-  if (!token || !password || password.length < 8) {
-    return res.status(400).json({ error: "token and password (min 8 chars) are required" });
-  }
+  const { valid, errors } = validate(body, {
+    token:    { required: true, type: "uuid" },
+    password: { required: true, minLen: 8, maxLen: 128, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, patternMsg: "Password must contain uppercase, lowercase, and a number" },
+  });
+  if (!valid) return res.status(400).json({ error: Object.values(errors)[0] });
+
+  const { token, password } = body;
 
   const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
@@ -41,13 +45,20 @@ export default async function handler(req, res) {
   // 1. Find the pending profile
   const { data: pending, error: findErr } = await admin
     .from("profiles")
-    .select("id, email, full_name, role, invited_by, created_at")
+    .select("id, email, full_name, role, invited_by, created_at, invite_expires_at")
     .eq("invite_token", token)
     .eq("is_active", false)
     .maybeSingle();
 
   if (findErr || !pending) {
     return res.status(404).json({ error: "This invite link is invalid or has already been used." });
+  }
+
+  // Expiry check
+  if (pending.invite_expires_at && new Date(pending.invite_expires_at) < new Date()) {
+    return res.status(410).json({
+      error: "This invitation has expired. Please ask an admin to send a new one.",
+    });
   }
 
   // 2. Create the auth user

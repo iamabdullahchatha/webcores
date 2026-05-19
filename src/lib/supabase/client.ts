@@ -54,11 +54,11 @@ export function getSupabase(): SupabaseClient<Database> {
  * instance (and its session) is always the genuine one.
  */
 export const supabase = new Proxy({} as SupabaseClient<Database>, {
-  get(_t, prop) {
+  get(_t: SupabaseClient<Database>, prop: string | symbol) {
     const client = getSupabase();
-    const value = (client as unknown as Record<string | symbol, unknown>)[prop];
+    const value = client[prop as keyof typeof client];
     return typeof value === "function"
-      ? (value as (...a: unknown[]) => unknown).bind(client)
+      ? (value as Function).bind(client) // eslint-disable-line @typescript-eslint/no-unsafe-function-type
       : value;
   },
 });

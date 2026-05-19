@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { validate } from "../_validate.js";
 
 /**
  * Records a login attempt in public.login_history.
@@ -65,11 +66,19 @@ export default async function handler(req, res) {
 
   // Body
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body ?? {});
-  const { userId, email, success, failure_reason } = body;
 
-  if (typeof success !== "boolean") {
+  if (typeof body.success !== "boolean") {
     return res.status(400).json({ success: false, error: "success (boolean) required" });
   }
+
+  const { valid } = validate(body, {
+    userId:         { required: false, type: "uuid" },
+    email:          { required: false, type: "email" },
+    failure_reason: { required: false, maxLen: 500 },
+  });
+  if (!valid) return res.status(400).json({ success: false, error: "Invalid input" });
+
+  const { userId, email, success, failure_reason } = body;
 
   const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },

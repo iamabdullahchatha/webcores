@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/AuthContext";
 import { useRequireRole } from "@/lib/auth/useRequireRole";
 import type { Database } from "@/lib/supabase/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/admin/security")({
   component: SecurityPage,
@@ -208,7 +209,17 @@ function SecurityPage() {
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={isOwner ? 5 : 4} className="px-6 py-8 text-center text-muted-foreground">Loading…</td></tr>
+                <>
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <tr key={i} className="border-b border-border/20">
+                      {isOwner && <td className="px-6 py-3.5"><Skeleton className="h-4 w-32" /></td>}
+                      <td className="px-6 py-3.5"><Skeleton className="h-4 w-28" /></td>
+                      <td className="px-6 py-3.5"><Skeleton className="h-5 w-16 rounded-full" /></td>
+                      <td className="px-6 py-3.5"><Skeleton className="h-4 w-24" /></td>
+                      <td className="px-6 py-3.5"><Skeleton className="h-4 w-32" /></td>
+                    </tr>
+                  ))}
+                </>
               ) : rows.length === 0 ? (
                 <tr><td colSpan={isOwner ? 5 : 4} className="px-6 py-8 text-center text-muted-foreground">No records found.</td></tr>
               ) : rows.map((row) => {

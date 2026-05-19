@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { format, isPast } from "date-fns";
 import {
   Users, UserPlus, X, Crown, Shield, Feather,
-  CheckCircle2, Clock, XCircle,
+  CheckCircle2, Clock, XCircle, RefreshCw,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/AuthContext";
@@ -12,6 +13,7 @@ import { useRequireRole } from "@/lib/auth/useRequireRole";
 import type { Database } from "@/lib/supabase/types";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
 import { ConfirmDialog } from "@/components/admin/ui/ConfirmDialog";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/admin/team")({
   component: TeamPage,
@@ -40,13 +42,36 @@ function RolePill({ role }: { role: string }) {
   );
 }
 
-function StatusDot({ active, invited }: { active: boolean; invited: boolean }) {
-  if (!active && invited)
+function StatusDot({ active, invited, expiresAt }: { active: boolean; invited: boolean; expiresAt: string | null }) {
+  if (!active && invited) {
+    const expired = expiresAt ? isPast(new Date(expiresAt)) : false;
+    if (expired) {
+      return (
+        <span className="inline-flex flex-col gap-0.5">
+          <span className="inline-flex items-center gap-1.5 text-xs text-destructive font-medium">
+            <span className="w-2 h-2 rounded-full bg-destructive" /> Expired
+          </span>
+          {expiresAt && (
+            <span className="text-[10px] text-muted-foreground pl-3.5">
+              {format(new Date(expiresAt), "dd MMM yyyy")}
+            </span>
+          )}
+        </span>
+      );
+    }
     return (
-      <span className="inline-flex items-center gap-1.5 text-xs text-amber-500 font-medium">
-        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" /> Invited
+      <span className="inline-flex flex-col gap-0.5">
+        <span className="inline-flex items-center gap-1.5 text-xs text-amber-500 font-medium">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" /> Invited
+        </span>
+        {expiresAt && (
+          <span className="text-[10px] text-muted-foreground pl-3.5">
+            Expires {format(new Date(expiresAt), "dd MMM yyyy")}
+          </span>
+        )}
       </span>
     );
+  }
   if (!active)
     return (
       <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
@@ -235,6 +260,29 @@ function TeamPage() {
     void load();
   }
 
+  async function resendInvite(member: ProfileRow) {
+    setWorking(member.id);
+    try {
+      const { data: { session: s } } = await supabase.auth.getSession();
+      const res = await fetch("/api/team/invite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${s?.access_token ?? ""}`,
+        },
+        body: JSON.stringify({ full_name: member.full_name, email: member.email, role: member.role }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? "Resend failed");
+      toast.success("Invitation resent.");
+      void load();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Resend failed");
+    } finally {
+      setWorking(null);
+    }
+  }
+
   const canAct = (target: ProfileRow) => {
     if (target.id === myId) return false;
     if (isOwner) return target.role !== "owner";
@@ -246,8 +294,17 @@ function TeamPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[40vh] flex items-center justify-center">
-        <div className="h-6 w-6 animate-spin-slow rounded-full border-2 border-primary border-t-transparent" />
+      <div className="grid gap-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="glass rounded-2xl p-5 flex items-center gap-4">
+            <Skeleton className="h-10 w-10 rounded-full shrink-0" />
+            <div className="flex-1 space-y-2">
+              <Skeleton className="h-4 w-36" />
+              <Skeleton className="h-3 w-24" />
+            </div>
+            <Skeleton className="h-6 w-16 rounded-full" />
+          </div>
+        ))}
       </div>
     );
   }
@@ -313,7 +370,7 @@ function TeamPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4"><RolePill role={m.role} /></td>
-                    <td className="px-6 py-4"><StatusDot active={m.is_active} invited={invited} /></td>
+                    <td className="px-6 py-4"><StatusDot active={m.is_active} invited={invited} expiresAt={m.invite_expires_at ?? null} /></td>
                     <td className="px-6 py-4 text-xs text-muted-foreground">
                       {/* last login not on profile row — shown via Security page */}
                       <span className="inline-flex items-center gap-1">
@@ -324,8 +381,18 @@ function TeamPage() {
                     <td className="px-6 py-4 text-right">
                       {actable && !isWorking && (
                         <div className="inline-flex items-center gap-2">
-                          {/* Role toggle (owner only) */}
-                          {isOwner && m.role !== "owner" && (
+                          {/* Resend Invite (pending invites only, owner/admin) */}
+                          {invited && (isOwner || isAdmin) && (
+                            <button
+                              type="button"
+                              onClick={() => resendInvite(m)}
+                              className="inline-flex items-center gap-1 rounded-lg bg-amber-500/10 text-amber-500 px-3 py-1.5 text-xs font-semibold hover:bg-amber-500/20 transition-colors duration-150"
+                            >
+                              <RefreshCw className="h-3 w-3" /> Resend
+                            </button>
+                          )}
+                          {/* Role toggle (owner only, active users) */}
+                          {isOwner && m.role !== "owner" && m.is_active && (
                             <select
                               value={m.role}
                               onChange={(e) => changeRole(m.id, e.target.value as "admin" | "editor")}

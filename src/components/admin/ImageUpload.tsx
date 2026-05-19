@@ -75,8 +75,7 @@ export function ImageUpload({ bucket, onUpload, currentUrl, accept = "image/*" }
         alt_text: null,
         uploaded_by: null,
       };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (sb.from("media_library") as any).insert(mediaPayload);
+      await sb.from("media_library").insert(mediaPayload);
 
       setProgress(100);
       setDone(true);

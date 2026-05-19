@@ -45,11 +45,16 @@ function NewPost() {
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [errors, setErrors] = useState<PostFormErrors>({});
 
-  async function save(data: PostFormData, publish = false) {
+  async function save(data: PostFormData, opts: { silent?: boolean } | boolean = false) {
+    const publish = opts === true;
+    const silent = typeof opts === "object" && !!opts.silent;
+
     const errs = validate(data);
     if (Object.keys(errs).length) {
-      setErrors(errs);
-      toast.error("Please fix the errors before saving.");
+      if (!silent) {
+        setErrors(errs);
+        toast.error("Please fix the errors before saving.");
+      }
       return;
     }
     setErrors({});
@@ -60,6 +65,7 @@ function NewPost() {
       .map((t) => t.trim())
       .filter(Boolean);
 
+    const wordCount = data.content.trim().split(/\s+/).filter(Boolean).length;
     const status = publish ? "published" : "draft";
     const published_at =
       publish
@@ -78,26 +84,28 @@ function NewPost() {
       published_at,
       seo_title: data.seo_title || null,
       seo_description: data.seo_description || null,
-      reading_time_min: Math.max(1, Math.round(data.content.trim().split(/\s+/).filter(Boolean).length / 200)),
+      reading_time_min: Math.max(1, Math.ceil(wordCount / 200)),
       author_id: session?.user.id ?? null,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: inserted, error } = await (getSupabase().from("blog_posts") as any)
+    const { data: inserted, error } = await getSupabase()
+      .from("blog_posts")
       .insert(payload)
       .select("id")
-      .single() as { data: { id: string } | null; error: { message: string } | null };
+      .single();
 
     setSaving(false);
 
     if (error) {
-      toast.error(error.message);
+      if (!silent) toast.error(error.message);
       return;
     }
 
     setLastSaved(new Date());
-    toast.success(publish ? "Post published!" : "Draft saved.");
-    if (inserted) navigate({ to: "/admin/blog/$id", params: { id: inserted.id } });
+    if (!silent) {
+      toast.success(publish ? "Post published!" : "Draft saved.");
+      if (inserted) navigate({ to: "/admin/blog/$id", params: { id: inserted.id } });
+    }
   }
 
   return (
@@ -115,7 +123,7 @@ function NewPost() {
       <PostForm
         initial={EMPTY}
         errors={errors}
-        onSaveDraft={(d) => save(d, false)}
+        onSaveDraft={(d, opts) => save(d, opts ?? false)}
         onPublish={(d) => save(d, true)}
         saving={saving}
         lastSaved={lastSaved}
