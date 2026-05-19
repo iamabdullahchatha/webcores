@@ -29,8 +29,10 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
+import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminContactsRouteImport } from './routes/admin.contacts'
 import { Route as AdminAcceptInviteRouteImport } from './routes/admin.accept-invite'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminPagesServicesRouteImport } from './routes/admin.pages.services'
@@ -142,6 +144,11 @@ const AdminSecurityRoute = AdminSecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMediaRoute = AdminMediaRouteImport.update({
   id: '/media',
   path: '/media',
@@ -150,6 +157,11 @@ const AdminMediaRoute = AdminMediaRouteImport.update({
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminContactsRoute = AdminContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminAcceptInviteRoute = AdminAcceptInviteRouteImport.update({
@@ -206,8 +218,10 @@ export interface FileRoutesByFullPath {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -237,8 +251,10 @@ export interface FileRoutesByTo {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -270,8 +286,10 @@ export interface FileRoutesById {
   '/uae-software-development-company': typeof UaeSoftwareDevelopmentCompanyRoute
   '/webcore-solutions-dubai': typeof WebcoreSolutionsDubaiRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
@@ -304,8 +322,10 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
+    | '/admin/contacts'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/newsletter'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -335,8 +355,10 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
+    | '/admin/contacts'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/newsletter'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -367,8 +389,10 @@ export interface FileRouteTypes {
     | '/uae-software-development-company'
     | '/webcore-solutions-dubai'
     | '/admin/accept-invite'
+    | '/admin/contacts'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/newsletter'
     | '/admin/security'
     | '/admin/settings'
     | '/admin/team'
@@ -548,6 +572,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSecurityRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/newsletter': {
+      id: '/admin/newsletter'
+      path: '/newsletter'
+      fullPath: '/admin/newsletter'
+      preLoaderRoute: typeof AdminNewsletterRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/media': {
       id: '/admin/media'
       path: '/media'
@@ -560,6 +591,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/contacts': {
+      id: '/admin/contacts'
+      path: '/contacts'
+      fullPath: '/admin/contacts'
+      preLoaderRoute: typeof AdminContactsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/accept-invite': {
@@ -634,8 +672,10 @@ const AdminPagesServicesRouteWithChildren =
 
 interface AdminRouteChildren {
   AdminAcceptInviteRoute: typeof AdminAcceptInviteRoute
+  AdminContactsRoute: typeof AdminContactsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMediaRoute: typeof AdminMediaRoute
+  AdminNewsletterRoute: typeof AdminNewsletterRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
@@ -650,8 +690,10 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAcceptInviteRoute: AdminAcceptInviteRoute,
+  AdminContactsRoute: AdminContactsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMediaRoute: AdminMediaRoute,
+  AdminNewsletterRoute: AdminNewsletterRoute,
   AdminSecurityRoute: AdminSecurityRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
