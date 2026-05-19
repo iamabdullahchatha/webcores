@@ -116,11 +116,16 @@ function BlogIndex() {
               <span className="gradient-text">Field Notes</span>
             </motion.h1>
             <motion.p
+              {...fadeUp(0.12)}
+              className="mt-3 text-sm md:text-base font-semibold text-primary/80 tracking-wide"
+            >
+              Web Development &amp; SEO Blog from Dubai
+            </motion.p>
+            <motion.p
               {...fadeUp(0.18)}
               className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
-              Practical thinking on web development, software, SEO and growth — field notes written
-              by the team that ships it. We publish on web performance, SEO, software architecture, and the tools shaping digital business in 2025 and beyond. Posts go out regularly — written by the team actually doing the work, not generated for volume.
+              Practical thinking on web development, software engineering, SEO, and growth — field notes written by the Webcore Solutions team in Dubai. We publish on web performance, headless CMS, SEO and GEO strategy, software architecture, ecommerce, and the tools shaping digital business in 2026 and beyond. Each post is written by senior engineers and strategists who actually ship the work — not generated for volume, not outsourced for SEO. New posts go out regularly, covering both the technical foundations (Core Web Vitals, schema, architecture) and the business outcomes (lead generation, conversion, organic growth) that matter to founders and operators in the UAE and worldwide.
             </motion.p>
           </div>
         </motion.div>

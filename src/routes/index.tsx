@@ -433,6 +433,15 @@ function Index() {
               </h1>
 
               <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.25, type: "tween", ease: "easeOut" }}
+                className="mt-4 text-sm md:text-base font-semibold text-primary/80 tracking-wide"
+              >
+                Web Development, SEO &amp; Software Agency in Dubai
+              </motion.p>
+
+              <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
@@ -1130,9 +1139,10 @@ function Index() {
         we provide ongoing SEO, performance monitoring, and growth support.
       </p>
       <p>
-        Based in Dubai, United Arab Emirates. Contact us to book a free 45-minute strategy call.
-        Walk away with clarity on scope, cost and next steps — whether you work with us or not.
-        No commitment required. Response within 24 hours. Completely free.
+        Headquartered in Dubai, United Arab Emirates. Reach out to arrange a complimentary
+        45-minute consultation and leave with a clear picture of scope, budget and the path
+        forward — regardless of whether you choose to engage us. Zero obligation, replies
+        within one business day, and entirely free of charge.
       </p>
     </section>
 
