@@ -1100,6 +1100,7 @@ function Index() {
 
     {/* SEO text mirror — crawler-only, aria-hidden, sr-only */}
     <section aria-hidden="true" className="sr-only">
+      <h1>Web Development &amp; SEO Agency in Dubai — Webcore Solutions</h1>
       <h2>Web Development Agency Dubai</h2>
       <p>
         Webcore Solutions is a digital studio in Dubai delivering production-grade websites,
