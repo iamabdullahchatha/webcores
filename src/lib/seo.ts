@@ -96,7 +96,7 @@ export const pageSeo = {
   blog: {
     label: "Blog",
     path: "/blog",
-    title: "Insights & Field Notes | Webcore Solutions",
+    title: "Web Development & SEO Blog Dubai | Webcore Solutions",
     description:
       "Practical articles on web development, software, SEO, GEO and e-commerce from the Webcore Solutions team.",
     keywords: ["Webcore Solutions blog", "web development insights", "SEO articles", "GEO articles"],
@@ -229,7 +229,7 @@ export const pageSeo = {
   uaeSoftwareDevelopmentCompany: {
     label: "UAE Software Development Company",
     path: "/uae-software-development-company",
-    title: "UAE Software Development Company | Webcore",
+    title: "UAE Software Development Company | Webcore Solutions",
     description:
       "UAE software development company building custom SaaS, APIs, internal tools and enterprise platforms across Dubai and the GCC.",
     keywords: [

@@ -280,7 +280,7 @@ function BlogPost() {
           <div className="absolute -inset-8 gradient-primary opacity-[0.06] blur-3xl rounded-full pointer-events-none" />
           <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
             <div>
-              <h3 className="text-xl font-bold">Ready to build?</h3>
+              <h2 className="text-xl font-bold">Ready to build?</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Let's turn the idea into something shipped.
               </p>
@@ -336,9 +336,9 @@ function BlogPost() {
                         ))}
                       </div>
                     )}
-                    <h3 className="font-display font-semibold text-lg leading-snug group-hover:text-primary transition-colors duration-200">
+                    <h2 className="font-display font-semibold text-lg leading-snug group-hover:text-primary transition-colors duration-200">
                       {r.title}
-                    </h3>
+                    </h2>
                     {r.excerpt && (
                       <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-2">
                         {r.excerpt}
