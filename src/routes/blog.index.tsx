@@ -156,6 +156,7 @@ function BlogIndex() {
                 <Link
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
+                  aria-label={post.title}
                   className="group block glass rounded-2xl overflow-hidden h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-glow"
                 >
                   <div className="aspect-video overflow-hidden">
@@ -217,7 +218,7 @@ function BlogIndex() {
 
       {/* SEO text mirror — crawler-only, aria-hidden, sr-only */}
       <section aria-hidden="true" className="sr-only">
-        <h1>Web Development &amp; SEO Blog — Dubai Insights from Webcore Solutions</h1>
+        <h2>Web Development &amp; SEO Blog — Dubai Insights from Webcore Solutions</h2>
         <h2>About the Webcore Solutions Blog</h2>
         <p>
           The Webcore Solutions blog is where our Dubai team writes about the work we actually
