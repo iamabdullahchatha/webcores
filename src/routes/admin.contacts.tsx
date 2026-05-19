@@ -204,7 +204,7 @@ function ContactsPage() {
                     <td className="px-6 py-3 text-muted-foreground hidden lg:table-cell">
                       {r.service ?? <span className="text-muted-foreground/40">—</span>}
                     </td>
-                    <td className="px-6 py-3 text-muted-foreground hidden xl:table-cell max-w-[200px]">
+                    <td className="px-6 py-3 text-muted-foreground hidden xl:table-cell max-w-50">
                       <span className="truncate block">
                         {r.subject ? (r.subject.length > 60 ? r.subject.slice(0, 60) + "…" : r.subject) : <span className="text-muted-foreground/40">—</span>}
                       </span>
