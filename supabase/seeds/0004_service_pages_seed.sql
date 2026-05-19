@@ -1064,7 +1064,8 @@ VALUES
      { "q": "What file formats will I receive?", "a": "You receive editable source files in Figma and Adobe formats (.AI, .PSD, .EPS), plus export-ready assets in SVG, PNG and PDF. Print files are prepared in CMYK with proper bleed and trim marks." },
      { "q": "Can you work with an existing brand rather than starting from scratch?", "a": "Yes — we offer brand refresh and brand extension services. We conduct an audit of your existing assets, identify what''s worth keeping, and build a coherent system around your strongest elements." },
      { "q": "How long does a full brand identity project take?", "a": "A complete logo and brand guidelines project typically takes 3–5 weeks from brief to final delivery. If you need collateral (brochures, business cards, profiles) alongside the identity, we scope an additional 1–3 weeks depending on volume." },
-     { "q": "Do you offer print management or production?", "a": "We deliver print-ready files built to professional print specifications (CMYK, 300dpi, bleed and slug). We can also recommend trusted print partners in your region and review printer proofs on your behalf." }
+     { "q": "Do you offer print management or production?", "a": "We deliver print-ready files built to professional print specifications (CMYK, 300dpi, bleed and slug). We can also recommend trusted print partners in your region and review printer proofs on your behalf." },
+     { "q": "Do you provide graphic design and branding services in Dubai?", "a": "Yes. Webcore Solutions is a graphic design and branding agency serving Dubai and the wider UAE, alongside clients in the UK, Europe, Pakistan and the US. Our Dubai graphic design work spans logo design, full brand identity systems, editorial collateral and UI design — all delivered with complete IP ownership." }
    ]
  }'::jsonb,
  8, true),

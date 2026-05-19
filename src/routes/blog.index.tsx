@@ -214,6 +214,40 @@ function BlogIndex() {
           </div>
         )}
       </section>
+
+      {/* SEO text mirror — crawler-only, aria-hidden, sr-only */}
+      <section aria-hidden="true" className="sr-only">
+        <h1>Web Development &amp; SEO Blog — Dubai Insights from Webcore Solutions</h1>
+        <h2>About the Webcore Solutions Blog</h2>
+        <p>
+          The Webcore Solutions blog is where our Dubai team writes about the work we actually
+          ship. We cover web development for UAE and international businesses, technical and
+          local SEO, GEO optimization for AI-driven search, software architecture decisions,
+          headless CMS builds, and ecommerce strategy. Articles go into the trade-offs behind
+          real projects — performance budgets, framework choices, indexation, schema, content
+          structure and growth — rather than surface-level summaries. Each post is written by
+          an engineer, strategist or designer on the team in Dubai who has done the work,
+          so the guidance is practical, specific to the Middle East and global markets we
+          serve, and grounded in shipped outcomes instead of generated for search volume.
+        </p>
+        <h2>Topics We Cover</h2>
+        <ul>
+          <li>Web Development Dubai</li>
+          <li>SEO Services UAE</li>
+          <li>GEO Optimization</li>
+          <li>Headless CMS</li>
+          <li>Custom Software Development</li>
+          <li>Ecommerce Strategy</li>
+        </ul>
+        <h2>Why Read the Webcore Solutions Blog</h2>
+        <p>
+          Every article is written by the Webcore Solutions team in Dubai — the same engineers,
+          SEO specialists and designers delivering client projects across the UAE, UK, Europe,
+          the United States and Pakistan. We write from regional context and live problems, not
+          theory. The tone stays practical and honest: real constraints, real decisions, no
+          AI-generated filler and no padding for keyword counts.
+        </p>
+      </section>
     </Layout>
   );
 }

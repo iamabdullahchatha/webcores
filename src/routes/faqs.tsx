@@ -509,10 +509,10 @@ function FAQs() {
             {activeCategory === null ? (
               categories.map((cat) => (
                 <div key={cat.label} className="space-y-3">
-                  <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
+                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
                     <cat.icon className="h-3.5 w-3.5" style={{ color: cat.color }} />
                     {cat.label}
-                  </h2>
+                  </p>
                   {cat.faqs.map((f, i) => (
                     <FaqItem
                       key={f.q}
@@ -527,10 +527,10 @@ function FAQs() {
               ))
             ) : (
               <div className="space-y-3">
-                <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
+                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
                   {activeCat && <activeCat.icon className="h-3.5 w-3.5" style={{ color: activeCat.color }} />}
                   {activeCat?.label}
-                </h2>
+                </p>
                 {displayedFaqs.map((f, i) => (
                   <FaqItem
                     key={f.q}

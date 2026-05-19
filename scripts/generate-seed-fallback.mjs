@@ -8,6 +8,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createClient } from "@supabase/supabase-js";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const serviceSeed = path.join(rootDir, "supabase", "seeds", "0004_service_pages_seed.sql");
@@ -271,7 +272,10 @@ for (const slug of Object.keys(serviceFallback)) {
 }
 
 const blogRows = parseInsert(blogSql, "blog_posts");
-const blogFallback = blogRows
+
+// Static SQL-seed fallback (used only if Supabase is unreachable at build time
+// so the build never breaks). Mirrors the previous behavior.
+const blogFallbackFromSql = blogRows
   .filter((r) => r.status === "published")
   .map((r) => ({
     id: r.slug,
@@ -286,6 +290,73 @@ const blogFallback = blogRows
     // hydration drift; the live fetch supplies the real date post-mount.
     published_at: null,
   }));
+
+// Prefer LIVE published posts from Supabase so the prerendered /blog grid
+// contains real internal links to every post (crawler discoverability).
+// Connection pattern copied from scripts/prerender.mjs. If env vars are not
+// injected (Vercel injects them), parse them from .env as a local fallback.
+async function readSupabaseEnv() {
+  let url = process.env.VITE_SUPABASE_URL;
+  let key = process.env.VITE_SUPABASE_ANON_KEY;
+  if (url && key) return { url, key };
+  try {
+    const envText = await readFile(path.join(rootDir, ".env"), "utf8");
+    for (const line of envText.split(/\r?\n/)) {
+      const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
+      if (!m) continue;
+      const val = m[2].replace(/^["']|["']$/g, "");
+      if (m[1] === "VITE_SUPABASE_URL" && !url) url = val;
+      if (m[1] === "VITE_SUPABASE_ANON_KEY" && !key) key = val;
+    }
+  } catch {
+    /* no .env file — env must be injected; fall back to SQL seed */
+  }
+  return { url, key };
+}
+
+let blogFallback = blogFallbackFromSql;
+{
+  const { url: supabaseUrl, key: supabaseAnonKey } = await readSupabaseEnv();
+  if (supabaseUrl && supabaseAnonKey) {
+    try {
+      const db = createClient(supabaseUrl, supabaseAnonKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+      const { data, error } = await db
+        .from("blog_posts")
+        .select(
+          "id, slug, title, excerpt, cover_image_url, cover_image_alt, tags, reading_time_min, published_at",
+        )
+        .eq("status", "published")
+        .order("published_at", { ascending: false });
+      if (error) {
+        console.warn(`blog fallback: Supabase query failed — ${error.message} (using SQL seed)`);
+      } else if (data && data.length > 0) {
+        blogFallback = data.map((r) => ({
+          id: r.id ?? r.slug,
+          slug: r.slug,
+          title: r.title,
+          excerpt: r.excerpt ?? null,
+          cover_image_url: r.cover_image_url ?? null,
+          cover_image_alt: r.cover_image_alt ?? null,
+          tags: Array.isArray(r.tags) ? r.tags : null,
+          reading_time_min:
+            typeof r.reading_time_min === "number" ? r.reading_time_min : null,
+          // published_at left null on purpose: avoids SSR/client locale-format
+          // hydration drift; the live fetch supplies the real date post-mount.
+          published_at: null,
+        }));
+        console.log(`blog fallback: seeded ${blogFallback.length} published posts from Supabase`);
+      } else {
+        console.warn("blog fallback: Supabase returned 0 posts (using SQL seed)");
+      }
+    } catch (err) {
+      console.warn(`blog fallback: could not connect to Supabase — ${err.message} (using SQL seed)`);
+    }
+  } else {
+    console.warn("blog fallback: VITE_SUPABASE_URL/ANON_KEY not available — using SQL seed");
+  }
+}
 
 // Full-post fallback keyed by slug — used by blog.$slug route so individual
 // post pages render without a live Supabase hit (mirrors listing page pattern).
