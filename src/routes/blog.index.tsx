@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Clock, Calendar } from "lucide-react";
+import { ArrowUpRight, Clock, Calendar, HelpCircle, Plus } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
@@ -31,6 +31,117 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
+/* ─── FAQ Accordion Item — mirrors the pattern used on /faqs ─────── */
+function FaqItem({
+  q, a, index, isOpen, onToggle,
+}: {
+  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
+}) {
+  const panelId = `blog-faq-panel-${index}`;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleToggle = () => {
+    const previousTop = buttonRef.current?.getBoundingClientRect().top;
+    onToggle();
+    if (typeof previousTop !== "number") return;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const nextTop = buttonRef.current?.getBoundingClientRect().top;
+        if (typeof nextTop !== "number") return;
+        window.scrollBy({ top: nextTop - previousTop, left: 0, behavior: "auto" });
+      });
+    });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+      className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
+        isOpen
+          ? "glass shadow-glow border border-primary/20"
+          : "glass border border-border/40 hover:border-primary/20"
+      }`}
+    >
+      {/* Active left accent bar */}
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-0.5 rounded-full transition-all duration-300 ${
+          isOpen ? "gradient-primary opacity-100" : "opacity-0"
+        }`}
+      />
+
+      <h3 className="m-0 p-0 font-normal leading-none">
+        <button
+          ref={buttonRef}
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-primary/5"
+        >
+          <div className="flex items-center gap-4">
+            <div
+              className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+              }`}
+            >
+              <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+            </div>
+            <span className="font-semibold text-sm md:text-base">{q}</span>
+          </div>
+          <motion.div
+            animate={{ rotate: isOpen ? 45 : 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
+              isOpen ? "gradient-primary" : "bg-primary/10"
+            }`}
+          >
+            <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+          </motion.div>
+        </button>
+      </h3>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pl-18 pr-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-primary/10 pt-4">
+              {a}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+const BLOG_FAQS = [
+  {
+    q: "What does the Webcore Solutions blog cover?",
+    a: "The blog covers practical web development, software engineering, headless CMS builds, ecommerce, and software architecture — alongside SEO, GEO strategy, and growth. Posts are written by senior engineers and strategists in Dubai who actually ship the work for our UAE, UK, Europe, US, and Pakistan clients.",
+  },
+  {
+    q: "How often are new articles published?",
+    a: "We publish new posts regularly throughout 2026 and beyond — each one tied to a real client project or live engineering problem. Nothing is generated for volume or outsourced for SEO; every article is written by the team doing the work.",
+  },
+  {
+    q: "Which technical topics appear most often?",
+    a: "Core Web Vitals, schema markup, technical SEO, headless CMS architecture, and frontend performance feature regularly. We also cover GEO (Generative Engine Optimization) for AI-driven search, server-side rendering trade-offs, and the architectural decisions behind sites that rank and convert in competitive UAE markets.",
+  },
+  {
+    q: "Who is the blog written for?",
+    a: "Founders, operators, marketing leads, and engineering teams who need substance over surface — especially those building or scaling digital businesses in Dubai, the wider UAE, and global markets. Expect lead generation, conversion, organic growth, and the technical foundations that quietly drive all three.",
+  },
+];
 
 type PostCard = {
   id: string;
@@ -68,6 +179,9 @@ function BlogIndex() {
   // real content for crawlers. The effect below still fetches live data and
   // replaces this — Supabase remains the source of truth.
   const [posts, setPosts] = useState<PostCard[] | null>(blogFallback as PostCard[]);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const toggleFaq = (i: number) =>
+    setOpenFaqs((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
 
   useEffect(() => {
     let active = true;
@@ -125,7 +239,7 @@ function BlogIndex() {
               {...fadeUp(0.18)}
               className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
-              Practical thinking on web development, software engineering, SEO, and growth — field notes written by the Webcore Solutions team in Dubai. We publish on web performance, headless CMS, SEO and GEO strategy, software architecture, ecommerce, and the tools shaping digital business in 2026 and beyond. Each post is written by senior engineers and strategists who actually ship the work — not generated for volume, not outsourced for SEO. New posts go out regularly, covering both the technical foundations (Core Web Vitals, schema, architecture) and the business outcomes (lead generation, conversion, organic growth) that matter to founders and operators in the UAE and worldwide.
+              The Webcore Solutions blog shares practical insights from our team on web development, SEO, GEO optimization, ecommerce, and scalable digital systems. Our articles are based on real client projects across the UAE, Europe, the UK, the US, and Pakistan — covering performance, search visibility, architecture, and growth strategies that deliver real business results.
             </motion.p>
           </div>
         </motion.div>
@@ -219,6 +333,32 @@ function BlogIndex() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* FAQs — visible accordion. Reinforces the SEO keywords (headless CMS,
+          Core Web Vitals, schema, GEO, ecommerce, software architecture) that
+          were trimmed from the shortened intro paragraph above. */}
+      <section className="mx-auto max-w-4xl px-4 pb-24">
+        <motion.div {...fadeUp()} className="mb-8">
+          <SectionLabel>FAQs</SectionLabel>
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight">
+            Common questions about the{" "}
+            <span className="gradient-text">Webcore Solutions blog</span>
+          </h2>
+        </motion.div>
+
+        <motion.div {...fadeUp(0.1)} className="space-y-3">
+          {BLOG_FAQS.map((f, i) => (
+            <FaqItem
+              key={f.q}
+              q={f.q}
+              a={f.a}
+              index={i}
+              isOpen={openFaqs.includes(i)}
+              onToggle={() => toggleFaq(i)}
+            />
+          ))}
+        </motion.div>
       </section>
 
       {/* SEO text mirror — crawler-only, aria-hidden, sr-only */}
