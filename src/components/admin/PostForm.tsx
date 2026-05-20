@@ -3,6 +3,7 @@
  * Caller owns the save/publish actions and passes them as props.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import MDEditor from "@uiw/react-md-editor";
 import { format } from "date-fns";
 import {
@@ -562,6 +563,18 @@ export function PostForm({
         </div>
         <div className="flex items-center gap-3">
           <span className="hidden sm:block text-xs text-muted-foreground/60">⌘S to save</span>
+          {/* Visible reason when Publish is blocked — prevents the
+              "click does nothing" trap when slug is already taken or
+              the slug field is empty/invalid. */}
+          {(slugTaken || !data.slug || !/^[a-z0-9-]+$/.test(data.slug)) && (
+            <span className="hidden md:inline text-xs font-semibold text-destructive">
+              {!data.slug
+                ? "Add a slug to publish"
+                : !/^[a-z0-9-]+$/.test(data.slug)
+                ? "Slug must be lowercase letters, numbers, hyphens"
+                : "Slug already in use — change it to publish"}
+            </span>
+          )}
           <button
             type="button"
             disabled={saving}
@@ -572,8 +585,26 @@ export function PostForm({
           </button>
           <button
             type="button"
-            disabled={saving || slugTaken}
-            onClick={() => { setDirty(false); onPublish({ ...data, status: "published" }); }}
+            // NOTE: not disabled on slugTaken/invalid — instead we surface
+            // a toast on click so the user knows exactly what to fix.
+            // Silent disabling caused "click does nothing" publish failures.
+            disabled={saving}
+            onClick={() => {
+              if (!data.slug) {
+                toast.error("Add a slug before publishing.");
+                return;
+              }
+              if (!/^[a-z0-9-]+$/.test(data.slug)) {
+                toast.error("Slug must contain only lowercase letters, numbers, and hyphens.");
+                return;
+              }
+              if (slugTaken) {
+                toast.error("This slug is already used by another post. Change it to publish.");
+                return;
+              }
+              setDirty(false);
+              onPublish({ ...data, status: "published" });
+            }}
             className="inline-flex items-center gap-2 rounded-xl gradient-primary text-primary-foreground px-5 py-2 text-sm font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 disabled:opacity-60 disabled:pointer-events-none"
           >
             {saving && !isDraft ? "Publishing…" : "Publish"}
