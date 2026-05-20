@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Clock, Calendar, HelpCircle, Plus } from "lucide-react";
+import { ArrowUpRight, Clock, Calendar, HelpCircle, Plus, Search, X } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
@@ -179,7 +179,18 @@ function BlogIndex() {
   // real content for crawlers. The effect below still fetches live data and
   // replaces this — Supabase remains the source of truth.
   const [posts, setPosts] = useState<PostCard[] | null>(blogFallback as PostCard[]);
+  const [query, setQuery] = useState("");
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+
+  const filteredPosts = posts === null ? null : posts.filter((post) => {
+    if (!query.trim()) return true;
+    const q = query.toLowerCase();
+    return (
+      post.title.toLowerCase().includes(q) ||
+      (post.excerpt ?? "").toLowerCase().includes(q) ||
+      (post.tags ?? []).some((t) => t.toLowerCase().includes(q))
+    );
+  });
   const toggleFaq = (i: number) =>
     setOpenFaqs((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
 
@@ -245,9 +256,39 @@ function BlogIndex() {
         </motion.div>
       </section>
 
+      {/* Search bar */}
+      <section className="mx-auto max-w-7xl px-4 pt-10 pb-2">
+        <motion.div {...fadeUp(0.05)} className="max-w-2xl mx-auto">
+          <div className="relative group">
+            <Search
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors duration-200 group-focus-within:text-primary"
+              aria-hidden="true"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search articles, SEO, web development, GEO..."
+              aria-label="Search blog articles"
+              className="w-full h-12 pl-11 pr-10 rounded-2xl glass border border-border/50 bg-transparent text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/15 transition-all duration-200"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-150"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </motion.div>
+      </section>
+
       {/* Posts grid */}
       <section className="mx-auto max-w-7xl px-4 pt-4 pb-24">
-        {posts === null ? (
+        {filteredPosts === null ? (
           <div className="grid gap-6 lg:grid-cols-3">
             {[0, 1, 2].map((i) => (
               <div key={i} className="glass rounded-2xl overflow-hidden animate-pulse">
@@ -261,7 +302,15 @@ function BlogIndex() {
               </div>
             ))}
           </div>
-        ) : posts.length === 0 ? (
+        ) : filteredPosts.length === 0 && query.trim() ? (
+          <motion.div {...fadeUp()} className="text-center py-24">
+            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl glass border border-border/40 mb-5">
+              <Search className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <p className="text-base font-semibold text-foreground">No articles found.</p>
+            <p className="text-sm text-muted-foreground mt-1">Try searching for another topic.</p>
+          </motion.div>
+        ) : filteredPosts.length === 0 ? (
           <div className="text-center py-24">
             <SectionLabel>Coming soon</SectionLabel>
             <p className="text-muted-foreground mt-2">
@@ -270,7 +319,7 @@ function BlogIndex() {
           </div>
         ) : (
           <div className="grid gap-6 lg:grid-cols-3">
-            {posts.map((post, i) => (
+            {filteredPosts.map((post, i) => (
               <motion.div key={post.id} {...fadeUp(Math.min(i * 0.06, 0.3))}>
                 <Link
                   to="/blog/$slug"
