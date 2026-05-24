@@ -664,9 +664,9 @@ export function getSeoHead(
   const isAbout = key === "about";
 
   const graph = [
-    isHome ? organizationSchema() : null,
+    organizationSchema(),
+    websiteSchema(),
     isHome ? professionalServiceSchema() : null,
-    isHome ? websiteSchema() : null,
     webPageSchema(page, key, hasFaqs),
     breadcrumbSchema(page),
     serviceSchema(key),
@@ -723,6 +723,9 @@ export function getSeoHead(
     links: [
       { rel: "canonical", href: canonical },
       { rel: "alternate", hrefLang: "en-ae", href: canonical },
+      { rel: "alternate", hrefLang: "en-gb", href: canonical },
+      { rel: "alternate", hrefLang: "en-pk", href: canonical },
+      { rel: "alternate", hrefLang: "en", href: canonical },
       { rel: "alternate", hrefLang: "x-default", href: canonical },
     ],
   };

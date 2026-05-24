@@ -10,27 +10,93 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { blogPostFallback } from "@/lib/content/seedFallback.generated";
 
 export const Route = createFileRoute("/blog/$slug")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
-      { name: "description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
-      { property: "og:type", content: "article" },
-      { property: "og:site_name", content: "Webcore Solutions" },
-      { property: "og:title", content: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
-      { property: "og:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
-      { property: "og:url", content: `https://www.webcoreuae.com/blog/${params.slug}` },
-      { property: "og:image", content: "https://www.webcoreuae.com/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@webcoresolutions" },
-      { name: "twitter:title", content: `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions` },
-      { name: "twitter:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
-      { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.png" },
-      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
-    ],
-    links: [
-      { rel: "canonical", href: `https://www.webcoreuae.com/blog/${params.slug}` },
-    ],
-  }),
+  head: ({ params }) => {
+    const postUrl = `https://www.webcoreuae.com/blog/${params.slug}`;
+    const postTitle = `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions`;
+    const ORG_ID = "https://www.webcoreuae.com/#organization";
+    const WEBSITE_ID = "https://www.webcoreuae.com/#website";
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": ORG_ID,
+          "name": "Webcore Solutions",
+          "url": "https://www.webcoreuae.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.webcoreuae.com/logo.png",
+            "width": 512,
+            "height": 512,
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/webcore-solutions-939b88408",
+            "https://www.facebook.com/profile.php?id=61587249472207",
+          ],
+        },
+        {
+          "@type": "WebSite",
+          "@id": WEBSITE_ID,
+          "name": "Webcore Solutions",
+          "url": "https://www.webcoreuae.com",
+          "publisher": { "@id": ORG_ID },
+        },
+        {
+          "@type": "Article",
+          "@id": `${postUrl}#article`,
+          "headline": postTitle,
+          "url": postUrl,
+          "mainEntityOfPage": postUrl,
+          "publisher": { "@id": ORG_ID },
+          "isPartOf": { "@id": WEBSITE_ID },
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://www.webcoreuae.com/og-image.png",
+            "width": 1200,
+            "height": 630,
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${postUrl}#breadcrumbs`,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.webcoreuae.com" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.webcoreuae.com/blog" },
+            { "@type": "ListItem", "position": 3, "name": postTitle.replace(" | Webcore Solutions", ""), "item": postUrl },
+          ],
+        },
+      ],
+    };
+
+    return {
+      meta: [
+        { title: postTitle },
+        { name: "description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "Webcore Solutions" },
+        { property: "og:title", content: postTitle },
+        { property: "og:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        { property: "og:url", content: postUrl },
+        { property: "og:image", content: "https://www.webcoreuae.com/og-image.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:site", content: "@webcoresolutions" },
+        { name: "twitter:title", content: postTitle },
+        { name: "twitter:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.png" },
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+        { "script:ld+json": schema },
+      ],
+      links: [
+        { rel: "canonical", href: postUrl },
+        { rel: "alternate", hrefLang: "en-ae", href: postUrl },
+        { rel: "alternate", hrefLang: "en-gb", href: postUrl },
+        { rel: "alternate", hrefLang: "en-pk", href: postUrl },
+        { rel: "alternate", hrefLang: "en", href: postUrl },
+        { rel: "alternate", hrefLang: "x-default", href: postUrl },
+      ],
+    };
+  },
   component: BlogPost,
 });
 
