@@ -1,4 +1,3 @@
-
 import { createFileRoute } from "@tanstack/react-router";
 import {
   motion,
@@ -42,12 +41,12 @@ import { getSeoHead } from "@/lib/seo";
 import { homeTestimonials as testimonials } from "@/data/testimonials/home";
 
 /* ─── Asset imports ────────────────────────────────────────────────── */
-import imgCmsDevelopment   from "@/assets/cms-development.webp";
-import imgGraphicsDesign   from "@/assets/graphics-design.webp";
-import imgItConsulting     from "@/assets/it-consulting.webp";
-import imgSeo              from "@/assets/seo.webp";
-import imgSoftwareDev      from "@/assets/software-development.webp";
-import imgWebDevelopment   from "@/assets/web-development.webp";
+import imgCmsDevelopment from "@/assets/cms-development.webp";
+import imgGraphicsDesign from "@/assets/graphics-design.webp";
+import imgItConsulting from "@/assets/it-consulting.webp";
+import imgSeo from "@/assets/seo.webp";
+import imgSoftwareDev from "@/assets/software-development.webp";
+import imgWebDevelopment from "@/assets/web-development.webp";
 
 export const Route = createFileRoute("/index/backup")({
   head: () => getSeoHead("home", { faqs: allFaqs }),
@@ -151,7 +150,7 @@ const services = [
     metric: "Brand recognition +40%",
     image: imgGraphicsDesign,
     to: "/services/graphic-design" as const,
-    cta: "View design portfolio",
+    cta: "Graphic Design and Branding Dubai",
   },
 ];
 
@@ -187,12 +186,11 @@ const process = [
 ];
 
 const stats = [
-  { v: "12+", l: "Years Experience",  icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
-  { v: "450+", l: "Clients Worldwide", icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.10)"   },
-  { v: "25+",  l: "Team Members",      icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)"  },
-  { v: "5",    l: "Countries Served",  icon: Globe,     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
+  { v: "12+", l: "Years Experience", icon: Award, color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
+  { v: "450+", l: "Clients Worldwide", icon: Users, color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
+  { v: "25+", l: "Team Members", icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
+  { v: "5", l: "Countries Served", icon: Globe, color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
 ];
-
 
 const portfolio = [
   {
@@ -240,10 +238,10 @@ const portfolio = [
 ];
 
 const regions = [
-  { name: "Europe",   emoji: "🇪🇺" },
-  { name: "UK",       emoji: "🇬🇧" },
-  { name: "America",  emoji: "🇺🇸" },
-  { name: "Dubai",    emoji: "🇦🇪" },
+  { name: "Europe", emoji: "🇪🇺" },
+  { name: "UK", emoji: "🇬🇧" },
+  { name: "America", emoji: "🇺🇸" },
+  { name: "Dubai", emoji: "🇦🇪" },
   { name: "Pakistan", emoji: "🇵🇰" },
 ];
 
@@ -272,8 +270,16 @@ const values = [
 ];
 
 const clientLogos = [
-  "NorthPeak", "Dunescape", "Fluxio", "Loomline",
-  "Hexa", "Ascend Co", "Vantara", "CloudSync", "Meridian", "Proxia",
+  "NorthPeak",
+  "Dunescape",
+  "Fluxio",
+  "Loomline",
+  "Hexa",
+  "Ascend Co",
+  "Vantara",
+  "CloudSync",
+  "Meridian",
+  "Proxia",
 ];
 
 /* ─── FAQ Data ──────────────────────────────────────────────────────── */
@@ -390,7 +396,8 @@ function StatCard({ s, delay }: { s: (typeof stats)[0]; delay: number }) {
         <s.icon className="h-4 w-4" style={{ color: s.color }} />
       </div>
       <div className="text-3xl md:text-4xl font-bold gradient-text">
-        {inView ? count : 0}{suffix}
+        {inView ? count : 0}
+        {suffix}
       </div>
       <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.l}</div>
     </motion.div>
@@ -412,7 +419,7 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
       x.set((e.clientX - rect.left) / rect.width - 0.5);
       y.set((e.clientY - rect.top) / rect.height - 0.5);
     },
-    [x, y]
+    [x, y],
   );
 
   return (
@@ -420,7 +427,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
       ref={ref}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={handleMouse}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
       className={className}
     >
       {children}
@@ -429,11 +439,7 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 }
 
 /* ─── Avatar component — image with fallback initial ───────────────── */
-function Avatar({
-  src, name, size = 36,
-}: {
-  src: string | null; name: string; size?: number;
-}) {
+function Avatar({ src, name, size = 36 }: { src: string | null; name: string; size?: number }) {
   const [errored, setErrored] = useState(false);
   const initial = name.charAt(0).toUpperCase();
 
@@ -465,9 +471,17 @@ function Avatar({
 
 /* ─── FAQ Item ──────────────────────────────────────────────────────── */
 function FaqItem({
-  q, a, index, isOpen, onToggle,
+  q,
+  a,
+  index,
+  isOpen,
+  onToggle,
 }: {
-  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
+  q: string;
+  a: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
 }) {
   const panelId = `faq-panel-home-${index}`;
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -516,7 +530,9 @@ function FaqItem({
               isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
             }`}
           >
-            <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+            <HelpCircle
+              className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`}
+            />
           </div>
           <span className="font-semibold text-sm md:text-base">{q}</span>
         </div>
@@ -527,7 +543,9 @@ function FaqItem({
             isOpen ? "gradient-primary" : "bg-primary/10"
           }`}
         >
-          <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+          <Plus
+            className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`}
+          />
         </motion.div>
       </button>
 
@@ -553,9 +571,13 @@ function FaqItem({
 
 /* ─── Category Tab ─────────────────────────────────────────────────── */
 function CategoryTab({
-  cat, active, onClick,
+  cat,
+  active,
+  onClick,
 }: {
-  cat: typeof faqCategories[0]; active: boolean; onClick: () => void;
+  cat: (typeof faqCategories)[0];
+  active: boolean;
+  onClick: () => void;
 }) {
   return (
     <button
@@ -567,7 +589,9 @@ function CategoryTab({
           : "glass text-foreground/70 hover:text-foreground hover:shadow-glow"
       }`}
     >
-      <div className={`h-5 w-5 rounded-md flex items-center justify-center bg-linear-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}>
+      <div
+        className={`h-5 w-5 rounded-md flex items-center justify-center bg-linear-to-br ${cat.color} ${active ? "opacity-100" : "opacity-70"}`}
+      >
         <cat.icon className="h-3 w-3 text-white" />
       </div>
       {cat.label}
@@ -592,13 +616,12 @@ function Index() {
   };
   const handleQuestionToggle = (question: string) => {
     setOpenQuestions((cur) =>
-      cur.includes(question) ? cur.filter((q) => q !== question) : [...cur, question]
+      cur.includes(question) ? cur.filter((q) => q !== question) : [...cur, question],
     );
   };
 
   return (
     <Layout>
-
       {/* ══════════════════════════════════════════ HERO ══════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
@@ -609,19 +632,31 @@ function Index() {
           animate={{ scale: [1, 1.18, 1], opacity: [0.25, 0.55, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-16 right-20 rounded-full pointer-events-none"
-          style={{ width: 600, height: 600, background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)" }}
+          style={{
+            width: 600,
+            height: 600,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+          }}
         />
         <motion.div
           animate={{ scale: [1, 1.25, 1], opacity: [0.15, 0.35, 0.15] }}
           transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
           className="absolute bottom-0 left-10 rounded-full pointer-events-none"
-          style={{ width: 380, height: 380, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }}
+          style={{
+            width: 380,
+            height: 380,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)",
+          }}
         />
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.18, 0.08] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4 }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-          style={{ width: 900, height: 900, background: "radial-gradient(circle, hsl(var(--primary)/0.06) 0%, transparent 65%)" }}
+          style={{
+            width: 900,
+            height: 900,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.06) 0%, transparent 65%)",
+          }}
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
@@ -647,11 +682,9 @@ function Index() {
 
               {/* ↓ FIX: text-4xl on mobile instead of text-5xl; added break-words */}
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight wrap-break-word">
-                Transforming{" "}
-                <span className="gradient-text">Ideas</span>{" "}
+                Transforming <span className="gradient-text">Ideas</span>{" "}
                 <br className="hidden md:block" />
-                into{" "}
-                <span className="gradient-text">Digital Reality</span>
+                into <span className="gradient-text">Digital Reality</span>
               </h1>
 
               <motion.p
@@ -660,9 +693,9 @@ function Index() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
               >
-                A digital studio building production-grade websites, custom software,
-                and growth systems. We pair senior engineers with proven SEO and brand
-                strategy to ship products 450+ companies trust across five continents.
+                A digital studio building production-grade websites, custom software, and growth
+                systems. We pair senior engineers with proven SEO and brand strategy to ship
+                products 450+ companies trust across five continents.
               </motion.p>
 
               <motion.div
@@ -675,14 +708,14 @@ function Index() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-1 hover:scale-[1.03] active:scale-95"
                 >
-                  Start a Project
+                  Contact Webcore Solutions
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
                 <Link
                   to="/services"
                   className="group inline-flex items-center gap-2 rounded-2xl glass px-8 py-4 font-semibold hover:shadow-glow transition-all duration-200 hover:-translate-y-1"
                 >
-                  View Our Work
+                  Digital Services Overview
                   <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
               </motion.div>
@@ -704,8 +737,8 @@ function Index() {
                   ))}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  <span className="text-foreground font-semibold">450+ companies</span>{" "}
-                  trust us to build their digital future
+                  <span className="text-foreground font-semibold">450+ companies</span> trust us to
+                  build their digital future
                 </div>
               </motion.div>
 
@@ -758,13 +791,16 @@ function Index() {
           <motion.div {...fadeUp()}>
             <SectionLabel>About Us</SectionLabel>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-              A Dubai-born studio<br />serving the world.
+              A Dubai-born studio
+              <br />
+              serving the world.
             </h2>
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
               Founded in Dubai, UAE under the leadership of{" "}
               <span className="text-foreground font-semibold">Muhammad Abdullah Chattha</span>,
               Webcore Solutions is a full-service digital agency partnering with ambitious teams
-              across Europe, UK, America, Dubai and Pakistan to ship product that performs — and endures.
+              across Europe, UK, America, Dubai and Pakistan to ship product that performs — and
+              endures.
             </p>
             <ul className="mt-7 space-y-3.5">
               {[
@@ -777,7 +813,12 @@ function Index() {
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.1, type: "tween", ease: "easeOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.1 + i * 0.1,
+                    type: "tween",
+                    ease: "easeOut",
+                  }}
                   className="flex items-center gap-3 group"
                 >
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-200 shrink-0">
@@ -803,15 +844,44 @@ function Index() {
               style={{ transform: "perspective(900px) rotateY(-5deg) rotateX(3deg)" }}
             >
               {[
-                { icon: Award,     color: "#f59e0b", bg: "rgba(245,158,11,0.15)",  v: "12+",  l: "Years Experience" },
-                { icon: Users,     color: "#06b6d4", bg: "rgba(6,182,212,0.15)",   v: "450+", l: "Clients Worldwide" },
-                { icon: Briefcase, color: "#10b981", bg: "rgba(16,185,129,0.15)",  v: "25+",  l: "Team Members"     },
-                { icon: Star,      color: "#ec4899", bg: "rgba(236,72,153,0.15)",  v: "5★",   l: "Avg. Rating"      },
+                {
+                  icon: Award,
+                  color: "#f59e0b",
+                  bg: "rgba(245,158,11,0.15)",
+                  v: "12+",
+                  l: "Years Experience",
+                },
+                {
+                  icon: Users,
+                  color: "#06b6d4",
+                  bg: "rgba(6,182,212,0.15)",
+                  v: "450+",
+                  l: "Clients Worldwide",
+                },
+                {
+                  icon: Briefcase,
+                  color: "#10b981",
+                  bg: "rgba(16,185,129,0.15)",
+                  v: "25+",
+                  l: "Team Members",
+                },
+                {
+                  icon: Star,
+                  color: "#ec4899",
+                  bg: "rgba(236,72,153,0.15)",
+                  v: "5★",
+                  l: "Avg. Rating",
+                },
               ].map((item, i) => (
                 <motion.div
                   key={item.l}
                   animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4 + i * 0.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                  transition={{
+                    duration: 4 + i * 0.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.5,
+                  }}
                   whileHover={{ scale: 1.06 }}
                   className="group rounded-2xl bg-card/80 shadow-elegant flex flex-col items-center justify-center p-6 gap-2 cursor-default"
                 >
@@ -822,7 +892,9 @@ function Index() {
                     <item.icon className="h-6 w-6" style={{ color: item.color }} />
                   </div>
                   <div className="text-2xl font-bold gradient-text">{item.v}</div>
-                  <div className="text-xs text-muted-foreground text-center leading-tight">{item.l}</div>
+                  <div className="text-xs text-muted-foreground text-center leading-tight">
+                    {item.l}
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -835,7 +907,9 @@ function Index() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16">
           <SectionLabel>Why Choose Us</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            The principles behind<br />every pixel we ship.
+            The principles behind
+            <br />
+            every pixel we ship.
           </h2>
           <p className="mt-4 text-muted-foreground">
             We hold ourselves to a standard most agencies don't mention.
@@ -863,7 +937,9 @@ function Index() {
                 <p className="text-muted-foreground text-sm leading-relaxed">{v.d}</p>
                 <div
                   className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                  style={{ background: `linear-gradient(to right, transparent, ${v.color}55, transparent)` }}
+                  style={{
+                    background: `linear-gradient(to right, transparent, ${v.color}55, transparent)`,
+                  }}
                 />
               </motion.div>
             </TiltCard>
@@ -877,14 +953,16 @@ function Index() {
           <div>
             <SectionLabel>Services</SectionLabel>
             <h2 className="text-4xl md:text-5xl font-bold">
-              Everything you need.<br />Under one roof.
+              Everything you need.
+              <br />
+              Under one roof.
             </h2>
           </div>
           <Link
             to="/services"
             className="group inline-flex items-center gap-2 text-primary font-semibold text-sm"
           >
-            View all services
+            Digital Services Overview
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
@@ -896,7 +974,12 @@ function Index() {
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: i * 0.07,
+                  duration: 0.6,
+                  type: "tween",
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 whileHover={{ y: -10 }}
                 className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-300 h-full flex flex-col"
               >
@@ -918,7 +1001,11 @@ function Index() {
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                     <span
                       className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md"
-                      style={{ background: `${s.color}22`, color: s.color, border: `1px solid ${s.color}44` }}
+                      style={{
+                        background: `${s.color}22`,
+                        color: s.color,
+                        border: `1px solid ${s.color}44`,
+                      }}
                     >
                       {s.tag}
                     </span>
@@ -938,14 +1025,21 @@ function Index() {
                   <div className="flex items-center gap-3 mb-4">
                     <div
                       className="rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-elegant"
-                      style={{ width: 44, height: 44, background: s.bg, boxShadow: `0 4px 16px ${s.color}22` }}
+                      style={{
+                        width: 44,
+                        height: 44,
+                        background: s.bg,
+                        boxShadow: `0 4px 16px ${s.color}22`,
+                      }}
                     >
                       <s.icon className="h-5 w-5" style={{ color: s.color }} />
                     </div>
                     <h3 className="text-base font-bold leading-snug">{s.title}</h3>
                   </div>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-5">{s.desc}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-5">
+                    {s.desc}
+                  </p>
 
                   <Link
                     to={s.to}
@@ -956,7 +1050,9 @@ function Index() {
 
                   <div
                     className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                    style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
+                    style={{
+                      background: `linear-gradient(to right, transparent, ${s.color}55, transparent)`,
+                    }}
                   />
                 </div>
               </motion.div>
@@ -970,7 +1066,9 @@ function Index() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-20">
           <SectionLabel>Our Process</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Predictable delivery.<br />Every single time.
+            Predictable delivery.
+            <br />
+            Every single time.
           </h2>
           <p className="mt-4 text-muted-foreground">
             A battle-tested 4-step framework refined across 450+ projects and 12 years.
@@ -1006,7 +1104,12 @@ function Index() {
                   />
                   <p.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: p.color + "99" }}>{p.n}</div>
+                <div
+                  className="text-xs font-bold uppercase tracking-widest mb-1"
+                  style={{ color: p.color + "99" }}
+                >
+                  {p.n}
+                </div>
                 <h3 className="font-bold mb-2">{p.t}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
@@ -1020,7 +1123,9 @@ function Index() {
         <motion.div {...fadeUp()} className="mb-14">
           <SectionLabel>Portfolio</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Work we're proud to<br />put our name on.
+            Work we're proud to
+            <br />
+            put our name on.
           </h2>
         </motion.div>
 
@@ -1031,12 +1136,20 @@ function Index() {
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: i * 0.07,
+                duration: 0.6,
+                type: "tween",
+                ease: [0.22, 1, 0.36, 1],
+              }}
               whileHover={{ y: -6, scale: 1.02 }}
               className="group relative overflow-hidden rounded-3xl cursor-pointer"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="absolute inset-0 transition-opacity duration-300" style={p.gradientStyle} />
+              <div
+                className="absolute inset-0 transition-opacity duration-300"
+                style={p.gradientStyle}
+              />
               <div className="absolute inset-0 opacity-[0.07]">
                 <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -1078,21 +1191,31 @@ function Index() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16 px-4">
           <SectionLabel>Testimonials</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Results our clients<br />actually talk about.
+            Results our clients
+            <br />
+            actually talk about.
           </h2>
           <p className="mt-4 text-muted-foreground">
             Don't take our word for it — here's what teams say after working with us.
           </p>
         </motion.div>
 
-        {[{ dir: 1, speed: 32 }, { dir: -1, speed: 26 }].map((row, ri) => (
+        {[
+          { dir: 1, speed: 32 },
+          { dir: -1, speed: 26 },
+        ].map((row, ri) => (
           <div key={ri} className={`relative ${ri === 1 ? "mt-5" : ""}`}>
             <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-background to-transparent pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
             <motion.div
               className="flex gap-5"
               animate={{ x: row.dir === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
-              transition={{ duration: row.speed, repeat: Infinity, repeatType: "loop", ease: "linear" }}
+              transition={{
+                duration: row.speed,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "linear",
+              }}
             >
               {/* Real cards — indexable by crawlers (row 0 only; row 1 is aria-hidden entirely) */}
               {testimonials.map((t) => (
@@ -1165,7 +1288,9 @@ function Index() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16">
           <SectionLabel>Global Reach</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Wherever you build,<br />we're right there.
+            Wherever you build,
+            <br />
+            we're right there.
           </h2>
           <p className="mt-4 text-muted-foreground">
             Teams across 5 regions rely on Webcore to keep their digital operations running.
@@ -1174,10 +1299,18 @@ function Index() {
 
         <motion.div {...scaleIn(0.1)} className="relative glass rounded-3xl p-12 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              className="absolute inset-0 w-full h-full opacity-[0.04]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <defs>
                 <pattern id="reach-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+                  <path
+                    d="M 40 0 L 0 0 0 40"
+                    fill="none"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="0.5"
+                  />
                 </pattern>
               </defs>
               <rect width="100%" height="100%" fill="url(#reach-grid)" />
@@ -1192,7 +1325,12 @@ function Index() {
                 initial={{ opacity: 0, scale: 0.6, y: 16 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: i * 0.1,
+                  duration: 0.5,
+                  type: "tween",
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 whileHover={{ y: -6, scale: 1.06 }}
                 className="group relative"
               >
@@ -1213,12 +1351,17 @@ function Index() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-12">
           <SectionLabel>FAQs</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Frequently<br /><span className="gradient-text">asked.</span>
+            Frequently
+            <br />
+            <span className="gradient-text">asked.</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
             Everything you wanted to know — answered. Still need help?{" "}
-            <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              ask us directly.
+            <Link
+              to="/contact"
+              className="text-primary font-semibold hover:underline underline-offset-2"
+            >
+              Contact Webcore Solutions.
             </Link>
           </p>
         </motion.div>
@@ -1271,50 +1414,57 @@ function Index() {
 
       {/* FAQ Bottom CTA */}
       <section className="mx-auto max-w-4xl px-4 pb-28">
-        <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
+        <motion.div
+          {...fadeUp(0.1)}
+          className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center"
+        >
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
           <motion.div
             animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+            }}
           />
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+            }}
           />
           <div className="relative">
             <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
               <MessageCircle className="h-7 w-7 text-primary-foreground" />
             </div>
             <SectionLabel>Still unsure?</SectionLabel>
-            <p className="text-3xl md:text-4xl font-bold mb-3">
-              Let's talk it through.
-            </p>
+            <p className="text-3xl md:text-4xl font-bold mb-3">Let's talk it through.</p>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next steps — whether you work with us or not.
+              Book a free 45-minute strategy call. Walk away with clarity on scope, cost and next
+              steps — whether you work with us or not.
             </p>
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Speak with Our Team
+              Contact Webcore Solutions
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
-              {["No commitment required", "Response within 24 hours", "Completely free"].map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
-                  {t}
-                </div>
-              ))}
+              {["No commitment required", "Response within 24 hours", "Completely free"].map(
+                (t) => (
+                  <div key={t} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3 w-3 text-primary/60" />
+                    {t}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </motion.div>
       </section>
-
     </Layout>
   );
 }

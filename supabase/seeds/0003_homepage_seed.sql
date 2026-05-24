@@ -49,8 +49,8 @@ INSERT INTO public.home_hero (
   'Premium Software & Digital Studio', 'Est. Dubai, UAE',
   'Transforming Ideas', 'into Digital Reality',
   'A digital studio building production-grade websites, custom software, and growth systems. We pair senior engineers with proven SEO and brand strategy to ship products 450+ companies trust across five continents.',
-  'Start a Project', '/contact',
-  'View Our Work', '/services'
+  'Contact Webcore Solutions', '/contact',
+  'Digital Services Overview', '/services'
 )
 ON CONFLICT (id) DO UPDATE SET
   badge_label        = EXCLUDED.badge_label,
@@ -87,7 +87,7 @@ INSERT INTO public.services (slug, title, description, tag, metric, icon_name, c
   ('web-development',   'Web Development',    'High-performance websites and e-commerce stores designed to convert visitors into paying customers.',                                             'Web',        'Sub-1s load times',     'Globe',      '#06b6d4', 'rgba(6,182,212,0.10)',    'web-development',        'Web Development services by Webcore Solutions', '/services/web-development',   'See website builds',      3),
   ('software-development', 'Software Development', 'Custom data systems and applications engineered to scale from day one — built on solid architecture.',                                      'Engineering','99.9% uptime SLA',      'Code2',      '#10b981', 'rgba(16,185,129,0.10)',   'software-development',   'Software Development by Webcore Solutions',     '/services/software-development', 'Read software cases',  4),
   ('seo-geo',           'SEO & GEO',          'Dominate search rankings locally and globally with data-driven organic growth strategies.',                                                        'Growth',     'Top 3 rankings',        'Search',     '#3b82f6', 'rgba(59,130,246,0.10)',   'seo',                    'SEO & GEO services by Webcore Solutions',       '/services/seo-geo',           'Grow search visibility',  5),
-  ('graphic-design',    'Brand & Design',     'Visual identities that communicate authority instantly — logos, brand systems, and marketing collateral.',                                        'Design',     'Brand recognition +40%','Palette',    '#ec4899', 'rgba(236,72,153,0.10)',   'graphics-design',        'Brand & Design services by Webcore Solutions',  '/services/graphic-design',    'View design portfolio',   6);
+  ('graphic-design',    'Brand & Design',     'Visual identities that communicate authority instantly — logos, brand systems, and marketing collateral.',                                        'Design',     'Brand recognition +40%','Palette',    '#ec4899', 'rgba(236,72,153,0.10)',   'graphics-design',        'Brand & Design services by Webcore Solutions',  '/services/graphic-design',    'Graphic Design and Branding Dubai',   6);
 
 -- NOTE: image_url stores the asset slug (e.g. 'it-consulting').
 -- The useServices hook maps this slug → the Vite-imported webp asset URL.

@@ -18,14 +18,20 @@ function AcceptInvitePage() {
 
   const [step, setStep] = useState<Step>("loading");
   const [errorMsg, setErrorMsg] = useState("");
-  const [profile, setProfile] = useState<{ email: string; full_name: string; id: string } | null>(null);
+  const [profile, setProfile] = useState<{ email: string; full_name: string; id: string } | null>(
+    null,
+  );
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!token) { setErrorMsg("Invalid or missing invite token."); setStep("error"); return; }
+    if (!token) {
+      setErrorMsg("Invalid or missing invite token.");
+      setStep("error");
+      return;
+    }
     (async () => {
       const { data, error } = await supabase
         .from("profiles")
@@ -33,8 +39,16 @@ function AcceptInvitePage() {
         .eq("invite_token", token)
         .maybeSingle();
 
-      if (error || !data) { setErrorMsg("This invite link is invalid or has already been used."); setStep("error"); return; }
-      if (data.is_active) { setErrorMsg("This invite has already been accepted. Please sign in."); setStep("error"); return; }
+      if (error || !data) {
+        setErrorMsg("This invite link is invalid or has already been used.");
+        setStep("error");
+        return;
+      }
+      if (data.is_active) {
+        setErrorMsg("This invite has already been accepted. Please sign in.");
+        setStep("error");
+        return;
+      }
 
       setProfile({ email: data.email, full_name: data.full_name, id: data.id });
       setStep("form");
@@ -42,8 +56,14 @@ function AcceptInvitePage() {
   }, [token]);
 
   async function submit() {
-    if (password.length < 8) { setErrorMsg("Password must be at least 8 characters."); return; }
-    if (password !== confirm) { setErrorMsg("Passwords do not match."); return; }
+    if (password.length < 8) {
+      setErrorMsg("Password must be at least 8 characters.");
+      return;
+    }
+    if (password !== confirm) {
+      setErrorMsg("Passwords do not match.");
+      return;
+    }
     if (!profile) return;
 
     setSaving(true);
@@ -97,8 +117,11 @@ function AcceptInvitePage() {
               </div>
               <p className="font-semibold text-foreground">Invite unavailable</p>
               <p className="text-sm text-muted-foreground">{errorMsg}</p>
-              <a href="/admin/login" className="inline-block text-primary text-sm font-semibold hover:underline underline-offset-2">
-                Go to sign in →
+              <a
+                href="/admin/login"
+                className="inline-block text-primary text-sm font-semibold hover:underline underline-offset-2"
+              >
+                Admin Sign In Page →
               </a>
             </div>
           )}
@@ -116,9 +139,16 @@ function AcceptInvitePage() {
           {step === "form" && profile && (
             <>
               <div className="px-6 py-5 border-b border-border/40">
-                <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-1">You're invited</p>
-                <h2 className="font-display text-lg font-bold">Welcome, {profile.full_name.split(" ")[0]}</h2>
-                <p className="text-sm text-muted-foreground mt-1">Set a password to activate your account at <strong className="text-foreground">{profile.email}</strong></p>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-1">
+                  You're invited
+                </p>
+                <h2 className="font-display text-lg font-bold">
+                  Welcome, {profile.full_name.split(" ")[0]}
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Set a password to activate your account at{" "}
+                  <strong className="text-foreground">{profile.email}</strong>
+                </p>
               </div>
 
               <div className="p-6 space-y-4">
@@ -129,7 +159,9 @@ function AcceptInvitePage() {
                 )}
 
                 <div>
-                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Password</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
+                    Password
+                  </label>
                   <div className="relative">
                     <input
                       type={showPw ? "text" : "password"}
@@ -149,7 +181,9 @@ function AcceptInvitePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Confirm Password</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
+                    Confirm Password
+                  </label>
                   <input
                     type={showPw ? "text" : "password"}
                     className="w-full glass rounded-xl px-4 py-3 text-sm bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200"
@@ -161,8 +195,12 @@ function AcceptInvitePage() {
                 </div>
 
                 <ul className="space-y-1 text-xs text-muted-foreground">
-                  <li className={password.length >= 8 ? "text-emerald-500" : ""}>✓ At least 8 characters</li>
-                  <li className={password && password === confirm ? "text-emerald-500" : ""}>✓ Passwords match</li>
+                  <li className={password.length >= 8 ? "text-emerald-500" : ""}>
+                    ✓ At least 8 characters
+                  </li>
+                  <li className={password && password === confirm ? "text-emerald-500" : ""}>
+                    ✓ Passwords match
+                  </li>
                 </ul>
               </div>
 

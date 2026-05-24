@@ -28,7 +28,11 @@ export function ServicePage(p: ServicePageProps) {
         <GridBackground />
         <FloatingShapes />
         <div className="relative mx-auto max-w-6xl px-4 py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-3xl"
+          >
             <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium mb-6">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
               {p.eyebrow}
@@ -38,11 +42,17 @@ export function ServicePage(p: ServicePageProps) {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">{p.intro}</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all hover:-translate-y-0.5">
-                Start a project <ArrowRight className="h-4 w-4" />
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all hover:-translate-y-0.5"
+              >
+                Contact Webcore Solutions <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/services" className="inline-flex items-center gap-2 rounded-2xl glass px-7 py-4 font-semibold hover:shadow-glow transition-all">
-                View all services
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 rounded-2xl glass px-7 py-4 font-semibold hover:shadow-glow transition-all"
+              >
+                Digital Services Overview
               </Link>
             </div>
           </motion.div>
@@ -121,7 +131,10 @@ export function ServicePage(p: ServicePageProps) {
             <h3 className="text-2xl font-bold mb-6">Modern, proven stack</h3>
             <div className="flex flex-wrap gap-2">
               {p.tech.map((t) => (
-                <span key={t} className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-medium border border-primary/20">
+                <span
+                  key={t}
+                  className="rounded-full bg-primary/10 text-primary px-4 py-2 text-sm font-medium border border-primary/20"
+                >
                   {t}
                 </span>
               ))}
@@ -188,12 +201,17 @@ export function ServicePage(p: ServicePageProps) {
         <div className="relative overflow-hidden rounded-3xl gradient-primary p-12 md:p-16 text-center shadow-elegant">
           <div className="absolute inset-0 grid-bg opacity-30" />
           <div className="relative">
-            <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Ready to begin?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
+              Ready to begin?
+            </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
               Book a free consultation — we'll scope, plan and quote within 48 hours.
             </p>
-            <Link to="/contact" className="inline-flex items-center gap-2 rounded-2xl bg-background text-foreground px-8 py-4 font-semibold hover:scale-105 transition-transform shadow-elegant">
-              Start your project <ArrowRight className="h-4 w-4" />
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-2xl bg-background text-foreground px-8 py-4 font-semibold hover:scale-105 transition-transform shadow-elegant"
+            >
+              Contact Webcore Solutions <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

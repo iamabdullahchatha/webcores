@@ -23,11 +23,22 @@ const FALLBACK: HomeHero = {
   headingLine2: "into Digital Reality",
   subtitle:
     "A digital studio building production-grade websites, custom software, and growth systems. We pair senior engineers with proven SEO and brand strategy to ship products 450+ companies trust across five continents.",
-  ctaPrimaryText: "Start a Project",
+  ctaPrimaryText: "Contact Webcore Solutions",
   ctaPrimaryHref: "/contact",
-  ctaSecondaryText: "View Our Work",
+  ctaSecondaryText: "Digital Services Overview",
   ctaSecondaryHref: "/services",
 };
+
+function internalAnchorText(href: string | null, text: string | null, fallback: string) {
+  const current = (text ?? fallback).trim().toLowerCase();
+  if ((href ?? "") === "/contact" && current === "start a project") {
+    return "Contact Webcore Solutions";
+  }
+  if ((href ?? "") === "/services" && current === "view our work") {
+    return "Digital Services Overview";
+  }
+  return text ?? fallback;
+}
 
 export function useHomeHero() {
   return useQuery<HomeHero>({
@@ -50,9 +61,17 @@ export function useHomeHero() {
         headingLine1: row.heading_line1 ?? FALLBACK.headingLine1,
         headingLine2: row.heading_line2 ?? FALLBACK.headingLine2,
         subtitle: row.subtitle ?? FALLBACK.subtitle,
-        ctaPrimaryText: row.cta_primary_text ?? FALLBACK.ctaPrimaryText,
+        ctaPrimaryText: internalAnchorText(
+          row.cta_primary_href,
+          row.cta_primary_text,
+          FALLBACK.ctaPrimaryText,
+        ),
         ctaPrimaryHref: row.cta_primary_href ?? FALLBACK.ctaPrimaryHref,
-        ctaSecondaryText: row.cta_secondary_text ?? FALLBACK.ctaSecondaryText,
+        ctaSecondaryText: internalAnchorText(
+          row.cta_secondary_href,
+          row.cta_secondary_text,
+          FALLBACK.ctaSecondaryText,
+        ),
         ctaSecondaryHref: row.cta_secondary_href ?? FALLBACK.ctaSecondaryHref,
       };
     },

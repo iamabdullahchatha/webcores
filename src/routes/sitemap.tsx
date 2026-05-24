@@ -45,13 +45,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 /* 3D Tilt Card (matches About / Home page pattern) */
-function TiltCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -202,7 +196,8 @@ const locationPages: SitemapEntry[] = [
   {
     label: "Webcore Solutions Dubai",
     path: "/webcore-solutions-dubai",
-    description: "Full-service digital agency headquartered in Dubai — web, software, SEO, and design since 2012.",
+    description:
+      "Full-service digital agency headquartered in Dubai — web, software, SEO, and design since 2012.",
     icon: MapPin,
     color: "#10b981",
     bg: "rgba(16,185,129,0.10)",
@@ -210,7 +205,8 @@ const locationPages: SitemapEntry[] = [
   {
     label: "Dubai Web Development Agency",
     path: "/dubai-web-development-agency",
-    description: "Dubai web development for high-performance sites, ecommerce stores, and React applications.",
+    description:
+      "Dubai web development for high-performance sites, ecommerce stores, and React applications.",
     icon: Globe,
     color: "#06b6d4",
     bg: "rgba(6,182,212,0.10)",
@@ -218,7 +214,8 @@ const locationPages: SitemapEntry[] = [
   {
     label: "Dubai SEO Agency",
     path: "/dubai-seo-agency",
-    description: "Technical SEO, GEO, and Arabic-English bilingual search optimisation for Dubai businesses.",
+    description:
+      "Technical SEO, GEO, and Arabic-English bilingual search optimisation for Dubai businesses.",
     icon: Search,
     color: "#3b82f6",
     bg: "rgba(59,130,246,0.10)",
@@ -226,7 +223,8 @@ const locationPages: SitemapEntry[] = [
   {
     label: "UAE Software Development",
     path: "/uae-software-development-company",
-    description: "Custom SaaS, APIs, data systems, and AI integrations built by our UAE team since 2012.",
+    description:
+      "Custom SaaS, APIs, data systems, and AI integrations built by our UAE team since 2012.",
     icon: Code2,
     color: "#8b5cf6",
     bg: "rgba(139,92,246,0.10)",
@@ -240,13 +238,16 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+        transition={{
+          delay: index * 0.06,
+          duration: 0.55,
+          type: "tween",
+          ease: [0.22, 1, 0.36, 1],
+        }}
         whileHover={{ y: -6 }}
         className="h-full"
       >
-        <div
-          className="group relative glass rounded-2xl p-5 flex items-start gap-4 hover:shadow-glow transition-all duration-300 overflow-hidden h-full"
-        >
+        <div className="group relative glass rounded-2xl p-5 flex items-start gap-4 hover:shadow-glow transition-all duration-300 overflow-hidden h-full">
           <div
             className="absolute -right-8 -top-8 h-32 w-32 rounded-full blur-2xl opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-300 pointer-events-none"
             style={{ background: entry.color }}
@@ -278,7 +279,9 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
           </div>
           <div
             className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-            style={{ background: `linear-gradient(to right, transparent, ${entry.color}55, transparent)` }}
+            style={{
+              background: `linear-gradient(to right, transparent, ${entry.color}55, transparent)`,
+            }}
           />
         </div>
       </motion.div>
@@ -303,9 +306,7 @@ function SitemapGroup({
         <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
         {title}
       </h2>
-      <div
-        className={`grid gap-4 ${columns === 2 ? "md:grid-cols-2" : "grid-cols-1"}`}
-      >
+      <div className={`grid gap-4 ${columns === 2 ? "md:grid-cols-2" : "grid-cols-1"}`}>
         {entries.map((entry, i) => (
           <SitemapCard key={entry.path} entry={entry} index={i} />
         ))}
@@ -320,7 +321,8 @@ function SitemapPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const totalPages = mainPages.length + servicePages.length + legalPages.length + locationPages.length;
+  const totalPages =
+    mainPages.length + servicePages.length + legalPages.length + locationPages.length;
 
   return (
     <Layout>
@@ -381,8 +383,8 @@ function SitemapPage() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Every page on Webcore Solutions, mapped and organised by section — easy to scan and built for fast
-                navigation.
+                Every page on Webcore Solutions, mapped and organised by section — easy to scan and
+                built for fast navigation.
               </motion.p>
 
               <motion.div
@@ -412,10 +414,7 @@ function SitemapPage() {
       </section>
 
       {/* ══════════════════════ SITEMAP CONTENT ═══════════════════════════ */}
-      <nav
-        aria-label="Full site navigation"
-        className="mx-auto max-w-6xl px-4 py-20 pb-16"
-      >
+      <nav aria-label="Full site navigation" className="mx-auto max-w-6xl px-4 py-20 pb-16">
         <SitemapGroup title="Main Pages" entries={mainPages} delay={0} columns={2} />
         <SitemapGroup title="Services" entries={servicePages} delay={0.05} columns={2} />
         <SitemapGroup title="Location Pages" entries={locationPages} delay={0.1} columns={2} />
@@ -425,7 +424,12 @@ function SitemapPage() {
       {/* ══════════════════════ INTRO PARAGRAPH ══════════════════════════ */}
       <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
         <motion.p {...fadeUp()} className="text-base text-muted-foreground leading-relaxed">
-          Use this sitemap to quickly navigate to any section of the Webcore Solutions website. Whether you're looking for our core services, recent blog articles, or contact information, every page is listed and linked here for your convenience. Every page on this site is built to be useful — whether you're exploring our services, reading about our approach, or looking for a specific solution. If you can't find what you need, the contact page is always the fastest way to reach us directly.
+          Use this sitemap to quickly navigate to any section of the Webcore Solutions website.
+          Whether you're looking for our core services, recent blog articles, or contact
+          information, every page is listed and linked here for your convenience. Every page on this
+          site is built to be useful — whether you're exploring our services, reading about our
+          approach, or looking for a specific solution. If you can't find what you need, the contact
+          page is always the fastest way to reach us directly.
         </motion.p>
       </section>
 
@@ -445,7 +449,7 @@ function SitemapPage() {
             }}
           />
           <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.20, 0.10] }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
@@ -459,14 +463,14 @@ function SitemapPage() {
             <SectionLabel>For Search Engines</SectionLabel>
             <h2 className="text-2xl md:text-3xl font-bold mb-3">Looking for the XML sitemap?</h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-7 leading-relaxed">
-              Search engines and crawlers use the XML version with full image sitemaps, hreflang tags and
-              lastmod dates.
+              Search engines and crawlers use the XML version with full image sitemaps, hreflang
+              tags and lastmod dates.
             </p>
             <a
               href="/sitemap.xml"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 text-sm"
             >
-              View sitemap.xml
+              XML sitemap file
               <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </a>
 

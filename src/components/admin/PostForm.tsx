@@ -7,8 +7,14 @@ import { toast } from "sonner";
 import MDEditor from "@uiw/react-md-editor";
 import { format } from "date-fns";
 import {
-  Calendar, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
-  Clock, ExternalLink, X,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  ExternalLink,
+  X,
 } from "lucide-react";
 import { FormField, inputClass } from "@/components/admin/ui/FormField";
 import { ImageUpload } from "@/components/admin/ImageUpload";
@@ -55,8 +61,18 @@ function slugify(title: string) {
 
 const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 const MONTHS = [
-  "January","February","March","April","May","June",
-  "July","August","September","October","November","December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 function MiniCalendar({
@@ -111,7 +127,10 @@ function MiniCalendar({
 
       <div className="grid grid-cols-7 mb-1">
         {DAYS.map((d) => (
-          <div key={d} className="text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground py-1">
+          <div
+            key={d}
+            className="text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground py-1"
+          >
             {d}
           </div>
         ))}
@@ -122,9 +141,7 @@ function MiniCalendar({
           if (!day) return <div key={i} />;
           const date = new Date(year, month, day);
           const isToday =
-            today.getFullYear() === year &&
-            today.getMonth() === month &&
-            today.getDate() === day;
+            today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
           const isSelected =
             selected &&
             selected.getFullYear() === year &&
@@ -140,8 +157,8 @@ function MiniCalendar({
                 isSelected
                   ? "gradient-primary text-primary-foreground shadow-elegant"
                   : isToday
-                  ? "border border-primary/50 text-primary"
-                  : "text-foreground hover:bg-primary/10 hover:text-primary"
+                    ? "border border-primary/50 text-primary"
+                    : "text-foreground hover:bg-primary/10 hover:text-primary"
               }`}
             >
               {day}
@@ -202,14 +219,16 @@ export function PostForm({
     if (!dirty) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(async () => {
-      await onSaveDraft({ ...data, reading_time_min: readingTime } as PostFormData, { silent: true });
+      await onSaveDraft({ ...data, reading_time_min: readingTime } as PostFormData, {
+        silent: true,
+      });
       setLastAutosaved(new Date());
       setDirty(false);
     }, 60_000);
     return () => {
       if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dirty, data.title, data.slug, data.content, data.excerpt, data.status]);
 
   // Keyboard save: ⌘S / Ctrl+S
@@ -259,11 +278,7 @@ export function PostForm({
     <div className="space-y-4">
       {/* Dirty banner */}
       {dirty && (
-        <DirtyBanner
-          onSave={() => onSaveDraft(data)}
-          onDiscard={handleDiscard}
-          saving={saving}
-        />
+        <DirtyBanner onSave={() => onSaveDraft(data)} onDiscard={handleDiscard} saving={saving} />
       )}
 
       {/* Two-column layout */}
@@ -289,7 +304,9 @@ export function PostForm({
               <span className="flex items-center gap-2">
                 Slug
                 {!slugManual && (
-                  <span className="text-xs bg-primary/10 text-primary rounded px-1.5 py-0.5">Auto</span>
+                  <span className="text-xs bg-primary/10 text-primary rounded px-1.5 py-0.5">
+                    Auto
+                  </span>
                 )}
                 {slugManual && (
                   <button
@@ -330,9 +347,7 @@ export function PostForm({
               maxLength={300}
               className={`${inputClass} resize-none`}
             />
-            <p className="text-xs text-muted-foreground text-right">
-              {data.excerpt.length}/300
-            </p>
+            <p className="text-xs text-muted-foreground text-right">{data.excerpt.length}/300</p>
           </FormField>
 
           {/* Markdown editor */}
@@ -444,7 +459,10 @@ export function PostForm({
                   }
                 }}
               />
-              <label htmlFor="publish-toggle" className="text-sm font-medium cursor-pointer select-none">
+              <label
+                htmlFor="publish-toggle"
+                className="text-sm font-medium cursor-pointer select-none"
+              >
                 {data.status === "published" ? (
                   <span className="text-emerald-400">Published</span>
                 ) : (
@@ -507,7 +525,11 @@ export function PostForm({
               className="w-full flex items-center justify-between px-5 py-4 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               SEO Settings
-              {seoOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+              {seoOpen ? (
+                <ChevronUp className="h-3.5 w-3.5" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5" />
+              )}
             </button>
             {seoOpen && (
               <div className="px-5 pb-5 space-y-4 border-t border-border/40">
@@ -540,15 +562,9 @@ export function PostForm({
       {/* Sticky bottom bar */}
       <div className="sticky bottom-0 left-0 right-0 z-20 bg-background/80 backdrop-blur border-t border-border/40 px-0 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          {lastAutosaved && !lastSaved && (
-            <span>Autosaved {format(lastAutosaved, "HH:mm")}</span>
-          )}
-          {lastSaved && (
-            <span>Last saved: {format(lastSaved, "HH:mm")}</span>
-          )}
-          {!lastSaved && !lastAutosaved && (
-            <span>Last saved: never</span>
-          )}
+          {lastAutosaved && !lastSaved && <span>Autosaved {format(lastAutosaved, "HH:mm")}</span>}
+          {lastSaved && <span>Last saved: {format(lastSaved, "HH:mm")}</span>}
+          {!lastSaved && !lastAutosaved && <span>Last saved: never</span>}
           {viewSlug && (
             <a
               href={`/blog/${viewSlug}`}
@@ -557,7 +573,7 @@ export function PostForm({
               className="inline-flex items-center gap-1 text-primary hover:underline"
             >
               <ExternalLink className="h-3 w-3" />
-              View live
+              View Live Blog Post
             </a>
           )}
         </div>
@@ -571,14 +587,17 @@ export function PostForm({
               {!data.slug
                 ? "Add a slug to publish"
                 : !/^[a-z0-9-]+$/.test(data.slug)
-                ? "Slug must be lowercase letters, numbers, hyphens"
-                : "Slug already in use — change it to publish"}
+                  ? "Slug must be lowercase letters, numbers, hyphens"
+                  : "Slug already in use — change it to publish"}
             </span>
           )}
           <button
             type="button"
             disabled={saving}
-            onClick={() => { setDirty(false); onSaveDraft(data); }}
+            onClick={() => {
+              setDirty(false);
+              onSaveDraft(data);
+            }}
             className="rounded-xl border border-border/40 bg-background/60 text-foreground px-4 py-2 text-sm font-semibold hover:bg-muted/60 transition-colors duration-200 disabled:opacity-60 disabled:pointer-events-none"
           >
             {saving && isDraft ? "Saving…" : "Save Draft"}

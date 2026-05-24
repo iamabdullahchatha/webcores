@@ -1,26 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
 import {
-  Lightbulb, Layers, Globe, Database, Search, Palette,
-  ArrowRight, CheckCircle2, Zap, Users, Award, ArrowUpRight,
+  Lightbulb,
+  Layers,
+  Globe,
+  Database,
+  Search,
+  Palette,
+  ArrowRight,
+  CheckCircle2,
+  Zap,
+  Users,
+  Award,
+  ArrowUpRight,
 } from "lucide-react";
 
 /* ─── Asset imports (same images used in index.tsx) ────────────────── */
 import imgCmsDevelopment from "@/assets/cms-development.webp";
 import imgGraphicsDesign from "@/assets/graphics-design.webp";
-import imgItConsulting   from "@/assets/it-consulting.webp";
-import imgSeo            from "@/assets/seo.webp";
-import imgSoftwareDev    from "@/assets/software-development.webp";
+import imgItConsulting from "@/assets/it-consulting.webp";
+import imgSeo from "@/assets/seo.webp";
+import imgSoftwareDev from "@/assets/software-development.webp";
 import imgWebDevelopment from "@/assets/web-development.webp";
 
 export const Route = createFileRoute("/services/")({
@@ -105,9 +109,15 @@ const services = [
 ];
 
 const stats = [
-  { v: "450+", l: "Projects Delivered", icon: Award, color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
-  { v: "12+",  l: "Years Experience",   icon: Zap,   color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
-  { v: "25+",  l: "Team Members",       icon: Users, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
+  {
+    v: "450+",
+    l: "Projects Delivered",
+    icon: Award,
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.10)",
+  },
+  { v: "12+", l: "Years Experience", icon: Zap, color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
+  { v: "25+", l: "Team Members", icon: Users, color: "#10b981", bg: "rgba(16,185,129,0.10)" },
 ];
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
@@ -135,19 +145,25 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 200, damping: 22 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 200, damping: 22 });
 
-  const handleMouse = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  }, [x, y]);
+  const handleMouse = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      x.set((e.clientX - rect.left) / rect.width - 0.5);
+      y.set((e.clientY - rect.top) / rect.height - 0.5);
+    },
+    [x, y],
+  );
 
   return (
     <motion.div
       ref={ref}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={handleMouse}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
       className={className}
     >
       {children}
@@ -156,7 +172,7 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 }
 
 /* ─── Service Card ──────────────────────────────────────────────────── */
-function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
+function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
   return (
     <TiltCard className="h-full">
       <motion.div
@@ -166,9 +182,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
         transition={{ delay: i * 0.08, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
         className="h-full"
       >
-        <div
-          className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col"
-        >
+        <div className="group relative glass rounded-3xl overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
           {/* ── Image banner (mirrors index.tsx pattern) ── */}
           <div className="relative h-52 w-full overflow-hidden shrink-0">
             <img
@@ -219,7 +233,9 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
             {/* Top accent line */}
             <div
               className="absolute top-0 left-6 right-6 h-px opacity-30 group-hover:opacity-70 transition-opacity duration-300"
-              style={{ background: `linear-gradient(to right, transparent, ${s.color}, transparent)` }}
+              style={{
+                background: `linear-gradient(to right, transparent, ${s.color}, transparent)`,
+              }}
             />
 
             {/* Icon + Title row */}
@@ -227,7 +243,8 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               <div
                 className="rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-elegant"
                 style={{
-                  width: 44, height: 44,
+                  width: 44,
+                  height: 44,
                   background: s.bg,
                   boxShadow: `0 4px 16px ${s.color}22`,
                 }}
@@ -237,7 +254,10 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
 
               <div className="flex items-start justify-between gap-3 flex-1 min-w-0">
                 <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary truncate">
-                  <Link to={s.to} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:rounded-sm">
+                  <Link
+                    to={s.to}
+                    className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:rounded-sm"
+                  >
                     {s.t}
                   </Link>
                 </h3>
@@ -282,7 +302,6 @@ function Services() {
 
   return (
     <Layout>
-
       {/* ══════════════════════ HERO ═══════════════════════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-[70vh] flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
@@ -293,19 +312,26 @@ function Services() {
           animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
-          style={{ width: 500, height: 500, background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+          style={{
+            width: 500,
+            height: 500,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+          }}
         />
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-8 rounded-full pointer-events-none"
-          style={{ width: 300, height: 300, background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)" }}
+          style={{
+            width: 300,
+            height: 300,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
+          }}
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
             <div className="flex flex-col items-center text-center">
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -322,8 +348,7 @@ function Services() {
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                Digital services{" "}
-                <span className="gradient-text">in Dubai.</span>
+                Digital services <span className="gradient-text">in Dubai.</span>
               </motion.h1>
 
               <motion.p
@@ -332,7 +357,10 @@ function Services() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                From strategy and engineering to brand and growth — every service delivered in-house, no outsourcing, no middlemen. Every service we offer is engineered around business outcomes — not just deliverables. From startups in Karachi to enterprises in London and Dubai, our clients trust us to handle the full digital stack.
+                From strategy and engineering to brand and growth — every service delivered
+                in-house, no outsourcing, no middlemen. Every service we offer is engineered around
+                business outcomes — not just deliverables. From startups in Karachi to enterprises
+                in London and Dubai, our clients trust us to handle the full digital stack.
               </motion.p>
 
               {/* Per-service colored pills */}
@@ -364,11 +392,10 @@ function Services() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
                 >
-                  Start a project
+                  Contact Webcore Solutions
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
-
             </div>
           </div>
         </motion.div>
@@ -385,7 +412,12 @@ function Services() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: i * 0.1,
+                    duration: 0.55,
+                    type: "tween",
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   whileHover={{ y: -5 }}
                   className="group glass rounded-2xl px-5 py-5 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
                 >
@@ -405,7 +437,9 @@ function Services() {
                   {/* Bottom accent */}
                   <div
                     className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                    style={{ background: `linear-gradient(to right, transparent, ${s.color}66, transparent)` }}
+                    style={{
+                      background: `linear-gradient(to right, transparent, ${s.color}66, transparent)`,
+                    }}
                   />
                 </motion.div>
               </TiltCard>
@@ -419,10 +453,13 @@ function Services() {
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-14">
           <SectionLabel>What We Offer</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Six specialisms.<br />One trusted team.
+            Six specialisms.
+            <br />
+            One trusted team.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Whether you need one service or a full-scope partner, we deliver every discipline in-house.
+            Whether you need one service or a full-scope partner, we deliver every discipline
+            in-house.
           </p>
         </motion.div>
 
@@ -435,50 +472,57 @@ function Services() {
 
       {/* ══════════════════════ BOTTOM CTA ═════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
-        <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
+        <motion.div
+          {...fadeUp(0.1)}
+          className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center"
+        >
           <div className="absolute inset-0 gradient-primary opacity-[0.04] rounded-3xl pointer-events-none" />
           <motion.div
             animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+            }}
           />
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+            }}
           />
           <div className="relative">
             <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
               <Zap className="h-7 w-7 text-primary-foreground" />
             </div>
             <SectionLabel>Ready to start?</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Let's build something great.
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Let's build something great.</h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Tell us what you need. We'll map the right services, estimate effort and timeline, then send a fixed-scope proposal within 48 hours.
+              Tell us what you need. We'll map the right services, estimate effort and timeline,
+              then send a fixed-scope proposal within 48 hours.
             </p>
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Book Free Consultation
+              Contact Webcore Solutions
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
-              {["No commitment required", "Response within 24 hours", "Completely free"].map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
-                  {t}
-                </div>
-              ))}
+              {["No commitment required", "Response within 24 hours", "Completely free"].map(
+                (t) => (
+                  <div key={t} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3 w-3 text-primary/60" />
+                    {t}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </motion.div>
       </section>
-
     </Layout>
   );
 }

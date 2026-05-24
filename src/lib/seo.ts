@@ -131,7 +131,7 @@ export const pageSeo = {
     description:
       "Book a free 45-minute strategy call or send a project brief. We reply within 24 hours with a fixed quote and clear scope. Serving UAE, UK, Europe and Pakistan.",
     keywords: [
-      "contact Webcore Solutions",
+      "Contact Webcore Solutions",
       "Dubai software consultation",
       "book web development call",
     ],

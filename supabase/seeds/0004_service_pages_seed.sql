@@ -203,8 +203,8 @@ VALUES
      { "v": "2–4w", "l": "Typical timeline" },
      { "v": "100%", "l": "Vendor-neutral" }
    ],
-   "cta_primary":   { "text": "Book free consultation", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);
@@ -229,7 +229,7 @@ VALUES
      { "icon": "Globe",    "label": "Multi-site & multi-language" },
      { "icon": "FileText", "label": "Full editor training included" }
    ],
-   "cta_primary":   { "text": "Start your project", "href": "/contact" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
    "cta_secondary": { "text": "All services", "href": "/services" },
    "stats": [
      { "v": "120+", "l": "CMS platforms delivered", "icon": "Award",      "color": "#8b5cf6", "bg": "rgba(139,92,246,0.12)" },
@@ -379,8 +379,8 @@ VALUES
      { "v": "10×",  "l": "Publishing speed" },
      { "v": "3–6w", "l": "Delivery window" }
    ],
-   "cta_primary":   { "text": "Start your project", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);
@@ -405,7 +405,7 @@ VALUES
      { "icon": "MonitorSmartphone", "label": "Mobile-first always" },
      { "icon": "FileText",          "label": "Figma design system included" }
    ],
-   "cta_primary":   { "text": "Start your project", "href": "/contact" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
    "cta_secondary": { "text": "All services", "href": "/services" },
    "stats": [
      { "v": "180+", "l": "Sites shipped",          "icon": "Globe",      "color": "#6366f1", "bg": "rgba(99,102,241,0.12)" },
@@ -555,8 +555,8 @@ VALUES
      { "v": "98",   "l": "Avg. Lighthouse" },
      { "v": "100%", "l": "Mobile-first" }
    ],
-   "cta_primary":   { "text": "Start your project", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);
@@ -732,8 +732,8 @@ VALUES
      { "v": "99%",  "l": "On-time delivery" },
      { "v": "100%", "l": "IP owned by you" }
    ],
-   "cta_primary":   { "text": "Book free consultation", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);
@@ -907,8 +907,8 @@ VALUES
      { "v": "60d",  "l": "First wins" },
      { "v": "100%", "l": "White-hat only" }
    ],
-   "cta_primary":   { "text": "Book free consultation", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);
@@ -1082,8 +1082,8 @@ VALUES
      { "v": "3",    "l": "Concepts shown" },
      { "v": "100%", "l": "IP transferred" }
    ],
-   "cta_primary":   { "text": "Book free consultation", "href": "/contact" },
-   "cta_secondary": { "text": "View all services", "href": "/services" },
+   "cta_primary":   { "text": "Contact Webcore Solutions", "href": "/contact" },
+   "cta_secondary": { "text": "Digital Services Overview", "href": "/services" },
    "reassurance": ["No commitment", "Free of charge"]
  }'::jsonb,
  9, true);

@@ -14,8 +14,16 @@ import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { usePageSeoOverrides } from "@/lib/content";
 import {
-  Plus, ArrowRight, CheckCircle2, MessageCircle,
-  Zap, Globe, Clock, Shield, Star, HelpCircle,
+  Plus,
+  ArrowRight,
+  CheckCircle2,
+  MessageCircle,
+  Zap,
+  Globe,
+  Clock,
+  Shield,
+  Star,
+  HelpCircle,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
@@ -110,9 +118,9 @@ const categories = [
 const allFaqs = categories.flatMap((c) => c.faqs);
 
 const heroPills = [
-  { icon: Star,   label: "Trusted by 450+ clients", color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
-  { icon: Clock,  label: "Response in 24hrs",        color: "#06b6d4", bg: "rgba(6,182,212,0.10)"   },
-  { icon: Shield, label: "No commitment needed",     color: "#8b5cf6", bg: "rgba(139,92,246,0.10)"  },
+  { icon: Star, label: "Trusted by 450+ clients", color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
+  { icon: Clock, label: "Response in 24hrs", color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
+  { icon: Shield, label: "No commitment needed", color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
 ];
 
 /* ─── Helpers ──────────────────────────────────────────────────────── */
@@ -140,19 +148,25 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 200, damping: 22 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 200, damping: 22 });
 
-  const handleMouse = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  }, [x, y]);
+  const handleMouse = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      x.set((e.clientX - rect.left) / rect.width - 0.5);
+      y.set((e.clientY - rect.top) / rect.height - 0.5);
+    },
+    [x, y],
+  );
 
   return (
     <motion.div
       ref={ref}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={handleMouse}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
       className={className}
     >
       {children}
@@ -162,9 +176,19 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 
 /* ─── FAQ Accordion Item — colors intentionally unchanged ─────────── */
 function FaqItem({
-  q, a, index, isOpen, onToggle, headingLevel = 3,
+  q,
+  a,
+  index,
+  isOpen,
+  onToggle,
+  headingLevel = 3,
 }: {
-  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void; headingLevel?: 2 | 3;
+  q: string;
+  a: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+  headingLevel?: 2 | 3;
 }) {
   const panelId = `faq-panel-${index}`;
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -214,10 +238,14 @@ function FaqItem({
           <div className="flex items-center gap-4">
             <div
               className={`shrink-0 h-8 w-8 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                isOpen ? "gradient-primary shadow-elegant" : "bg-primary/10 group-hover:bg-primary/15"
+                isOpen
+                  ? "gradient-primary shadow-elegant"
+                  : "bg-primary/10 group-hover:bg-primary/15"
               }`}
             >
-              <HelpCircle className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+              <HelpCircle
+                className={`h-4 w-4 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`}
+              />
             </div>
             <span className="font-semibold text-sm md:text-base">{q}</span>
           </div>
@@ -228,7 +256,9 @@ function FaqItem({
               isOpen ? "gradient-primary" : "bg-primary/10"
             }`}
           >
-            <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
+            <Plus
+              className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`}
+            />
           </motion.div>
         </button>
       </HeadingTag>
@@ -255,9 +285,13 @@ function FaqItem({
 
 /* ─── Category Tab ─────────────────────────────────────────────────── */
 function CategoryTab({
-  cat, active, onClick,
+  cat,
+  active,
+  onClick,
 }: {
-  cat: typeof categories[0]; active: boolean; onClick: () => void;
+  cat: (typeof categories)[0];
+  active: boolean;
+  onClick: () => void;
 }) {
   return (
     <TiltCard>
@@ -280,9 +314,7 @@ function CategoryTab({
         <div
           className="h-5 w-5 rounded-md flex items-center justify-center shrink-0 relative"
           style={{
-            background: active
-              ? "rgba(255,255,255,0.25)"
-              : cat.bg,
+            background: active ? "rgba(255,255,255,0.25)" : cat.bg,
             boxShadow: `0 2px 8px ${cat.color}30`,
           }}
         >
@@ -290,9 +322,7 @@ function CategoryTab({
         </div>
         <span className="relative">{cat.label}</span>
         {/* Bottom accent on active */}
-        {active && (
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/30" />
-        )}
+        {active && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/30" />}
       </button>
     </TiltCard>
   );
@@ -322,15 +352,12 @@ function FAQs() {
 
   const handleQuestionToggle = (question: string) => {
     setOpenQuestions((current) =>
-      current.includes(question)
-        ? current.filter((q) => q !== question)
-        : [...current, question],
+      current.includes(question) ? current.filter((q) => q !== question) : [...current, question],
     );
   };
 
   return (
     <Layout>
-
       {/* ══════════════════ HERO ═══════════════════════════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden min-h-[60vh] flex items-center">
         <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
@@ -341,19 +368,26 @@ function FAQs() {
           animate={{ scale: [1, 1.18, 1], opacity: [0.2, 0.45, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-8 right-12 rounded-full pointer-events-none"
-          style={{ width: 480, height: 480, background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)" }}
+          style={{
+            width: 480,
+            height: 480,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+          }}
         />
         <motion.div
           animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.25, 0.1] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
           className="absolute bottom-0 left-4 rounded-full pointer-events-none"
-          style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)" }}
+          style={{
+            width: 320,
+            height: 320,
+            background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
+          }}
         />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
             <div className="flex flex-col items-center text-center">
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -370,8 +404,7 @@ function FAQs() {
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                Frequently Asked{" "}
-                <span className="gradient-text">Questions</span>
+                Frequently Asked <span className="gradient-text">Questions</span>
               </motion.h1>
 
               <motion.p
@@ -380,8 +413,12 @@ function FAQs() {
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Everything frequently asked about working with Webcore Solutions — answered. Still have a question?{" "}
-                <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
+                Everything frequently asked about working with Webcore Solutions — answered. Still
+                have a question?{" "}
+                <Link
+                  to="/contact"
+                  className="text-primary font-semibold hover:underline underline-offset-2"
+                >
                   Book a strategy call
                 </Link>
               </motion.p>
@@ -415,11 +452,10 @@ function FAQs() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
                 >
-                  Book Free Consultation
+                  Contact Webcore Solutions
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
-
             </div>
           </div>
         </motion.div>
@@ -438,10 +474,17 @@ function FAQs() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: i * 0.1,
+                    duration: 0.55,
+                    type: "tween",
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   whileHover={{ y: -5 }}
                   className={`group w-full glass rounded-2xl px-5 py-5 text-center cursor-pointer hover:shadow-glow transition-all duration-300 relative overflow-hidden ${
-                    activeCategory === i ? "border border-primary/30 shadow-glow" : "border border-transparent"
+                    activeCategory === i
+                      ? "border border-primary/30 shadow-glow"
+                      : "border border-transparent"
                   }`}
                 >
                   {/* Color wash */}
@@ -455,14 +498,21 @@ function FAQs() {
                   >
                     <cat.icon className="h-5 w-5" style={{ color: cat.color }} />
                   </div>
-                  <div className="text-sm font-bold" style={{ color: activeCategory === i ? cat.color : undefined }}>
+                  <div
+                    className="text-sm font-bold"
+                    style={{ color: activeCategory === i ? cat.color : undefined }}
+                  >
                     {cat.label}
                   </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{cat.faqs.length} questions</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">
+                    {cat.faqs.length} questions
+                  </div>
                   {/* Bottom accent */}
                   <div
                     className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                    style={{ background: `linear-gradient(to right, transparent, ${cat.color}66, transparent)` }}
+                    style={{
+                      background: `linear-gradient(to right, transparent, ${cat.color}66, transparent)`,
+                    }}
                   />
                 </motion.button>
               </TiltCard>
@@ -530,7 +580,9 @@ function FAQs() {
             ) : (
               <div className="space-y-3">
                 <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
-                  {activeCat && <activeCat.icon className="h-3.5 w-3.5" style={{ color: activeCat.color }} />}
+                  {activeCat && (
+                    <activeCat.icon className="h-3.5 w-3.5" style={{ color: activeCat.color }} />
+                  )}
                   {activeCat?.label}
                 </p>
                 {displayedFaqs.map((f, i) => (
@@ -552,50 +604,57 @@ function FAQs() {
 
       {/* ══════════════════ BOTTOM CTA ══════════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
-        <motion.div {...fadeUp(0.1)} className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center">
+        <motion.div
+          {...fadeUp(0.1)}
+          className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center"
+        >
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
           <motion.div
             animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+            }}
           />
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+            }}
           />
           <div className="relative">
             <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-6 shadow-elegant">
               <MessageCircle className="h-7 w-7 text-primary-foreground" />
             </div>
             <SectionLabel>Still unsure?</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Let's talk it through.
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Let's talk it through.</h2>
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              One 45-minute call with our senior team covers everything the FAQ doesn't — specific to your business, your goals, and your budget.
+              One 45-minute call with our senior team covers everything the FAQ doesn't — specific
+              to your business, your goals, and your budget.
             </p>
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Book Free Consultation
+              Contact Webcore Solutions
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
-              {["No commitment required", "Response within 24 hours", "Completely free"].map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
-                  {t}
-                </div>
-              ))}
+              {["No commitment required", "Response within 24 hours", "Completely free"].map(
+                (t) => (
+                  <div key={t} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3 w-3 text-primary/60" />
+                    {t}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </motion.div>
       </section>
-
     </Layout>
   );
 }

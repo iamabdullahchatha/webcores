@@ -70,7 +70,9 @@ function EditPost() {
       setPost(data as Post);
       setLoading(false);
     })();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [id, navigate]);
 
   async function save(data: PostFormData, opts: { silent?: boolean } | boolean = false) {
@@ -98,7 +100,7 @@ function EditPost() {
     const published_at =
       publish && !data.published_at
         ? new Date().toISOString()
-        : data.published_at?.toISOString() ?? null;
+        : (data.published_at?.toISOString() ?? null);
 
     const payload: BlogUpdate = {
       title: data.title,
@@ -115,10 +117,7 @@ function EditPost() {
       reading_time_min: Math.max(1, Math.ceil(wordCount / 200)),
     };
 
-    const { error } = await getSupabase()
-      .from("blog_posts")
-      .update(payload)
-      .eq("id", id);
+    const { error } = await getSupabase().from("blog_posts").update(payload).eq("id", id);
 
     setSaving(false);
 
@@ -184,7 +183,7 @@ function EditPost() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-xl border border-border/40 bg-background/60 px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted/60 transition-colors duration-200"
             >
-              View live →
+              View Live Blog Post →
             </a>
           )}
           <button

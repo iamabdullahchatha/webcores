@@ -12,8 +12,26 @@ export const Route = createFileRoute("/admin/pages/services")({
 
 type ServiceRow = Database["public"]["Tables"]["services"]["Row"];
 
-const ICON_OPTIONS = ["Lightbulb", "Layers", "Globe", "Database", "Search", "Palette", "Code2", "Shield"];
-const COLOR_OPTIONS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#ec4899", "#f59e0b", "#f43f5e", "#3b82f6"];
+const ICON_OPTIONS = [
+  "Lightbulb",
+  "Layers",
+  "Globe",
+  "Database",
+  "Search",
+  "Palette",
+  "Code2",
+  "Shield",
+];
+const COLOR_OPTIONS = [
+  "#6366f1",
+  "#8b5cf6",
+  "#06b6d4",
+  "#10b981",
+  "#ec4899",
+  "#f59e0b",
+  "#f43f5e",
+  "#3b82f6",
+];
 
 function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void }) {
   const navigate = useNavigate();
@@ -46,7 +64,10 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
   }
 
   function autoSlug(t: string) {
-    return t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return t
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
   }
 
   async function create() {
@@ -73,11 +94,17 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
       .select()
       .single();
     setSaving(false);
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Service created — add sections in the editor");
     setOpen(false);
     onCreated(data as unknown as ServiceRow);
-    navigate({ to: "/admin/pages/services/$id", params: { id: (data as unknown as ServiceRow).id } });
+    navigate({
+      to: "/admin/pages/services/$id",
+      params: { id: (data as unknown as ServiceRow).id },
+    });
   }
 
   if (!open) {
@@ -93,7 +120,10 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setOpen(false)}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      onClick={() => setOpen(false)}
+    >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div
         className="relative glass rounded-2xl border border-border/50 w-full max-w-lg shadow-2xl"
@@ -101,7 +131,11 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/40">
           <h3 className="font-display text-base font-semibold">New Service</h3>
-          <button type="button" onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -127,25 +161,58 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
             </FormField>
           </div>
           <FormField label="Description" htmlFor="ns-desc">
-            <input id="ns-desc" className={inputClass} placeholder="Short description" value={form.description} onChange={(e) => patch("description", e.target.value)} />
+            <input
+              id="ns-desc"
+              className={inputClass}
+              placeholder="Short description"
+              value={form.description}
+              onChange={(e) => patch("description", e.target.value)}
+            />
           </FormField>
           <div className="grid grid-cols-2 gap-4">
             <FormField label="Tag" htmlFor="ns-tag">
-              <input id="ns-tag" className={inputClass} placeholder="e.g. Strategy" value={form.tag} onChange={(e) => patch("tag", e.target.value)} />
+              <input
+                id="ns-tag"
+                className={inputClass}
+                placeholder="e.g. Strategy"
+                value={form.tag}
+                onChange={(e) => patch("tag", e.target.value)}
+              />
             </FormField>
             <FormField label="Metric" htmlFor="ns-metric">
-              <input id="ns-metric" className={inputClass} placeholder="e.g. 120+ audits" value={form.metric} onChange={(e) => patch("metric", e.target.value)} />
+              <input
+                id="ns-metric"
+                className={inputClass}
+                placeholder="e.g. 120+ audits"
+                value={form.metric}
+                onChange={(e) => patch("metric", e.target.value)}
+              />
             </FormField>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <FormField label="Icon" htmlFor="ns-icon">
-              <select id="ns-icon" className={`${inputClass} bg-transparent`} value={form.icon_name} onChange={(e) => patch("icon_name", e.target.value)}>
-                {ICON_OPTIONS.map((i) => <option key={i} value={i} className="bg-background">{i}</option>)}
+              <select
+                id="ns-icon"
+                className={`${inputClass} bg-transparent`}
+                value={form.icon_name}
+                onChange={(e) => patch("icon_name", e.target.value)}
+              >
+                {ICON_OPTIONS.map((i) => (
+                  <option key={i} value={i} className="bg-background">
+                    {i}
+                  </option>
+                ))}
               </select>
             </FormField>
             <FormField label="Accent colour" htmlFor="ns-color">
               <div className="flex items-center gap-2">
-                <input type="color" id="ns-color" value={form.color} onChange={(e) => patch("color", e.target.value)} className="h-9 w-9 rounded-lg cursor-pointer border border-border/40 bg-transparent p-0.5" />
+                <input
+                  type="color"
+                  id="ns-color"
+                  value={form.color}
+                  onChange={(e) => patch("color", e.target.value)}
+                  className="h-9 w-9 rounded-lg cursor-pointer border border-border/40 bg-transparent p-0.5"
+                />
                 <div className="flex gap-1 flex-wrap">
                   {COLOR_OPTIONS.map((c) => (
                     <button
@@ -153,7 +220,10 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
                       type="button"
                       onClick={() => patch("color", c)}
                       className="w-5 h-5 rounded-full border-2 transition-all duration-150"
-                      style={{ background: c, borderColor: form.color === c ? "white" : "transparent" }}
+                      style={{
+                        background: c,
+                        borderColor: form.color === c ? "white" : "transparent",
+                      }}
                     />
                   ))}
                 </div>
@@ -162,16 +232,37 @@ function NewServiceDialog({ onCreated }: { onCreated: (row: ServiceRow) => void 
           </div>
           <div className="grid grid-cols-2 gap-4">
             <FormField label="CTA text" htmlFor="ns-cta">
-              <input id="ns-cta" className={inputClass} placeholder="Learn more" value={form.cta_text} onChange={(e) => patch("cta_text", e.target.value)} />
+              <input
+                id="ns-cta"
+                className={inputClass}
+                placeholder="Learn more"
+                value={form.cta_text}
+                onChange={(e) => patch("cta_text", e.target.value)}
+              />
             </FormField>
             <FormField label="Sort order" htmlFor="ns-sort">
-              <input id="ns-sort" type="number" min={1} className={inputClass} value={form.sort_order} onChange={(e) => patch("sort_order", Number(e.target.value))} />
+              <input
+                id="ns-sort"
+                type="number"
+                min={1}
+                className={inputClass}
+                value={form.sort_order}
+                onChange={(e) => patch("sort_order", Number(e.target.value))}
+              />
             </FormField>
           </div>
-          <p className="text-xs text-muted-foreground">Service will be created as <strong>inactive</strong>. Activate it after adding sections.</p>
+          <p className="text-xs text-muted-foreground">
+            Service will be created as <strong>inactive</strong>. Activate it after adding sections.
+          </p>
         </div>
         <div className="px-6 py-4 border-t border-border/40 flex justify-end gap-3">
-          <button type="button" onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground transition-colors px-4 py-2">Cancel</button>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors px-4 py-2"
+          >
+            Cancel
+          </button>
           <button
             type="button"
             onClick={create}
@@ -193,14 +284,9 @@ function ServicesListPage() {
 
   useEffect(() => {
     (async () => {
-      const { data: services } = await supabase
-        .from("services")
-        .select("*")
-        .order("sort_order");
+      const { data: services } = await supabase.from("services").select("*").order("sort_order");
 
-      const { data: sections } = await supabase
-        .from("service_page_content")
-        .select("service_slug");
+      const { data: sections } = await supabase.from("service_page_content").select("service_slug");
 
       const c: Record<string, number> = {};
       for (const s of (sections ?? []) as { service_slug: string }[]) {
@@ -235,15 +321,26 @@ function ServicesListPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border/40 text-left">
-              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">Service</th>
-              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">Status</th>
-              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">Sections</th>
-              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground text-right">Edit</th>
+              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                Service
+              </th>
+              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                Status
+              </th>
+              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                Sections
+              </th>
+              <th className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground text-right">
+                Edit
+              </th>
             </tr>
           </thead>
           <tbody>
             {rows.map((s) => (
-              <tr key={s.id} className="border-b border-border/20 hover:bg-primary/3 transition-colors duration-150">
+              <tr
+                key={s.id}
+                className="border-b border-border/20 hover:bg-primary/3 transition-colors duration-150"
+              >
                 <td className="px-6 py-4">
                   <div className="font-semibold text-foreground">{s.title}</div>
                   <div className="text-xs text-muted-foreground">/services/{s.slug}</div>
@@ -267,7 +364,7 @@ function ServicesListPage() {
                     className="inline-flex items-center gap-1.5 rounded-xl gradient-primary text-primary-foreground px-4 py-2 text-xs font-semibold shadow-elegant hover:opacity-90 transition-all duration-200"
                   >
                     <Pencil className="h-3.5 w-3.5" />
-                    Edit
+                    Edit Service Page
                   </Link>
                 </td>
               </tr>

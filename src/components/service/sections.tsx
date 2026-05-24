@@ -6,14 +6,26 @@ import { GridBackground, FloatingShapes } from "@/components/Scene3D";
 import type { Database } from "@/lib/supabase/types";
 import { resolveServiceImage } from "@/lib/content/useServicePage";
 import { icon } from "./icons";
-import {
-  fadeUp, SectionLabel, Card3D, FaqItem, TestimonialPhoto,
-} from "./primitives";
+import { fadeUp, SectionLabel, Card3D, FaqItem, TestimonialPhoto } from "./primitives";
 
 type SectionRow = Database["public"]["Tables"]["service_page_content"]["Row"];
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type J = Record<string, any>;
+
+function internalAnchorText(href: string | undefined, text: string | undefined) {
+  const current = (text ?? "").trim().toLowerCase();
+  if (
+    (href ?? "") === "/contact" &&
+    ["start your project", "start a project", "book free consultation"].includes(current)
+  ) {
+    return "Contact Webcore Solutions";
+  }
+  if ((href ?? "") === "/services" && current === "view all services") {
+    return "Digital Services Overview";
+  }
+  return text;
+}
 
 /* ─── HERO ───────────────────────────────────────────────────────────── */
 function HeroSection({ row }: { row: SectionRow }) {
@@ -37,19 +49,31 @@ function HeroSection({ row }: { row: SectionRow }) {
         animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" as const }}
         className="absolute top-10 right-16 rounded-full pointer-events-none"
-        style={{ width: 520, height: 520, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }}
+        style={{
+          width: 520,
+          height: 520,
+          background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)",
+        }}
       />
       <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.22, 0.10] }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.22, 0.1] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
         className="absolute bottom-0 left-12 rounded-full pointer-events-none"
-        style={{ width: 320, height: 320, background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)" }}
+        style={{
+          width: 320,
+          height: 320,
+          background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)",
+        }}
       />
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
         transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" as const, delay: 1.5 }}
         className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
-        style={{ width: 280, height: 280, background: `radial-gradient(circle, ${glow} 0%, transparent 70%)` }}
+        style={{
+          width: 280,
+          height: 280,
+          background: `radial-gradient(circle, ${glow} 0%, transparent 70%)`,
+        }}
       />
 
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
@@ -59,7 +83,12 @@ function HeroSection({ row }: { row: SectionRow }) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.08, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.08,
+                  type: "tween" as const,
+                  ease: [0.22, 1, 0.36, 1] as const,
+                }}
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
               >
                 <BadgeIcon className="h-3.5 w-3.5 text-primary" />
@@ -69,17 +98,25 @@ function HeroSection({ row }: { row: SectionRow }) {
               <motion.h1
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+                transition={{
+                  duration: 0.8,
+                  type: "tween" as const,
+                  ease: [0.22, 1, 0.36, 1] as const,
+                }}
                 className="text-5xl md:text-6xl lg:text-[66px] font-bold leading-[1.04] tracking-tight"
               >
-                {headingMain}{" "}
-                <span className="gradient-text">{d.heading_accent}</span>
+                {headingMain} <span className="gradient-text">{d.heading_accent}</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.25, type: "tween" as const, ease: "easeOut" as const }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.25,
+                  type: "tween" as const,
+                  ease: "easeOut" as const,
+                }}
                 className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
               >
                 {row.body}
@@ -88,7 +125,12 @@ function HeroSection({ row }: { row: SectionRow }) {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.38, type: "tween" as const, ease: "easeOut" as const }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.38,
+                  type: "tween" as const,
+                  ease: "easeOut" as const,
+                }}
                 className="mt-7 flex flex-wrap gap-2.5"
               >
                 {(d.pills ?? []).map((p: J) => {
@@ -108,21 +150,26 @@ function HeroSection({ row }: { row: SectionRow }) {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.48, type: "tween" as const, ease: "easeOut" as const }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.48,
+                  type: "tween" as const,
+                  ease: "easeOut" as const,
+                }}
                 className="mt-9 flex flex-wrap gap-4"
               >
                 <Link
                   to={d.cta_primary?.href ?? "/contact"}
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] text-sm"
                 >
-                  {d.cta_primary?.text}
+                  {internalAnchorText(d.cta_primary?.href ?? "/contact", d.cta_primary?.text)}
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
                 <Link
                   to={d.cta_secondary?.href ?? "/services"}
                   className="group inline-flex items-center gap-2 rounded-2xl glass border border-border/40 px-7 py-3.5 font-semibold hover:border-border/70 transition-all duration-200 hover:-translate-y-0.5 text-sm"
                 >
-                  {d.cta_secondary?.text}
+                  {internalAnchorText(d.cta_secondary?.href ?? "/services", d.cta_secondary?.text)}
                   <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
                 </Link>
               </motion.div>
@@ -131,7 +178,12 @@ function HeroSection({ row }: { row: SectionRow }) {
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const }}
+              transition={{
+                duration: 0.7,
+                delay: 0.2,
+                type: "tween" as const,
+                ease: [0.22, 1, 0.36, 1] as const,
+              }}
               className="relative hidden md:grid grid-cols-2 gap-4"
             >
               <div className="absolute -inset-6 gradient-primary opacity-[0.07] blur-3xl rounded-full pointer-events-none" />
@@ -141,7 +193,12 @@ function HeroSection({ row }: { row: SectionRow }) {
                   <motion.div
                     key={s.l}
                     animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 4 + i * 0.7, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.5 }}
+                    transition={{
+                      duration: 4 + i * 0.7,
+                      repeat: Infinity,
+                      ease: "easeInOut" as const,
+                      delay: i * 0.5,
+                    }}
                     whileHover={{ scale: 1.05 }}
                     className="group glass border border-border/30 rounded-2xl p-6 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
                     style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}
@@ -156,7 +213,9 @@ function HeroSection({ row }: { row: SectionRow }) {
                     <div className="text-xs text-muted-foreground leading-tight">{s.l}</div>
                     <div
                       className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
-                      style={{ background: `linear-gradient(to right, transparent, ${s.color}55, transparent)` }}
+                      style={{
+                        background: `linear-gradient(to right, transparent, ${s.color}55, transparent)`,
+                      }}
                     />
                   </motion.div>
                 );
@@ -179,7 +238,6 @@ function OverviewSection({ row }: { row: SectionRow }) {
   return (
     <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -189,13 +247,10 @@ function OverviewSection({ row }: { row: SectionRow }) {
           <SectionLabel>{row.subheading}</SectionLabel>
 
           <h2 className="text-3xl md:text-[2.25rem] font-bold leading-tight mb-5">
-            {headingMain}{" "}
-            <span className="gradient-text">{d.heading_accent}</span>
+            {headingMain} <span className="gradient-text">{d.heading_accent}</span>
           </h2>
 
-          <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">
-            {row.body}
-          </p>
+          <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-md">{row.body}</p>
 
           <ul className="space-y-5 mb-9">
             {(d.proof_points ?? []).map((item: J, i: number) => {
@@ -211,7 +266,10 @@ function OverviewSection({ row }: { row: SectionRow }) {
                 >
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200"
-                    style={{ background: `${item.color}18`, boxShadow: `0 2px 10px ${item.color}20` }}
+                    style={{
+                      background: `${item.color}18`,
+                      boxShadow: `0 2px 10px ${item.color}20`,
+                    }}
                   >
                     <ItemIcon className="h-4 w-4" style={{ color: item.color }} />
                   </div>
@@ -227,7 +285,9 @@ function OverviewSection({ row }: { row: SectionRow }) {
           <div className="flex items-center gap-8 pt-6 border-t border-border/25">
             {(d.stats_row ?? []).map((s: J) => (
               <div key={s.l}>
-                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>{s.v}</p>
+                <p className="text-xl font-bold leading-none" style={{ color: s.color }}>
+                  {s.v}
+                </p>
                 <p className="text-[11px] text-muted-foreground mt-1.5 leading-none">{s.l}</p>
               </div>
             ))}
@@ -264,11 +324,16 @@ function OverviewSection({ row }: { row: SectionRow }) {
 
               <div
                 className="absolute inset-0 pointer-events-none"
-                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)" }}
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.12) 38%, transparent 66%)",
+                }}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
-                style={{ background: `linear-gradient(130deg, ${d.tint_color ?? "rgba(99,102,241,0.22)"} 0%, transparent 48%)` }}
+                style={{
+                  background: `linear-gradient(130deg, ${d.tint_color ?? "rgba(99,102,241,0.22)"} 0%, transparent 48%)`,
+                }}
               />
 
               <motion.div
@@ -283,7 +348,9 @@ function OverviewSection({ row }: { row: SectionRow }) {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                 </span>
-                <span className="text-[10px] font-semibold text-white/80 tracking-wide">{d.badge_top?.label}</span>
+                <span className="text-[10px] font-semibold text-white/80 tracking-wide">
+                  {d.badge_top?.label}
+                </span>
               </motion.div>
 
               <motion.div
@@ -292,9 +359,15 @@ function OverviewSection({ row }: { row: SectionRow }) {
                 viewport={{ once: true }}
                 transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
                 className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-md px-3 py-1.5 backdrop-blur-md"
-                style={{ background: d.badge_bottom?.bg, border: `1px solid ${d.badge_bottom?.border}` }}
+                style={{
+                  background: d.badge_bottom?.bg,
+                  border: `1px solid ${d.badge_bottom?.border}`,
+                }}
               >
-                <BadgeBottomIcon className="h-2.5 w-2.5 shrink-0" style={{ color: d.badge_bottom?.icon_color }} />
+                <BadgeBottomIcon
+                  className="h-2.5 w-2.5 shrink-0"
+                  style={{ color: d.badge_bottom?.icon_color }}
+                />
                 <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">
                   {d.badge_bottom?.label}
                 </span>
@@ -314,7 +387,10 @@ function OverviewSection({ row }: { row: SectionRow }) {
                   transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" as const }}
                   className="flex flex-col items-center py-4 px-3"
                 >
-                  <span className="text-[15px] font-bold leading-none tabular-nums" style={{ color: s.color }}>
+                  <span
+                    className="text-[15px] font-bold leading-none tabular-nums"
+                    style={{ color: s.color }}
+                  >
                     {s.v}
                   </span>
                   <span className="text-[10px] text-muted-foreground mt-1.5 text-center leading-snug">
@@ -330,7 +406,6 @@ function OverviewSection({ row }: { row: SectionRow }) {
             style={{ background: `${glow}08` }}
           />
         </motion.div>
-
       </div>
     </section>
   );
@@ -358,7 +433,12 @@ function FeaturesSection({ row }: { row: SectionRow }) {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
+              transition={{
+                delay: i * 0.07,
+                duration: 0.55,
+                type: "tween" as const,
+                ease: "easeOut" as const,
+              }}
             >
               <Card3D className="group relative bg-card/60 backdrop-blur-sm border border-border/35 rounded-2xl p-7 h-full hover:border-border/60 hover:shadow-glow transition-all duration-300 overflow-hidden cursor-default">
                 <div
@@ -367,7 +447,9 @@ function FeaturesSection({ row }: { row: SectionRow }) {
                 />
                 <div
                   className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(to right, transparent, ${f.color}, transparent)` }}
+                  style={{
+                    background: `linear-gradient(to right, transparent, ${f.color}, transparent)`,
+                  }}
                 />
                 <div className="relative">
                   <div
@@ -376,7 +458,9 @@ function FeaturesSection({ row }: { row: SectionRow }) {
                   >
                     <FIcon className="h-5 w-5" style={{ color: f.color }} />
                   </div>
-                  <h3 className="font-bold text-base mb-2.5 group-hover:text-primary transition-colors duration-200">{f.t}</h3>
+                  <h3 className="font-bold text-base mb-2.5 group-hover:text-primary transition-colors duration-200">
+                    {f.t}
+                  </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{f.d}</p>
                 </div>
                 <div
@@ -393,7 +477,13 @@ function FeaturesSection({ row }: { row: SectionRow }) {
 }
 
 /* ─── DELIVERABLES + TECH STACK (paired) ─────────────────────────────── */
-function DeliverablesTechSection({ deliverables, tech }: { deliverables?: SectionRow; tech?: SectionRow }) {
+function DeliverablesTechSection({
+  deliverables,
+  tech,
+}: {
+  deliverables?: SectionRow;
+  tech?: SectionRow;
+}) {
   const dd = (deliverables?.data_json ?? {}) as J;
   const td = (tech?.data_json ?? {}) as J;
   const CalloutIcon = icon(td.callout?.icon);
@@ -401,7 +491,6 @@ function DeliverablesTechSection({ deliverables, tech }: { deliverables?: Sectio
   return (
     <section className="mx-auto max-w-7xl px-4 pb-20">
       <div className="grid md:grid-cols-2 gap-6">
-
         {deliverables && (
           <motion.div {...fadeUp()}>
             <div className="glass border border-border/35 rounded-3xl p-9 h-full relative overflow-hidden group hover:border-border/55 transition-colors duration-300">
@@ -418,7 +507,12 @@ function DeliverablesTechSection({ deliverables, tech }: { deliverables?: Sectio
                     initial={{ opacity: 0, x: -14 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, duration: 0.45, type: "tween" as const, ease: "easeOut" as const }}
+                    transition={{
+                      delay: i * 0.07,
+                      duration: 0.45,
+                      type: "tween" as const,
+                      ease: "easeOut" as const,
+                    }}
                     className="flex items-center gap-3.5 group/item"
                   >
                     <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 group-hover/item:bg-primary/20 transition-colors duration-200 shrink-0">
@@ -449,7 +543,12 @@ function DeliverablesTechSection({ deliverables, tech }: { deliverables?: Sectio
                     initial={{ opacity: 0, scale: 0.88 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.06, duration: 0.4, type: "tween" as const, ease: "easeOut" as const }}
+                    transition={{
+                      delay: i * 0.06,
+                      duration: 0.4,
+                      type: "tween" as const,
+                      ease: "easeOut" as const,
+                    }}
                     whileHover={{ y: -3, scale: 1.06 }}
                     className="inline-flex items-center gap-2.5 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 hover:shadow-glow transition-all duration-200"
                   >
@@ -489,7 +588,9 @@ function ProcessSection({ row }: { row: SectionRow }) {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-80 rounded-full blur-3xl opacity-[0.04]"
-          style={{ background: "radial-gradient(ellipse, hsl(var(--primary)) 0%, transparent 70%)" }}
+          style={{
+            background: "radial-gradient(ellipse, hsl(var(--primary)) 0%, transparent 70%)",
+          }}
         />
       </div>
 
@@ -504,10 +605,16 @@ function ProcessSection({ row }: { row: SectionRow }) {
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.1, delay: 0.3, type: "tween" as const, ease: "easeOut" as const }}
+          transition={{
+            duration: 1.1,
+            delay: 0.3,
+            type: "tween" as const,
+            ease: "easeOut" as const,
+          }}
           className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px origin-left"
           style={{
-            background: "linear-gradient(to right, transparent, hsl(var(--border)/0.6) 20%, hsl(var(--primary)/0.35) 50%, hsl(var(--border)/0.6) 80%, transparent)",
+            background:
+              "linear-gradient(to right, transparent, hsl(var(--border)/0.6) 20%, hsl(var(--primary)/0.35) 50%, hsl(var(--border)/0.6) 80%, transparent)",
           }}
         />
 
@@ -520,7 +627,12 @@ function ProcessSection({ row }: { row: SectionRow }) {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.1, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
+                transition={{
+                  delay: 0.1 + i * 0.1,
+                  duration: 0.55,
+                  type: "tween" as const,
+                  ease: "easeOut" as const,
+                }}
                 whileHover={{ y: -8 }}
                 className="group relative text-center cursor-default"
               >
@@ -537,8 +649,15 @@ function ProcessSection({ row }: { row: SectionRow }) {
                   />
                   <PIcon className="h-7 w-7 text-white" />
                 </div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: `${p.color}99` }}>{p.n}</div>
-                <h3 className="font-bold text-sm mb-2 group-hover:text-primary transition-colors duration-200">{p.t}</h3>
+                <div
+                  className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5"
+                  style={{ color: `${p.color}99` }}
+                >
+                  {p.n}
+                </div>
+                <h3 className="font-bold text-sm mb-2 group-hover:text-primary transition-colors duration-200">
+                  {p.t}
+                </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.d}</p>
               </motion.div>
             );
@@ -559,7 +678,10 @@ function TestimonialsSection({ row }: { row: SectionRow }) {
           <SectionLabel>{row.subheading}</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
         </div>
-        <Link to="/contact" className="group inline-flex items-center gap-2 text-primary font-semibold text-sm">
+        <Link
+          to="/contact"
+          className="group inline-flex items-center gap-2 text-primary font-semibold text-sm"
+        >
           {row.body}
           <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
         </Link>
@@ -572,7 +694,12 @@ function TestimonialsSection({ row }: { row: SectionRow }) {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.55, type: "tween" as const, ease: "easeOut" as const }}
+            transition={{
+              delay: i * 0.1,
+              duration: 0.55,
+              type: "tween" as const,
+              ease: "easeOut" as const,
+            }}
           >
             <Card3D className="group bg-card/60 backdrop-blur-sm border border-border/35 rounded-3xl p-7 h-full hover:border-border/60 hover:shadow-glow transition-all duration-300 relative overflow-hidden cursor-default">
               <div
@@ -581,11 +708,17 @@ function TestimonialsSection({ row }: { row: SectionRow }) {
               />
               <div
                 className="absolute top-0 left-7 right-7 h-px opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                style={{ background: `linear-gradient(to right, transparent, ${t.color}, transparent)` }}
+                style={{
+                  background: `linear-gradient(to right, transparent, ${t.color}, transparent)`,
+                }}
               />
               <div className="flex items-center gap-0.5 mb-5">
                 {Array.from({ length: t.stars ?? 5 }).map((_, j) => (
-                  <Star key={j} className="h-3.5 w-3.5" style={{ fill: "#f59e0b", color: "#f59e0b" }} />
+                  <Star
+                    key={j}
+                    className="h-3.5 w-3.5"
+                    style={{ fill: "#f59e0b", color: "#f59e0b" }}
+                  />
                 ))}
               </div>
               <p className="text-sm text-foreground/75 leading-relaxed mb-6 italic">"{t.quote}"</p>
@@ -620,8 +753,11 @@ function FaqsSection({ row }: { row: SectionRow }) {
         <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
         <p className="mt-5 text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
           Still have questions?{" "}
-          <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-            contact Webcore Solutions directly.
+          <Link
+            to="/contact"
+            className="text-primary font-semibold hover:underline underline-offset-2"
+          >
+            Contact Webcore Solutions directly.
           </Link>
         </p>
       </motion.div>
@@ -638,15 +774,20 @@ function FaqsSection({ row }: { row: SectionRow }) {
 function CtaSection({ row }: { row: SectionRow }) {
   const d = (row.data_json ?? {}) as J;
   const BadgeIcon = icon(d.badge_icon);
-  const [line1, line2] = (d.heading_break ?? (row.heading ?? "")).split("|");
+  const [line1, line2] = (d.heading_break ?? row.heading ?? "").split("|");
   const gridId = `cta-grid-${row.service_slug}`;
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-10 pb-28">
-      <motion.div {...fadeUp()} className="relative overflow-hidden rounded-3xl gradient-primary shadow-elegant">
-
+      <motion.div
+        {...fadeUp()}
+        className="relative overflow-hidden rounded-3xl gradient-primary shadow-elegant"
+      >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <svg className="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="absolute inset-0 w-full h-full opacity-[0.06]"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <defs>
               <pattern id={gridId} width="32" height="32" patternUnits="userSpaceOnUse">
                 <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
@@ -660,7 +801,7 @@ function CtaSection({ row }: { row: SectionRow }) {
             className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl"
           />
           <motion.div
-            animate={{ scale: [1, 1.28, 1], opacity: [0.10, 0.18, 0.10] }}
+            animate={{ scale: [1, 1.28, 1], opacity: [0.1, 0.18, 0.1] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
             className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl"
           />
@@ -668,7 +809,12 @@ function CtaSection({ row }: { row: SectionRow }) {
             <motion.div
               key={i}
               animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
-              transition={{ duration: 2.8 + i * 0.55, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.8 }}
+              transition={{
+                duration: 2.8 + i * 0.55,
+                repeat: Infinity,
+                ease: "easeInOut" as const,
+                delay: i * 0.8,
+              }}
               className="absolute w-1 h-1 rounded-full bg-white/60"
               style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
             />
@@ -686,9 +832,7 @@ function CtaSection({ row }: { row: SectionRow }) {
               {line2 != null && <br className="hidden md:block" />}
               {line2}
             </h2>
-            <p className="text-white/60 text-sm mt-3 leading-relaxed max-w-sm">
-              {row.body}
-            </p>
+            <p className="text-white/60 text-sm mt-3 leading-relaxed max-w-sm">{row.body}</p>
             <div className="flex items-center gap-7 mt-6">
               {(d.stats ?? []).map((s: J) => (
                 <div key={s.l}>
@@ -709,7 +853,7 @@ function CtaSection({ row }: { row: SectionRow }) {
                 to={d.cta_primary?.href ?? "/contact"}
                 className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-foreground px-8 py-3.5 text-sm font-semibold shadow-elegant hover:opacity-95 transition-all duration-200 w-full"
               >
-                {d.cta_primary?.text}
+                {internalAnchorText(d.cta_primary?.href ?? "/contact", d.cta_primary?.text)}
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
             </motion.div>
@@ -722,7 +866,7 @@ function CtaSection({ row }: { row: SectionRow }) {
                 to={d.cta_secondary?.href ?? "/services"}
                 className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white/12 text-white border border-white/20 px-8 py-3.5 text-sm font-semibold hover:bg-white/20 transition-all duration-200 w-full"
               >
-                {d.cta_secondary?.text}
+                {internalAnchorText(d.cta_secondary?.href ?? "/services", d.cta_secondary?.text)}
                 <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
               </Link>
             </motion.div>
@@ -765,14 +909,29 @@ export function ServiceSections({ sections }: { sections: SectionRow[] }) {
     }
 
     switch (row.section_type) {
-      case "hero":         out.push(<HeroSection key={row.id} row={row} />); break;
-      case "overview":     out.push(<OverviewSection key={row.id} row={row} />); break;
-      case "features":     out.push(<FeaturesSection key={row.id} row={row} />); break;
-      case "process":      out.push(<ProcessSection key={row.id} row={row} />); break;
-      case "testimonials": out.push(<TestimonialsSection key={row.id} row={row} />); break;
-      case "faqs":         out.push(<FaqsSection key={row.id} row={row} />); break;
-      case "cta":          out.push(<CtaSection key={row.id} row={row} />); break;
-      default: break;
+      case "hero":
+        out.push(<HeroSection key={row.id} row={row} />);
+        break;
+      case "overview":
+        out.push(<OverviewSection key={row.id} row={row} />);
+        break;
+      case "features":
+        out.push(<FeaturesSection key={row.id} row={row} />);
+        break;
+      case "process":
+        out.push(<ProcessSection key={row.id} row={row} />);
+        break;
+      case "testimonials":
+        out.push(<TestimonialsSection key={row.id} row={row} />);
+        break;
+      case "faqs":
+        out.push(<FaqsSection key={row.id} row={row} />);
+        break;
+      case "cta":
+        out.push(<CtaSection key={row.id} row={row} />);
+        break;
+      default:
+        break;
     }
   }
 

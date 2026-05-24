@@ -38,7 +38,9 @@ const selectClass =
 
 function StatusPill({ status }: { status: StatusValue }) {
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${STATUS_CLASSES[status]}`}>
+    <span
+      className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${STATUS_CLASSES[status]}`}
+    >
       {STATUS_LABELS[status]}
     </span>
   );
@@ -82,11 +84,14 @@ function ContactsPage() {
       .from("contact_submissions")
       .update({ status } as unknown as ContactSubmission)
       .eq("id", id);
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     await qc.invalidateQueries({ queryKey: ["contact-submissions"] });
     await qc.invalidateQueries({ queryKey: ["contacts-unread-count"] });
     // Keep selected panel in sync
-    if (selected?.id === id) setSelected((prev) => prev ? { ...prev, status } : prev);
+    if (selected?.id === id) setSelected((prev) => (prev ? { ...prev, status } : prev));
     toast.success("Status updated");
   }
 
@@ -104,7 +109,9 @@ function ContactsPage() {
         <div className="flex items-center gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="font-display text-2xl font-bold text-foreground">Contact Submissions</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground">
+                Contact Submissions
+              </h2>
               {unreadCount > 0 && (
                 <span className="inline-flex items-center justify-center h-5 min-w-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold">
                   {unreadCount}
@@ -197,7 +204,10 @@ function ContactsPage() {
                       {r.name}
                     </td>
                     <td className="px-6 py-3 text-muted-foreground">
-                      <a href={`mailto:${r.email}`} className="hover:text-primary transition-colors">
+                      <a
+                        href={`mailto:${r.email}`}
+                        className="hover:text-primary transition-colors"
+                      >
                         {r.email}
                       </a>
                     </td>
@@ -206,7 +216,15 @@ function ContactsPage() {
                     </td>
                     <td className="px-6 py-3 text-muted-foreground hidden xl:table-cell max-w-50">
                       <span className="truncate block">
-                        {r.subject ? (r.subject.length > 60 ? r.subject.slice(0, 60) + "…" : r.subject) : <span className="text-muted-foreground/40">—</span>}
+                        {r.subject ? (
+                          r.subject.length > 60 ? (
+                            r.subject.slice(0, 60) + "…"
+                          ) : (
+                            r.subject
+                          )
+                        ) : (
+                          <span className="text-muted-foreground/40">—</span>
+                        )}
                       </span>
                     </td>
                     <td className="px-6 py-3">
@@ -215,9 +233,15 @@ function ContactsPage() {
                         onChange={(e) => updateStatus(r.id, e.target.value as StatusValue)}
                         className={selectClass}
                       >
-                        <option value="new" className="bg-background">New</option>
-                        <option value="in_progress" className="bg-background">In Progress</option>
-                        <option value="resolved" className="bg-background">Resolved</option>
+                        <option value="new" className="bg-background">
+                          New
+                        </option>
+                        <option value="in_progress" className="bg-background">
+                          In Progress
+                        </option>
+                        <option value="resolved" className="bg-background">
+                          Resolved
+                        </option>
                       </select>
                     </td>
                     <td className="px-6 py-3 text-right">
@@ -226,7 +250,7 @@ function ContactsPage() {
                         onClick={() => setSelected(r)}
                         className="inline-flex items-center gap-1.5 rounded-lg glass border border-border/40 px-3 py-1.5 text-xs font-semibold hover:bg-primary/10 hover:border-primary/30 transition-colors duration-150"
                       >
-                        View
+                        View Contact Submission
                       </button>
                     </td>
                   </tr>
@@ -254,7 +278,10 @@ function ContactsPage() {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="h-4 w-4 text-primary/60 shrink-0" />
-                  <a href={`mailto:${selected.email}`} className="text-primary hover:underline underline-offset-2">
+                  <a
+                    href={`mailto:${selected.email}`}
+                    className="text-primary hover:underline underline-offset-2"
+                  >
                     {selected.email}
                   </a>
                 </div>
@@ -270,39 +297,53 @@ function ContactsPage() {
               <div className="space-y-3">
                 {selected.service && (
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Service</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                      Service
+                    </p>
                     <p className="text-sm text-foreground">{selected.service}</p>
                   </div>
                 )}
                 {selected.subject && (
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Subject</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                      Subject
+                    </p>
                     <p className="text-sm text-foreground">{selected.subject}</p>
                   </div>
                 )}
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Message</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                    Message
+                  </p>
                   <pre className="whitespace-pre-wrap bg-muted/20 rounded-xl p-4 text-sm text-foreground font-sans leading-relaxed">
                     {selected.message}
                   </pre>
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Submitted</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                    Submitted
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     {format(new Date(selected.submitted_at), "d MMM yyyy, HH:mm")}
                   </p>
                 </div>
                 {selected.ip_address && (
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">IP Address</p>
-                    <p className="text-xs font-mono text-muted-foreground/70">{selected.ip_address}</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                      IP Address
+                    </p>
+                    <p className="text-xs font-mono text-muted-foreground/70">
+                      {selected.ip_address}
+                    </p>
                   </div>
                 )}
               </div>
 
               {/* Status selector */}
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">Status</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+                  Status
+                </p>
                 <div className="flex items-center gap-2">
                   <StatusPill status={selected.status} />
                   <select
@@ -310,9 +351,15 @@ function ContactsPage() {
                     onChange={(e) => updateStatus(selected.id, e.target.value as StatusValue)}
                     className={`${selectClass} ml-1`}
                   >
-                    <option value="new" className="bg-background">New</option>
-                    <option value="in_progress" className="bg-background">In Progress</option>
-                    <option value="resolved" className="bg-background">Resolved</option>
+                    <option value="new" className="bg-background">
+                      New
+                    </option>
+                    <option value="in_progress" className="bg-background">
+                      In Progress
+                    </option>
+                    <option value="resolved" className="bg-background">
+                      Resolved
+                    </option>
                   </select>
                 </div>
               </div>
