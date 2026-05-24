@@ -52,7 +52,7 @@ export const Route = createFileRoute("/blog/$slug")({
           "isPartOf": { "@id": WEBSITE_ID },
           "image": {
             "@type": "ImageObject",
-            "url": "https://www.webcoreuae.com/og-image.png",
+            "url": "https://www.webcoreuae.com/og-image.webp",
             "width": 1200,
             "height": 630,
           },
@@ -83,7 +83,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:locale", content: "en_AE" },
         { property: "og:locale:alternate", content: "en_GB" },
         { property: "og:locale:alternate", content: "en_PK" },
-        { property: "og:image", content: "https://www.webcoreuae.com/og-image.png" },
+        { property: "og:image", content: "https://www.webcoreuae.com/og-image.webp" },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         { property: "og:image:alt", content: "Webcore Solutions — digital agency Dubai" },
@@ -91,7 +91,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:site", content: "@WebcoreUAE" },
         { name: "twitter:title", content: postTitle },
         { name: "twitter:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
-        { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.png" },
+        { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.webp" },
         { "script:ld+json": schema },
       ],
       links: [

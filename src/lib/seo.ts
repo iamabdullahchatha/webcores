@@ -547,7 +547,7 @@ function professionalServiceSchema() {
     "@id": LOCAL_BUSINESS_ID,
     name: SITE_NAME,
     url: `${SITE_URL}/`,
-    image: `${SITE_URL}/og-image.png`,
+    image: `${SITE_URL}/og-image.webp`,
     telephone: "+971507169200",
     priceRange: "$$",
     address: {
@@ -597,7 +597,7 @@ function webPageSchema(page: PageMeta, key: PageKey, hasFaqs = false) {
     about: isServicePage ? { "@id": `${absoluteUrl(page.path)}#service` } : { "@id": ORG_ID },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/og-image.png`,
+      url: `${SITE_URL}/og-image.webp`,
       width: 1200,
       height: 630,
     },
@@ -681,7 +681,7 @@ export function getSeoHead(
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 
-  const ogImage = `${SITE_URL}/og-image.png`;
+  const ogImage = `${SITE_URL}/og-image.webp`;
 
   return {
     meta: [
@@ -714,7 +714,7 @@ export function getSeoHead(
         ? [
             { property: "og:image", content: ogImage },
             { property: "og:image:secure_url", content: ogImage },
-            { property: "og:image:type", content: "image/png" },
+            { property: "og:image:type", content: "image/webp" },
             { property: "og:image:width", content: "1200" },
             { property: "og:image:height", content: "630" },
             { property: "og:image:alt", content: `${SITE_NAME} — digital agency Dubai` },
