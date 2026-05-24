@@ -442,16 +442,13 @@ export function Footer() {
                 }}
               />
               Crafting digital excellence, one pixel at a time.
-              <button
-                type="button"
+              <Link
+                to="/admin/login"
                 aria-label="Admin login"
                 className="text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-300 ml-4"
-                onClick={() => {
-                  window.location.href = "/admin/login";
-                }}
               >
                 <Lock className="h-3.5 w-3.5" />
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>
