@@ -162,12 +162,13 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 
 /* ─── FAQ Accordion Item — colors intentionally unchanged ─────────── */
 function FaqItem({
-  q, a, index, isOpen, onToggle,
+  q, a, index, isOpen, onToggle, headingLevel = 3,
 }: {
-  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void;
+  q: string; a: string; index: number; isOpen: boolean; onToggle: () => void; headingLevel?: 2 | 3;
 }) {
   const panelId = `faq-panel-${index}`;
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const HeadingTag = headingLevel === 2 ? "h2" : "h3";
 
   const handleToggle = () => {
     const previousTop = buttonRef.current?.getBoundingClientRect().top;
@@ -201,7 +202,7 @@ function FaqItem({
         }`}
       />
 
-      <h3 className="m-0 p-0 font-normal leading-none">
+      <HeadingTag className="m-0 p-0 font-normal leading-none">
         <button
           ref={buttonRef}
           type="button"
@@ -230,7 +231,7 @@ function FaqItem({
             <Plus className={`h-3.5 w-3.5 transition-colors duration-200 ${isOpen ? "text-primary-foreground" : "text-primary"}`} />
           </motion.div>
         </button>
-      </h3>
+      </HeadingTag>
 
       <AnimatePresence>
         {isOpen && (
@@ -507,7 +508,7 @@ function FAQs() {
             className="space-y-8"
           >
             {activeCategory === null ? (
-              categories.map((cat) => (
+              categories.map((cat, catIndex) => (
                 <div key={cat.label} className="space-y-3">
                   <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
                     <cat.icon className="h-3.5 w-3.5" style={{ color: cat.color }} />
@@ -521,6 +522,7 @@ function FAQs() {
                       index={i}
                       isOpen={openQuestions.includes(f.q)}
                       onToggle={() => handleQuestionToggle(f.q)}
+                      headingLevel={catIndex === 0 && i === 0 ? 2 : 3}
                     />
                   ))}
                 </div>
@@ -539,6 +541,7 @@ function FAQs() {
                     index={i}
                     isOpen={openQuestions.includes(f.q)}
                     onToggle={() => handleQuestionToggle(f.q)}
+                    headingLevel={i === 0 ? 2 : 3}
                   />
                 ))}
               </div>

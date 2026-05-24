@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArrowRight, ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
@@ -157,6 +157,15 @@ function formatDate(iso: string | null): string {
 }
 
 const SITE_URL = "https://www.webcoreuae.com";
+
+const markdownHeadingComponents: Components = {
+  h1: ({ node: _node, ...props }) => <h2 {...props} />,
+  h2: ({ node: _node, ...props }) => <h2 {...props} />,
+  h3: ({ node: _node, ...props }) => <h3 {...props} />,
+  h4: ({ node: _node, ...props }) => <h3 {...props} />,
+  h5: ({ node: _node, ...props }) => <h3 {...props} />,
+  h6: ({ node: _node, ...props }) => <h3 {...props} />,
+};
 
 function BlogPost() {
   const { slug } = Route.useParams();
@@ -355,7 +364,9 @@ function BlogPost() {
           className="prose prose-webcore max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:no-underline hover:prose-a:underline"
         >
           <ErrorBoundary variant="section" fallbackMessage="Error rendering post content.">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content ?? ""}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownHeadingComponents}>
+              {post.content ?? ""}
+            </ReactMarkdown>
           </ErrorBoundary>
         </motion.div>
 

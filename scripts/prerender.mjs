@@ -92,8 +92,28 @@ for (const route of seoRoutes) {
 // static HTML shell for each slug so Googlebot receives HTTP 200 (not 404).
 // The page hydrates normally in the browser and replaces content with live data.
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
+async function readSupabaseEnv() {
+  let url = process.env.VITE_SUPABASE_URL;
+  let key = process.env.VITE_SUPABASE_ANON_KEY;
+  if (url && key) return { url, key };
+
+  try {
+    const envText = await readFile(path.join(rootDir, ".env"), "utf8");
+    for (const line of envText.split(/\r?\n/)) {
+      const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
+      if (!m) continue;
+      const val = m[2].replace(/^["']|["']$/g, "");
+      if (m[1] === "VITE_SUPABASE_URL" && !url) url = val;
+      if (m[1] === "VITE_SUPABASE_ANON_KEY" && !key) key = val;
+    }
+  } catch {
+    /* env must be injected; build still succeeds without blog prerender */
+  }
+
+  return { url, key };
+}
+
+const { url: supabaseUrl, key: supabaseAnonKey } = await readSupabaseEnv();
 
 let blogPosts = [];
 

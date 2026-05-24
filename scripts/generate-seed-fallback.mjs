@@ -273,12 +273,9 @@ for (const slug of Object.keys(serviceFallback)) {
 
 const blogRows = parseInsert(blogSql, "blog_posts");
 
-// Static SQL-seed fallback (used only if Supabase is unreachable at build time
-// so the build never breaks). Mirrors the previous behavior.
-const blogFallbackFromSql = blogRows
-  .filter((r) => r.status === "published")
-  .map((r) => ({
-    id: r.slug,
+function toBlogCardFallback(r) {
+  return {
+    id: r.id ?? r.slug,
     slug: r.slug,
     title: r.title,
     excerpt: r.excerpt ?? null,
@@ -289,7 +286,31 @@ const blogFallbackFromSql = blogRows
     // published_at left null on purpose: avoids SSR/client locale-format
     // hydration drift; the live fetch supplies the real date post-mount.
     published_at: null,
-  }));
+  };
+}
+
+function toBlogPostFallback(r) {
+  return {
+    ...toBlogCardFallback(r),
+    content: r.content ?? null,
+    seo_title: r.seo_title ?? null,
+    seo_description: r.seo_description ?? null,
+  };
+}
+
+function fullPostMap(rows) {
+  return Object.fromEntries(
+    rows
+      .filter((r) => r.status === "published" || r.status === undefined)
+      .map((r) => [r.slug, toBlogPostFallback(r)]),
+  );
+}
+
+// Static SQL-seed fallback (used only if Supabase is unreachable at build time
+// so the build never breaks). Mirrors the previous behavior.
+const blogFallbackFromSql = blogRows
+  .filter((r) => r.status === "published")
+  .map(toBlogCardFallback);
 
 // Prefer LIVE published posts from Supabase so the prerendered /blog grid
 // contains real internal links to every post (crawler discoverability).
@@ -315,6 +336,7 @@ async function readSupabaseEnv() {
 }
 
 let blogFallback = blogFallbackFromSql;
+let blogPostFallbackMap = fullPostMap(blogRows);
 {
   const { url: supabaseUrl, key: supabaseAnonKey } = await readSupabaseEnv();
   if (supabaseUrl && supabaseAnonKey) {
@@ -325,27 +347,15 @@ let blogFallback = blogFallbackFromSql;
       const { data, error } = await db
         .from("blog_posts")
         .select(
-          "id, slug, title, excerpt, cover_image_url, cover_image_alt, tags, reading_time_min, published_at",
+          "id, slug, title, excerpt, content, cover_image_url, cover_image_alt, tags, reading_time_min, published_at, seo_title, seo_description",
         )
         .eq("status", "published")
         .order("published_at", { ascending: false });
       if (error) {
         console.warn(`blog fallback: Supabase query failed — ${error.message} (using SQL seed)`);
       } else if (data && data.length > 0) {
-        blogFallback = data.map((r) => ({
-          id: r.id ?? r.slug,
-          slug: r.slug,
-          title: r.title,
-          excerpt: r.excerpt ?? null,
-          cover_image_url: r.cover_image_url ?? null,
-          cover_image_alt: r.cover_image_alt ?? null,
-          tags: Array.isArray(r.tags) ? r.tags : null,
-          reading_time_min:
-            typeof r.reading_time_min === "number" ? r.reading_time_min : null,
-          // published_at left null on purpose: avoids SSR/client locale-format
-          // hydration drift; the live fetch supplies the real date post-mount.
-          published_at: null,
-        }));
+        blogFallback = data.map(toBlogCardFallback);
+        blogPostFallbackMap = fullPostMap(data);
         console.log(`blog fallback: seeded ${blogFallback.length} published posts from Supabase`);
       } else {
         console.warn("blog fallback: Supabase returned 0 posts (using SQL seed)");
@@ -356,26 +366,6 @@ let blogFallback = blogFallbackFromSql;
   } else {
     console.warn("blog fallback: VITE_SUPABASE_URL/ANON_KEY not available — using SQL seed");
   }
-}
-
-// Full-post fallback keyed by slug — used by blog.$slug route so individual
-// post pages render without a live Supabase hit (mirrors listing page pattern).
-const blogPostFallbackMap = {};
-for (const r of blogRows.filter((r) => r.status === "published")) {
-  blogPostFallbackMap[r.slug] = {
-    id: r.slug,
-    slug: r.slug,
-    title: r.title,
-    excerpt: r.excerpt ?? null,
-    content: r.content ?? null,
-    cover_image_url: r.cover_image_url ?? null,
-    cover_image_alt: r.cover_image_alt ?? null,
-    tags: Array.isArray(r.tags) ? r.tags : null,
-    reading_time_min: typeof r.reading_time_min === "number" ? r.reading_time_min : null,
-    published_at: null,
-    seo_title: r.seo_title ?? null,
-    seo_description: r.seo_description ?? null,
-  };
 }
 
 /* ── Emit the generated module ─────────────────────────────────────────── */
