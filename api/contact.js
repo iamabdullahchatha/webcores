@@ -36,7 +36,10 @@ function getClientIp(req) {
 }
 
 // ── Sanitization ─────────────────────────────────────────────────────────────
-const sanitize = (s) => String(s ?? "").replace(/<[^>]*>/g, "").trim();
+const sanitize = (s) =>
+  String(s ?? "")
+    .replace(/<[^>]*>/g, "")
+    .trim();
 
 // ── Auto-reply HTML ──────────────────────────────────────────────────────────
 function autoReplyHtml(name, service) {
@@ -68,7 +71,7 @@ function autoReplyHtml(name, service) {
             Need an urgent response? Reach us directly on WhatsApp:
           </p>
           <table cellpadding="0" cellspacing="0" style="margin:0 0 32px"><tr><td>
-            <a href="https://wa.me/447570792516" style="display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:14px 32px;border-radius:10px">
+            <a href="https://wa.me/447570792516" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:14px 32px;border-radius:10px">
               Chat on WhatsApp &rarr;
             </a>
           </td></tr></table>
@@ -98,7 +101,9 @@ export default async function handler(req, res) {
   // 2. Rate limiting
   const ip = getClientIp(req);
   if (!checkRateLimit(ip)) {
-    return res.status(429).json({ success: false, error: "Too many requests. Please wait 10 minutes." });
+    return res
+      .status(429)
+      .json({ success: false, error: "Too many requests. Please wait 10 minutes." });
   }
 
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body ?? {});
@@ -110,18 +115,24 @@ export default async function handler(req, res) {
 
   // 4. Validation & sanitization
   const { valid, errors } = validate(body, {
-    name:    { required: true, minLen: 2, maxLen: 100 },
-    email:   { required: true, type: "email" },
-    phone:   { required: false, minLen: 7, maxLen: 20, pattern: /^[\d\s+\-()]+$/, patternMsg: "Invalid phone format" },
+    name: { required: true, minLen: 2, maxLen: 100 },
+    email: { required: true, type: "email" },
+    phone: {
+      required: false,
+      minLen: 7,
+      maxLen: 20,
+      pattern: /^[\d\s+\-()]+$/,
+      patternMsg: "Invalid phone format",
+    },
     service: { required: false, maxLen: 100 },
     subject: { required: false, maxLen: 200 },
     message: { required: true, minLen: 10, maxLen: 5000 },
   });
   if (!valid) return res.status(400).json({ success: false, errors });
 
-  const name    = sanitize(body.name);
-  const email   = sanitize(body.email);
-  const phone   = sanitize(body.phone);
+  const name = sanitize(body.name);
+  const email = sanitize(body.email);
+  const phone = sanitize(body.phone);
   const service = sanitize(body.service);
   const subject = sanitize(body.subject);
   const message = sanitize(body.message);
@@ -179,7 +190,9 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error("Notification email error:", err?.message ?? err);
-    return res.status(500).json({ success: false, error: "Failed to send message. Please try again." });
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send message. Please try again." });
   }
 
   // 7. Auto-reply to submitter

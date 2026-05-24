@@ -37,7 +37,7 @@ const DEFAULTS: Fields = {
   whatsapp_url: "https://wa.me/447570792516",
   address_line1: "Dubai, United Arab Emirates",
   address_line2: "",
-  social_linkedin: "https://www.linkedin.com/in/webcore-solutions-939b88408",
+  social_linkedin: "https://www.linkedin.com/company/webcore-solutions-uae/",
   social_facebook: "https://www.facebook.com/profile.php?id=61587249472207",
   logo_url: "",
   logo_alt: "",
@@ -56,11 +56,7 @@ function SiteSettingsPage() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase
-        .from("site_settings")
-        .select("*")
-        .eq("id", "main")
-        .single();
+      const { data } = await supabase.from("site_settings").select("*").eq("id", "main").single();
 
       if (data) {
         const row = data as unknown as Row;
@@ -92,23 +88,21 @@ function SiteSettingsPage() {
   async function save() {
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from("site_settings")
-        .upsert({
-          id: "main",
-          site_name: fields.site_name,
-          phone_uae: fields.phone_uae,
-          phone_uk: fields.phone_uk,
-          email: fields.email,
-          whatsapp_url: fields.whatsapp_url,
-          address_line1: fields.address_line1,
-          address_line2: fields.address_line2 || null,
-          social_linkedin: fields.social_linkedin,
-          social_facebook: fields.social_facebook,
-          logo_url: fields.logo_url || null,
-          logo_alt: fields.logo_alt || null,
-          updated_at: new Date().toISOString(),
-        });
+      const { error } = await supabase.from("site_settings").upsert({
+        id: "main",
+        site_name: fields.site_name,
+        phone_uae: fields.phone_uae,
+        phone_uk: fields.phone_uk,
+        email: fields.email,
+        whatsapp_url: fields.whatsapp_url,
+        address_line1: fields.address_line1,
+        address_line2: fields.address_line2 || null,
+        social_linkedin: fields.social_linkedin,
+        social_facebook: fields.social_facebook,
+        logo_url: fields.logo_url || null,
+        logo_alt: fields.logo_alt || null,
+        updated_at: new Date().toISOString(),
+      });
 
       if (error) throw error;
       await qc.invalidateQueries({ queryKey: ["content", "site-settings"] });
@@ -135,16 +129,23 @@ function SiteSettingsPage() {
 
   return (
     <div className="max-w-2xl space-y-6">
-
       <SectionShell heading="Branding & Logo" onSave={save} saving={saving} lastSaved={lastSaved}>
-        <FormField label="Logo Image" htmlFor="logo_upload" hint="Replaces the bundled logo in the header. Leave empty to use the default.">
+        <FormField
+          label="Logo Image"
+          htmlFor="logo_upload"
+          hint="Replaces the bundled logo in the header. Leave empty to use the default."
+        >
           <ImageUpload
             bucket="site-media"
             currentUrl={fields.logo_url || undefined}
             onUpload={(url) => setFields((prev) => ({ ...prev, logo_url: url }))}
           />
         </FormField>
-        <FormField label="Logo Alt Text" htmlFor="logo_alt" hint="Accessible name shown to screen readers">
+        <FormField
+          label="Logo Alt Text"
+          htmlFor="logo_alt"
+          hint="Accessible name shown to screen readers"
+        >
           <input
             id="logo_alt"
             type="text"
@@ -156,7 +157,12 @@ function SiteSettingsPage() {
         </FormField>
       </SectionShell>
 
-      <SectionShell heading="Contact Information" onSave={save} saving={saving} lastSaved={lastSaved}>
+      <SectionShell
+        heading="Contact Information"
+        onSave={save}
+        saving={saving}
+        lastSaved={lastSaved}
+      >
         <FormField label="Site Name" htmlFor="site_name">
           <input
             id="site_name"
@@ -246,7 +252,6 @@ function SiteSettingsPage() {
           />
         </FormField>
       </SectionShell>
-
     </div>
   );
 }

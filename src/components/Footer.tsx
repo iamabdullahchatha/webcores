@@ -1,7 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import {
-  Linkedin, Facebook, Mail, Phone, MessageCircle,
-  ArrowUpRight, MapPin, Globe, Zap, Lock,
+  Linkedin,
+  Facebook,
+  Mail,
+  Phone,
+  MessageCircle,
+  ArrowUpRight,
+  MapPin,
+  Globe,
+  Zap,
+  Lock,
 } from "lucide-react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
@@ -10,49 +18,60 @@ import { useSiteSettings } from "@/lib/content/useSiteSettings";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 const services = [
-  { name: "IT Consultation",      to: "/services/it-consultation" },
-  { name: "CMS Development",      to: "/services/cms-development" },
-  { name: "Web Development",      to: "/services/web-development" },
+  { name: "IT Consultation", to: "/services/it-consultation" },
+  { name: "CMS Development", to: "/services/cms-development" },
+  { name: "Web Development", to: "/services/web-development" },
   { name: "Software Development", to: "/services/software-development" },
-  { name: "SEO & GEO Services",   to: "/services/seo-geo" },
-  { name: "Graphic Design",       to: "/services/graphic-design" },
+  { name: "SEO & GEO Services", to: "/services/seo-geo" },
+  { name: "Graphic Design", to: "/services/graphic-design" },
 ];
 
 const quickLinks = [
-  { name: "Home",     to: "/" },
-  { name: "About",    to: "/about" },
+  { name: "Home", to: "/" },
+  { name: "About", to: "/about" },
   { name: "Services", to: "/services" },
-  { name: "Blog",     to: "/blog" },
-  { name: "FAQs",     to: "/faqs" },
-  { name: "Contact",  to: "/contact" },
+  { name: "Blog", to: "/blog" },
+  { name: "FAQs", to: "/faqs" },
+  { name: "Contact", to: "/contact" },
 ];
 
 const SOCIAL_COLORS = { LinkedIn: "#0A66C2", Facebook: "#1877F2", WhatsApp: "#25D366" };
 
 /* ─── Floating Orb ─────────────────────────────────────────────────── */
-function FloatingOrb({
-  x, y, size, delay,
-}: {
-  x: string; y: string; size: number; delay: number;
-}) {
+function FloatingOrb({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) {
   return (
     <motion.div
       className="absolute rounded-full pointer-events-none"
       style={{
-        left: x, top: y, width: size, height: size,
+        left: x,
+        top: y,
+        width: size,
+        height: size,
         background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
       }}
       animate={{ y: [0, -18, 0], scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
-      transition={{ duration: 5 + delay, repeat: Infinity, repeatType: "loop", ease: "easeInOut", delay }}
+      transition={{
+        duration: 5 + delay,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut",
+        delay,
+      }}
     />
   );
 }
 
 /* ─── Magnetic Social Button ────────────────────────────────────────── */
 function MagneticSocial({
-  icon: Icon, label, href, color,
+  icon: Icon,
+  label,
+  href,
+  color,
 }: {
-  icon: React.ElementType; label: string; href: string; color: string;
+  icon: React.ElementType;
+  label: string;
+  href: string;
+  color: string;
 }) {
   const btnRef = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
@@ -66,7 +85,10 @@ function MagneticSocial({
     x.set((e.clientX - rect.left - rect.width / 2) * 0.35);
     y.set((e.clientY - rect.top - rect.height / 2) * 0.35);
   };
-  const reset = () => { x.set(0); y.set(0); };
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <motion.a
@@ -125,9 +147,18 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 /* ─── Ticker ────────────────────────────────────────────────────────── */
 const tickerItems = [
-  "Web Development", "•", "Software Solutions", "•",
-  "IT Consultation", "•", "SEO & GEO", "•",
-  "Graphic Design",  "•", "CMS Development",    "•",
+  "Web Development",
+  "•",
+  "Software Solutions",
+  "•",
+  "IT Consultation",
+  "•",
+  "SEO & GEO",
+  "•",
+  "Graphic Design",
+  "•",
+  "CMS Development",
+  "•",
 ];
 
 function Ticker() {
@@ -162,35 +193,57 @@ export function Footer() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const { data: settings } = useSiteSettings();
 
-  const show   = { opacity: 1, y: 0 };
+  const show = { opacity: 1, y: 0 };
   const hidden = { opacity: 0, y: 28 };
 
   const socials = [
-    { icon: Linkedin,      label: "LinkedIn", href: settings?.socialLinkedin ?? "https://www.linkedin.com/in/webcore-solutions-939b88408", color: SOCIAL_COLORS.LinkedIn },
-    { icon: Facebook,      label: "Facebook", href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207", color: SOCIAL_COLORS.Facebook },
-    { icon: MessageCircle, label: "WhatsApp", href: settings?.whatsappUrl    ?? "https://wa.me/447570792516", color: SOCIAL_COLORS.WhatsApp },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: settings?.socialLinkedin ?? "https://www.linkedin.com/company/webcore-solutions-uae/",
+      color: SOCIAL_COLORS.LinkedIn,
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207",
+      color: SOCIAL_COLORS.Facebook,
+    },
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      href: settings?.whatsappUrl ?? "https://wa.me/447570792516",
+      color: SOCIAL_COLORS.WhatsApp,
+    },
   ];
 
   const contactItems = [
-    { icon: Phone,  label: "UK",    value: settings?.phoneUk   ?? "+44 7570 792516" },
-    { icon: Phone,  label: "Dubai", value: settings?.phoneUae  ?? "+971 50 716 9200" },
-    { icon: Mail,   label: "Email", value: settings?.email     ?? "info@webcoreuae.com" },
-    { icon: MapPin, label: "HQ",    value: settings?.addressLine1 ?? "Dubai, United Arab Emirates" },
+    { icon: Phone, label: "UK", value: settings?.phoneUk ?? "+44 7570 792516" },
+    { icon: Phone, label: "Dubai", value: settings?.phoneUae ?? "+971 50 716 9200" },
+    { icon: Mail, label: "Email", value: settings?.email ?? "info@webcoreuae.com" },
+    { icon: MapPin, label: "HQ", value: settings?.addressLine1 ?? "Dubai, United Arab Emirates" },
   ];
 
   return (
     <footer ref={ref} className="relative mt-24 overflow-hidden">
-
       {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <FloatingOrb x="5%"  y="10%" size={300} delay={0}   />
-        <FloatingOrb x="70%" y="5%"  size={200} delay={1.5} />
-        <FloatingOrb x="85%" y="60%" size={250} delay={3}   />
-        <FloatingOrb x="20%" y="70%" size={180} delay={2}   />
-        <svg className="absolute inset-0 w-full h-full opacity-[0.025]" xmlns="http://www.w3.org/2000/svg">
+        <FloatingOrb x="5%" y="10%" size={300} delay={0} />
+        <FloatingOrb x="70%" y="5%" size={200} delay={1.5} />
+        <FloatingOrb x="85%" y="60%" size={250} delay={3} />
+        <FloatingOrb x="20%" y="70%" size={180} delay={2} />
+        <svg
+          className="absolute inset-0 w-full h-full opacity-[0.025]"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
             <pattern id="footer-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="hsl(var(--primary))"
+                strokeWidth="0.5"
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#footer-grid)" />
@@ -207,7 +260,6 @@ export function Footer() {
 
       <div className="relative border-t border-border/20">
         <div className="mx-auto max-w-7xl px-4 pt-16 pb-10">
-
           {/* CTA Banner */}
           <motion.div
             initial={hidden}
@@ -215,7 +267,8 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0, type: "tween", ease: "easeOut" }}
             className="relative mb-14 rounded-2xl overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.05) 50%, transparent 100%)",
+              background:
+                "linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.05) 50%, transparent 100%)",
               border: "1px solid hsl(var(--primary)/0.2)",
             }}
           >
@@ -224,7 +277,9 @@ export function Footer() {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Zap className="h-4 w-4 text-primary" />
-                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">Ready to build?</span>
+                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                    Ready to build?
+                  </span>
                 </div>
                 <h3 className="text-xl font-bold">Let's turn your vision into reality.</h3>
               </div>
@@ -240,7 +295,6 @@ export function Footer() {
 
           {/* Main grid */}
           <div className="grid gap-10 md:grid-cols-12">
-
             {/* Brand */}
             <motion.div
               initial={hidden}
@@ -260,10 +314,13 @@ export function Footer() {
                 />
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-                Transforming ideas into digital reality. Premium software, web & IT solutions built for the modern world.
+                Transforming ideas into digital reality. Premium software, web & IT solutions built
+                for the modern world.
               </p>
               <div className="flex items-center gap-2 pt-1">
-                {socials.map((s) => <MagneticSocial key={s.label} {...s} />)}
+                {socials.map((s) => (
+                  <MagneticSocial key={s.label} {...s} />
+                ))}
               </div>
               <motion.div
                 whileHover={{ x: 4 }}
@@ -286,7 +343,9 @@ export function Footer() {
               <nav aria-label="Footer navigation">
                 <ul className="space-y-3">
                   {quickLinks.map((l) => (
-                    <li key={l.name}><FlipLink to={l.to}>{l.name}</FlipLink></li>
+                    <li key={l.name}>
+                      <FlipLink to={l.to}>{l.name}</FlipLink>
+                    </li>
                   ))}
                 </ul>
               </nav>
@@ -330,8 +389,12 @@ export function Footer() {
                       <Icon className="h-3.5 w-3.5 text-primary" />
                     </span>
                     <div>
-                      <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-primary/50 leading-none mb-0.5">{label}</p>
-                      <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">{value}</p>
+                      <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-primary/50 leading-none mb-0.5">
+                        {label}
+                      </p>
+                      <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+                        {value}
+                      </p>
                     </div>
                   </li>
                 ))}
@@ -357,7 +420,10 @@ export function Footer() {
           >
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
               <p>© {new Date().getFullYear()} Webcore Solutions. All rights reserved.</p>
-              <Link to="/privacy-policy" className="hover:text-primary transition-colors duration-200">
+              <Link
+                to="/privacy-policy"
+                className="hover:text-primary transition-colors duration-200"
+              >
                 Privacy Policy
               </Link>
               <Link to="/sitemap" className="hover:text-primary transition-colors duration-200">
@@ -368,7 +434,12 @@ export function Footer() {
               <motion.span
                 className="inline-block w-1.5 h-1.5 rounded-full bg-primary"
                 animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut",
+                }}
               />
               Crafting digital excellence, one pixel at a time.
               <Link
@@ -380,7 +451,6 @@ export function Footer() {
               </Link>
             </div>
           </motion.div>
-
         </div>
       </div>
     </footer>

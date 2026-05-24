@@ -19,7 +19,7 @@ INSERT INTO public.site_settings (
   '+971 50 716 9200', '+44 7570 792516', 'info@webcoreuae.com',
   'https://wa.me/447570792516',
   'Dubai, United Arab Emirates', NULL,
-  'https://www.linkedin.com/in/webcore-solutions-939b88408',
+  'https://www.linkedin.com/company/webcore-solutions-uae/',
   'https://www.facebook.com/profile.php?id=61587249472207'
 )
 ON CONFLICT (id) DO UPDATE SET

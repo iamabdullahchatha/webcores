@@ -8,22 +8,22 @@ export const FOUNDER_ID = `${SITE_URL}/#founder`;
 
 // Page publish / last-updated dates (ISO 8601). Update on each meaningful content change.
 const pageDates: Record<string, { datePublished: string; dateModified: string }> = {
-  home:                { datePublished: "2024-01-01", dateModified: "2026-05-17" },
-  about:               { datePublished: "2024-01-01", dateModified: "2026-05-17" },
-  services:            { datePublished: "2024-01-01", dateModified: "2026-05-17" },
-  faqs:                { datePublished: "2024-06-01", dateModified: "2026-05-12" },
-  contact:             { datePublished: "2024-01-01", dateModified: "2026-05-12" },
-  itConsultation:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
-  cmsDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
-  webDevelopment:      { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  home: { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  about: { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  services: { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  faqs: { datePublished: "2024-06-01", dateModified: "2026-05-12" },
+  contact: { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  itConsultation: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  cmsDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  webDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
   softwareDevelopment: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
-  seoGeo:              { datePublished: "2024-03-01", dateModified: "2026-05-12" },
-  graphicDesign:       { datePublished: "2024-02-01", dateModified: "2026-05-12" },
-  privacyPolicy:       { datePublished: "2024-01-01", dateModified: "2026-05-12" },
-  sitemapHtml:         { datePublished: "2024-01-01", dateModified: "2026-05-17" },
-  webcoreSolutionsDubai:       { datePublished: "2026-05-12", dateModified: "2026-05-12" },
-  dubaiWebDevAgency:           { datePublished: "2026-05-12", dateModified: "2026-05-12" },
-  dubaiSeoAgency:              { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  seoGeo: { datePublished: "2024-03-01", dateModified: "2026-05-12" },
+  graphicDesign: { datePublished: "2024-02-01", dateModified: "2026-05-12" },
+  privacyPolicy: { datePublished: "2024-01-01", dateModified: "2026-05-12" },
+  sitemapHtml: { datePublished: "2024-01-01", dateModified: "2026-05-17" },
+  webcoreSolutionsDubai: { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  dubaiWebDevAgency: { datePublished: "2026-05-12", dateModified: "2026-05-12" },
+  dubaiSeoAgency: { datePublished: "2026-05-12", dateModified: "2026-05-12" },
   uaeSoftwareDevelopmentCompany: { datePublished: "2026-05-12", dateModified: "2026-05-12" },
 };
 
@@ -44,7 +44,7 @@ type PageMeta = {
 const orgAreaServed = ["UAE", "UK", "US", "Pakistan", "Europe"];
 
 const orgSameAs = [
-  "https://www.linkedin.com/in/webcore-solutions-939b88408",
+  "https://www.linkedin.com/company/webcore-solutions-uae/",
   "https://www.facebook.com/profile.php?id=61587249472207",
   "https://wa.me/447570792516",
 ];
@@ -105,7 +105,12 @@ export const pageSeo = {
     title: "Web Development & SEO Blog | Webcore Solutions UAE",
     description:
       "Practical field notes on web development, SEO, GEO optimisation and software architecture. Written by the Webcore Solutions team for UAE, UK, Europe and Pakistan.",
-    keywords: ["Webcore Solutions blog", "web development insights", "SEO articles", "GEO articles"],
+    keywords: [
+      "Webcore Solutions blog",
+      "web development insights",
+      "SEO articles",
+      "GEO articles",
+    ],
   },
   faqs: {
     label: "FAQs",
@@ -113,7 +118,11 @@ export const pageSeo = {
     title: "Web & Software Agency FAQs | Webcore Solutions UAE",
     description:
       "Answers on pricing, timelines and international work at Webcore Solutions. Fixed-price projects from $500 USD. Serving clients across the UK, UAE and Pakistan.",
-    keywords: ["Webcore Solutions FAQs", "digital agency questions", "software project pricing UAE"],
+    keywords: [
+      "Webcore Solutions FAQs",
+      "digital agency questions",
+      "software project pricing UAE",
+    ],
   },
   contact: {
     label: "Contact",
@@ -121,7 +130,11 @@ export const pageSeo = {
     title: "Get in Touch | Webcore Solutions Digital Agency UAE",
     description:
       "Book a free 45-minute strategy call or send a project brief. We reply within 24 hours with a fixed quote and clear scope. Serving UAE, UK, Europe and Pakistan.",
-    keywords: ["contact Webcore Solutions", "Dubai software consultation", "book web development call"],
+    keywords: [
+      "contact Webcore Solutions",
+      "Dubai software consultation",
+      "book web development call",
+    ],
     schemaType: "ContactPage",
   },
   itConsultation: {
@@ -178,7 +191,11 @@ export const pageSeo = {
     title: "Privacy Policy | GDPR & UAE Law | Webcore Solutions",
     description:
       "How Webcore Solutions collects, uses and protects your data under GDPR and UAE data protection law. Effective 1 January 2024. Last updated May 2026.",
-    keywords: ["Webcore Solutions privacy policy", "data protection UAE", "GDPR digital agency Dubai"],
+    keywords: [
+      "Webcore Solutions privacy policy",
+      "data protection UAE",
+      "GDPR digital agency Dubai",
+    ],
     schemaType: "WebPage",
   },
   sitemapHtml: {
@@ -224,12 +241,7 @@ export const pageSeo = {
     title: "Dubai SEO & GEO Agency | Local Search Specialists",
     description:
       "Dubai SEO agency covering technical SEO, local search, Arabic-English content and GEO for AI search. Fixed retainers, no ranking guarantees. Free audit today.",
-    keywords: [
-      "Dubai SEO agency",
-      "SEO agency Dubai",
-      "UAE SEO services",
-      "GEO agency Dubai",
-    ],
+    keywords: ["Dubai SEO agency", "SEO agency Dubai", "UAE SEO services", "GEO agency Dubai"],
     schemaType: "WebPage",
   },
   uaeSoftwareDevelopmentCompany: {
@@ -251,14 +263,12 @@ export const pageSeo = {
 export type PageKey = keyof typeof pageSeo;
 
 export const pageMetaDescriptions = {
-  home:
-    "Full-service web, software, SEO, CMS and design agency for UAE brands and global teams, trusted since 2012 for measurable delivery. Request a free quote.",
+  home: "Full-service web, software, SEO, CMS and design agency for UAE brands and global teams, trusted since 2012 for measurable delivery. Request a free quote.",
   about:
     "Meet the Dubai digital team behind Webcore Solutions, built on in-house craft, trusted delivery and long-term client partnerships. Explore our work.",
   contact:
     "Share your brief with our UAE web, software and SEO team and get a clear next step, scope guidance and pricing path within 24 hours. Book a free consultation.",
-  faqs:
-    "Find clear answers on pricing, timelines, support, retainers and global delivery for Webcore Solutions clients across the UK. See how we can help.",
+  faqs: "Find clear answers on pricing, timelines, support, retainers and global delivery for Webcore Solutions clients across the UK. See how we can help.",
   privacyPolicy:
     "Review how Webcore Solutions protects personal data, cookies, contact forms and privacy rights for clients in Europe and beyond. Learn how we do it.",
   sitemapHtml:
@@ -285,8 +295,7 @@ export const pageMetaDescriptions = {
     "Work with a Dubai SEO and GEO agency for technical audits, local search, bilingual content, reporting and AI visibility. Start your project today.",
   uaeSoftwareDevelopmentCompany:
     "Partner with a UAE software development company for SaaS, APIs, dashboards, AI workflows and serious systems for scaling teams. See how we can help.",
-  blog:
-    "Read practical web, SEO, AI, ecommerce and software guides from the Webcore Solutions team for UK founders and digital operators. Learn how we do it.",
+  blog: "Read practical web, SEO, AI, ecommerce and software guides from the Webcore Solutions team for UK founders and digital operators. Learn how we do it.",
 } satisfies Record<PageKey, string>;
 
 export const blogPostMetaDescriptions: Record<string, string> = {
@@ -333,23 +342,23 @@ export const blogPostMetaDescriptions: Record<string, string> = {
 };
 
 export const seoRoutes = [
-  { key: "home",                path: "/" },
-  { key: "about",               path: "/about" },
-  { key: "services",            path: "/services" },
-  { key: "itConsultation",      path: "/services/it-consultation" },
-  { key: "cmsDevelopment",      path: "/services/cms-development" },
-  { key: "webDevelopment",      path: "/services/web-development" },
+  { key: "home", path: "/" },
+  { key: "about", path: "/about" },
+  { key: "services", path: "/services" },
+  { key: "itConsultation", path: "/services/it-consultation" },
+  { key: "cmsDevelopment", path: "/services/cms-development" },
+  { key: "webDevelopment", path: "/services/web-development" },
   { key: "softwareDevelopment", path: "/services/software-development" },
-  { key: "seoGeo",              path: "/services/seo-geo" },
-  { key: "graphicDesign",       path: "/services/graphic-design" },
-  { key: "blog",                path: "/blog" },
-  { key: "faqs",                path: "/faqs" },
-  { key: "contact",             path: "/contact" },
-  { key: "privacyPolicy",       path: "/privacy-policy" },
-  { key: "sitemapHtml",         path: "/sitemap" },
-  { key: "webcoreSolutionsDubai",       path: "/webcore-solutions-dubai" },
-  { key: "dubaiWebDevAgency",           path: "/dubai-web-development-agency" },
-  { key: "dubaiSeoAgency",              path: "/dubai-seo-agency" },
+  { key: "seoGeo", path: "/services/seo-geo" },
+  { key: "graphicDesign", path: "/services/graphic-design" },
+  { key: "blog", path: "/blog" },
+  { key: "faqs", path: "/faqs" },
+  { key: "contact", path: "/contact" },
+  { key: "privacyPolicy", path: "/privacy-policy" },
+  { key: "sitemapHtml", path: "/sitemap" },
+  { key: "webcoreSolutionsDubai", path: "/webcore-solutions-dubai" },
+  { key: "dubaiWebDevAgency", path: "/dubai-web-development-agency" },
+  { key: "dubaiSeoAgency", path: "/dubai-seo-agency" },
   { key: "uaeSoftwareDevelopmentCompany", path: "/uae-software-development-company" },
 ] as const satisfies ReadonlyArray<{ key: PageKey; path: string }>;
 
@@ -526,15 +535,8 @@ function personSchema() {
     jobTitle: "CEO & Founder",
     worksFor: { "@id": ORG_ID },
     url: `${SITE_URL}/about`,
-    sameAs: ["https://www.linkedin.com/in/webcore-solutions-939b88408"],
-    knowsAbout: [
-      "Web Development",
-      "Software",
-      "SEO",
-      "GEO",
-      "CMS",
-      "Digital agency management",
-    ],
+    sameAs: ["https://www.linkedin.com/company/webcore-solutions-uae/"],
+    knowsAbout: ["Web Development", "Software", "SEO", "GEO", "CMS", "Digital agency management"],
   };
 }
 
@@ -647,14 +649,7 @@ function professionalServiceSchema() {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         opens: "09:00",
         closes: "18:00",
       },
@@ -747,7 +742,7 @@ export function getSeoHead(
   const metaDescription = pageMetaDescriptions[key];
   const canonical = absoluteUrl(page.path);
   const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-12" };
-  const hasFaqs = !!(options.faqs?.length);
+  const hasFaqs = !!options.faqs?.length;
 
   const isHome = key === "home";
   const isAbout = key === "about";
@@ -854,9 +849,11 @@ export function applyPageSeo(
   fallback: { title: string; description: string },
 ) {
   const title = overrides?.seo_title || fallback.title;
-  const description = pageMetaDescriptions[key] ?? overrides?.seo_description ?? fallback.description;
+  const description =
+    pageMetaDescriptions[key] ?? overrides?.seo_description ?? fallback.description;
   const ogTitle = overrides?.og_title || title;
-  const ogDescription = overrides?.og_description || overrides?.seo_description || fallback.description;
+  const ogDescription =
+    overrides?.og_description || overrides?.seo_description || fallback.description;
 
   document.title = title;
   setMetaTag("description", description);

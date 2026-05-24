@@ -20,7 +20,7 @@ NOT change them across listings — change them once here, then re-paste.
 | `[PHONE_DUBAI]` | `+971 50 716 9200` | Confirm |
 | `[PHONE_UK]` | `+44 7570 792516` | Confirm |
 | `[EMAIL]` | `info@webcoreuae.com` | Confirm |
-| `[LINKEDIN_URL]` | `https://www.linkedin.com/in/webcore-solutions-939b88408` | Confirm or replace with Company Page URL once created |
+| `[LINKEDIN_URL]` | `https://www.linkedin.com/company/webcore-solutions-uae/` | Company Page URL |
 | `[FACEBOOK_URL]` | `https://www.facebook.com/profile.php?id=61587249472207` | Confirm |
 | `[WHATSAPP_URL]` | `https://wa.me/447570792516` | Confirm |
 | `[TWITTER_URL]` | Not yet set | Create handle (suggested: `@WebcoreUAE`) |

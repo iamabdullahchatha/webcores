@@ -26,48 +26,58 @@ export const Route = createFileRoute("/blog/$slug")({
         {
           "@type": "Organization",
           "@id": ORG_ID,
-          "name": "Webcore Solutions",
-          "url": "https://www.webcoreuae.com",
-          "logo": {
+          name: "Webcore Solutions",
+          url: "https://www.webcoreuae.com",
+          logo: {
             "@type": "ImageObject",
-            "url": "https://www.webcoreuae.com/logo.png",
-            "width": 512,
-            "height": 512,
+            url: "https://www.webcoreuae.com/logo.png",
+            width: 512,
+            height: 512,
           },
-          "sameAs": [
-            "https://www.linkedin.com/in/webcore-solutions-939b88408",
+          sameAs: [
+            "https://www.linkedin.com/company/webcore-solutions-uae/",
             "https://www.facebook.com/profile.php?id=61587249472207",
           ],
         },
         {
           "@type": "WebSite",
           "@id": WEBSITE_ID,
-          "name": "Webcore Solutions",
-          "url": "https://www.webcoreuae.com",
-          "publisher": { "@id": ORG_ID },
+          name: "Webcore Solutions",
+          url: "https://www.webcoreuae.com",
+          publisher: { "@id": ORG_ID },
         },
         {
           "@type": "Article",
           "@id": `${postUrl}#article`,
-          "headline": postTitle,
-          "url": postUrl,
-          "mainEntityOfPage": postUrl,
-          "publisher": { "@id": ORG_ID },
-          "isPartOf": { "@id": WEBSITE_ID },
-          "image": {
+          headline: postTitle,
+          url: postUrl,
+          mainEntityOfPage: postUrl,
+          publisher: { "@id": ORG_ID },
+          isPartOf: { "@id": WEBSITE_ID },
+          image: {
             "@type": "ImageObject",
-            "url": "https://www.webcoreuae.com/og-image.webp",
-            "width": 1200,
-            "height": 630,
+            url: "https://www.webcoreuae.com/og-image.webp",
+            width: 1200,
+            height: 630,
           },
         },
         {
           "@type": "BreadcrumbList",
           "@id": `${postUrl}#breadcrumbs`,
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.webcoreuae.com" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.webcoreuae.com/blog" },
-            { "@type": "ListItem", "position": 3, "name": postTitle.replace(" | Webcore Solutions", ""), "item": postUrl },
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.webcoreuae.com" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Blog",
+              item: "https://www.webcoreuae.com/blog",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: postTitle.replace(" | Webcore Solutions", ""),
+              item: postUrl,
+            },
           ],
         },
       ],
@@ -78,11 +88,18 @@ export const Route = createFileRoute("/blog/$slug")({
         { title: postTitle },
         { name: "description", content: metaDescription },
         { name: "author", content: "Webcore Solutions" },
-        { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+        {
+          name: "robots",
+          content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+        },
         { property: "og:type", content: "article" },
         { property: "og:site_name", content: "Webcore Solutions" },
         { property: "og:title", content: postTitle },
-        { property: "og:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        {
+          property: "og:description",
+          content:
+            "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams.",
+        },
         { property: "og:url", content: postUrl },
         { property: "og:locale", content: "en_AE" },
         { property: "og:locale:alternate", content: "en_GB" },
@@ -94,7 +111,11 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:site", content: "@WebcoreUAE" },
         { name: "twitter:title", content: postTitle },
-        { name: "twitter:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        {
+          name: "twitter:description",
+          content:
+            "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams.",
+        },
         { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.webp" },
         { "script:ld+json": schema },
       ],
@@ -256,9 +277,7 @@ function BlogPost() {
         <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
           <SectionLabel>Not found</SectionLabel>
           <h1 className="text-3xl font-bold">This article doesn't exist</h1>
-          <p className="mt-2 text-muted-foreground">
-            It may have been moved or unpublished.
-          </p>
+          <p className="mt-2 text-muted-foreground">It may have been moved or unpublished.</p>
           <Link
             to="/blog"
             className="mt-6 inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 text-sm"

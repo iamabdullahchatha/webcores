@@ -47,13 +47,7 @@ import { usePageSeoOverrides } from "@/lib/content";
 /* WhatsApp SVG Icon */
 /* ──────────────────────────────────────────────────────────────────── */
 
-function WhatsAppIcon({
-  className,
-  style,
-}: {
-  className?: string;
-  style?: CSSProperties;
-}) {
+function WhatsAppIcon({ className, style }: { className?: string; style?: CSSProperties }) {
   return (
     <svg
       className={className}
@@ -79,7 +73,6 @@ export const Route = createFileRoute("/contact")({
 /* ──────────────────────────────────────────────────────────────────── */
 /* Data */
 /* ──────────────────────────────────────────────────────────────────── */
-
 
 const weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
@@ -194,33 +187,21 @@ function SectionLabel({ children }: { children: ReactNode }) {
 /* Tilt Card */
 /* ──────────────────────────────────────────────────────────────────── */
 
-function TiltCard({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+function TiltCard({ children, className = "" }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useSpring(
-    useTransform(y, [-0.5, 0.5], [7, -7]),
-    {
-      stiffness: 200,
-      damping: 22,
-    }
-  );
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), {
+    stiffness: 200,
+    damping: 22,
+  });
 
-  const rotateY = useSpring(
-    useTransform(x, [-0.5, 0.5], [-7, 7]),
-    {
-      stiffness: 200,
-      damping: 22,
-    }
-  );
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), {
+    stiffness: 200,
+    damping: 22,
+  });
 
   const handleMouse = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -231,7 +212,7 @@ function TiltCard({
       x.set((e.clientX - rect.left) / rect.width - 0.5);
       y.set((e.clientY - rect.top) / rect.height - 0.5);
     },
-    [x, y]
+    [x, y],
   );
 
   return (
@@ -294,10 +275,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
           style={{ background: "rgba(16,185,129,0.15)" }}
         />
 
-        <CheckCircle2
-          className="h-10 w-10"
-          style={{ color: "#10b981" }}
-        />
+        <CheckCircle2 className="h-10 w-10" style={{ color: "#10b981" }} />
       </motion.div>
 
       <motion.div
@@ -312,14 +290,13 @@ function SuccessState({ onReset }: { onReset: () => void }) {
         <div
           className="mx-auto mt-1 mb-5 h-0.5 w-12 rounded-full"
           style={{
-            background:
-              "linear-gradient(to right, #10b981, #06b6d4)",
+            background: "linear-gradient(to right, #10b981, #06b6d4)",
           }}
         />
 
         <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-          Thank you for reaching out. A member of our team
-          will get back to you within 1 business day.
+          Thank you for reaching out. A member of our team will get back to you within 1 business
+          day.
         </p>
       </motion.div>
 
@@ -374,13 +351,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 /* Service Dropdown */
 /* ──────────────────────────────────────────────────────────────────── */
 
-function ServiceDropdown({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (val: string) => void;
-}) {
+function ServiceDropdown({ value, onChange }: { value: string; onChange: (val: string) => void }) {
   const [open, setOpen] = useState(false);
 
   const selected = services.find((s) => s.value === value);
@@ -395,23 +366,16 @@ function ServiceDropdown({
       >
         {selected ? (
           <span className="flex items-center gap-2 min-w-0">
-            <selected.icon
-              className="h-4 w-4 shrink-0"
-              style={{ color: selected.color }}
-            />
+            <selected.icon className="h-4 w-4 shrink-0" style={{ color: selected.color }} />
 
-            <span className="font-semibold truncate">
-              {selected.value}
-            </span>
+            <span className="font-semibold truncate">{selected.value}</span>
 
             <span className="text-muted-foreground/50 text-xs hidden sm:inline truncate">
               — {selected.desc}
             </span>
           </span>
         ) : (
-          <span className="text-muted-foreground/50">
-            Select a service...
-          </span>
+          <span className="text-muted-foreground/50">Select a service...</span>
         )}
 
         <motion.span
@@ -444,8 +408,7 @@ function ServiceDropdown({
             transition={{ duration: 0.18 }}
             className="absolute z-50 left-0 right-0 mt-2 rounded-2xl overflow-hidden shadow-2xl border border-border/30"
             style={{
-              background:
-                "var(--card, hsl(var(--background)))",
+              background: "var(--card, hsl(var(--background)))",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
             }}
@@ -476,24 +439,18 @@ function ServiceDropdown({
                   >
                     <span
                       className={`h-6 w-6 rounded-md flex items-center justify-center shrink-0 transition-all duration-150 ${
-                        isSelected
-                          ? "bg-white/20"
-                          : "bg-muted/60 group-hover:bg-primary/10"
+                        isSelected ? "bg-white/20" : "bg-muted/60 group-hover:bg-primary/10"
                       }`}
                     >
                       <s.icon className="h-3 w-3" />
                     </span>
 
                     <div className="flex flex-col min-w-0">
-                      <span className="text-xs font-semibold leading-tight">
-                        {s.value}
-                      </span>
+                      <span className="text-xs font-semibold leading-tight">{s.value}</span>
 
                       <span
                         className={`text-[10px] leading-tight ${
-                          isSelected
-                            ? "text-primary-foreground/70"
-                            : "text-muted-foreground"
+                          isSelected ? "text-primary-foreground/70" : "text-muted-foreground"
                         }`}
                       >
                         {s.desc}
@@ -511,12 +468,7 @@ function ServiceDropdown({
         )}
       </AnimatePresence>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      {open && <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />}
     </div>
   );
 }
@@ -542,9 +494,7 @@ function ContactForm() {
     message: "",
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -552,43 +502,43 @@ function ContactForm() {
   };
 
   const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || "Failed to send message");
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSent(true);
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+
+      alert("Something went wrong while sending your message. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setSent(true);
-
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      subject: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error("Contact form error:", error);
-
-    alert("Something went wrong while sending your message. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const inputClass =
     "w-full glass rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground/50 bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground";
@@ -620,19 +570,14 @@ function ContactForm() {
             exit={{ opacity: 0 }}
             className="p-8 md:p-10"
           >
-            <h2 className="text-2xl font-bold mb-1">
-              Send us a message
-            </h2>
+            <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
 
             <p className="text-muted-foreground text-sm mb-7">
-              Fill out the form and we'll get back to you
-              shortly — let's build something great together.
+              Fill out the form and we'll get back to you shortly — let's build something great
+              together.
             </p>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
@@ -754,11 +699,7 @@ function ContactForm() {
                     />
                   )}
 
-                  <span className="relative">
-                    {loading
-                      ? "Sending..."
-                      : "Send message"}
-                  </span>
+                  <span className="relative">{loading ? "Sending..." : "Send message"}</span>
 
                   <Send className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 relative" />
                 </button>
@@ -785,16 +726,58 @@ function Contact() {
   const { data: settings } = useSiteSettings();
 
   const contactInfo = [
-    { icon: Phone,  label: "UK",    value: settings?.phoneUk    ?? "+44 7570 792516",    color: "#06b6d4", bg: "rgba(6,182,212,0.10)" },
-    { icon: Phone,  label: "Dubai", value: settings?.phoneUae   ?? "+971 50 716 9200",   color: "#3b82f6", bg: "rgba(59,130,246,0.10)" },
-    { icon: Mail,   label: "Email", value: settings?.email      ?? "info@webcoreuae.com", color: "#8b5cf6", bg: "rgba(139,92,246,0.10)" },
-    { icon: MapPin, label: "HQ",    value: settings?.addressLine1 ?? "Dubai, UAE",        color: "#10b981", bg: "rgba(16,185,129,0.10)" },
+    {
+      icon: Phone,
+      label: "UK",
+      value: settings?.phoneUk ?? "+44 7570 792516",
+      color: "#06b6d4",
+      bg: "rgba(6,182,212,0.10)",
+    },
+    {
+      icon: Phone,
+      label: "Dubai",
+      value: settings?.phoneUae ?? "+971 50 716 9200",
+      color: "#3b82f6",
+      bg: "rgba(59,130,246,0.10)",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: settings?.email ?? "info@webcoreuae.com",
+      color: "#8b5cf6",
+      bg: "rgba(139,92,246,0.10)",
+    },
+    {
+      icon: MapPin,
+      label: "HQ",
+      value: settings?.addressLine1 ?? "Dubai, UAE",
+      color: "#10b981",
+      bg: "rgba(16,185,129,0.10)",
+    },
   ];
 
   const socials = [
-    { icon: WhatsAppIcon, label: "WhatsApp", color: "#25d366", bg: "rgba(37,211,102,0.10)", href: settings?.whatsappUrl    ?? "https://wa.me/447570792516" },
-    { icon: Linkedin,     label: "LinkedIn",  color: "#06b6d4", bg: "rgba(6,182,212,0.10)",  href: settings?.socialLinkedin ?? "https://www.linkedin.com/in/webcore-solutions-939b88408" },
-    { icon: Facebook,     label: "Facebook",  color: "#3b82f6", bg: "rgba(59,130,246,0.10)", href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207" },
+    {
+      icon: WhatsAppIcon,
+      label: "WhatsApp",
+      color: "#25d366",
+      bg: "rgba(37,211,102,0.10)",
+      href: settings?.whatsappUrl ?? "https://wa.me/447570792516",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      color: "#06b6d4",
+      bg: "rgba(6,182,212,0.10)",
+      href: settings?.socialLinkedin ?? "https://www.linkedin.com/company/webcore-solutions-uae/",
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      color: "#3b82f6",
+      bg: "rgba(59,130,246,0.10)",
+      href: settings?.socialFacebook ?? "https://www.facebook.com/profile.php?id=61587249472207",
+    },
   ];
 
   const { scrollYProgress } = useScroll({
@@ -802,28 +785,14 @@ function Contact() {
     offset: ["start start", "end start"],
   });
 
-  const heroY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", "20%"]
-  );
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
-  const heroOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.8],
-    [1, 0]
-  );
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <Layout>
-      <section
-        ref={heroRef}
-        className="relative overflow-hidden min-h-[60vh] flex items-center"
-      >
-        <div
-          className="absolute inset-0"
-          style={{ background: "var(--gradient-hero)" }}
-        />
+      <section ref={heroRef} className="relative overflow-hidden min-h-[60vh] flex items-center">
+        <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
 
         <GridBackground />
         <FloatingShapes />
@@ -842,8 +811,7 @@ function Contact() {
           style={{
             width: 480,
             height: 480,
-            background:
-              "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+            background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
           }}
         />
 
@@ -862,8 +830,7 @@ function Contact() {
           style={{
             width: 320,
             height: 320,
-            background:
-              "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
           }}
         />
 
@@ -895,10 +862,7 @@ function Contact() {
                 transition={{ duration: 0.85 }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
               >
-                Let's build something{" "}
-                <span className="gradient-text">
-                  great.
-                </span>
+                Let's build something <span className="gradient-text">great.</span>
               </motion.h1>
 
               <motion.p
@@ -910,10 +874,8 @@ function Contact() {
                 }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
               >
-                Send the form or book a free
-                45-minute call — we reply within
-                24 hours with scope, timeline and
-                a fixed quote.
+                Send the form or book a free 45-minute call — we reply within 24 hours with scope,
+                timeline and a fixed quote.
               </motion.p>
 
               <motion.div
@@ -944,26 +906,19 @@ function Contact() {
       <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="grid lg:grid-cols-[420px_1fr] gap-8 items-start">
           <div className="space-y-5">
-            <motion.div
-              {...fadeUp()}
-              className="glass rounded-3xl p-8 relative overflow-hidden"
-            >
+            <motion.div {...fadeUp()} className="glass rounded-3xl p-8 relative overflow-hidden">
               <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full blur-3xl opacity-[0.06] pointer-events-none gradient-primary" />
 
-              <h2 className="text-xl font-bold mb-1">
-                Get in touch
-              </h2>
+              <h2 className="text-xl font-bold mb-1">Get in touch</h2>
 
               <p className="text-muted-foreground text-sm mb-7">
-                We're a digital agency serving clients across Dubai, the UK, Europe, Pakistan, and the US — just a message away.
+                We're a digital agency serving clients across Dubai, the UK, Europe, Pakistan, and
+                the US — just a message away.
               </p>
 
               <div className="space-y-4">
                 {contactInfo.map((item) => (
-                  <div
-                    key={item.label}
-                    className="group flex items-center gap-4"
-                  >
+                  <div key={item.label} className="group flex items-center gap-4">
                     <div
                       className="h-11 w-11 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200"
                       style={{
@@ -971,10 +926,7 @@ function Contact() {
                         boxShadow: `0 4px 14px ${item.color}22`,
                       }}
                     >
-                      <item.icon
-                        className="h-5 w-5"
-                        style={{ color: item.color }}
-                      />
+                      <item.icon className="h-5 w-5" style={{ color: item.color }} />
                     </div>
 
                     <div>
@@ -982,9 +934,7 @@ function Contact() {
                         {item.label}
                       </div>
 
-                      <div className="text-sm font-semibold">
-                        {item.value}
-                      </div>
+                      <div className="text-sm font-semibold">{item.value}</div>
                     </div>
                   </div>
                 ))}
@@ -1001,15 +951,12 @@ function Contact() {
                       <a
                         href={s.href}
                         target="_blank"
-                        rel="nofollow noopener noreferrer"
+                        rel="noopener noreferrer"
                         aria-label={s.label}
                         className="h-9 w-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-glow"
                         style={{ background: s.bg }}
                       >
-                        <s.icon
-                          className="h-4 w-4"
-                          style={{ color: s.color }}
-                        />
+                        <s.icon className="h-4 w-4" style={{ color: s.color }} />
                       </a>
                     </TiltCard>
                   ))}
@@ -1017,35 +964,25 @@ function Contact() {
               </div>
             </motion.div>
 
-            <motion.div
-              {...fadeUp(0.1)}
-              className="glass rounded-3xl p-7 relative overflow-hidden"
-            >
+            <motion.div {...fadeUp(0.1)} className="glass rounded-3xl p-7 relative overflow-hidden">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2.5">
                   <div
                     className="h-8 w-8 rounded-lg flex items-center justify-center"
                     style={{
-                      background:
-                        "rgba(6,182,212,0.10)",
+                      background: "rgba(6,182,212,0.10)",
                     }}
                   >
-                    <Clock
-                      className="h-4 w-4"
-                      style={{ color: "#06b6d4" }}
-                    />
+                    <Clock className="h-4 w-4" style={{ color: "#06b6d4" }} />
                   </div>
 
-                  <span className="font-bold text-sm">
-                    Working Hours
-                  </span>
+                  <span className="font-bold text-sm">Working Hours</span>
                 </div>
 
                 <span
                   className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full"
                   style={{
-                    background:
-                      "rgba(16,185,129,0.10)",
+                    background: "rgba(16,185,129,0.10)",
                     color: "#10b981",
                   }}
                 >
@@ -1056,8 +993,7 @@ function Contact() {
 
               <div className="flex gap-1.5 mb-5">
                 {weekDays.map((d, i) => {
-                  const isToday =
-                    i === adjustedToday;
+                  const isToday = i === adjustedToday;
 
                   const isWeekend = i >= 5;
 
@@ -1068,8 +1004,8 @@ function Contact() {
                         isToday
                           ? "gradient-primary text-primary-foreground shadow-elegant"
                           : isWeekend
-                          ? "text-muted-foreground/40 bg-muted/20"
-                          : "glass text-muted-foreground"
+                            ? "text-muted-foreground/40 bg-muted/20"
+                            : "glass text-muted-foreground"
                       }`}
                     >
                       {d}
@@ -1096,19 +1032,12 @@ function Contact() {
                     open: false,
                   },
                 ].map((row) => (
-                  <div
-                    key={row.days}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-muted-foreground text-xs">
-                      {row.days}
-                    </span>
+                  <div key={row.days} className="flex justify-between items-center">
+                    <span className="text-muted-foreground text-xs">{row.days}</span>
 
                     <span
                       className={`text-xs font-semibold ${
-                        row.open
-                          ? "text-foreground"
-                          : "text-muted-foreground/50 italic"
+                        row.open ? "text-foreground" : "text-muted-foreground/50 italic"
                       }`}
                     >
                       {row.hours}
@@ -1119,9 +1048,7 @@ function Contact() {
 
               <div className="mt-5 pt-4 border-t border-border/40 flex items-center gap-2 text-[10px] text-muted-foreground">
                 <Globe className="h-3 w-3 shrink-0" />
-                Dubai (GST) · United Kingdom
-                (GMT/BST) · Response within 1
-                business day
+                Dubai (GST) · United Kingdom (GMT/BST) · Response within 1 business day
               </div>
             </motion.div>
           </div>
@@ -1151,8 +1078,7 @@ function Contact() {
             }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
-              background:
-                "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
             }}
           />
 
@@ -1161,19 +1087,13 @@ function Contact() {
               <MessageCircle className="h-7 w-7 text-primary-foreground" />
             </div>
 
-            <SectionLabel>
-              Prefer a call?
-            </SectionLabel>
+            <SectionLabel>Prefer a call?</SectionLabel>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Book a free strategy call.
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Book a free strategy call.</h2>
 
             <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              45 minutes with the engineers who
-              do the work — architecture options,
-              realistic estimates, and a clear
-              path to launch.
+              45 minutes with the engineers who do the work — architecture options, realistic
+              estimates, and a clear path to launch.
             </p>
 
             <Link
@@ -1181,24 +1101,18 @@ function Contact() {
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
               Book Free Consultation
-
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
 
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">
-              {[
-                "No commitment required",
-                "Response within 24 hours",
-                "Completely free",
-              ].map((t) => (
-                <div
-                  key={t}
-                  className="flex items-center gap-1.5"
-                >
-                  <CheckCircle2 className="h-3 w-3 text-primary/60" />
-                  {t}
-                </div>
-              ))}
+              {["No commitment required", "Response within 24 hours", "Completely free"].map(
+                (t) => (
+                  <div key={t} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3 w-3 text-primary/60" />
+                    {t}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </motion.div>

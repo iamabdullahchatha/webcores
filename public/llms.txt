@@ -72,6 +72,6 @@ React, Next.js, TypeScript, Node.js, Tailwind CSS, WordPress, WooCommerce, Shopi
 
 ## Social Profiles
 
-- LinkedIn: https://www.linkedin.com/in/webcore-solutions-939b88408
+- LinkedIn: https://www.linkedin.com/company/webcore-solutions-uae/
 - Facebook: https://www.facebook.com/profile.php?id=61587249472207
 - WhatsApp: https://wa.me/447570792516

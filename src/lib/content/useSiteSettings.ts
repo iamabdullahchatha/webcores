@@ -26,7 +26,7 @@ const FALLBACK: SiteSettings = {
   whatsappUrl: "https://wa.me/447570792516",
   addressLine1: "Dubai, United Arab Emirates",
   addressLine2: null,
-  socialLinkedin: "https://www.linkedin.com/in/webcore-solutions-939b88408",
+  socialLinkedin: "https://www.linkedin.com/company/webcore-solutions-uae/",
   socialFacebook: "https://www.facebook.com/profile.php?id=61587249472207",
   logoUrl: null,
   logoAlt: null,
