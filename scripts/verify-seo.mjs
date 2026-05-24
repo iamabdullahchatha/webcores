@@ -127,12 +127,12 @@ for (const route of routes) {
   const altMatches = [...head.matchAll(/<link[^>]+rel="alternate"[^>]+hreflang="([^"]+)"[^>]*>/gi)];
   const altHrefs = altMatches.map((m) => (m[0].match(/href="([^"]*)"/i) || [])[1]);
   const altOk =
-    altHrefs.length === 3 &&
+    altHrefs.length === 5 &&
     altHrefs.every((h) => h === canonical);
   const c9 = check(
     route,
     rel,
-    "3 alternates -> page URL",
+    "5 alternates -> page URL",
     altOk,
     altHrefs.length ? altHrefs.join(" | ") : "none",
   );
