@@ -250,6 +250,88 @@ export const pageSeo = {
 
 export type PageKey = keyof typeof pageSeo;
 
+export const pageMetaDescriptions = {
+  home:
+    "Full-service web, software, SEO, CMS and design agency for UAE brands and global teams, trusted since 2012 for measurable delivery. Request a free quote.",
+  about:
+    "Meet the Dubai digital team behind Webcore Solutions, built on in-house craft, trusted delivery and long-term client partnerships. Explore our work.",
+  contact:
+    "Share your brief with our UAE web, software and SEO team and get a clear next step, scope guidance and pricing path within 24 hours. Book a free consultation.",
+  faqs:
+    "Find clear answers on pricing, timelines, support, retainers and global delivery for Webcore Solutions clients across the UK. See how we can help.",
+  privacyPolicy:
+    "Review how Webcore Solutions protects personal data, cookies, contact forms and privacy rights for clients in Europe and beyond. Learn how we do it.",
+  sitemapHtml:
+    "Browse every Webcore Solutions service, blog, location and legal page in one clean site index for Pakistan and global visitors. Get in touch today.",
+  services:
+    "Explore web development, software, CMS, SEO, GEO, design and IT consultation services for Gulf region businesses ready to grow. Start your project today.",
+  webDevelopment:
+    "Build fast websites, ecommerce stores and React experiences for UAE businesses that need stronger performance, trust and leads. Request a free quote.",
+  softwareDevelopment:
+    "Create custom SaaS, APIs, dashboards, data tools, secure integrations and AI workflows with a Dubai-based engineering team. Book a free consultation.",
+  cmsDevelopment:
+    "Launch headless CMS and WordPress platforms for UK teams that need faster publishing, cleaner workflows and editor control. Start your project today.",
+  itConsultation:
+    "Plan audits, cloud strategy, architecture, vendor decisions, risk reviews and roadmaps with senior consultants for Europe teams. See how we can help.",
+  seoGeo:
+    "Improve technical SEO, local search, content visibility and AI citations for Pakistan businesses with practical GEO strategy. Get in touch today.",
+  graphicDesign:
+    "Shape logos, brand systems, company profiles, sales decks and marketing collateral for Gulf region brands that need trust fast. Explore our work.",
+  webcoreSolutionsDubai:
+    "Choose Webcore Solutions Dubai for in-house web, software, SEO and branding delivery from a licensed agency active since 2012. Request a free quote.",
+  dubaiWebDevAgency:
+    "Hire a Dubai web development agency building fast, scalable websites with fixed scope, clean code and Core Web Vitals focus. Book a free consultation.",
+  dubaiSeoAgency:
+    "Work with a Dubai SEO and GEO agency for technical audits, local search, bilingual content, reporting and AI visibility. Start your project today.",
+  uaeSoftwareDevelopmentCompany:
+    "Partner with a UAE software development company for SaaS, APIs, dashboards, AI workflows and serious systems for scaling teams. See how we can help.",
+  blog:
+    "Read practical web, SEO, AI, ecommerce and software guides from the Webcore Solutions team for UK founders and digital operators. Learn how we do it.",
+} satisfies Record<PageKey, string>;
+
+export const blogPostMetaDescriptions: Record<string, string> = {
+  "how-to-build-7-figure-ecommerce-store-from-scratch":
+    "Learn how to plan, brand, launch and scale a 7-figure ecommerce store for Europe markets, from niche validation to traffic and email. Explore our work.",
+  "why-smart-businesses-dont-wing-their-tech-decisions":
+    "See how IT consultation helps Pakistan businesses audit tools, reduce risk, choose vendors and plan smarter technology decisions. Get in touch today.",
+  "how-to-protect-your-business-website-from-hackers":
+    "Protect your Gulf region business website with SSL, firewalls, backups, malware scans, monitoring, passwords and safer team habits. Request a free quote.",
+  "ai-agents-for-business-automate-sales-support-operations":
+    "Discover how AI agents automate sales follow-ups, support, HR, lead routing and operations for UAE companies without extra hiring. Book a free consultation.",
+  "bilingual-arabic-english-seo-strategy":
+    "Understand bilingual Arabic-English SEO for Dubai audiences, from search intent and translation gaps to technical setup. Start your project today.",
+  "headless-cms-vs-traditional-cms":
+    "Compare headless CMS and traditional CMS choices for UK teams weighing speed, editing workflows, integrations and future scale. See how we can help.",
+  "claude-vs-chatgpt-codex-which-ai-coding-tool-is-better":
+    "Compare Claude and ChatGPT Codex for Europe developers and teams choosing AI coding support for real software projects in 2026. Learn how we do it.",
+  "why-every-growing-business-needs-a-professional-website":
+    "Learn why Pakistan businesses need a professional website for trust, leads, Google visibility, performance and long-term growth. Explore our work.",
+  "top-ai-tools-for-business-success":
+    "Explore AI tools that help Gulf region businesses improve content, design, productivity, customer support and daily operations. Get in touch today.",
+  "custom-website-vs-wordpress-which-is-better":
+    "Compare custom websites and WordPress for UAE businesses choosing between control, speed, security, scalability and budget. Request a free quote.",
+  "generative-engine-optimization-2026":
+    "Understand GEO for Dubai brands in 2026 and how AI engines choose, cite and trust business content across search experiences. Book a free consultation.",
+  "headless-commerce-vs-shopify-2026":
+    "Use a practical framework for UK ecommerce teams choosing between headless commerce and Shopify based on your growth stage. Start your project today.",
+  "why-your-dubai-website-isnt-getting-leads":
+    "Find why your Dubai website is not generating leads and what to fix across messaging, speed, SEO, trust, calls and conversion. See how we can help.",
+  "how-to-make-your-website-appear-in-chatgpt-gemini-ai-search":
+    "Learn how Europe businesses can appear in ChatGPT, Gemini and AI search through clearer answers, entities and trusted citations. Learn how we do it.",
+  "essential-features-high-performing-business-website":
+    "Review the website features Pakistan businesses need for speed, trust, mobile usability, security, analytics, forms and conversions. Explore our work.",
+  "what-is-vibe-coding-complete-beginners-guide-2026":
+    "Understand vibe coding, AI builders, prompt workflows and responsible delivery for Gulf region founders creating software in 2026. Get in touch today.",
+  "wordpress-vs-wix-vs-shopify":
+    "Compare WordPress, Wix and Shopify for UAE businesses choosing a website platform for SEO, ecommerce, design and long-term growth. Request a free quote.",
+  "why-professional-graphic-design-matters-for-brand-identity":
+    "See why professional graphic design helps Dubai brands build recognition, trust, consistency and stronger visual identity. Book a free consultation.",
+  "how-to-download-code-from-lovable-deploy-to-vercel-or-cloudflare":
+    "Learn how UK teams can export Lovable code, remove dependencies, test locally and deploy to Vercel or Cloudflare Pages. Start your project today.",
+  "types-of-seo-explained-on-page-off-page-technical":
+    "Understand on-page, off-page and technical SEO for Europe businesses building stronger rankings, authority, traffic and leads. See how we can help.",
+};
+
 export const seoRoutes = [
   { key: "home",                path: "/" },
   { key: "about",               path: "/about" },
@@ -662,6 +744,7 @@ export function getSeoHead(
   } = {},
 ) {
   const page = pageSeo[key];
+  const metaDescription = pageMetaDescriptions[key];
   const canonical = absoluteUrl(page.path);
   const dates = pageDates[key] ?? { datePublished: "2024-01-01", dateModified: "2026-05-12" };
   const hasFaqs = !!(options.faqs?.length);
@@ -686,7 +769,7 @@ export function getSeoHead(
   return {
     meta: [
       { title: page.title },
-      { name: "description", content: page.description },
+      { name: "description", content: metaDescription },
       {
         name: "robots",
         content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -771,9 +854,9 @@ export function applyPageSeo(
   fallback: { title: string; description: string },
 ) {
   const title = overrides?.seo_title || fallback.title;
-  const description = overrides?.seo_description || fallback.description;
+  const description = pageMetaDescriptions[key] ?? overrides?.seo_description ?? fallback.description;
   const ogTitle = overrides?.og_title || title;
-  const ogDescription = overrides?.og_description || description;
+  const ogDescription = overrides?.og_description || overrides?.seo_description || fallback.description;
 
   document.title = title;
   setMetaTag("description", description);

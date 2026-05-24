@@ -8,11 +8,15 @@ import { Layout } from "@/components/Layout";
 import { supabase } from "@/lib/supabase/client";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { blogPostFallback } from "@/lib/content/seedFallback.generated";
+import { blogPostMetaDescriptions } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
     const postUrl = `https://www.webcoreuae.com/blog/${params.slug}`;
     const postTitle = `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions`;
+    const metaDescription =
+      blogPostMetaDescriptions[params.slug] ??
+      "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams.";
     const ORG_ID = "https://www.webcoreuae.com/#organization";
     const WEBSITE_ID = "https://www.webcoreuae.com/#website";
 
@@ -72,7 +76,7 @@ export const Route = createFileRoute("/blog/$slug")({
     return {
       meta: [
         { title: postTitle },
-        { name: "description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        { name: "description", content: metaDescription },
         { name: "author", content: "Webcore Solutions" },
         { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
         { property: "og:type", content: "article" },
@@ -211,7 +215,8 @@ function BlogPost() {
         if (el) el.setAttribute("content", content);
       };
 
-      if (realDesc) setMeta("name", "description", realDesc);
+      const clientMetaDescription = blogPostMetaDescriptions[p.slug] ?? realDesc;
+      if (clientMetaDescription) setMeta("name", "description", clientMetaDescription);
       setMeta("property", "og:title", realTitle);
       if (realDesc) setMeta("property", "og:description", realDesc);
       setMeta("name", "twitter:title", realTitle);
