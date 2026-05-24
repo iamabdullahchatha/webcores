@@ -1,0 +1,1 @@
+import{u as o}from"./useQuery-CjQgahEj.js";import{s as u}from"./index-RwOev-M0.js";function i(){return o({queryKey:["content","page-seo-overrides"],staleTime:300*1e3,queryFn:async()=>{const{data:e,error:t}=await u.from("page_seo_overrides").select("*");return t||!e?{}:e.reduce((r,s)=>(r[s.id]=s,r),{})}})}export{i as u};

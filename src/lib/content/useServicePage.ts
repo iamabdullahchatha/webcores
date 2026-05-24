@@ -32,6 +32,8 @@ export type ServicePage = {
 };
 
 async function queryFn(slug: string): Promise<ServicePage | null> {
+  const fallback = serviceFallback[slug] as ServicePage | undefined;
+
   const { data: service, error: svcErr } = await supabase
     .from("services")
     .select("*")
@@ -39,7 +41,8 @@ async function queryFn(slug: string): Promise<ServicePage | null> {
     .eq("is_active", true)
     .maybeSingle();
 
-  if (svcErr || !service) return null;
+  if (svcErr) return fallback ?? null;
+  if (!service) return fallback ?? null;
 
   const { data: sections, error: secErr } = await supabase
     .from("service_page_content")
@@ -48,7 +51,11 @@ async function queryFn(slug: string): Promise<ServicePage | null> {
     .eq("is_visible", true)
     .order("sort_order");
 
-  if (secErr) return null;
+  if (secErr) return fallback ?? null;
+
+  if (!sections?.length) {
+    return fallback ?? null;
+  }
 
   return {
     service: service as unknown as ServiceRow,

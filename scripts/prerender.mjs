@@ -144,6 +144,15 @@ if (supabaseUrl && supabaseAnonKey) {
 
 const SITE_URL = "https://www.webcoreuae.com";
 
+function buildAlternateLinks(canonical) {
+  return ["en-AE", "en-GB", "en-PK", "en", "x-default"]
+    .map(
+      (lang) =>
+        `<link rel="alternate" hreflang="${lang}" href="${escapeHtml(canonical)}">`,
+    )
+    .join("\n    ");
+}
+
 const blogPostMetaDescriptions = {
   "how-to-build-7-figure-ecommerce-store-from-scratch":
     "Learn how to plan, brand, launch and scale a 7-figure ecommerce store for Europe markets, from niche validation to traffic and email. Explore our work.",
@@ -213,6 +222,7 @@ function buildBlogPostHead(post) {
     `<meta name="twitter:description" content="${escapeHtml(description)}">`,
     `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`,
     `<link rel="canonical" href="${escapeHtml(canonical)}">`,
+    buildAlternateLinks(canonical),
   ];
 
   if (post.published_at) {

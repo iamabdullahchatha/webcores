@@ -190,6 +190,10 @@ const markdownHeadingComponents: Components = {
   h4: ({ node: _node, ...props }) => <h3 {...props} />,
   h5: ({ node: _node, ...props }) => <h3 {...props} />,
   h6: ({ node: _node, ...props }) => <h3 {...props} />,
+  a: ({ node: _node, href, ...props }) => {
+    const normalizedHref = href?.startsWith("www.") ? `https://${href}` : href;
+    return <a href={normalizedHref} {...props} />;
+  },
 };
 
 function BlogPost() {

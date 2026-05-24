@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,6 +26,26 @@ async function readSeoRoutes() {
   const block = src.match(/export const seoRoutes = \[([\s\S]*?)\]\s*as const/);
   if (!block) throw new Error("Could not locate seoRoutes array in seo.ts");
   return [...block[1].matchAll(/path:\s*"([^"]+)"/g)].map((m) => m[1]);
+}
+
+async function readDistIndexRoutes(dir = distDir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const routes = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      routes.push(...(await readDistIndexRoutes(fullPath)));
+      continue;
+    }
+
+    if (entry.name !== "index.html") continue;
+
+    const relDir = path.relative(distDir, path.dirname(fullPath)).replace(/\\/g, "/");
+    routes.push(relDir === "" ? "/" : `/${relDir}`);
+  }
+
+  return routes;
 }
 
 function rootInner(html) {
@@ -65,7 +85,11 @@ function check(route, file, label, ok, detail) {
   return ok;
 }
 
-const routes = await readSeoRoutes();
+const sourceRoutes = await readSeoRoutes();
+const fullPageRouteSet = new Set(sourceRoutes);
+const routes = [...new Set([...sourceRoutes, ...(await readDistIndexRoutes())])].sort((a, b) =>
+  a.localeCompare(b),
+);
 const rows = [];
 
 for (const route of routes) {
@@ -86,26 +110,37 @@ for (const route of routes) {
   const root = rootInner(html);
   const head = headSection(html);
   const canonical = expectedCanonical(route);
+  const runBodyChecks = fullPageRouteSet.has(route);
 
   // 1. exactly one <h1>
   const h1Count = (root.match(/<h1[\s>]/gi) || []).length;
-  const c1 = check(route, rel, "exactly one <h1>", h1Count === 1, `found ${h1Count}`);
+  const c1 = runBodyChecks
+    ? check(route, rel, "exactly one <h1>", h1Count === 1, `found ${h1Count}`)
+    : "n/a";
 
   // 2. at least one <h2> or <h3>
   const h2h3 = (root.match(/<h[23][\s>]/gi) || []).length;
-  const c2 = check(route, rel, ">=1 <h2>/<h3>", h2h3 >= 1, `found ${h2h3}`);
+  const c2 = runBodyChecks
+    ? check(route, rel, ">=1 <h2>/<h3>", h2h3 >= 1, `found ${h2h3}`)
+    : "n/a";
 
   // 3. >=250 visible words inside #root
   const words = visibleWordCount(root);
-  const c3 = check(route, rel, ">=250 words", words >= 250, `${words} words`);
+  const c3 = runBodyChecks
+    ? check(route, rel, ">=250 words", words >= 250, `${words} words`)
+    : "n/a";
 
   // 4. >=10 internal <a href="/..."> links
   const internal = (root.match(/<a[^>]+href="\/(?!\/)[^"]*"/gi) || []).length;
-  const c4 = check(route, rel, ">=10 internal links", internal >= 10, `${internal} links`);
+  const c4 = runBodyChecks
+    ? check(route, rel, ">=10 internal links", internal >= 10, `${internal} links`)
+    : "n/a";
 
   // 5. >=1 external https link
   const external = (root.match(/<a[^>]+href="https:\/\/[^"]*"/gi) || []).length;
-  const c5 = check(route, rel, ">=1 external link", external >= 1, `${external} links`);
+  const c5 = runBodyChecks
+    ? check(route, rel, ">=1 external link", external >= 1, `${external} links`)
+    : "n/a";
 
   // 6. non-empty <title>
   const titleMatch = head.match(/<title>([\s\S]*?)<\/title>/i);
@@ -143,7 +178,9 @@ for (const route of routes) {
 
   rows.push({
     route,
-    cells: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10].map(mark),
+    cells: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10].map((cell) =>
+      cell === "n/a" ? "n/a" : mark(cell),
+    ),
   });
 }
 
