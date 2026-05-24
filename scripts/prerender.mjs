@@ -79,9 +79,11 @@ function outputPathForRoute(routePath) {
 
 // ── Static (known) routes ────────────────────────────────────────────────────
 for (const route of seoRoutes) {
-  const html = injectRouteHtml(template, await renderRoute(route.path), renderHead(route.key));
+  const headHtml = insertHreflangTags(route.path, renderHead(route.key));
+  const html = injectRouteHtml(template, await renderRoute(route.path), headHtml);
   const outputPath = outputPathForRoute(route.path);
 
+  validateHreflang(route.path, html);
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(outputPath, html, "utf8");
   console.log(`prerendered ${route.path} -> ${path.relative(rootDir, outputPath)}`);
@@ -144,13 +146,48 @@ if (supabaseUrl && supabaseAnonKey) {
 
 const SITE_URL = "https://www.webcoreuae.com";
 
-function buildAlternateLinks(canonical) {
-  return ["en-AE", "en-GB", "en-PK", "en", "x-default"]
-    .map(
-      (lang) =>
-        `<link rel="alternate" hreflang="${lang}" href="${escapeHtml(canonical)}">`,
-    )
-    .join("\n    ");
+function getCanonicalUrl(route) {
+  const base = "https://www.webcoreuae.com";
+  if (route === "/") return base + "/";
+  return base + route.replace(/\/+$/g, "");
+}
+
+function buildHreflangTags(canonicalUrl) {
+  const tags = [
+    `<link rel="alternate" hreflang="en-AE" href="${canonicalUrl}" />`,
+    `<link rel="alternate" hreflang="en-GB" href="${canonicalUrl}" />`,
+    `<link rel="alternate" hreflang="en-PK" href="${canonicalUrl}" />`,
+    `<link rel="alternate" hreflang="en" href="${canonicalUrl}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${canonicalUrl}" />`,
+  ];
+  return tags.join("\n    ");
+}
+
+function insertHreflangTags(route, headHtml) {
+  const canonical = getCanonicalUrl(route);
+  const hreflangTags = buildHreflangTags(canonical);
+  const canonicalPattern = /(<link\s+rel="canonical"\s+href="[^"]+"\s*\/?>)/i;
+
+  if (!canonicalPattern.test(headHtml)) {
+    console.error(`FATAL: ${route} is missing a canonical tag`);
+    process.exit(1);
+  }
+
+  return headHtml.replace(canonicalPattern, `$1\n    ${hreflangTags}`);
+}
+
+function validateHreflang(route, html) {
+  const hreflangMatches = html.match(/hreflang=/g) || [];
+  if (hreflangMatches.length !== 5) {
+    console.error(`FATAL: ${route} has ${hreflangMatches.length} hreflang tags, expected 5`);
+    process.exit(1);
+  }
+
+  const expectedUrl = getCanonicalUrl(route);
+  if (!html.includes(`hreflang="x-default" href="${expectedUrl}"`)) {
+    console.error(`FATAL: ${route} x-default hreflang does not match canonical`);
+    process.exit(1);
+  }
 }
 
 const blogPostMetaDescriptions = {
@@ -222,7 +259,6 @@ function buildBlogPostHead(post) {
     `<meta name="twitter:description" content="${escapeHtml(description)}">`,
     `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`,
     `<link rel="canonical" href="${escapeHtml(canonical)}">`,
-    buildAlternateLinks(canonical),
   ];
 
   if (post.published_at) {
@@ -250,10 +286,11 @@ const today = new Date().toISOString().slice(0, 10);
 for (const post of blogPosts) {
   const routePath = `/blog/${post.slug}`;
   const shellHtml = await renderRoute(routePath);
-  const headHtml = buildBlogPostHead(post);
+  const headHtml = insertHreflangTags(routePath, buildBlogPostHead(post));
   const html = injectRouteHtml(template, shellHtml, headHtml);
   const outputPath = outputPathForRoute(routePath);
 
+  validateHreflang(routePath, html);
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(outputPath, html, "utf8");
   console.log(`prerendered ${routePath} -> ${path.relative(rootDir, outputPath)}`);

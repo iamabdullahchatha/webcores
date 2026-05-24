@@ -121,11 +121,6 @@ export const Route = createFileRoute("/blog/$slug")({
       ],
       links: [
         { rel: "canonical", href: postUrl },
-        { rel: "alternate", hrefLang: "en-AE", href: postUrl },
-        { rel: "alternate", hrefLang: "en-GB", href: postUrl },
-        { rel: "alternate", hrefLang: "en-PK", href: postUrl },
-        { rel: "alternate", hrefLang: "en", href: postUrl },
-        { rel: "alternate", hrefLang: "x-default", href: postUrl },
       ],
     };
   },
