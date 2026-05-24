@@ -81,7 +81,13 @@ export const pageSeo = {
     title: "Digital Agency Born in Dubai | About Webcore Solutions",
     description:
       "Founded in Dubai in 2012, Webcore Solutions is a 25-person agency serving clients across the UK, Europe and Pakistan. Craft, process and radical integrity.",
-    keywords: ["about Webcore Solutions", "global digital agency", "software agency UAE"],
+    keywords: [
+      "about Webcore Solutions",
+      "global digital agency",
+      "software agency UAE",
+      "digital agency Dubai history",
+      "Webcore Solutions team",
+    ],
     schemaType: "AboutPage",
   },
   services: {
@@ -98,7 +104,7 @@ export const pageSeo = {
     path: "/blog",
     title: "Web Development & SEO Blog | Webcore Solutions UAE",
     description:
-      "Practical field notes on web development, SEO, GEO optimisation and software architecture. Written by the Webcore Solutions team for businesses across Europe.",
+      "Practical field notes on web development, SEO, GEO optimisation and software architecture. Written by the Webcore Solutions team for UAE, UK, Europe and Pakistan.",
     keywords: ["Webcore Solutions blog", "web development insights", "SEO articles", "GEO articles"],
   },
   faqs: {
@@ -121,7 +127,7 @@ export const pageSeo = {
   itConsultation: {
     label: "IT Consultation",
     path: "/services/it-consultation",
-    title: "IT Consulting & Technology Audits Dubai | Webcore",
+    title: "IT Consulting & Technology Audits Dubai | Webcore Solutions",
     description:
       "Technology audits, cloud strategy, architecture reviews and scale-ready roadmaps across UAE and UK. Senior consultants only. Request a free consultation brief.",
     keywords: ["IT consultation Dubai", "technology audit UAE", "fractional CTO Dubai"],
@@ -675,6 +681,8 @@ export function getSeoHead(
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 
+  const ogImage = `${SITE_URL}/og-image.png`;
+
   return {
     meta: [
       { title: page.title },
@@ -685,7 +693,6 @@ export function getSeoHead(
       },
       { name: "keywords", content: page.keywords.join(", ") },
       { name: "author", content: SITE_NAME },
-      { name: "publisher", content: SITE_NAME },
       { name: "geo.region", content: "AE-DU" },
       { name: "geo.placename", content: "Dubai" },
       { name: "geo.position", content: "25.2048;55.2708" },
@@ -698,25 +705,34 @@ export function getSeoHead(
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:locale", content: "en_AE" },
       { property: "og:locale:alternate", content: "en_GB" },
-      { property: "og:locale:alternate", content: "en_US" },
+      { property: "og:locale:alternate", content: "en_PK" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: page.title },
       { property: "og:description", content: page.description },
       { property: "og:url", content: canonical },
-      { property: "og:image", content: `${SITE_URL}/og-image.png` },
-      { property: "og:image:secure_url", content: `${SITE_URL}/og-image.png` },
-      { property: "og:image:type", content: "image/png" },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: `${SITE_NAME} — digital studio` },
+      ...(isHome
+        ? [
+            { property: "og:image", content: ogImage },
+            { property: "og:image:secure_url", content: ogImage },
+            { property: "og:image:type", content: "image/png" },
+            { property: "og:image:width", content: "1200" },
+            { property: "og:image:height", content: "630" },
+            { property: "og:image:alt", content: `${SITE_NAME} — digital agency Dubai` },
+          ]
+        : [
+            { property: "og:image", content: ogImage },
+            { property: "og:image:width", content: "1200" },
+            { property: "og:image:height", content: "630" },
+            { property: "og:image:alt", content: `${SITE_NAME} — digital agency Dubai` },
+          ]),
       // Twitter / X
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@webcoresolutions" },
-      { name: "twitter:creator", content: "@webcoresolutions" },
+      { name: "twitter:site", content: "@WebcoreUAE" },
+      { name: "twitter:creator", content: "@WebcoreUAE" },
       { name: "twitter:title", content: page.title },
       { name: "twitter:description", content: page.description },
-      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
-      { name: "twitter:image:alt", content: `${SITE_NAME} — digital studio` },
+      { name: "twitter:image", content: ogImage },
+      { name: "twitter:image:alt", content: `${SITE_NAME} — digital agency Dubai` },
       // JSON-LD
       { "script:ld+json": { "@context": "https://schema.org", "@graph": graph } },
     ],

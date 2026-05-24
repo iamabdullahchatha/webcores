@@ -128,7 +128,7 @@ function WebcoreSolutionsDubai() {
               to="/about"
               className="group inline-flex items-center gap-2 rounded-2xl glass px-7 py-3.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 text-sm"
             >
-              About the founder
+              About Webcore Solutions Dubai
             </Link>
           </motion.div>
         </div>

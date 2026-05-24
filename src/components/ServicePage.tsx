@@ -42,7 +42,7 @@ export function ServicePage(p: ServicePageProps) {
                 Start a project <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/services" className="inline-flex items-center gap-2 rounded-2xl glass px-7 py-4 font-semibold hover:shadow-glow transition-all">
-                All services
+                View all services
               </Link>
             </div>
           </motion.div>
@@ -193,7 +193,7 @@ export function ServicePage(p: ServicePageProps) {
               Book a free consultation — we'll scope, plan and quote within 48 hours.
             </p>
             <Link to="/contact" className="inline-flex items-center gap-2 rounded-2xl bg-background text-foreground px-8 py-4 font-semibold hover:scale-105 transition-transform shadow-elegant">
-              Talk to us <ArrowRight className="h-4 w-4" />
+              Start your project <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

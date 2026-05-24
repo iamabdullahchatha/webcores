@@ -73,18 +73,25 @@ export const Route = createFileRoute("/blog/$slug")({
       meta: [
         { title: postTitle },
         { name: "description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
+        { name: "author", content: "Webcore Solutions" },
+        { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
         { property: "og:type", content: "article" },
         { property: "og:site_name", content: "Webcore Solutions" },
         { property: "og:title", content: postTitle },
         { property: "og:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
         { property: "og:url", content: postUrl },
+        { property: "og:locale", content: "en_AE" },
+        { property: "og:locale:alternate", content: "en_GB" },
+        { property: "og:locale:alternate", content: "en_PK" },
         { property: "og:image", content: "https://www.webcoreuae.com/og-image.png" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: "Webcore Solutions — digital agency Dubai" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:site", content: "@webcoresolutions" },
+        { name: "twitter:site", content: "@WebcoreUAE" },
         { name: "twitter:title", content: postTitle },
         { name: "twitter:description", content: "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams." },
         { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.png" },
-        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
         { "script:ld+json": schema },
       ],
       links: [
@@ -183,11 +190,26 @@ function BlogPost() {
       setPost(data as Post);
       setState("found");
 
-      // Document title + meta (client-side; route is client-rendered).
-      document.title = (data as Post).seo_title ?? `${(data as Post).title} | Webcore Solutions`;
-      const descEl = document.querySelector('meta[name="description"]');
-      if (descEl && (data as Post).seo_description) {
-        descEl.setAttribute("content", (data as Post).seo_description!);
+      // Patch title + all social meta with real post data (route is client-rendered).
+      const p = data as Post;
+      const realTitle = p.seo_title ?? `${p.title} | Webcore Solutions`;
+      const realDesc = p.seo_description ?? p.excerpt ?? "";
+
+      document.title = realTitle;
+
+      const setMeta = (attr: string, val: string, content: string) => {
+        const el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${val}"]`);
+        if (el) el.setAttribute("content", content);
+      };
+
+      if (realDesc) setMeta("name", "description", realDesc);
+      setMeta("property", "og:title", realTitle);
+      if (realDesc) setMeta("property", "og:description", realDesc);
+      setMeta("name", "twitter:title", realTitle);
+      if (realDesc) setMeta("name", "twitter:description", realDesc);
+      if (p.cover_image_url) {
+        setMeta("property", "og:image", p.cover_image_url);
+        setMeta("name", "twitter:image", p.cover_image_url);
       }
 
       const { data: rel } = await supabase

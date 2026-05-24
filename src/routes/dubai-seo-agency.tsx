@@ -143,7 +143,7 @@ function DubaiSeoAgency() {
               to="/services/seo-geo"
               className="group inline-flex items-center gap-2 rounded-2xl glass px-7 py-3.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 text-sm"
             >
-              See full SEO &amp; GEO service
+              SEO &amp; GEO optimisation services Dubai
             </Link>
           </motion.div>
         </div>

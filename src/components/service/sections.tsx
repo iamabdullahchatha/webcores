@@ -621,7 +621,7 @@ function FaqsSection({ row }: { row: SectionRow }) {
         <p className="mt-5 text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
           Still have questions?{" "}
           <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-            Just ask us directly.
+            contact Webcore Solutions directly.
           </Link>
         </p>
       </motion.div>

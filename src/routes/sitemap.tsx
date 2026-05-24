@@ -476,7 +476,7 @@ function SitemapPage() {
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"
               >
                 <ArrowRight className="h-4 w-4 rotate-180 group-hover:-translate-x-1 transition-transform duration-200" />
-                Back to home
+                Back to Webcore Solutions homepage
               </Link>
             </div>
           </div>

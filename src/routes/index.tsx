@@ -580,7 +580,7 @@ function Index() {
               to="/about"
               className="group inline-flex items-center gap-2 mt-9 text-primary font-semibold text-sm"
             >
-              Our Story
+              About Webcore Solutions
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
           </motion.div>
@@ -1006,7 +1006,7 @@ function Index() {
           <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
             Everything you wanted to know — answered. Still need help?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              ask us directly.
+              send us your question.
             </Link>
           </p>
         </motion.div>

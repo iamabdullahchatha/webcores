@@ -482,7 +482,7 @@ function About() {
                 to="/services"
                 className="group inline-flex items-center gap-2 mt-7 text-primary font-semibold text-sm"
               >
-                Explore all services
+                Explore all digital services
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
             </div>
@@ -526,7 +526,7 @@ function About() {
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             Everything you need to know before working with us. Still have questions?{" "}
             <Link to="/contact" className="text-primary font-semibold hover:underline underline-offset-2">
-              Ask our team
+              contact the Webcore team
             </Link>
           </p>
         </motion.div>
