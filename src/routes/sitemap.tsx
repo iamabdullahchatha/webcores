@@ -299,7 +299,10 @@ function SitemapGroup({
 }) {
   return (
     <motion.section {...fadeUp(delay)} className="mb-14">
-      <SectionLabel>{title}</SectionLabel>
+      <h2 className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
+        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        {title}
+      </h2>
       <div
         className={`grid gap-4 ${columns === 2 ? "md:grid-cols-2" : "grid-cols-1"}`}
       >

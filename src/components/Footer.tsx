@@ -10,21 +10,21 @@ import { useSiteSettings } from "@/lib/content/useSiteSettings";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 const services = [
-  { name: "IT consultation services",     to: "/services/it-consultation" },
-  { name: "CMS engineering",              to: "/services/cms-development" },
-  { name: "Web design and build",         to: "/services/web-development" },
-  { name: "Custom software builds",       to: "/services/software-development" },
-  { name: "Search and GEO optimization",  to: "/services/seo-geo" },
-  { name: "Branding and visual identity", to: "/services/graphic-design" },
+  { name: "IT Consultation",      to: "/services/it-consultation" },
+  { name: "CMS Development",      to: "/services/cms-development" },
+  { name: "Web Development",      to: "/services/web-development" },
+  { name: "Software Development", to: "/services/software-development" },
+  { name: "SEO & GEO Services",   to: "/services/seo-geo" },
+  { name: "Graphic Design",       to: "/services/graphic-design" },
 ];
 
 const quickLinks = [
-  { name: "Homepage",        to: "/" },
-  { name: "Our story",       to: "/about" },
-  { name: "All services",    to: "/services" },
-  { name: "Blog",            to: "/blog" },
-  { name: "Common questions", to: "/faqs" },
-  { name: "Reach our team",  to: "/contact" },
+  { name: "Home",     to: "/" },
+  { name: "About",    to: "/about" },
+  { name: "Services", to: "/services" },
+  { name: "Blog",     to: "/blog" },
+  { name: "FAQs",     to: "/faqs" },
+  { name: "Contact",  to: "/contact" },
 ];
 
 const SOCIAL_COLORS = { LinkedIn: "#0A66C2", Facebook: "#1877F2", WhatsApp: "#25D366" };
@@ -73,7 +73,7 @@ function MagneticSocial({
       ref={btnRef}
       href={href}
       target="_blank"
-      rel="nofollow noopener noreferrer"
+      rel="noopener noreferrer"
       aria-label={label}
       onMouseMove={handleMouse}
       onMouseLeave={reset}

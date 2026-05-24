@@ -62,9 +62,9 @@ export const pageSeo = {
   home: {
     label: "Home",
     path: "/",
-    title: "Web Development & SEO Agency Dubai | Webcore Solutions",
+    title: "Web, SEO & Software Agency Dubai | Webcore Solutions",
     description:
-      "Webcore Solutions is a digital studio delivering production-grade websites, custom software and brand systems for 450+ clients worldwide.",
+      "Full-service digital agency delivering web development, custom software, SEO and CMS across UAE, UK, Europe and Pakistan. Trusted by 450+ clients since 2012.",
     keywords: [
       "Webcore Solutions",
       "Dubai digital agency",
@@ -78,118 +78,118 @@ export const pageSeo = {
   about: {
     label: "About",
     path: "/about",
-    title: "About Webcore Solutions | Digital Agency Dubai",
+    title: "Digital Agency Born in Dubai | About Webcore Solutions",
     description:
-      "About Webcore Solutions, a Dubai digital agency delivering software, web, SEO and design for UAE, UK, US and Pakistan clients.",
-    keywords: ["about Webcore Solutions", "Dubai technology agency", "software agency UAE"],
+      "Founded in Dubai in 2012, Webcore Solutions is a 25-person agency serving clients across the UK, Europe and Pakistan. Craft, process and radical integrity.",
+    keywords: ["about Webcore Solutions", "global digital agency", "software agency UAE"],
     schemaType: "AboutPage",
   },
   services: {
     label: "Services",
     path: "/services",
-    title: "Digital Services in Dubai | Web, Software, SEO, CMS",
+    title: "Web, Software & SEO Services UAE | Webcore Solutions",
     description:
-      "Webcore Solutions digital services in Dubai: web, software, ecommerce, CMS, SEO, GEO, branding, UI/UX and IT consultation.",
+      "Six in-house disciplines: web development, custom software, headless CMS, SEO & GEO, graphic design and IT consultation. Delivered across the UAE and beyond.",
     keywords: ["digital services Dubai", "web development services UAE", "software services UAE"],
     schemaType: "CollectionPage",
   },
   blog: {
     label: "Blog",
     path: "/blog",
-    title: "Web Development & SEO Blog Dubai | Webcore Solutions",
+    title: "Web Development & SEO Blog | Webcore Solutions UAE",
     description:
-      "Practical articles on web development, software, SEO, GEO and e-commerce from the Webcore Solutions team.",
+      "Practical field notes on web development, SEO, GEO optimisation and software architecture. Written by the Webcore Solutions team for businesses across Europe.",
     keywords: ["Webcore Solutions blog", "web development insights", "SEO articles", "GEO articles"],
   },
   faqs: {
     label: "FAQs",
     path: "/faqs",
-    title: "FAQs | Web Development & SEO in Dubai | Webcore Solutions",
+    title: "Web & Software Agency FAQs | Webcore Solutions UAE",
     description:
-      "Webcore Solutions FAQs on services, pricing, timelines, support and technology choices for our Dubai digital agency clients.",
+      "Answers on pricing, timelines and international work at Webcore Solutions. Fixed-price projects from $500 USD. Serving clients across the UK, UAE and Pakistan.",
     keywords: ["Webcore Solutions FAQs", "digital agency questions", "software project pricing UAE"],
   },
   contact: {
     label: "Contact",
     path: "/contact",
-    title: "Contact Webcore Solutions | Digital Agency Dubai",
+    title: "Get in Touch | Webcore Solutions Digital Agency UAE",
     description:
-      "Contact Webcore Solutions in Dubai for web, software, SEO, GEO, CMS, branding and IT consultation. Book a free strategy call.",
+      "Book a free 45-minute strategy call or send a project brief. We reply within 24 hours with a fixed quote and clear scope. Serving UAE, UK, Europe and Pakistan.",
     keywords: ["contact Webcore Solutions", "Dubai software consultation", "book web development call"],
     schemaType: "ContactPage",
   },
   itConsultation: {
     label: "IT Consultation",
     path: "/services/it-consultation",
-    title: "IT Consulting Services Dubai | IT Consultancy UAE",
+    title: "IT Consulting & Technology Audits Dubai | Webcore",
     description:
-      "Strategic IT consultation in Dubai for audits, architecture, cloud strategy, vendor selection and scale-ready roadmaps.",
+      "Technology audits, cloud strategy, architecture reviews and scale-ready roadmaps across UAE and UK. Senior consultants only. Request a free consultation brief.",
     keywords: ["IT consultation Dubai", "technology audit UAE", "fractional CTO Dubai"],
   },
   cmsDevelopment: {
     label: "CMS Development",
     path: "/services/cms-development",
-    title: "CMS Development Dubai | WordPress & Headless CMS",
+    title: "Headless CMS Development Dubai | Webcore Solutions",
     description:
-      "Headless CMS, WordPress and composable content platform development for Dubai, UK and global teams that need scalable publishing.",
+      "Headless CMS and WordPress development for teams that need fast, editor-friendly publishing. Serving UAE, UK and EU clients. Request a free consultation today.",
     keywords: ["CMS development Dubai", "headless CMS UAE", "WordPress development Dubai"],
   },
   webDevelopment: {
     label: "Web Development",
     path: "/services/web-development",
-    title: "Web Development Company in Dubai | Webcore Solutions",
+    title: "Web Development Services Dubai | Webcore Solutions",
     description:
-      "Web development in Dubai for fast business websites, ecommerce stores, WordPress sites, React apps and conversion-led experiences.",
+      "Business websites, ecommerce stores, React apps and WordPress builds engineered for speed and conversion. Clients in UAE, UK and Europe. Free quote available.",
     keywords: ["web development Dubai", "website development UAE", "ecommerce development Dubai"],
   },
   softwareDevelopment: {
     label: "Software Development",
     path: "/services/software-development",
-    title: "Software Development Company Dubai | Custom Software UAE",
+    title: "Custom Software Development UAE | Webcore Solutions",
     description:
-      "Custom software development for SaaS platforms, APIs, data systems, internal tools, enterprise workflows and AI integrations.",
+      "Custom SaaS, APIs, data systems and AI integrations built by an in-house UAE team. Serving the Gulf, UK, Europe and US with fixed-scope quotes provided.",
     keywords: ["software development Dubai", "custom software UAE", "SaaS development Dubai"],
   },
   seoGeo: {
     label: "SEO & GEO",
     path: "/services/seo-geo",
-    title: "SEO Agency Dubai | SEO & GEO Services in UAE",
+    title: "SEO & GEO Optimisation Agency Dubai | Webcore Solutions",
     description:
-      "SEO and GEO services in Dubai for technical SEO, local SEO, content, schema, AI search readiness and sustainable authority growth.",
+      "Technical SEO, local search and GEO optimisation for UAE and global businesses. AI search-ready strategies. Get a free audit from our Dubai-based in-house team.",
     keywords: ["SEO services Dubai", "GEO services UAE", "AI search optimization Dubai"],
   },
   graphicDesign: {
     label: "Graphic Design",
     path: "/services/graphic-design",
-    title: "Graphic Design & Branding Agency Dubai | Logo Design",
+    title: "Graphic Design & Brand Identity Dubai | Webcore Solutions",
     description:
-      "Graphic design in Dubai for logos, brand identity, company profiles, brochures, web visuals and premium marketing collateral.",
+      "Logo design, brand identity, company profiles and marketing collateral for Gulf and UK businesses. In-house designers, no outsourcing. Free brief welcome.",
     keywords: ["graphic design Dubai", "logo design UAE", "brand identity Dubai"],
   },
   privacyPolicy: {
     label: "Privacy Policy",
     path: "/privacy-policy",
-    title: "Privacy Policy | Webcore Solutions",
+    title: "Privacy Policy | GDPR & UAE Law | Webcore Solutions",
     description:
-      "Webcore Solutions privacy policy: how we collect, use and protect your data under GDPR and UAE law. Contact us for data requests.",
+      "How Webcore Solutions collects, uses and protects your data under GDPR and UAE data protection law. Effective 1 January 2024. Last updated May 2026.",
     keywords: ["Webcore Solutions privacy policy", "data protection UAE", "GDPR digital agency Dubai"],
     schemaType: "WebPage",
   },
   sitemapHtml: {
     label: "Sitemap",
     path: "/sitemap",
-    title: "Sitemap | All Pages | Webcore Solutions Dubai",
+    title: "Webcore Solutions Site Index | Dubai Digital Agency",
     description:
-      "Complete sitemap of all Webcore Solutions pages — services, about, FAQs and contact for the Dubai digital agency.",
+      "Every page on the Webcore Solutions website in one place — services, blog, about, FAQs, contact and dedicated landing pages for Dubai and UAE digital services.",
     keywords: ["Webcore Solutions sitemap", "all pages Webcore"],
     schemaType: "WebPage",
   },
   webcoreSolutionsDubai: {
     label: "Webcore Solutions Dubai",
     path: "/webcore-solutions-dubai",
-    title: "Webcore Solutions Dubai | UAE Web, Software & SEO Agency",
+    title: "Webcore Solutions Dubai | Verified UAE Digital Agency",
     description:
-      "Webcore Solutions Dubai: the verified UAE web, software and SEO agency operating from Dubai since 2012 with 450+ projects.",
+      "Trade-licensed Dubai digital agency operating since 2012. Web, software, SEO and branding for UAE, UK and global clients. 450+ delivered client projects.",
     keywords: [
       "Webcore Solutions Dubai",
       "Webcore Solutions UAE",
@@ -201,9 +201,9 @@ export const pageSeo = {
   dubaiWebDevAgency: {
     label: "Dubai Web Development Agency",
     path: "/dubai-web-development-agency",
-    title: "Dubai Web Development Agency | Webcore Solutions",
+    title: "Dubai Web Development Agency | Websites That Rank",
     description:
-      "Dubai web development agency for fast websites, ecommerce, WordPress, React and headless builds. UAE in-house team since 2012.",
+      "Dubai web development agency delivering fast websites, ecommerce and React builds since 2012. Fixed-scope pricing, Core Web Vitals on every release. Free quote.",
     keywords: [
       "Dubai web development agency",
       "web development agency Dubai",
@@ -215,9 +215,9 @@ export const pageSeo = {
   dubaiSeoAgency: {
     label: "Dubai SEO Agency",
     path: "/dubai-seo-agency",
-    title: "Dubai SEO Agency | Local & GEO Search Specialists",
+    title: "Dubai SEO & GEO Agency | Local Search Specialists",
     description:
-      "Dubai SEO agency for technical SEO, local SEO, schema, Arabic-English content, GEO and AI search visibility. UAE since 2012.",
+      "Dubai SEO agency covering technical SEO, local search, Arabic-English content and GEO for AI search. Fixed retainers, no ranking guarantees. Free audit today.",
     keywords: [
       "Dubai SEO agency",
       "SEO agency Dubai",
@@ -229,9 +229,9 @@ export const pageSeo = {
   uaeSoftwareDevelopmentCompany: {
     label: "UAE Software Development Company",
     path: "/uae-software-development-company",
-    title: "UAE Software Development Company | Webcore Solutions",
+    title: "UAE Software Development Company | Custom SaaS & APIs",
     description:
-      "UAE software development company building custom SaaS, APIs, internal tools and enterprise platforms across Dubai and the GCC.",
+      "UAE software development company building SaaS, APIs and platforms since 2012. In-house Dubai team, no offshore reselling. Request a fixed-scope quote today.",
     keywords: [
       "UAE software development company",
       "software development company UAE",

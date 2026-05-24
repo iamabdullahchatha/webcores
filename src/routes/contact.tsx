@@ -305,9 +305,9 @@ function SuccessState({ onReset }: { onReset: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.28, duration: 0.5 }}
       >
-        <h3 className="text-3xl font-bold mb-2">
+        <h2 className="text-3xl font-bold mb-2">
           Message <span className="gradient-text">Sent!</span>
-        </h3>
+        </h2>
 
         <div
           className="mx-auto mt-1 mb-5 h-0.5 w-12 rounded-full"

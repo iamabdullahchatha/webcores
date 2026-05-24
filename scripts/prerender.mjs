@@ -191,7 +191,16 @@ for (const post of blogPosts) {
 
 const staticSitemap = await readFile(path.join(rootDir, "public", "sitemap.xml"), "utf8");
 
+// Only append blog post URLs that are not already present in the source
+// sitemap.xml — public/sitemap.xml is now the source of truth and lists
+// every known post; this block is a safety net for newly-published posts
+// added to Supabase since the last manual sitemap update.
+const existingLocs = new Set(
+  [...staticSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]),
+);
+
 const blogEntries = blogPosts
+  .filter((post) => !existingLocs.has(`${SITE_URL}/blog/${post.slug}`))
   .map((post) => {
     const lastmod = post.published_at ? post.published_at.slice(0, 10) : today;
     return `  <url><loc>${SITE_URL}/blog/${post.slug}</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>`;

@@ -238,7 +238,7 @@ function ServiceCard({ s, i }: { s: typeof services[0]; i: number }) {
               <div className="flex items-start justify-between gap-3 flex-1 min-w-0">
                 <h3 className="text-xl font-bold leading-tight transition-colors duration-200 group-hover:text-primary truncate">
                   <Link to={s.to} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:rounded-sm">
-                    {s.anchor}
+                    {s.t}
                   </Link>
                 </h3>
                 {/* Slide-in arrow */}

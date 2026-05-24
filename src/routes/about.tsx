@@ -569,7 +569,7 @@ function About() {
               <div className="h-14 w-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-4 shadow-elegant">
                 <Clock className="h-7 w-7 text-primary-foreground" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Still have questions?</h3>
+              <h2 className="text-2xl font-bold mb-2">Still have questions?</h2>
               <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">
                 Get the senior team on a free 45-minute call — honest answers on scope, timeline and budget, no sales script.
               </p>
