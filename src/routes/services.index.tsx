@@ -392,7 +392,7 @@ function Services() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
                 >
-                  Contact Webcore Solutions
+                  Start a project
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
@@ -507,7 +507,7 @@ function Services() {
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Contact Webcore Solutions
+              Book Free Consultation
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">

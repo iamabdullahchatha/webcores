@@ -46,13 +46,13 @@ export function ServicePage(p: ServicePageProps) {
                 to="/contact"
                 className="inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all hover:-translate-y-0.5"
               >
-                Contact Webcore Solutions <ArrowRight className="h-4 w-4" />
+                Start a project <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/services"
                 className="inline-flex items-center gap-2 rounded-2xl glass px-7 py-4 font-semibold hover:shadow-glow transition-all"
               >
-                Digital Services Overview
+                All services
               </Link>
             </div>
           </motion.div>
@@ -211,7 +211,7 @@ export function ServicePage(p: ServicePageProps) {
               to="/contact"
               className="inline-flex items-center gap-2 rounded-2xl bg-background text-foreground px-8 py-4 font-semibold hover:scale-105 transition-transform shadow-elegant"
             >
-              Contact Webcore Solutions <ArrowRight className="h-4 w-4" />
+              Talk to us <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

@@ -365,7 +365,7 @@ function About() {
                   to="/contact"
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 text-sm"
                 >
-                  Contact Webcore Solutions
+                  Start your project
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
@@ -647,7 +647,7 @@ function About() {
               to="/contact"
               className="text-primary font-semibold hover:underline underline-offset-2"
             >
-              Contact Webcore Solutions
+              Ask our team
             </Link>
           </p>
         </motion.div>
@@ -701,7 +701,7 @@ function About() {
                 to="/contact"
                 className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 text-sm"
               >
-                Contact Webcore Solutions
+                Book Free Consultation
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
               <div className="mt-5 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">

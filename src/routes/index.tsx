@@ -484,14 +484,14 @@ function Index() {
                   to={(hero?.ctaPrimaryHref ?? "/contact") as "/contact"}
                   className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-1 hover:scale-[1.03] active:scale-95"
                 >
-                  {hero?.ctaPrimaryText ?? "Contact Webcore Solutions"}
+                  {hero?.ctaPrimaryText ?? "Start a Project"}
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
                 <Link
                   to={(hero?.ctaSecondaryHref ?? "/services") as "/services"}
                   className="group inline-flex items-center gap-2 rounded-2xl glass px-8 py-4 font-semibold hover:shadow-glow transition-all duration-200 hover:-translate-y-1"
                 >
-                  {hero?.ctaSecondaryText ?? "Digital Services Overview"}
+                  {hero?.ctaSecondaryText ?? "View Our Work"}
                   <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </Link>
               </motion.div>
@@ -742,7 +742,7 @@ function Index() {
             to="/services"
             className="group inline-flex items-center gap-2 text-primary font-semibold text-sm"
           >
-            Digital Services Overview
+            View all services
             <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
@@ -1141,7 +1141,7 @@ function Index() {
               to="/contact"
               className="text-primary font-semibold hover:underline underline-offset-2"
             >
-              Contact Webcore Solutions.
+              ask us directly.
             </Link>
           </p>
         </motion.div>
@@ -1229,7 +1229,7 @@ function Index() {
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-8 py-4 font-semibold shadow-elegant hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
-              Contact Webcore Solutions
+              Speak with Our Team
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <div className="mt-6 flex flex-wrap justify-center gap-5 text-xs text-muted-foreground">

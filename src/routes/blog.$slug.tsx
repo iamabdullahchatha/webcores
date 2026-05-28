@@ -407,7 +407,7 @@ function BlogPost() {
               to="/contact"
               className="shrink-0 inline-flex items-center gap-2 rounded-2xl gradient-primary text-primary-foreground px-7 py-3.5 font-semibold shadow-elegant hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 text-sm"
             >
-              Contact Webcore Solutions
+              Start a project
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

@@ -202,7 +202,7 @@ export function Header() {
                 aria-label="Get in Touch — start a project"
                 className="inline-flex items-center rounded-xl gradient-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold shadow-elegant hover:shadow-glow transition-all duration-200"
               >
-                Contact Webcore Solutions
+                Get in Touch
               </Link>
             </motion.div>
 
@@ -280,7 +280,7 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className="block px-4 py-3 rounded-lg gradient-primary text-primary-foreground text-sm font-semibold text-center transition-all duration-200 hover:shadow-glow"
                   >
-                    Contact Webcore Solutions
+                    Get in Touch
                   </Link>
                 </motion.div>
               </div>
