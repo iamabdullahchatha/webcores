@@ -47,7 +47,7 @@ function FloatingOrb({ x, y, size, delay }: { x: string; y: string; size: number
         top: y,
         width: size,
         height: size,
-        background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+        background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
       }}
       animate={{ y: [0, -18, 0], scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
       transition={{
@@ -241,7 +241,7 @@ export function Footer() {
               <path
                 d="M 40 0 L 0 0 0 40"
                 fill="none"
-                stroke="hsl(var(--primary))"
+                stroke="var(--primary)"
                 strokeWidth="0.5"
               />
             </pattern>
@@ -268,8 +268,8 @@ export function Footer() {
             className="relative mb-14 rounded-2xl overflow-hidden"
             style={{
               background:
-                "linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.05) 50%, transparent 100%)",
-              border: "1px solid hsl(var(--primary)/0.2)",
+                "linear-gradient(135deg, color-mix(in oklab, var(--primary) 12%, transparent) 0%, color-mix(in oklab, var(--primary) 5%, transparent) 50%, transparent 100%)",
+              border: "1px solid color-mix(in oklab, var(--primary) 20%, transparent)",
             }}
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/6 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none" />

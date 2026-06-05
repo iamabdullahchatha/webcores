@@ -339,7 +339,7 @@ function SitemapPage() {
           style={{
             width: 500,
             height: 500,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
@@ -349,7 +349,7 @@ function SitemapPage() {
           style={{
             width: 300,
             height: 300,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
@@ -445,7 +445,7 @@ function SitemapPage() {
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-52 w-52 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+              background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
           <motion.div
@@ -453,7 +453,7 @@ function SitemapPage() {
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+              background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
             }}
           />
           <div className="relative">

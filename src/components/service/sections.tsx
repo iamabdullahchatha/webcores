@@ -38,7 +38,7 @@ function HeroSection({ row }: { row: SectionRow }) {
         style={{
           width: 520,
           height: 520,
-          background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)",
+          background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)",
         }}
       />
       <motion.div
@@ -48,7 +48,7 @@ function HeroSection({ row }: { row: SectionRow }) {
         style={{
           width: 320,
           height: 320,
-          background: "radial-gradient(circle, hsl(var(--primary)/0.10) 0%, transparent 70%)",
+          background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 10%, transparent) 0%, transparent 70%)",
         }}
       />
       <motion.div
@@ -362,7 +362,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
 
             <div
               className="grid grid-cols-3 divide-x divide-border/25"
-              style={{ background: "hsl(var(--card))" }}
+              style={{ background: "var(--card)" }}
             >
               {(d.footer_metrics ?? []).map((s: J, i: number) => (
                 <motion.div
@@ -575,7 +575,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-80 rounded-full blur-3xl opacity-[0.04]"
           style={{
-            background: "radial-gradient(ellipse, hsl(var(--primary)) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, var(--primary) 0%, transparent 70%)",
           }}
         />
       </div>
@@ -600,7 +600,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
           className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px origin-left"
           style={{
             background:
-              "linear-gradient(to right, transparent, hsl(var(--border)/0.6) 20%, hsl(var(--primary)/0.35) 50%, hsl(var(--border)/0.6) 80%, transparent)",
+              "linear-gradient(to right, transparent, color-mix(in oklab, var(--border) 60%, transparent) 20%, color-mix(in oklab, var(--primary) 35%, transparent) 50%, color-mix(in oklab, var(--border) 60%, transparent) 80%, transparent)",
           }}
         />
 

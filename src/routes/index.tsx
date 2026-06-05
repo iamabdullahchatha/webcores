@@ -405,7 +405,7 @@ function Index() {
           style={{
             width: 600,
             height: 600,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
@@ -415,7 +415,7 @@ function Index() {
           style={{
             width: 380,
             height: 380,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
@@ -425,7 +425,7 @@ function Index() {
           style={{
             width: 900,
             height: 900,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.06) 0%, transparent 65%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 6%, transparent) 0%, transparent 65%)",
           }}
         />
 
@@ -1088,7 +1088,7 @@ function Index() {
                   <path
                     d="M 40 0 L 0 0 0 40"
                     fill="none"
-                    stroke="hsl(var(--primary))"
+                    stroke="var(--primary)"
                     strokeWidth="0.5"
                   />
                 </pattern>
@@ -1204,7 +1204,7 @@ function Index() {
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+              background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
           <motion.div
@@ -1212,7 +1212,7 @@ function Index() {
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+              background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
             }}
           />
           <div className="relative">

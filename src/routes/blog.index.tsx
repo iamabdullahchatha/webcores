@@ -226,7 +226,7 @@ function BlogIndex() {
           animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
-          style={{ width: 520, height: 520, background: "radial-gradient(circle, hsl(var(--primary)/0.14) 0%, transparent 70%)" }}
+          style={{ width: 520, height: 520, background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)" }}
         />
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
           <div className="mx-auto max-w-7xl px-4 pt-24 pb-20">

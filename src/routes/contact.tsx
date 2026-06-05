@@ -408,7 +408,7 @@ function ServiceDropdown({ value, onChange }: { value: string; onChange: (val: s
             transition={{ duration: 0.18 }}
             className="absolute z-50 left-0 right-0 mt-2 rounded-2xl overflow-hidden shadow-2xl border border-border/30"
             style={{
-              background: "var(--card, hsl(var(--background)))",
+              background: "var(--card, var(--background))",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
             }}
@@ -811,7 +811,7 @@ function Contact() {
           style={{
             width: 480,
             height: 480,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.18) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
           }}
         />
 
@@ -830,7 +830,7 @@ function Contact() {
           style={{
             width: 320,
             height: 320,
-            background: "radial-gradient(circle, hsl(var(--primary)/0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
@@ -1078,7 +1078,7 @@ function Contact() {
             }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, hsl(var(--primary)/0.2) 0%, transparent 70%)",
+              background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
 
