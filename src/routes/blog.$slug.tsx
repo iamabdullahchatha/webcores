@@ -7,7 +7,7 @@ import { ArrowRight, ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { supabase } from "@/lib/supabase/client";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { blogPostFallback } from "@/lib/content/seedFallback.generated";
+import { readPageSeed } from "@/lib/content/pageSeed";
 import { blogPostMetaDescriptions } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -187,9 +187,40 @@ const markdownHeadingComponents: Components = {
   h6: ({ node: _node, ...props }) => <h3 {...props} />,
 };
 
+const SERVICE_ENTITY_MAP: Record<string, string> = {
+  "web development":      "https://www.webcoreuae.com/services/web-development#service",
+  "software development": "https://www.webcoreuae.com/services/software-development#service",
+  "seo":                  "https://www.webcoreuae.com/services/seo-geo#service",
+  "geo":                  "https://www.webcoreuae.com/services/seo-geo#service",
+  "cms":                  "https://www.webcoreuae.com/services/cms-development#service",
+  "graphic design":       "https://www.webcoreuae.com/services/graphic-design#service",
+  "it consultation":      "https://www.webcoreuae.com/services/it-consultation#service",
+};
+
+function getMentions(tags: string[] | null) {
+  if (!tags?.length) return [];
+  const seen = new Set<string>();
+  return tags
+    .flatMap((tag) => {
+      const key = tag.toLowerCase();
+      return Object.entries(SERVICE_ENTITY_MAP)
+        .filter(([k]) => key.includes(k))
+        .map(([, id]) => id);
+    })
+    .filter((id) => {
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    })
+    .map((id) => ({ "@type": "Service", "@id": id }));
+}
+
 function BlogPost() {
   const { slug } = Route.useParams();
-  const seedPost = blogPostFallback[slug] ?? null;
+  // The prerenderer inlines only this slug's post into the page HTML; read it
+  // synchronously so SSR + hydration match. Null on client-side navigation to
+  // another post, where the effect below loads it from Supabase.
+  const seedPost = readPageSeed<Post>(`blog-post:${slug}`);
   const [state, setState] = useState<"loading" | "found" | "notfound">(
     seedPost ? "found" : "loading",
   );
@@ -285,6 +316,7 @@ function BlogPost() {
     );
   }
 
+  const mentions = getMentions(post.tags);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -299,6 +331,7 @@ function BlogPost() {
       url: SITE_URL,
     },
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    ...(mentions.length ? { mentions } : {}),
   };
 
   return (
@@ -317,6 +350,8 @@ function BlogPost() {
               src={post.cover_image_url}
               alt={post.cover_image_alt ?? post.title}
               className="w-full h-full object-cover"
+              fetchPriority="high"
+              loading="eager"
               decoding="async"
             />
           ) : (

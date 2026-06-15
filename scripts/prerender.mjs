@@ -1,4 +1,4 @@
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createClient } from "@supabase/supabase-js";
@@ -10,7 +10,35 @@ const templatePath = path.join(distDir, "index.html");
 const serverEntry = path.join(ssrDir, "entry-server.js");
 
 const { renderRoute, getRouteHead, seoRoutes } = await import(pathToFileURL(serverEntry).href);
-const template = await readFile(templatePath, "utf8");
+
+// Vite only emits modulepreload hints for chunks in the home route's static
+// import graph, so route-only named manualChunks (date-fns, zod, ui-utils) are
+// absent from the document <head>. Preload every named chunk that exists in the
+// build so first navigation to those routes warms the chunk earlier. Filenames
+// are content-hashed, so we discover them from dist/assets rather than hardcode.
+async function addNamedChunkPreloads(html) {
+  const namedChunks = ["framer", "icons", "supabase", "date-fns", "zod", "ui-utils"];
+  const assetFiles = await readdir(path.join(distDir, "assets"));
+  const tags = [];
+  for (const name of namedChunks) {
+    const file = assetFiles.find(
+      (f) => f === `${name}.js` || (f.startsWith(`${name}-`) && f.endsWith(".js")),
+    );
+    if (!file) continue;
+    const href = `/assets/${file}`;
+    if (html.includes(`href="${href}"`)) continue; // already preloaded by Vite
+    tags.push(`<link rel="modulepreload" crossorigin href="${href}">`);
+  }
+  if (!tags.length) return html;
+  const block = tags.join("\n    ");
+  // Group them with the Vite-emitted modulepreload block, before the stylesheet.
+  if (/<link rel="stylesheet"[^>]*>/i.test(html)) {
+    return html.replace(/(<link rel="stylesheet"[^>]*>)/i, `${block}\n    $1`);
+  }
+  return html.replace(/<\/head>/i, `    ${block}\n  </head>`);
+}
+
+const template = await addNamedChunkPreloads(await readFile(templatePath, "utf8"));
 
 function escapeHtml(value) {
   return String(value)
@@ -62,10 +90,15 @@ function renderHead(key) {
   return tags.join("\n    ");
 }
 
-function injectRouteHtml(html, rootHtml, headHtml) {
+function injectRouteHtml(html, rootHtml, headHtml, seed) {
+  // Inline only THIS page's seed slice as JSON so the client can hydrate the
+  // prerendered content synchronously without shipping seedFallback.generated.
+  const seedScript = seed
+    ? `<script id="__page_seed__" type="application/json">${escapeJson(JSON.stringify(seed))}</script>`
+    : "";
   return html
     .replace(/<head>([\s\S]*?)<\/head>/i, (_match, inner) => `<head>${inner}\n    ${headHtml}\n  </head>`)
-    .replace('<div id="root"></div>', () => `<div id="root">${rootHtml}</div>`);
+    .replace('<div id="root"></div>', () => `<div id="root">${rootHtml}</div>${seedScript}`);
 }
 
 function outputPathForRoute(routePath) {
@@ -80,7 +113,8 @@ function outputPathForRoute(routePath) {
 // ── Static (known) routes ────────────────────────────────────────────────────
 for (const route of seoRoutes) {
   const headHtml = insertHreflangTags(route.path, renderHead(route.key));
-  const html = injectRouteHtml(template, await renderRoute(route.path), headHtml);
+  const { html: rootHtml, seed } = await renderRoute(route.path);
+  const html = injectRouteHtml(template, rootHtml, headHtml, seed);
   const outputPath = outputPathForRoute(route.path);
 
   validateHreflang(route.path, html);
@@ -156,6 +190,7 @@ function buildHreflangTags(canonicalUrl) {
   const tags = [
     `<link rel="alternate" hreflang="en-AE" href="${canonicalUrl}" />`,
     `<link rel="alternate" hreflang="en-GB" href="${canonicalUrl}" />`,
+    `<link rel="alternate" hreflang="en-US" href="${canonicalUrl}" />`,
     `<link rel="alternate" hreflang="en-PK" href="${canonicalUrl}" />`,
     `<link rel="alternate" hreflang="en" href="${canonicalUrl}" />`,
     `<link rel="alternate" hreflang="x-default" href="${canonicalUrl}" />`,
@@ -164,8 +199,6 @@ function buildHreflangTags(canonicalUrl) {
 }
 
 function insertHreflangTags(route, headHtml) {
-  const canonical = getCanonicalUrl(route);
-  const hreflangTags = buildHreflangTags(canonical);
   const canonicalPattern = /(<link\s+rel="canonical"\s+href="[^"]+"\s*\/?>)/i;
 
   if (!canonicalPattern.test(headHtml)) {
@@ -173,13 +206,21 @@ function insertHreflangTags(route, headHtml) {
     process.exit(1);
   }
 
+  // App routes already emit the canonical hreflang set during SSR (see
+  // src/lib/seo.ts). Only inject for heads that lack them — e.g. blog posts
+  // built via buildBlogPostHead — so we never double up to 11 tags.
+  if (/hreflang=/i.test(headHtml)) {
+    return headHtml;
+  }
+
+  const hreflangTags = buildHreflangTags(getCanonicalUrl(route));
   return headHtml.replace(canonicalPattern, `$1\n    ${hreflangTags}`);
 }
 
 function validateHreflang(route, html) {
   const hreflangMatches = html.match(/hreflang=/g) || [];
-  if (hreflangMatches.length !== 5) {
-    console.error(`FATAL: ${route} has ${hreflangMatches.length} hreflang tags, expected 5`);
+  if (hreflangMatches.length !== 6) {
+    console.error(`FATAL: ${route} has ${hreflangMatches.length} hreflang tags, expected 6`);
     process.exit(1);
   }
 
@@ -285,9 +326,9 @@ const today = new Date().toISOString().slice(0, 10);
 
 for (const post of blogPosts) {
   const routePath = `/blog/${post.slug}`;
-  const shellHtml = await renderRoute(routePath);
+  const { html: shellHtml, seed } = await renderRoute(routePath);
   const headHtml = insertHreflangTags(routePath, buildBlogPostHead(post));
-  const html = injectRouteHtml(template, shellHtml, headHtml);
+  const html = injectRouteHtml(template, shellHtml, headHtml, seed);
   const outputPath = outputPathForRoute(routePath);
 
   validateHreflang(routePath, html);

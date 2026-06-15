@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { validate } from "../_validate.js";
+import { serverError } from "../_utils.js";
 
 /**
  * POST /api/team/accept-invite
@@ -72,7 +73,7 @@ export default async function handler(req, res) {
     if (signUpErr.message?.includes("already registered")) {
       return res.status(409).json({ error: "An account with this email already exists. Please sign in." });
     }
-    return res.status(500).json({ error: signUpErr.message });
+    return serverError(res, signUpErr);
   }
 
   const authUserId = authData.user?.id;
@@ -87,7 +88,7 @@ export default async function handler(req, res) {
   if (delErr) {
     // Clean up the auth user we just created
     await admin.auth.admin.deleteUser(authUserId);
-    return res.status(500).json({ error: delErr.message });
+    return serverError(res, delErr);
   }
 
   const { error: insertErr } = await admin.from("profiles").insert({
@@ -103,7 +104,7 @@ export default async function handler(req, res) {
 
   if (insertErr) {
     await admin.auth.admin.deleteUser(authUserId);
-    return res.status(500).json({ error: insertErr.message });
+    return serverError(res, insertErr);
   }
 
   return res.status(200).json({ success: true, email: pending.email });

@@ -1,0 +1,1 @@
+let e;function r(){if(e!==void 0)return e;if(typeof document<"u"){const n=document.getElementById("__page_seed__");if(n?.textContent){try{e=JSON.parse(n.textContent)}catch{e=null}return e}}return e=null,e}function _(n){const o=globalThis;if(o.__PAGE_SEED__!==void 0){const l=o.__PAGE_SEED__;return l&&l.key===n?l.data:null}const t=r();return t&&t.key===n?t.data:null}export{_ as r};

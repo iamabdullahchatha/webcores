@@ -86,6 +86,88 @@ const capabilities = [
   },
 ];
 
+function PageExplainer() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 pb-20">
+      <div className="glass rounded-3xl p-8 md:p-12 prose prose-slate dark:prose-invert max-w-none">
+        <h2>What &ldquo;web development&rdquo; actually means at Webcore</h2>
+        <p>
+          When we say web development, we mean engineering, not page-builder assembly. This very
+          website is built on the stack we recommend to most clients: React for the interface, Vite
+          for the build, TanStack Router for type-safe routing, and Supabase for the database,
+          authentication, and storage. It is a deliberate choice — we ship the architecture we run
+          ourselves, so the performance and reliability you see here are the baseline, not a showcase.
+        </p>
+        <p>
+          For content-heavy or ecommerce projects we also build on WordPress, WooCommerce, and
+          Shopify, and we connect them to a{" "}
+          <Link to="/services/cms-development">headless CMS</Link> when an editor team needs to move
+          quickly without touching code. The stack follows the brief; the engineering standard does
+          not change.
+        </p>
+        <h2>Bilingual Arabic and English, built in from the start</h2>
+        <p>
+          A UAE website frequently has to serve both Arabic and English audiences. Retrofitting
+          right-to-left layout onto a left-to-right design is slow and fragile, so we plan RTL from
+          the first wireframe: mirrored layouts, logical CSS properties, Arabic-aware typography, and
+          dual-language content models that index separately for search. Done early, bilingual support
+          costs a fraction of what it costs as an afterthought.
+        </p>
+        <h2>A business website versus a conversion-optimised one</h2>
+        <p>
+          Most agencies will build you a business website: it looks correct, lists your services, and
+          loads. A conversion-optimised website is a different object. It is structured around a
+          measurable goal — a booked call, a submitted quote, a completed checkout — with the page
+          hierarchy, calls to action, form design, and load performance all arranged to serve that
+          goal. We design for the second outcome, because a site that ranks but does not convert is an
+          expensive brochure. A common example: two visually similar landing pages can differ by a
+          factor of two or more in enquiry rate purely because one removed friction from the contact
+          step and made the next action obvious. That difference is engineering, not decoration.
+        </p>
+        <h2>How a project runs</h2>
+        <h3>Discovery to handover</h3>
+        <p>
+          Every build moves through six defined stages: discovery, a focused design sprint,
+          development, quality assurance, launch, and handover. Each stage has a deliverable you sign
+          off before the next begins, which is what makes a fixed-scope quote possible. There are no
+          open-ended hourly phases where scope quietly expands, and because the scope is fixed, the
+          incentive to pad hours simply does not exist.
+        </p>
+        <h3>Quality assurance and accessibility</h3>
+        <p>
+          Before launch, every site is tested across real devices and browsers, not just a desktop
+          preview. We hold builds to WCAG 2.2 AA accessibility — keyboard navigation, colour contrast,
+          semantic landmarks, and screen-reader labelling — because accessibility is both a legal
+          expectation for UAE business sites and a measurable improvement to reach. Forms, error
+          states, and edge cases are exercised deliberately rather than assumed to work.
+        </p>
+        <h3>Performance as a deliverable</h3>
+        <p>
+          <Link to="/services/web-development">Core Web Vitals</Link> are a contractual deliverable,
+          not a post-launch nice-to-have. Every template is measured against the mobile thresholds for
+          loading, interactivity, and visual stability before we will call it done. If a page does not
+          pass, it does not ship.
+        </p>
+        <h2>What happens after launch</h2>
+        <p>
+          Handover means you own the code, the repository, the hosting accounts, and the documentation
+          — there is no lock-in that forces you to stay. Beyond that we offer optional support
+          retainers for updates, monitoring, security patching, and incremental improvements. Clients
+          who prefer to take the site fully in-house can, and we hand over a codebase that a competent
+          team can actually maintain.
+        </p>
+        <p>
+          We also deploy to modern hosting that suits the build — static and edge-rendered front ends
+          on platforms such as Vercel or Cloudflare, managed WordPress where the project calls for it —
+          with SSL, backups, and a staging environment configured as standard. The goal is a site that
+          is fast to launch, safe to change, and inexpensive to keep running for years rather than one
+          that becomes a maintenance burden the moment the original team walks away.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function DubaiWebDevAgency() {
   return (
     <Layout>
@@ -216,6 +298,8 @@ function DubaiWebDevAgency() {
           </div>
         </motion.div>
       </section>
+
+      <PageExplainer />
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">

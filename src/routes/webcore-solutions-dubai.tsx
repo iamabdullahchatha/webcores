@@ -72,6 +72,82 @@ const credibilityPoints = [
   },
 ];
 
+function PageExplainer() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 pb-20">
+      <div className="glass rounded-3xl p-8 md:p-12 prose prose-slate dark:prose-invert max-w-none">
+        <h2>How Webcore Solutions began in Dubai</h2>
+        <p>
+          Webcore Solutions was founded in Dubai in 2012 by Muhammad Abdullah Chattha. From the first
+          year it was built to serve international clients, not only the local market: Dubai&rsquo;s
+          position between European, Gulf, and South Asian time zones made cross-border delivery
+          practical, and the agency took on UK and European work alongside UAE projects from the
+          start. Twelve years on, the team has grown from three people to twenty-five full-time
+          engineers, designers, and strategists, with more than 450 delivered projects. You can read
+          the fuller story on our <Link to="/about">about page</Link>.
+        </p>
+        <h2>Radical integrity, in practice</h2>
+        <p>
+          The agency runs on a principle we call radical integrity, and it is not a slogan — it is an
+          operating model. Quotes are fixed before work begins, which means we absorb the risk of our
+          own estimates rather than passing overruns to the client. Scope is defined in writing, so
+          scope creep is a conversation about a change order, not a surprise on the invoice. There are
+          no hidden fees, no padded hours, and no &ldquo;ongoing optimisation&rdquo; lines that bill
+          indefinitely for unspecified work.
+        </p>
+        <h2>The three clients we serve best</h2>
+        <p>
+          Our work fits three profiles particularly well. The first is early-stage startups that need
+          a credible product built quickly without burning their runway on a bloated team. The second
+          is scaling small and medium businesses that have outgrown a template site or a
+          spreadsheet-driven process and need real engineering. The third is enterprises modernising
+          legacy systems — migrating off ageing platforms onto maintainable, observable,
+          well-documented software.
+        </p>
+        <h2>Where we work, and how remote delivery runs</h2>
+        <p>
+          Our client base sits, in rough order of volume, across Dubai and the wider UAE, the United
+          Kingdom, Europe, the United States, and Pakistan. Remote engagement is the default, not a
+          compromise: discovery and design happen over scheduled calls, development progresses in
+          reviewed increments you can watch in a shared repository, and we keep working hours that
+          overlap each client region. Distance has never been the variable that decides whether a
+          project succeeds.
+        </p>
+        <h3>Communication cadence</h3>
+        <p>
+          What does decide it is communication discipline. Each engagement has a single point of
+          contact, a shared written record of decisions, and a predictable rhythm of updates rather
+          than silence punctuated by surprises. Time-zone spread between the Gulf, the UK, and South
+          Asia is an advantage when it is managed deliberately: a question raised at the end of a
+          client&rsquo;s day is frequently answered by the start of the next. We commit the cadence to
+          writing at kick-off so expectations are explicit, not assumed.
+        </p>
+        <h2>Industries we know</h2>
+        <p>
+          Over twelve years we have delivered repeatedly into retail and ecommerce, fintech,
+          healthcare, and professional services. Each carries its own constraints — payment and VAT
+          handling in retail, compliance and data protection in fintech and healthcare, and a high bar
+          for trust in professional-services branding — and prior delivery in a sector shortens the
+          learning curve on the next project. Much of that work spans{" "}
+          <Link to="/services/web-development">web</Link> and custom software alike. That accumulated
+          domain knowledge is also why our estimates hold: we have seen where these projects tend to
+          overrun, and we price for the reality rather than the optimistic case.
+        </p>
+        <h2>What we decline</h2>
+        <p>
+          We are equally direct about the work we turn down. We decline projects where the budget only
+          fits corner-cutting, where the timeline is impossible without compromising quality, and
+          where a client wants guaranteed search rankings or other promises we consider dishonest. We
+          also refer small, straightforward jobs to freelancers when that is genuinely the
+          better-value option. Saying no to the wrong projects is how we protect the standard on the
+          right ones — and it is why the clients who do work with us tend to come back for the next
+          one rather than starting their search over.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function WebcoreSolutionsDubai() {
   return (
     <Layout>
@@ -246,6 +322,8 @@ function WebcoreSolutionsDubai() {
           ))}
         </div>
       </section>
+
+      <PageExplainer />
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">

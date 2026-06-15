@@ -1,0 +1,1 @@
+import{r as o}from"./icons-BVVL_L14.js";function a(e){o.useEffect(()=>{if(!e)return;const r=n=>{n.preventDefault()};return window.addEventListener("beforeunload",r),()=>window.removeEventListener("beforeunload",r)},[e])}export{a as u};

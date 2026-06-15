@@ -1,12 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { getSupabase } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/AuthContext";
-import { PostForm, type PostFormData, type PostFormErrors } from "@/components/admin/PostForm";
+import type { PostFormData, PostFormErrors } from "@/components/admin/PostForm";
 import type { Database } from "@/lib/supabase/types";
+
+const PostForm = lazy(() =>
+  import("@/components/admin/PostForm").then((m) => ({ default: m.PostForm }))
+);
 
 type BlogInsert = Database["public"]["Tables"]["blog_posts"]["Insert"];
 
@@ -120,14 +124,20 @@ function NewPost() {
         <h2 className="font-display text-2xl font-bold text-foreground">New Post</h2>
       </div>
 
-      <PostForm
-        initial={EMPTY}
-        errors={errors}
-        onSaveDraft={(d, opts) => save(d, opts ?? false)}
-        onPublish={(d) => save(d, true)}
-        saving={saving}
-        lastSaved={lastSaved}
-      />
+      <Suspense fallback={
+        <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+          Loading editor…
+        </div>
+      }>
+        <PostForm
+          initial={EMPTY}
+          errors={errors}
+          onSaveDraft={(d, opts) => save(d, opts ?? false)}
+          onPublish={(d) => save(d, true)}
+          saving={saving}
+          lastSaved={lastSaved}
+        />
+      </Suspense>
     </div>
   );
 }

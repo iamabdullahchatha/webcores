@@ -7,7 +7,7 @@ import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { usePageSeoOverrides } from "@/lib/content";
-import { blogFallback } from "@/lib/content/seedFallback.generated";
+import { readPageSeed } from "@/lib/content/pageSeed";
 import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/blog/")({
@@ -175,10 +175,13 @@ function BlogIndex() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // Seed with the same published posts the DB ships, so SSR/first paint has
-  // real content for crawlers. The effect below still fetches live data and
-  // replaces this — Supabase remains the source of truth.
-  const [posts, setPosts] = useState<PostCard[] | null>(blogFallback as PostCard[]);
+  // Seed with the prerendered post list (inlined into this page's HTML), so
+  // SSR/first paint and hydration have real content for crawlers. Resolves to
+  // null on client-side navigation, where the effect below fetches live data.
+  // Supabase remains the source of truth.
+  const [posts, setPosts] = useState<PostCard[] | null>(
+    () => readPageSeed<PostCard[]>("blog-index"),
+  );
   const [query, setQuery] = useState("");
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
 

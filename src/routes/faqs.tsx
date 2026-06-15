@@ -297,6 +297,7 @@ function CategoryTab({
     <TiltCard>
       <button
         type="button"
+        aria-pressed={active}
         onClick={onClick}
         className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 overflow-hidden ${
           active
@@ -526,6 +527,7 @@ function FAQs() {
         <motion.div {...fadeUp()} className="flex flex-wrap items-center gap-3 justify-center">
           <button
             type="button"
+            aria-pressed={activeCategory === null}
             onClick={() => handleCategoryChange(null)}
             className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
               activeCategory === null

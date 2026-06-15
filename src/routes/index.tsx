@@ -7,6 +7,7 @@ import {
   useMotionValue,
   useSpring,
   AnimatePresence,
+  useReducedMotion,
 } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
@@ -31,7 +32,7 @@ import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SocialShare } from "@/components/SocialShare";
-import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
+import { getSeoHead, applyPageSeo, pageSeo, pageFaqs } from "@/lib/seo";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   useHomeHero,
@@ -49,33 +50,8 @@ import {
 } from "@/lib/content";
 
 export const Route = createFileRoute("/")({
-  head: () => getSeoHead("home", { faqs: [] }),
+  head: () => getSeoHead("home", { faqs: pageFaqs.home ?? [] }),
   component: Index,
-});
-
-/* ─── Animation Configs ────────────────────────────────────────────── */
-const fadeUp = (delay = 0, duration = 0.65) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: {
-    duration,
-    delay,
-    type: "tween" as const,
-    ease: [0.22, 1, 0.36, 1] as const,
-  },
-});
-
-const scaleIn = (delay = 0) => ({
-  initial: { opacity: 0, scale: 0.92 },
-  whileInView: { opacity: 1, scale: 1 },
-  viewport: { once: true },
-  transition: {
-    duration: 0.6,
-    delay,
-    type: "tween" as const,
-    ease: [0.22, 1, 0.36, 1] as const,
-  },
 });
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
@@ -143,6 +119,7 @@ function StatCard({ s, delay }: StatCardProps) {
 
 /* Tilt card */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -158,6 +135,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -316,6 +297,7 @@ function CategoryTab({ cat, active, onClick }: CategoryTabProps) {
   return (
     <button
       type="button"
+      aria-pressed={active}
       onClick={onClick}
       className={`group relative flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
         active
@@ -346,6 +328,38 @@ function StatSkeleton() {
 
 /* ─── Index Page ────────────────────────────────────────────────────── */
 function Index() {
+  const prefersReduced = useReducedMotion();
+
+  const fadeUp = (delay = 0, duration = 0.65) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 28 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-60px" },
+          transition: {
+            duration,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
+  const scaleIn = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, scale: 0.92 },
+          whileInView: { opacity: 1, scale: 1 },
+          viewport: { once: true },
+          transition: {
+            duration: 0.6,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
@@ -1148,6 +1162,7 @@ function Index() {
         <motion.div {...fadeUp(0.1)} className="flex flex-wrap items-center gap-3 justify-center">
           <button
             type="button"
+            aria-pressed={activeCategory === null}
             onClick={() => handleCategoryChange(null)}
             className={`px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
               activeCategory === null

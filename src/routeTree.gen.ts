@@ -24,7 +24,6 @@ import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
-import { Route as IndexBackupRouteImport } from './routes/index.backup'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -117,11 +116,6 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
   path: '/services/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexBackupRoute = IndexBackupRouteImport.update({
-  id: '/index/backup',
-  path: '/index/backup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -226,7 +220,6 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -259,7 +252,6 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -294,7 +286,6 @@ export interface FileRoutesById {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/index/backup': typeof IndexBackupRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -330,7 +321,6 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/team'
     | '/blog/$slug'
-    | '/index/backup'
     | '/services/$slug'
     | '/admin/'
     | '/blog/'
@@ -363,7 +353,6 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/team'
     | '/blog/$slug'
-    | '/index/backup'
     | '/services/$slug'
     | '/admin'
     | '/blog'
@@ -397,7 +386,6 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/team'
     | '/blog/$slug'
-    | '/index/backup'
     | '/services/$slug'
     | '/admin/'
     | '/blog/'
@@ -424,7 +412,6 @@ export interface RootRouteChildren {
   UaeSoftwareDevelopmentCompanyRoute: typeof UaeSoftwareDevelopmentCompanyRoute
   WebcoreSolutionsDubaiRoute: typeof WebcoreSolutionsDubaiRoute
   BlogSlugRoute: typeof BlogSlugRoute
-  IndexBackupRoute: typeof IndexBackupRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -535,13 +522,6 @@ declare module '@tanstack/react-router' {
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/index/backup': {
-      id: '/index/backup'
-      path: '/index/backup'
-      fullPath: '/index/backup'
-      preLoaderRoute: typeof IndexBackupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -721,7 +701,6 @@ const rootRouteChildren: RootRouteChildren = {
   UaeSoftwareDevelopmentCompanyRoute: UaeSoftwareDevelopmentCompanyRoute,
   WebcoreSolutionsDubaiRoute: WebcoreSolutionsDubaiRoute,
   BlogSlugRoute: BlogSlugRoute,
-  IndexBackupRoute: IndexBackupRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,

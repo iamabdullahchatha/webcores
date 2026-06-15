@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -121,13 +128,6 @@ const stats = [
 ];
 
 /* ─── Helpers ───────────────────────────────────────────────────────── */
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
-
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -139,6 +139,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 /* ── 3D Tilt Card ───────────────────────────────────────────────────── */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -154,6 +155,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -295,6 +300,22 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 /* ─── Page ──────────────────────────────────────────────────────────── */
 function Services() {
+  const prefersReduced = useReducedMotion();
+  const fadeUp = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 28 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-60px" },
+          transition: {
+            duration: 0.65,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);

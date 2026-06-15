@@ -1,11 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { toast } from "sonner";
 import { ArrowLeft, Trash2 } from "lucide-react";
 import { supabase, getSupabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
-import { PostForm, type PostFormData, type PostFormErrors } from "@/components/admin/PostForm";
+import type { PostFormData, PostFormErrors } from "@/components/admin/PostForm";
 import { ConfirmDialog } from "@/components/admin/ui/ConfirmDialog";
+
+const PostForm = lazy(() =>
+  import("@/components/admin/PostForm").then((m) => ({ default: m.PostForm }))
+);
 
 type BlogUpdate = Database["public"]["Tables"]["blog_posts"]["Update"];
 
@@ -197,15 +201,21 @@ function EditPost() {
         </div>
       </div>
 
-      <PostForm
-        initial={rowToForm(post)}
-        errors={errors}
-        onSaveDraft={(d, opts) => save(d, opts ?? false)}
-        onPublish={(d) => save(d, true)}
-        saving={saving}
-        lastSaved={lastSaved}
-        viewSlug={isPublished ? post.slug : undefined}
-      />
+      <Suspense fallback={
+        <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+          Loading editor…
+        </div>
+      }>
+        <PostForm
+          initial={rowToForm(post)}
+          errors={errors}
+          onSaveDraft={(d, opts) => save(d, opts ?? false)}
+          onPublish={(d) => save(d, true)}
+          saving={saving}
+          lastSaved={lastSaved}
+          viewSlug={isPublished ? post.slug : undefined}
+        />
+      </Suspense>
 
       <ConfirmDialog
         open={confirmDelete}

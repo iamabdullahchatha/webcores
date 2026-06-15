@@ -3,6 +3,24 @@
 @plugin "@tailwindcss/typography";
 @source "../src";
 
+/* Self-hosted Inter (latin subset). Files live in public/fonts/inter/ and are
+   preloaded in index.html. font-display: swap keeps text visible during load. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter/inter-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/inter/inter-600.woff2") format("woff2");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

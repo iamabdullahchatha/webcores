@@ -128,7 +128,8 @@ function ServiceDetail() {
     }
   }, [data?.service]);
 
-  if (isLoading && !data?.sections?.length) {
+  const hasSections = !!data?.sections.length;
+  if (isLoading && !hasSections) {
     return (
       <Layout>
         <ServiceSkeleton />

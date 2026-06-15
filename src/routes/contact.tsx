@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   AnimatePresence,
+  useReducedMotion,
 } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import type { CSSProperties, ChangeEvent, FormEvent, ReactNode } from "react";
@@ -162,18 +163,6 @@ const heroPills = [
 /* Helpers */
 /* ──────────────────────────────────────────────────────────────────── */
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: {
-    duration: 0.65,
-    delay,
-    type: "tween" as const,
-    ease: [0.22, 1, 0.36, 1] as const,
-  },
-});
-
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -188,6 +177,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
 /* ──────────────────────────────────────────────────────────────────── */
 
 function TiltCard({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -214,6 +204,10 @@ function TiltCard({ children, className = "" }: { children: ReactNode; className
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -351,7 +345,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 /* Service Dropdown */
 /* ──────────────────────────────────────────────────────────────────── */
 
-function ServiceDropdown({ value, onChange }: { value: string; onChange: (val: string) => void }) {
+function ServiceDropdown({ id, value, onChange }: { id?: string; value: string; onChange: (val: string) => void }) {
   const [open, setOpen] = useState(false);
 
   const selected = services.find((s) => s.value === value);
@@ -359,6 +353,7 @@ function ServiceDropdown({ value, onChange }: { value: string; onChange: (val: s
   return (
     <div className="relative">
       <button
+        id={id}
         type="button"
         onClick={() => setOpen((o) => !o)}
         className="w-full glass rounded-xl px-4 py-3 text-sm bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground flex items-center justify-between gap-2"
@@ -484,6 +479,7 @@ function ServiceDropdown({ value, onChange }: { value: string; onChange: (val: s
 function ContactForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -506,6 +502,7 @@ function ContactForm() {
 
     try {
       setLoading(true);
+      setSubmitError(null);
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -534,7 +531,7 @@ function ContactForm() {
     } catch (error) {
       console.error("Contact form error:", error);
 
-      alert("Something went wrong while sending your message. Please try again.");
+      setSubmitError("Something went wrong while sending your message. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -544,7 +541,7 @@ function ContactForm() {
     "w-full glass rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground/50 bg-transparent border border-border/40 focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-foreground";
 
   return (
-    <div className="glass rounded-3xl overflow-hidden relative">
+    <div className="glass rounded-3xl overflow-hidden relative" aria-live="polite">
       <AnimatePresence mode="wait">
         {sent ? (
           <SuccessState
@@ -580,11 +577,12 @@ function ContactForm() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     Your Name
                   </label>
 
                   <input
+                    id="contact-name"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
@@ -595,11 +593,12 @@ function ContactForm() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     Email Address
                   </label>
 
                   <input
+                    id="contact-email"
                     name="email"
                     type="email"
                     value={form.email}
@@ -613,11 +612,12 @@ function ContactForm() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  <label htmlFor="contact-phone" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     Phone (Optional)
                   </label>
 
                   <input
+                    id="contact-phone"
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
@@ -627,11 +627,12 @@ function ContactForm() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  <label htmlFor="contact-service" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     Service Interested In
                   </label>
 
                   <ServiceDropdown
+                    id="contact-service"
                     value={form.service}
                     onChange={(val) =>
                       setForm((prev) => ({
@@ -644,11 +645,12 @@ function ContactForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                <label htmlFor="contact-subject" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   Subject
                 </label>
 
                 <input
+                  id="contact-subject"
                   name="subject"
                   value={form.subject}
                   onChange={handleChange}
@@ -659,11 +661,12 @@ function ContactForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   Message
                 </label>
 
                 <textarea
+                  id="contact-message"
                   name="message"
                   value={form.message}
                   onChange={handleChange}
@@ -704,6 +707,17 @@ function ContactForm() {
                   <Send className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 relative" />
                 </button>
               </div>
+
+              {submitError && (
+                <p
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                  className="text-destructive text-sm font-medium mt-2"
+                >
+                  {submitError}
+                </p>
+              )}
             </form>
           </motion.div>
         )}
@@ -717,6 +731,22 @@ function ContactForm() {
 /* ──────────────────────────────────────────────────────────────────── */
 
 function Contact() {
+  const prefersReduced = useReducedMotion();
+  const fadeUp = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 28 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-60px" },
+          transition: {
+            duration: 0.65,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   const { data: seoOverrides } = usePageSeoOverrides();
   useEffect(() => {
     applyPageSeo("contact", seoOverrides?.["contact"] ?? null, pageSeo.contact);

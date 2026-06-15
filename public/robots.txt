@@ -2,9 +2,9 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api
+Disallow: /_vercel
 Disallow: /*?*utm_
 Disallow: /*?*ref=
-Allow: /assets/
 
 # AI crawlers — explicitly allowed for AEO/GEO
 User-agent: GPTBot

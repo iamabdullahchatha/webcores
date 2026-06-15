@@ -86,6 +86,85 @@ const capabilities = [
   },
 ];
 
+function PageExplainer() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 pb-20">
+      <div className="glass rounded-3xl p-8 md:p-12 prose prose-slate dark:prose-invert max-w-none">
+        <h2>The kinds of software we build</h2>
+        <p>
+          Webcore Solutions builds five broad categories of custom software: multi-tenant SaaS
+          platforms, internal operations tools, REST and GraphQL APIs, AI and large-language-model
+          integrations, and data pipelines that move and reconcile information between systems. The
+          common thread is that each is built to be owned, observed, and maintained — not a prototype
+          that collapses under real load. Our{" "}
+          <Link to="/services/software-development">custom software service</Link> spans the full
+          lifecycle from architecture to handover.
+        </p>
+        <h2>How UAE regulation shapes architecture</h2>
+        <p>
+          Building software for the UAE market is not only a technical exercise. The federal Personal
+          Data Protection Law (Federal Decree-Law No. 45 of 2021) and the separate DIFC Data
+          Protection Law No. 5 of 2020 impose real obligations on how personal data is stored,
+          transferred, and processed. For clients in regulated sectors — banking, insurance,
+          healthcare — data residency requirements can dictate which cloud region a database lives in
+          before a line of code is written. We make those decisions explicit at the architecture stage
+          rather than discovering them during a compliance review.
+        </p>
+        <h2>Our approach to AI and LLM integration</h2>
+        <p>
+          AI features are only useful in business software if their outputs are auditable. We
+          integrate models from providers such as OpenAI and Anthropic behind a layer that logs
+          prompts, records sources, and constrains responses to retrieved context — a
+          retrieval-augmented pattern — so a user can see why the system produced a given answer. An
+          AI feature that cannot explain itself is a liability in a regulated environment, and we
+          build accordingly.
+        </p>
+        <h2>Observability and ownership</h2>
+        <p>
+          Custom software is only an asset if you can see inside it and change it. Every system we
+          build ships with structured logging, error tracking, and health metrics, so that when
+          something behaves unexpectedly there is a trail to follow rather than guesswork. Automated
+          tests guard the behaviour that matters, and continuous integration runs them on every
+          change. Crucially, you own the result outright — the source code, the cloud accounts, and
+          the deployment pipeline are yours at handover, with no proprietary runtime that locks you to
+          us. A client who decides to take the system in-house, or move it to another team entirely,
+          can do so without renegotiating access to their own software.
+        </p>
+        <h2>Fixed-scope or retainer</h2>
+        <p>
+          We structure engagements two ways. A fixed-scope project suits a well-defined build with a
+          clear endpoint: an MVP, a specific platform, a defined integration. A retainer suits ongoing
+          product development where priorities shift month to month. We recommend whichever fits the
+          work, and we say plainly when a smaller project would be better served by a freelancer than
+          by us.
+        </p>
+        <h2>Senior engineers only</h2>
+        <p>
+          Webcore Solutions does not staff projects with juniors learning on your budget, and we do
+          not subcontract to offshore resellers. Every engagement is delivered by senior engineers on
+          our in-house Dubai team. That keeps accountability in one place: the people who scope your
+          system are the people who build and hand it over. It also means design decisions are made by
+          engineers who will live with the consequences, which is a quietly powerful incentive to get
+          the architecture right the first time rather than ship a shortcut someone else inherits.
+        </p>
+        <h2>A typical engagement, end to end</h2>
+        <h3>From brief to handover</h3>
+        <p>
+          A representative custom software engagement runs like this. We begin with a discovery brief
+          that defines the problem, the users, and the success criteria. We produce a technical
+          architecture and a fixed-scope quote. Development proceeds in reviewed increments with
+          automated testing and continuous integration. We harden the system against an OWASP
+          baseline, deploy with infrastructure-as-code, and run a quality-assurance pass. At handover
+          you receive the source code, the infrastructure, and the documentation, plus an optional
+          support retainer. Where a system needs ongoing technology guidance, our{" "}
+          <Link to="/services/it-consultation">IT consultation</Link> team stays available after
+          launch.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function UaeSoftwareDevelopmentCompany() {
   return (
     <Layout>
@@ -211,6 +290,8 @@ function UaeSoftwareDevelopmentCompany() {
           </div>
         </motion.div>
       </section>
+
+      <PageExplainer />
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">

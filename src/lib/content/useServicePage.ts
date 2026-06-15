@@ -1,7 +1,7 @@
 import { useQuery, type QueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
-import { serviceFallback } from "./seedFallback.generated";
+import { readPageSeed } from "./pageSeed";
 
 import imgIt1       from "@/assets/it-1.webp";
 import imgCms1      from "@/assets/cms-1.webp";
@@ -32,7 +32,10 @@ export type ServicePage = {
 };
 
 async function queryFn(slug: string): Promise<ServicePage | null> {
-  const fallback = serviceFallback[slug] as ServicePage | undefined;
+  // The seed for this slug is inlined into the prerendered page HTML (or set on
+  // globalThis during build SSR). Present on the initial prerendered page; null
+  // after client-side navigation, where a failed Supabase call returns null.
+  const fallback = readPageSeed<ServicePage>(`service:${slug}`) ?? undefined;
 
   const { data: service, error: svcErr } = await supabase
     .from("services")
@@ -78,7 +81,7 @@ export function useServicePage(slug: string) {
     // Show the seeded content during SSR / first paint so crawlers and users
     // see a real page instead of a skeleton. The live Supabase fetch still
     // runs and replaces this — the DB stays the source of truth.
-    placeholderData: (prev) => prev ?? serviceFallback[slug] ?? undefined,
+    placeholderData: (prev) => prev ?? readPageSeed<ServicePage>(`service:${slug}`) ?? undefined,
     queryFn: () => queryFn(slug),
   });
 }

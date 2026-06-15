@@ -1,5 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
 import { validate } from "../_validate.js";
+import { serverError } from "../_utils.js";
 
 /**
  * Records a login attempt in public.login_history.
@@ -16,23 +19,29 @@ const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL;
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-// In-memory rate limit. Lives only as long as the serverless instance —
-// good enough for a low-traffic admin login endpoint; not a hard guarantee.
+// Distributed rate limit backed by Upstash Redis — survives serverless
+// cold starts, unlike the previous in-memory Map.
 const RATE_LIMIT_MAX = 10;
 const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
-const ipHits = new Map(); // ip -> number[] (timestamps)
 
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const cutoff = now - RATE_LIMIT_WINDOW_MS;
-  const hits = (ipHits.get(ip) ?? []).filter((t) => t > cutoff);
-  if (hits.length >= RATE_LIMIT_MAX) {
-    ipHits.set(ip, hits);
-    return false;
+const ratelimit = new Ratelimit({
+  redis: new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  }),
+  limiter: Ratelimit.slidingWindow(RATE_LIMIT_MAX, `${RATE_LIMIT_WINDOW_MS / 1000} s`),
+  prefix: "ratelimit:log-login",
+});
+
+async function checkRateLimit(ip) {
+  try {
+    const { success } = await ratelimit.limit(ip);
+    return success;
+  } catch (err) {
+    // Fail open: if Upstash is unreachable, allow the request through.
+    console.warn("Rate limiter unavailable, failing open:", err?.message ?? err);
+    return true;
   }
-  hits.push(now);
-  ipHits.set(ip, hits);
-  return true;
 }
 
 function getClientIp(req) {
@@ -60,7 +69,7 @@ export default async function handler(req, res) {
   }
 
   const ip = getClientIp(req);
-  if (!checkRateLimit(ip)) {
+  if (!(await checkRateLimit(ip))) {
     return res.status(429).json({ success: false, error: "Too many requests" });
   }
 
@@ -94,7 +103,7 @@ export default async function handler(req, res) {
   });
 
   if (error) {
-    return res.status(500).json({ success: false, error: error.message });
+    return serverError(res, error);
   }
 
   return res.status(200).json({ success: true });

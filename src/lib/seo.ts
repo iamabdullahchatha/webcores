@@ -534,9 +534,25 @@ function personSchema() {
     name: "Muhammad Abdullah Chattha",
     jobTitle: "CEO & Founder",
     worksFor: { "@id": ORG_ID },
-    url: `${SITE_URL}/about`,
+    url: "https://www.linkedin.com/in/muhammadabdullahchattha/",
     sameAs: ["https://www.linkedin.com/company/webcore-solutions-uae/"],
-    knowsAbout: ["Web Development", "Software", "SEO", "GEO", "CMS", "Digital agency management"],
+    knowsAbout: [
+      "Web Development",
+      "React and Next.js Development",
+      "Custom Software Development",
+      "Headless CMS Architecture",
+      "Search Engine Optimisation",
+      "Generative Engine Optimisation",
+      "AI Search and Answer Engine Optimisation",
+      "Technical SEO",
+      "Local SEO",
+      "Arabic-English Bilingual SEO",
+      "Graphic Design and Brand Identity",
+      "IT Consultation and Technology Audits",
+      "SaaS Product Development",
+      "Dubai Digital Economy",
+      "UAE Technology Market",
+    ],
   };
 }
 
@@ -565,6 +581,15 @@ function organizationSchema() {
     numberOfEmployees: {
       "@type": "QuantitativeValue",
       value: 25,
+    },
+    // Aggregate of the 9 client testimonials (see reviewsSchema): seven 5★ + two 4★
+    // = 43 / 9 = 4.8. Lives on the Organization node so it is attributed site-wide.
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: 9,
+      bestRating: 5,
+      worstRating: 1,
     },
     areaServed: orgAreaServed,
     address: {
@@ -604,6 +629,41 @@ function organizationSchema() {
       "Brand Design",
     ],
   };
+}
+
+// The 9 client testimonials as individual Review nodes. Each links back to the
+// Organization via itemReviewed so AI engines / crawlers attribute the rating to
+// Webcore Solutions; the AggregateRating of these lives on the Organization node.
+// These mirror the testimonials rendered on the home page — keep them gated to
+// that route in getSeoHead() so the markup matches visible on-page content.
+function reviewsSchema() {
+  const reviews = [
+    { name: "Layla Al-Mansoori", jobTitle: "Marketing Director, Khaleej Retail Group", rating: 5, body: "After five months on our Arabic-English SEO rebuild, organic traffic from UAE searches climbed 84 percent." },
+    { name: "Rohan Verma", jobTitle: "Head of Product, FinTrack MENA", rating: 5, body: "Webcore Solutions delivered our investor dashboard in ten focused weeks, two larger Dubai agencies had quoted us double the timeline." },
+    { name: "Hana Said", jobTitle: "Founder, Saharaboutique", rating: 5, body: "The refreshed storefront moved our checkout conversion rate from 1.6 to 4.2 percent." },
+    { name: "Daniel Whittaker", jobTitle: "Operations Lead, Brightline Logistics UK", rating: 5, body: "Webcore consolidated three legacy systems into one platform, reconciliation hours dropped 60 percent." },
+    { name: "Sara Al-Hashimi", jobTitle: "CEO, Pinnacle Properties Dubai", rating: 5, body: "Our new website went from wireframes to live in six weeks, Lighthouse score hit 97." },
+    { name: "Nour Khalil", jobTitle: "Content Manager, Gulf Media Network", rating: 5, body: "Publishing workflows are genuinely faster now, we ship content same-day." },
+    { name: "James Okafor", jobTitle: "Co-founder, Vestro Capital", rating: 5, body: "The brand identity Webcore built closed our Series-A round two weeks later." },
+    { name: "Priya Menon", jobTitle: "E-commerce Director, Saffron Living", rating: 4, body: "The WooCommerce build is solid, load time dropped from 6.2 seconds to under 1.1." },
+    { name: "Tom Aldridge", jobTitle: "Head of Growth, ClearRoute SaaS", rating: 4, body: "The SEO audit moved us from page four to page one for our main keyword." },
+  ];
+
+  return reviews.map((r) => ({
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: r.name,
+      jobTitle: r.jobTitle,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: r.rating,
+      bestRating: 5,
+    },
+    reviewBody: r.body,
+    itemReviewed: { "@id": ORG_ID },
+  }));
 }
 
 function websiteSchema() {
@@ -680,9 +740,10 @@ function webPageSchema(page: PageMeta, key: PageKey, hasFaqs = false) {
     },
     breadcrumb: { "@id": `${absoluteUrl(page.path)}#breadcrumbs` },
     inLanguage: "en",
-    ...(hasFaqs
-      ? { speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", "h3"] } }
-      : {}),
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", "h3", "[data-speakable]"],
+    },
   };
 }
 
@@ -756,6 +817,7 @@ export function getSeoHead(
     serviceSchema(key),
     hasFaqs ? faqSchema(page, options.faqs!) : null,
     isAbout ? personSchema() : null,
+    ...(isHome ? reviewsSchema() : []),
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 
@@ -816,6 +878,12 @@ export function getSeoHead(
     ],
     links: [
       { rel: "canonical", href: canonical },
+      { rel: "alternate", hreflang: "en-ae", href: canonical },
+      { rel: "alternate", hreflang: "en-gb", href: canonical },
+      { rel: "alternate", hreflang: "en-us", href: canonical },
+      { rel: "alternate", hreflang: "en-pk", href: canonical },
+      { rel: "alternate", hreflang: "en", href: canonical },
+      { rel: "alternate", hreflang: "x-default", href: canonical },
     ],
   };
 }

@@ -1,5 +1,4 @@
 import { createRouter, useRouter } from "@tanstack/react-router";
-import type { RouterConstructorOptions } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -55,7 +54,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
   );
 }
 
-type AppRouterOptions = Partial<RouterConstructorOptions<typeof routeTree>>;
+type AppRouterOptions = Partial<Parameters<typeof createRouter>[0]>;
 
 export function createAppRouter(options: AppRouterOptions = {}) {
   return createRouter({

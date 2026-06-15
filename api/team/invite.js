@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { validate } from "../_validate.js";
+import { serverError } from "../_utils.js";
 
 /**
  * POST /api/team/invite
@@ -147,7 +148,7 @@ export default async function handler(req, res) {
       .eq("email", email.trim())
       .eq("is_active", false);
 
-    if (updateErr) return res.status(500).json({ error: updateErr.message });
+    if (updateErr) return serverError(res, updateErr);
 
     if (RESEND_API_KEY) {
       try {
@@ -173,7 +174,7 @@ export default async function handler(req, res) {
     is_active: false,
   });
 
-  if (insertErr) return res.status(500).json({ error: insertErr.message });
+  if (insertErr) return serverError(res, insertErr);
 
   if (RESEND_API_KEY) {
     try {

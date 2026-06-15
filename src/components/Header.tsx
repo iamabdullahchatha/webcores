@@ -1,9 +1,10 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Easing } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logoWebp from "@/assets/logo.webp";
+import logoPng from "@/assets/logo.png";
 import { useSiteSettings } from "@/lib/content";
 
 const services = [
@@ -59,7 +60,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
   const { data: settings } = useSiteSettings();
-  const logoSrc = settings?.logoUrl ?? logo;
+  const customLogoUrl = settings?.logoUrl;
   const logoAlt = settings?.logoAlt ?? "Webcore Solutions";
 
   useEffect(() => {
@@ -75,6 +76,8 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <motion.header
@@ -107,15 +110,33 @@ export function Header() {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200"
             aria-label="Webcore Solutions — Home"
           >
-            <img
-              src={logoSrc}
-              alt={logoAlt}
-              width={1180}
-              height={319}
-              decoding="async"
-              fetchPriority="high"
-              className="h-10 md:h-12 w-auto"
-            />
+            {customLogoUrl ? (
+              // Admin-configured logo (Supabase storage URL) — used as-is, no
+              // <picture> since we can't know/derive a WebP variant for it.
+              <img
+                src={customLogoUrl}
+                alt={logoAlt}
+                width={1180}
+                height={319}
+                decoding="async"
+                fetchPriority="high"
+                className="h-10 md:h-12 w-auto"
+              />
+            ) : (
+              // Bundled logo — WebP with a PNG fallback for older browsers.
+              <picture>
+                <source srcSet={logoWebp} type="image/webp" />
+                <img
+                  src={logoPng}
+                  alt={logoAlt}
+                  width={1180}
+                  height={319}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="h-10 md:h-12 w-auto"
+                />
+              </picture>
+            )}
             <span className="sr-only">Webcore Solutions</span>
           </Link>
 
@@ -142,6 +163,11 @@ export function Header() {
                   activeOptions={{ exact: item.to === "/" }}
                   aria-haspopup={item.dropdown ? "true" : undefined}
                   aria-expanded={item.dropdown ? drop : undefined}
+                  aria-current={
+                    item.to === "/"
+                      ? pathname === "/" ? "page" : undefined
+                      : pathname.startsWith(item.to) ? "page" : undefined
+                  }
                 >
                   {item.name}
                   {item.dropdown && (
@@ -263,6 +289,11 @@ export function Header() {
                       to={item.to}
                       onClick={() => setOpen(false)}
                       className="block px-4 py-3 rounded-lg hover:bg-primary/10 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-200"
+                      aria-current={
+                        item.to === "/"
+                          ? pathname === "/" ? "page" : undefined
+                          : pathname.startsWith(item.to) ? "page" : undefined
+                      }
                     >
                       {item.name}
                     </Link>

@@ -86,6 +86,85 @@ const capabilities = [
   },
 ];
 
+function PageExplainer() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 pb-20">
+      <div className="glass rounded-3xl p-8 md:p-12 prose prose-slate dark:prose-invert max-w-none">
+        <h2>Why SEO in Dubai is not the same as SEO in the UK or US</h2>
+        <p>
+          Search behaviour in the United Arab Emirates is bilingual by default. A Dubai audience
+          routinely switches between English and Arabic within a single session, and the two
+          languages index as separate documents: Arabic is written right-to-left, uses a different
+          morphology, and rarely maps one-to-one onto an English keyword. An agency that treats
+          Arabic as a translation layer rather than a parallel content model will miss the queries
+          that actually convert. We build dual-language page templates with correct <code>hreflang</code>{" "}
+          annotations so Google serves the right language version to the right user.
+        </p>
+        <p>
+          The engine mix is different too. In the UAE, Google handles the large majority of search —
+          well above 95% on mobile — so Bing-first tactics imported from some US markets are largely
+          wasted effort here. What does matter is local citation consistency: Google Business Profile,
+          UAE directories, and Arabic-language listings whose name, address, and phone details agree
+          to the character. Inconsistent citations are one of the most common reasons a Dubai business
+          with good content still fails to rank locally.
+        </p>
+        <h2>How our Dubai SEO process actually runs</h2>
+        <h3>Audit, then a keyword map</h3>
+        <p>
+          Every retainer opens with a technical audit covering crawlability, indexation, schema
+          coverage, internal linking, and rendering. Only once that baseline is clear do we build a
+          keyword map: a document that assigns every priority query to a specific URL, in both
+          languages, so two pages never compete for the same term. That map becomes the content
+          calendar governing the next two quarters.
+        </p>
+        <h3>Schema, Core Web Vitals, and reporting</h3>
+        <p>
+          Structured data and page performance are treated as ranking inputs, not cosmetic extras. We
+          add and validate schema, then push every template to pass{" "}
+          <Link to="/services/web-development">Core Web Vitals</Link> on mobile, because a slow page
+          caps the ceiling on everything else. Each month you receive a plain-language report:
+          rankings, organic traffic, conversions, and the specific actions queued for the month ahead.
+        </p>
+        <h2>What results look like, and when</h2>
+        <p>
+          For a typical UAE B2B client we plan against a twelve-month curve. The first three months
+          produce technical traction — cleaner indexation, resolved crawl errors, and early movement
+          on low-competition terms. Months four to six bring competitive ranking gains on the mapped
+          target queries. Genuine topical authority, the kind that holds through algorithm updates,
+          accrues across the full year. New domains in competitive sectors such as real estate,
+          fintech, and healthcare sit at the slower end of that range, and we say so in writing before
+          any engagement begins.
+        </p>
+        <h2>Why GEO is urgent in the Gulf specifically</h2>
+        <p>
+          Adoption of AI answer engines — ChatGPT, Perplexity, and Google AI Overviews — has been fast
+          among Gulf professionals, who skew young, mobile-first, and comfortable in English. That
+          makes Generative Engine Optimisation a present-tense concern in the UAE rather than a future
+          one. Our <Link to="/services/seo-geo">SEO and GEO programme</Link> structures entities,
+          schema, and citation-ready prose so these engines can quote your business accurately instead
+          of a competitor.
+        </p>
+        <p>
+          In practice that means maintaining an <code>llms.txt</code> file, marking up entities with
+          Organization and Service schema, and writing answer-shaped passages — a direct claim
+          followed immediately by its supporting evidence — that an extractive model can lift cleanly
+          into a generated response. We then monitor which engines actually cite the site and refine
+          accordingly, because GEO visibility is measurable rather than mystical. The same structured,
+          factual writing that helps an AI engine quote you also helps a human skim-reader and a
+          traditional search crawler, so the work compounds across every surface at once.
+        </p>
+        <h2>Transparent, fixed retainers</h2>
+        <p>
+          We work on fixed-scope monthly retainers with deliverables defined up front. There is no
+          hourly meter, no vague &ldquo;ongoing optimisation&rdquo; line, and no guaranteed-ranking
+          promise — guarantees of that kind are either dishonest or rely on tactics that earn a
+          penalty. You know what we will ship each month, and what it costs, before you sign.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function DubaiSeoAgency() {
   return (
     <Layout>
@@ -211,6 +290,8 @@ function DubaiSeoAgency() {
           </div>
         </motion.div>
       </section>
+
+      <PageExplainer />
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">

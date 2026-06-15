@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   AnimatePresence,
+  useReducedMotion,
 } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
@@ -158,13 +159,6 @@ const faqs = [
 ];
 
 /* ─── Helpers ─────────────────────────────────────────────────────── */
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
-
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -176,6 +170,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 /* ── 3D Tilt Card ─────────────────────────────────────────────────── */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -191,6 +186,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -211,6 +210,21 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 /* ── FAQ Item ─────────────────────────────────────────────────────── */
 function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
+  const prefersReduced = useReducedMotion();
+  const fadeUp = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 28 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-60px" },
+          transition: {
+            duration: 0.65,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
   return (
     <motion.div
       {...fadeUp(index * 0.07)}
@@ -262,6 +276,22 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
 
 /* ─── About Page ─────────────────────────────────────────────────── */
 function About() {
+  const prefersReduced = useReducedMotion();
+  const fadeUp = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 28 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-60px" },
+          transition: {
+            duration: 0.65,
+            delay,
+            type: "tween" as const,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   const { data: seoOverrides } = usePageSeoOverrides();
   useEffect(() => {
     applyPageSeo("about", seoOverrides?.["about"] ?? null, pageSeo.about);
