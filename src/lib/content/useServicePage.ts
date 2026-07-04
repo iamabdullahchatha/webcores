@@ -2,6 +2,7 @@ import { useQuery, type QueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import type { Database } from "@/lib/supabase/types";
 import { readPageSeed } from "./pageSeed";
+import { serviceFallback } from "./seedFallback.generated";
 
 import imgIt1       from "@/assets/it-1.webp";
 import imgCms1      from "@/assets/cms-1.webp";
@@ -31,11 +32,31 @@ export type ServicePage = {
   sections: SectionRow[];
 };
 
+/**
+ * Last-resort content for a service slug, resolved synchronously in every
+ * context. Layered so the DB stays the source of truth while the page never
+ * hard-404s on a transient/empty Supabase response:
+ *
+ *   1. Prerender-inlined seed (`readPageSeed`) — present on the initial
+ *      prerendered page (direct load / refresh) and during build-time SSR.
+ *      Null after client-side SPA navigation, since it belongs to the *initial*
+ *      route only.
+ *   2. Bundled generated seed (`serviceFallback`) — always available, including
+ *      after client-side navigation. This is the safety net that prevents the
+ *      "Service doesn't exist" screen when the live `service_page_content`
+ *      query returns nothing (e.g. the table was never seeded in production)
+ *      or Supabase is unreachable.
+ */
+export function readServiceFallback(slug: string): ServicePage | undefined {
+  return (
+    readPageSeed<ServicePage>(`service:${slug}`) ??
+    (serviceFallback as Record<string, ServicePage | undefined>)[slug] ??
+    undefined
+  );
+}
+
 async function queryFn(slug: string): Promise<ServicePage | null> {
-  // The seed for this slug is inlined into the prerendered page HTML (or set on
-  // globalThis during build SSR). Present on the initial prerendered page; null
-  // after client-side navigation, where a failed Supabase call returns null.
-  const fallback = readPageSeed<ServicePage>(`service:${slug}`) ?? undefined;
+  const fallback = readServiceFallback(slug);
 
   const { data: service, error: svcErr } = await supabase
     .from("services")
@@ -81,7 +102,7 @@ export function useServicePage(slug: string) {
     // Show the seeded content during SSR / first paint so crawlers and users
     // see a real page instead of a skeleton. The live Supabase fetch still
     // runs and replaces this — the DB stays the source of truth.
-    placeholderData: (prev) => prev ?? readPageSeed<ServicePage>(`service:${slug}`) ?? undefined,
+    placeholderData: (prev) => prev ?? readServiceFallback(slug),
     queryFn: () => queryFn(slug),
   });
 }
