@@ -9,19 +9,25 @@ import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { usePageSeoOverrides } from "@/lib/content";
 import { readPageSeed } from "@/lib/content/pageSeed";
 import { supabase } from "@/lib/supabase/client";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/blog/")({
   head: () => getSeoHead("blog"),
   component: BlogIndex,
 });
 
-/* Animation configs — copied verbatim from index.tsx */
-const fadeUp = (delay = 0, duration = 0.65) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+/* Animation configs — copied verbatim from index.tsx.
+   Reduced motion: no animation props — the element renders statically in its
+   final state. */
+const fadeUp = (delay = 0, duration = 0.65, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +46,7 @@ function FaqItem({
 }) {
   const panelId = `blog-faq-panel-${index}`;
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const prefersReduced = useReducedMotion();
 
   const handleToggle = () => {
     const previousTop = buttonRef.current?.getBoundingClientRect().top;
@@ -56,7 +63,7 @@ function FaqItem({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={prefersReduced ? false : { opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
@@ -94,7 +101,7 @@ function FaqItem({
           </div>
           <motion.div
             animate={{ rotate: isOpen ? 45 : 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: prefersReduced ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
             className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
               isOpen ? "gradient-primary" : "bg-primary/10"
             }`}
@@ -108,10 +115,10 @@ function FaqItem({
         {isOpen && (
           <motion.div
             id={panelId}
-            initial={{ height: 0, opacity: 0 }}
+            initial={prefersReduced ? false : { height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            exit={prefersReduced ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: prefersReduced ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
             <div className="pl-18 pr-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-primary/10 pt-4">
@@ -171,9 +178,14 @@ function BlogIndex() {
   }, [seoOverrides]);
 
   const heroRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  // Local alias baking in the reduced-motion preference for this component's
+  // fadeUp call sites.
+  const fade = (delay = 0, duration = 0.65) => fadeUp(delay, duration, prefersReduced);
 
   // Seed with the prerendered post list (inlined into this page's HTML), so
   // SSR/first paint and hydration have real content for crawlers. Resolves to
@@ -226,31 +238,34 @@ function BlogIndex() {
         <GridBackground />
         <FloatingShapes />
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
-          style={{ width: 520, height: 520, background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)" }}
+          style={{ opacity: prefersReduced ? 0.22 : undefined, width: 520, height: 520, background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)" }}
         />
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+        <motion.div
+          style={prefersReduced ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative w-full"
+        >
           <div className="mx-auto max-w-7xl px-4 pt-24 pb-20">
-            <motion.div {...fadeUp()}>
+            <motion.div {...fade()}>
               <SectionLabel>Insights</SectionLabel>
             </motion.div>
             <motion.h1
-              {...fadeUp(0.08)}
+              {...fade(0.08)}
               className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight"
             >
               Insights and{" "}
               <span className="gradient-text">Field Notes</span>
             </motion.h1>
             <motion.p
-              {...fadeUp(0.12)}
+              {...fade(0.12)}
               className="mt-3 text-sm md:text-base font-semibold text-primary/80 tracking-wide"
             >
               Web Development &amp; SEO Blog from Dubai
             </motion.p>
             <motion.p
-              {...fadeUp(0.18)}
+              {...fade(0.18)}
               className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
               The Webcore Solutions blog shares practical insights from our team on web development, SEO, GEO optimization, ecommerce, and scalable digital systems. Our articles are based on real client projects across the UAE, Europe, the UK, the US, and Pakistan — covering performance, search visibility, architecture, and growth strategies that deliver real business results.
@@ -261,7 +276,7 @@ function BlogIndex() {
 
       {/* Search bar */}
       <section className="mx-auto max-w-7xl px-4 pt-10 pb-2">
-        <motion.div {...fadeUp(0.05)} className="max-w-2xl mx-auto">
+        <motion.div {...fade(0.05)} className="max-w-2xl mx-auto">
           <div className="relative group">
             <Search
               className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors duration-200 group-focus-within:text-primary"
@@ -306,7 +321,7 @@ function BlogIndex() {
             ))}
           </div>
         ) : filteredPosts.length === 0 && query.trim() ? (
-          <motion.div {...fadeUp()} className="text-center py-24">
+          <motion.div {...fade()} className="text-center py-24">
             <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl glass border border-border/40 mb-5">
               <Search className="h-6 w-6 text-muted-foreground" />
             </div>
@@ -323,7 +338,7 @@ function BlogIndex() {
         ) : (
           <div className="grid gap-6 lg:grid-cols-3">
             {filteredPosts.map((post, i) => (
-              <motion.div key={post.id} {...fadeUp(Math.min(i * 0.06, 0.3))}>
+              <motion.div key={post.id} {...fade(Math.min(i * 0.06, 0.3))}>
                 <Link
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
@@ -391,7 +406,7 @@ function BlogIndex() {
           Core Web Vitals, schema, GEO, ecommerce, software architecture) that
           were trimmed from the shortened intro paragraph above. */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
-        <motion.div {...fadeUp()} className="mb-8">
+        <motion.div {...fade()} className="mb-8">
           <SectionLabel>FAQs</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight">
             Common questions about the{" "}
@@ -399,7 +414,7 @@ function BlogIndex() {
           </h2>
         </motion.div>
 
-        <motion.div {...fadeUp(0.1)} className="space-y-3">
+        <motion.div {...fade(0.1)} className="space-y-3">
           {BLOG_FAQS.map((f, i) => (
             <FaqItem
               key={f.q}

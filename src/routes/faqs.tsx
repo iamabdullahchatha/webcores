@@ -11,6 +11,7 @@ import {
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { getSeoHead, applyPageSeo, pageSeo } from "@/lib/seo";
 import { usePageSeoOverrides } from "@/lib/content";
 import {
@@ -124,12 +125,17 @@ const heroPills = [
 ];
 
 /* ─── Helpers ──────────────────────────────────────────────────────── */
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+// Reduced motion: no animation props — the element renders statically in its
+// final state.
+const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -142,6 +148,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 /* ── 3D Tilt Card ─────────────────────────────────────────────────── */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -157,6 +164,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -192,6 +203,7 @@ function FaqItem({
 }) {
   const panelId = `faq-panel-${index}`;
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const prefersReduced = useReducedMotion();
   const HeadingTag = headingLevel === 2 ? "h2" : "h3";
 
   const handleToggle = () => {
@@ -209,7 +221,7 @@ function FaqItem({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={prefersReduced ? false : { opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.06, duration: 0.55, type: "tween", ease: [0.22, 1, 0.36, 1] }}
@@ -251,7 +263,7 @@ function FaqItem({
           </div>
           <motion.div
             animate={{ rotate: isOpen ? 45 : 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: prefersReduced ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
             className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
               isOpen ? "gradient-primary" : "bg-primary/10"
             }`}
@@ -267,10 +279,10 @@ function FaqItem({
         {isOpen && (
           <motion.div
             id={panelId}
-            initial={{ height: 0, opacity: 0 }}
+            initial={prefersReduced ? false : { height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            exit={prefersReduced ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: prefersReduced ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
             <div className="pl-18 pr-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-primary/10 pt-4">
@@ -331,6 +343,7 @@ function CategoryTab({
 
 /* ─── Main Component ───────────────────────────────────────────────── */
 function FAQs() {
+  const prefersReduced = useReducedMotion();
   const { data: seoOverrides } = usePageSeoOverrides();
   useEffect(() => {
     applyPageSeo("faqs", seoOverrides?.["faqs"] ?? null, pageSeo.faqs);
@@ -366,31 +379,36 @@ function FAQs() {
         <FloatingShapes />
 
         <motion.div
-          animate={{ scale: [1, 1.18, 1], opacity: [0.2, 0.45, 0.2] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.18, 1], opacity: [0.2, 0.45, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-8 right-12 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.2 : undefined,
             width: 480,
             height: 480,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
-          animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.25, 0.1] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.25, 1], opacity: [0.1, 0.25, 0.1] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
           className="absolute bottom-0 left-4 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.1 : undefined,
             width: 320,
             height: 320,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+        <motion.div
+          style={prefersReduced ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative w-full"
+        >
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
             <div className="flex flex-col items-center text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
@@ -400,7 +418,7 @@ function FAQs() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 32 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
@@ -409,7 +427,7 @@ function FAQs() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
@@ -426,7 +444,7 @@ function FAQs() {
 
               {/* Colored pills matching index.tsx pattern */}
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
                 className="mt-8 flex flex-wrap justify-center gap-3"
@@ -444,7 +462,7 @@ function FAQs() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={prefersReduced ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="mt-10"
@@ -472,7 +490,7 @@ function FAQs() {
                 <motion.button
                   type="button"
                   onClick={() => handleCategoryChange(activeCategory === i ? null : i)}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={prefersReduced ? false : { opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{
@@ -481,7 +499,7 @@ function FAQs() {
                     type: "tween",
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  whileHover={{ y: -5 }}
+                  whileHover={prefersReduced ? undefined : { y: -5 }}
                   className={`group w-full glass rounded-2xl px-5 py-5 text-center cursor-pointer hover:shadow-glow transition-all duration-300 relative overflow-hidden ${
                     activeCategory === i
                       ? "border border-primary/30 shadow-glow"
@@ -524,7 +542,10 @@ function FAQs() {
 
       {/* ══════════════════ CATEGORY TABS ══════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pt-10 pb-6">
-        <motion.div {...fadeUp()} className="flex flex-wrap items-center gap-3 justify-center">
+        <motion.div
+          {...fadeUp(0, prefersReduced)}
+          className="flex flex-wrap items-center gap-3 justify-center"
+        >
           <button
             type="button"
             aria-pressed={activeCategory === null}
@@ -553,9 +574,9 @@ function FAQs() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory ?? "all"}
-            initial={{ opacity: 0, y: 12 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            exit={prefersReduced ? undefined : { opacity: 0, y: -8 }}
             transition={{ duration: 0.3 }}
             className="space-y-8"
           >
@@ -607,23 +628,25 @@ function FAQs() {
       {/* ══════════════════ BOTTOM CTA ══════════════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-24">
         <motion.div
-          {...fadeUp(0.1)}
+          {...fadeUp(0.1, prefersReduced)}
           className="relative glass rounded-3xl p-10 md:p-14 overflow-hidden text-center"
         >
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.15 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
           <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.1 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
             }}
           />

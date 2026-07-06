@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function FloatingShapes() {
+  const prefersReduced = useReducedMotion();
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Glowing orbs */}
@@ -10,7 +12,7 @@ export function FloatingShapes() {
       {/* 3D floating cube */}
       <motion.div
         className="absolute top-20 right-[10%] perspective"
-        animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
+        animate={prefersReduced ? undefined : { y: [0, -20, 0], rotate: [0, 8, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="relative h-24 w-24 transform-3d animate-spin-slow" style={{ transform: "rotateX(45deg) rotateY(45deg)" }}>
@@ -22,7 +24,7 @@ export function FloatingShapes() {
       {/* Sphere */}
       <motion.div
         className="absolute top-[40%] left-[8%]"
-        animate={{ y: [0, 25, 0] }}
+        animate={prefersReduced ? undefined : { y: [0, 25, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="h-20 w-20 rounded-full gradient-primary shadow-glow opacity-90"
@@ -32,7 +34,7 @@ export function FloatingShapes() {
       {/* Hex */}
       <motion.div
         className="absolute bottom-[20%] right-[20%]"
-        animate={{ rotate: 360 }}
+        animate={prefersReduced ? undefined : { rotate: 360 }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
         <div className="h-16 w-16 gradient-primary opacity-70"
@@ -40,7 +42,7 @@ export function FloatingShapes() {
       </motion.div>
 
       {/* Particles */}
-      {Array.from({ length: 20 }).map((_, i) => (
+      {!prefersReduced && Array.from({ length: 20 }).map((_, i) => (
         <motion.div
           key={i}
           className="absolute h-1.5 w-1.5 rounded-full bg-primary/60"

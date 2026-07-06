@@ -1,18 +1,22 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-export const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: "-60px" },
-  transition:  {
-    duration: 0.65,
-    delay,
-    type: "tween" as const,
-    ease: [0.22, 1, 0.36, 1] as const,
-  },
-});
+export const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial:     { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport:    { once: true, margin: "-60px" },
+        transition:  {
+          duration: 0.65,
+          delay,
+          type: "tween" as const,
+          ease: [0.22, 1, 0.36, 1] as const,
+        },
+      };
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -58,9 +62,10 @@ export function Card3D({ children, className = "" }: { children: React.ReactNode
 
 export function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
+  const prefersReduced = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={prefersReduced ? false : { opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{
@@ -83,7 +88,7 @@ export function FaqItem({ q, a, index }: { q: string; a: string; index: number }
         <span className="font-semibold text-sm md:text-base pr-4 leading-snug">{q}</span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+          transition={{ duration: prefersReduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] as const }}
           className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-all duration-200 ${open ? "gradient-primary" : "bg-primary/10 hover:bg-primary/15"}`}
         >
           <ChevronDown className={`h-4 w-4 ${open ? "text-primary-foreground" : "text-primary"}`} />
@@ -92,10 +97,10 @@ export function FaqItem({ q, a, index }: { q: string; a: string; index: number }
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            initial={prefersReduced ? false : { height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] as const }}
+            exit={prefersReduced ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: prefersReduced ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] as const }}
             className="overflow-hidden"
           >
             <div className="px-6 pb-5 pt-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30">

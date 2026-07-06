@@ -6,6 +6,7 @@ import type { Easing } from "framer-motion";
 import logoWebp from "@/assets/logo.webp";
 import logoPng from "@/assets/logo.png";
 import { useSiteSettings } from "@/lib/content";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const services = [
   { name: "IT Consultation", to: "/services/it-consultation" },
@@ -59,6 +60,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
+  const reducedMotion = useReducedMotion();
   const { data: settings } = useSiteSettings();
   const customLogoUrl = settings?.logoUrl;
   const logoAlt = settings?.logoAlt ?? "Webcore Solutions";
@@ -81,7 +83,7 @@ export function Header() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={reducedMotion ? false : { y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -148,7 +150,7 @@ export function Header() {
                 className="relative"
                 custom={index}
                 variants={navItemVariants}
-                initial="hidden"
+                initial={reducedMotion ? "visible" : "hidden"}
                 animate="visible"
                 onMouseEnter={() => item.dropdown && setDrop(true)}
                 onMouseLeave={() => item.dropdown && setDrop(false)}
@@ -171,7 +173,10 @@ export function Header() {
                 >
                   {item.name}
                   {item.dropdown && (
-                    <motion.div animate={{ rotate: drop ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                    <motion.div
+                      animate={{ rotate: drop ? 180 : 0 }}
+                      transition={{ duration: reducedMotion ? 0 : 0.2 }}
+                    >
                       <ChevronDown className="h-3.5 w-3.5" />
                     </motion.div>
                   )}
@@ -183,9 +188,9 @@ export function Header() {
                   {item.dropdown && drop && (
                     <motion.div
                       variants={dropdownVariants}
-                      initial="hidden"
+                      initial={reducedMotion ? "visible" : "hidden"}
                       animate="visible"
-                      exit="exit"
+                      exit={reducedMotion ? undefined : "exit"}
                       className="absolute top-full left-0 mt-3 w-64 rounded-xl p-2 shadow-elegant"
                       style={{
                         backdropFilter: "blur(48px)",
@@ -197,7 +202,7 @@ export function Header() {
                       {services.map((s, idx) => (
                         <motion.div
                           key={s.name}
-                          initial={{ opacity: 0, x: -8 }}
+                          initial={reducedMotion ? false : { opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: idx * 0.04, duration: 0.2 }}
                         >
@@ -219,8 +224,8 @@ export function Header() {
           {/* CTA and Mobile Menu Button */}
           <div className="flex items-center gap-3">
             <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={reducedMotion ? undefined : { scale: 1.03 }}
+              whileTap={reducedMotion ? undefined : { scale: 0.97 }}
               className="hidden md:block"
             >
               <Link
@@ -244,9 +249,9 @@ export function Header() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={open ? "close" : "menu"}
-                  initial={{ rotate: -90, opacity: 0 }}
+                  initial={reducedMotion ? false : { rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
+                  exit={reducedMotion ? undefined : { rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -261,9 +266,9 @@ export function Header() {
           {open && (
             <motion.div
               variants={mobileMenuVariants}
-              initial="hidden"
+              initial={reducedMotion ? "visible" : "hidden"}
               animate="visible"
-              exit="exit"
+              exit={reducedMotion ? undefined : "exit"}
               className="lg:hidden mt-2 rounded-2xl overflow-hidden"
               style={{
                 backdropFilter: "blur(64px)",
@@ -281,7 +286,7 @@ export function Header() {
                 {nav.map((item, index) => (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={reducedMotion ? false : { opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05, duration: 0.2 }}
                   >
@@ -300,7 +305,7 @@ export function Header() {
                   </motion.div>
                 ))}
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={reducedMotion ? false : { opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: nav.length * 0.05, duration: 0.2 }}
                   className="mt-2 pt-2 border-t border-primary/10"

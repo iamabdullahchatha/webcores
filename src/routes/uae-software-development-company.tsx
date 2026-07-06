@@ -12,6 +12,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/uae-software-development-company")({
   head: () =>
@@ -34,12 +35,15 @@ export const Route = createFileRoute("/uae-software-development-company")({
   component: UaeSoftwareDevelopmentCompany,
 });
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration: 0.6, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 const capabilities = [
   {
@@ -166,6 +170,7 @@ function PageExplainer() {
 }
 
 function UaeSoftwareDevelopmentCompany() {
+  const prefersReduced = useReducedMotion();
   return (
     <Layout>
       {/* HERO */}
@@ -176,7 +181,7 @@ function UaeSoftwareDevelopmentCompany() {
 
         <div className="relative mx-auto max-w-5xl px-4 pt-20 pb-20 md:pt-24 md:pb-24">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.55 }}
             className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
@@ -186,7 +191,7 @@ function UaeSoftwareDevelopmentCompany() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, type: "tween", ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
@@ -195,7 +200,7 @@ function UaeSoftwareDevelopmentCompany() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
@@ -206,7 +211,7 @@ function UaeSoftwareDevelopmentCompany() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
             className="mt-8 flex flex-wrap gap-3"
@@ -230,7 +235,7 @@ function UaeSoftwareDevelopmentCompany() {
 
       {/* CAPABILITIES */}
       <section className="mx-auto max-w-6xl px-4 py-20">
-        <motion.div {...fadeUp()} className="max-w-2xl mb-12">
+        <motion.div {...fadeUp(0, prefersReduced)} className="max-w-2xl mb-12">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
             What our UAE software team delivers
           </p>
@@ -243,7 +248,7 @@ function UaeSoftwareDevelopmentCompany() {
           {capabilities.map((c, i) => (
             <motion.div
               key={c.title}
-              {...fadeUp(i * 0.06)}
+              {...fadeUp(i * 0.06, prefersReduced)}
               className="glass rounded-2xl p-6 hover:shadow-glow transition-all duration-300"
             >
               <div
@@ -261,7 +266,7 @@ function UaeSoftwareDevelopmentCompany() {
 
       {/* WHY UAE SOFTWARE BUYERS PICK WEBCORE */}
       <section className="mx-auto max-w-4xl px-4 py-16">
-        <motion.div {...fadeUp()} className="glass rounded-3xl p-8 md:p-12">
+        <motion.div {...fadeUp(0, prefersReduced)} className="glass rounded-3xl p-8 md:p-12">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
             Why UAE businesses pick Webcore Solutions for software
           </p>
@@ -295,7 +300,7 @@ function UaeSoftwareDevelopmentCompany() {
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">
-        <motion.div {...fadeUp()} className="relative glass rounded-3xl p-10 md:p-12 text-center overflow-hidden">
+        <motion.div {...fadeUp(0, prefersReduced)} className="relative glass rounded-3xl p-10 md:p-12 text-center overflow-hidden">
           <div className="absolute inset-0 gradient-primary opacity-[0.05] pointer-events-none" />
           <div className="relative">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">

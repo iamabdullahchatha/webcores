@@ -12,6 +12,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/webcore-solutions-dubai")({
   head: () =>
@@ -34,12 +35,15 @@ export const Route = createFileRoute("/webcore-solutions-dubai")({
   component: WebcoreSolutionsDubai,
 });
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration: 0.6, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 const credibilityPoints = [
   {
@@ -149,6 +153,7 @@ function PageExplainer() {
 }
 
 function WebcoreSolutionsDubai() {
+  const prefersReduced = useReducedMotion();
   return (
     <Layout>
       {/* HERO */}
@@ -159,7 +164,7 @@ function WebcoreSolutionsDubai() {
 
         <div className="relative mx-auto max-w-5xl px-4 pt-20 pb-20 md:pt-24 md:pb-24">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.55 }}
             className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
@@ -169,7 +174,7 @@ function WebcoreSolutionsDubai() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, type: "tween", ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
@@ -178,7 +183,7 @@ function WebcoreSolutionsDubai() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
@@ -188,7 +193,7 @@ function WebcoreSolutionsDubai() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
             className="mt-8 flex flex-wrap gap-3"
@@ -212,7 +217,7 @@ function WebcoreSolutionsDubai() {
 
       {/* CREDIBILITY GRID */}
       <section className="mx-auto max-w-6xl px-4 py-20">
-        <motion.div {...fadeUp()} className="max-w-2xl mb-12">
+        <motion.div {...fadeUp(0, prefersReduced)} className="max-w-2xl mb-12">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
             The Dubai facts
           </p>
@@ -225,7 +230,7 @@ function WebcoreSolutionsDubai() {
           {credibilityPoints.map((p, i) => (
             <motion.div
               key={p.title}
-              {...fadeUp(i * 0.08)}
+              {...fadeUp(i * 0.08, prefersReduced)}
               className="glass rounded-2xl p-6 hover:shadow-glow transition-all duration-300"
             >
               <div
@@ -244,7 +249,7 @@ function WebcoreSolutionsDubai() {
       {/* DISAMBIGUATION */}
       <section className="mx-auto max-w-4xl px-4 py-16">
         <motion.div
-          {...fadeUp()}
+          {...fadeUp(0, prefersReduced)}
           className="glass rounded-3xl p-8 md:p-12 border-l-4 border-primary"
         >
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -289,7 +294,7 @@ function WebcoreSolutionsDubai() {
 
       {/* WHAT WE DO IN DUBAI */}
       <section className="mx-auto max-w-6xl px-4 py-20">
-        <motion.div {...fadeUp()} className="max-w-2xl mb-10">
+        <motion.div {...fadeUp(0, prefersReduced)} className="max-w-2xl mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
             What Webcore Solutions delivers from Dubai
           </p>
@@ -307,7 +312,7 @@ function WebcoreSolutionsDubai() {
             { name: "Brand identity and graphic design", to: "/services/graphic-design" },
             { name: "IT consultation and technology advisory", to: "/services/it-consultation" },
           ].map((item, i) => (
-            <motion.div key={item.to} {...fadeUp(i * 0.05)}>
+            <motion.div key={item.to} {...fadeUp(i * 0.05, prefersReduced)}>
               <Link
                 to={item.to}
                 className="group flex items-center justify-between gap-3 glass rounded-xl px-5 py-4 hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5"
@@ -327,7 +332,7 @@ function WebcoreSolutionsDubai() {
 
       {/* CTA */}
       <section className="mx-auto max-w-4xl px-4 py-16 pb-24">
-        <motion.div {...fadeUp()} className="relative glass rounded-3xl p-10 md:p-12 text-center overflow-hidden">
+        <motion.div {...fadeUp(0, prefersReduced)} className="relative glass rounded-3xl p-10 md:p-12 text-center overflow-hidden">
           <div className="absolute inset-0 gradient-primary opacity-[0.05] pointer-events-none" />
           <div className="relative">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">

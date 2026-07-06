@@ -6,8 +6,8 @@ import {
   useMotionValue,
   useSpring,
   AnimatePresence,
-  useReducedMotion,
 } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import type { CSSProperties, ChangeEvent, FormEvent, ReactNode } from "react";
 
@@ -234,16 +234,17 @@ function TiltCard({ children, className = "" }: { children: ReactNode; className
 /* ──────────────────────────────────────────────────────────────────── */
 
 function SuccessState({ onReset }: { onReset: () => void }) {
+  const prefersReduced = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
+      initial={prefersReduced ? false : { opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.92 }}
+      exit={prefersReduced ? undefined : { opacity: 0, scale: 0.92 }}
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center justify-center py-16 px-8 text-center h-full min-h-105"
     >
       <motion.div
-        initial={{ scale: 0, rotate: -20 }}
+        initial={prefersReduced ? false : { scale: 0, rotate: -20 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{
           delay: 0.15,
@@ -256,10 +257,14 @@ function SuccessState({ onReset }: { onReset: () => void }) {
         style={{ background: "rgba(16,185,129,0.12)" }}
       >
         <motion.div
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.4, 0, 0.4],
-          }}
+          animate={
+            prefersReduced
+              ? undefined
+              : {
+                  scale: [1, 1.5, 1],
+                  opacity: [0.4, 0, 0.4],
+                }
+          }
           transition={{
             duration: 2.5,
             repeat: Infinity,
@@ -273,7 +278,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.28, duration: 0.5 }}
       >
@@ -295,7 +300,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 8 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.45, duration: 0.45 }}
         className="mt-8 flex flex-wrap justify-center gap-3"
@@ -329,7 +334,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       </motion.div>
 
       <motion.button
-        initial={{ opacity: 0 }}
+        initial={prefersReduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
         onClick={onReset}
@@ -347,6 +352,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 
 function ServiceDropdown({ id, value, onChange }: { id?: string; value: string; onChange: (val: string) => void }) {
   const [open, setOpen] = useState(false);
+  const prefersReduced = useReducedMotion();
 
   const selected = services.find((s) => s.value === value);
 
@@ -375,7 +381,7 @@ function ServiceDropdown({ id, value, onChange }: { id?: string; value: string; 
 
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: prefersReduced ? 0 : 0.2 }}
           className="shrink-0 text-muted-foreground"
         >
           <ChevronDown className="h-4 w-4" />
@@ -385,21 +391,29 @@ function ServiceDropdown({ id, value, onChange }: { id?: string; value: string; 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{
-              opacity: 0,
-              y: -6,
-              scale: 0.98,
-            }}
+            initial={
+              prefersReduced
+                ? false
+                : {
+                    opacity: 0,
+                    y: -6,
+                    scale: 0.98,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
               scale: 1,
             }}
-            exit={{
-              opacity: 0,
-              y: -6,
-              scale: 0.98,
-            }}
+            exit={
+              prefersReduced
+                ? undefined
+                : {
+                    opacity: 0,
+                    y: -6,
+                    scale: 0.98,
+                  }
+            }
             transition={{ duration: 0.18 }}
             className="absolute z-50 left-0 right-0 mt-2 rounded-2xl overflow-hidden shadow-2xl border border-border/30"
             style={{
@@ -416,7 +430,7 @@ function ServiceDropdown({ id, value, onChange }: { id?: string; value: string; 
                   <motion.button
                     key={s.value}
                     type="button"
-                    initial={{ opacity: 0, x: -6 }}
+                    initial={prefersReduced ? false : { opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
                       delay: i * 0.03,
@@ -480,6 +494,7 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const prefersReduced = useReducedMotion();
 
   const [form, setForm] = useState({
     name: "",
@@ -562,9 +577,9 @@ function ContactForm() {
         ) : (
           <motion.div
             key="form"
-            initial={{ opacity: 0 }}
+            initial={prefersReduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={prefersReduced ? undefined : { opacity: 0 }}
             className="p-8 md:p-10"
           >
             <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
@@ -691,9 +706,13 @@ function ContactForm() {
                   {loading && (
                     <motion.div
                       className="absolute inset-0 bg-white/10"
-                      animate={{
-                        x: ["-100%", "100%"],
-                      }}
+                      animate={
+                        prefersReduced
+                          ? undefined
+                          : {
+                              x: ["-100%", "100%"],
+                            }
+                      }
                       transition={{
                         duration: 0.9,
                         repeat: Infinity,
@@ -828,10 +847,14 @@ function Contact() {
         <FloatingShapes />
 
         <motion.div
-          animate={{
-            scale: [1, 1.18, 1],
-            opacity: [0.2, 0.45, 0.2],
-          }}
+          animate={
+            prefersReduced
+              ? undefined
+              : {
+                  scale: [1, 1.18, 1],
+                  opacity: [0.2, 0.45, 0.2],
+                }
+          }
           transition={{
             duration: 10,
             repeat: Infinity,
@@ -839,6 +862,7 @@ function Contact() {
           }}
           className="absolute top-8 right-12 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.2 : undefined,
             width: 480,
             height: 480,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
@@ -846,10 +870,14 @@ function Contact() {
         />
 
         <motion.div
-          animate={{
-            scale: [1, 1.25, 1],
-            opacity: [0.1, 0.25, 0.1],
-          }}
+          animate={
+            prefersReduced
+              ? undefined
+              : {
+                  scale: [1, 1.25, 1],
+                  opacity: [0.1, 0.25, 0.1],
+                }
+          }
           transition={{
             duration: 14,
             repeat: Infinity,
@@ -858,6 +886,7 @@ function Contact() {
           }}
           className="absolute bottom-0 left-4 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.1 : undefined,
             width: 320,
             height: 320,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
@@ -865,16 +894,20 @@ function Contact() {
         />
 
         <motion.div
-          style={{
-            y: heroY,
-            opacity: heroOpacity,
-          }}
+          style={
+            prefersReduced
+              ? undefined
+              : {
+                  y: heroY,
+                  opacity: heroOpacity,
+                }
+          }
           className="relative w-full"
         >
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
             <div className="flex flex-col items-center text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
                   duration: 0.5,
@@ -887,7 +920,7 @@ function Contact() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 32 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.85 }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
@@ -896,7 +929,7 @@ function Contact() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.6,
@@ -909,7 +942,7 @@ function Contact() {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
@@ -1097,10 +1130,14 @@ function Contact() {
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
 
           <motion.div
-            animate={{
-              scale: [1, 1.15, 1],
-              opacity: [0.15, 0.3, 0.15],
-            }}
+            animate={
+              prefersReduced
+                ? undefined
+                : {
+                    scale: [1, 1.15, 1],
+                    opacity: [0.15, 0.3, 0.15],
+                  }
+            }
             transition={{
               duration: 8,
               repeat: Infinity,
@@ -1108,6 +1145,7 @@ function Contact() {
             }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.15 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />

@@ -5,8 +5,8 @@ import {
   useTransform,
   useMotionValue,
   useSpring,
-  useReducedMotion,
 } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useRef, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
@@ -178,10 +178,11 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 
 /* ─── Service Card ──────────────────────────────────────────────────── */
 function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
+  const prefersReduced = useReducedMotion();
   return (
     <TiltCard className="h-full">
       <motion.div
-        initial={{ opacity: 0, y: 36 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 36 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ delay: i * 0.08, duration: 0.6, type: "tween", ease: [0.22, 1, 0.36, 1] }}
@@ -330,31 +331,36 @@ function Services() {
         <FloatingShapes />
 
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.25 : undefined,
             width: 500,
             height: 500,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-8 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.12 : undefined,
             width: 300,
             height: 300,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+        <motion.div
+          style={prefersReduced ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative w-full"
+        >
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-28 md:pt-24 md:pb-32">
             <div className="flex flex-col items-center text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
@@ -364,7 +370,7 @@ function Services() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 32 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
@@ -373,7 +379,7 @@ function Services() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
@@ -386,7 +392,7 @@ function Services() {
 
               {/* Per-service colored pills */}
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
                 className="mt-8 flex flex-wrap justify-center gap-2.5"
@@ -404,7 +410,7 @@ function Services() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={prefersReduced ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="mt-10"
@@ -430,7 +436,7 @@ function Services() {
             {stats.map((s, i) => (
               <TiltCard key={s.l}>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={prefersReduced ? false : { opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{
@@ -439,7 +445,7 @@ function Services() {
                     type: "tween",
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  whileHover={{ y: -5 }}
+                  whileHover={prefersReduced ? undefined : { y: -5 }}
                   className="group glass rounded-2xl px-5 py-5 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
                 >
                   {/* Color wash on hover */}
@@ -499,18 +505,20 @@ function Services() {
         >
           <div className="absolute inset-0 gradient-primary opacity-[0.04] rounded-3xl pointer-events-none" />
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-60 w-60 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.15 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
           <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.1 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
             }}
           />

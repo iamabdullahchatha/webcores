@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export type ServicePageProps = {
   eyebrow: string;
@@ -20,6 +21,7 @@ export type ServicePageProps = {
 
 export function ServicePage(p: ServicePageProps) {
   const Icon = p.icon;
+  const prefersReduced = useReducedMotion();
   return (
     <Layout>
       {/* HERO */}
@@ -29,7 +31,7 @@ export function ServicePage(p: ServicePageProps) {
         <FloatingShapes />
         <div className="relative mx-auto max-w-6xl px-4 py-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
@@ -58,7 +60,7 @@ export function ServicePage(p: ServicePageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.6, rotate: -10 }}
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.6, rotate: -10 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8 }}
             className="absolute right-8 top-20 hidden lg:block"
@@ -83,11 +85,11 @@ export function ServicePage(p: ServicePageProps) {
           {p.features.map((f, i) => (
             <motion.div
               key={f.t}
-              initial={{ opacity: 0, y: 30 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              whileHover={{ y: -6 }}
+              whileHover={prefersReduced ? undefined : { y: -6 }}
               className="glass rounded-3xl p-7 hover:shadow-glow transition-shadow"
             >
               <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center mb-4">
@@ -103,7 +105,7 @@ export function ServicePage(p: ServicePageProps) {
       {/* DELIVERABLES + TECH */}
       <section className="mx-auto max-w-7xl px-4 py-20 grid md:grid-cols-2 gap-10">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={prefersReduced ? false : { opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           className="glass rounded-3xl p-8"
@@ -122,7 +124,7 @@ export function ServicePage(p: ServicePageProps) {
 
         {p.tech && (
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={prefersReduced ? false : { opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="glass rounded-3xl p-8"
@@ -154,7 +156,7 @@ export function ServicePage(p: ServicePageProps) {
           {p.process.map((step, i) => (
             <motion.div
               key={step.n}
-              initial={{ opacity: 0, y: 30 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
@@ -182,7 +184,7 @@ export function ServicePage(p: ServicePageProps) {
             {p.faqs.map((f, i) => (
               <motion.div
                 key={f.q}
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}

@@ -6,18 +6,24 @@ import { Shield, Mail, Phone, ArrowRight, MapPin } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => getSeoHead("privacyPolicy"),
   component: PrivacyPolicy,
 });
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+// Reduced motion: return no animation props at all — the element renders
+// statically in its final state (opacity 1, no offset).
+const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -37,9 +43,10 @@ function Section({
   index: number;
   children: React.ReactNode;
 }) {
+  const reducedMotion = useReducedMotion();
   return (
     <motion.section
-      {...fadeUp(index * 0.05)}
+      {...fadeUp(index * 0.05, reducedMotion)}
       className="relative glass rounded-3xl p-8 md:p-10 overflow-hidden group"
     >
       <div
@@ -59,6 +66,7 @@ function Section({
 
 function PrivacyPolicy() {
   const heroRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
@@ -72,31 +80,36 @@ function PrivacyPolicy() {
         <FloatingShapes />
 
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
+          animate={reducedMotion ? undefined : { scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
           style={{
+            opacity: reducedMotion ? 0.25 : undefined,
             width: 500,
             height: 500,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
+          animate={reducedMotion ? undefined : { scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-8 rounded-full pointer-events-none"
           style={{
+            opacity: reducedMotion ? 0.12 : undefined,
             width: 300,
             height: 300,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+        <motion.div
+          style={reducedMotion ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative w-full"
+        >
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-24 md:pt-24 md:pb-28">
             <div className="flex flex-col items-center text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={reducedMotion ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
@@ -106,7 +119,7 @@ function PrivacyPolicy() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 32 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
@@ -115,7 +128,7 @@ function PrivacyPolicy() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
@@ -125,7 +138,7 @@ function PrivacyPolicy() {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
                 className="mt-8 flex flex-wrap justify-center gap-3"
@@ -391,15 +404,16 @@ function PrivacyPolicy() {
 
         {/* ══════════════════════ CONTACT CARD ═══════════════════════════ */}
         <motion.section
-          {...fadeUp(0.1)}
+          {...fadeUp(0.1, reducedMotion)}
           className="relative glass rounded-3xl p-8 md:p-12 overflow-hidden"
         >
           <div className="absolute inset-0 gradient-primary opacity-[0.04] rounded-3xl pointer-events-none" />
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            animate={reducedMotion ? undefined : { scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-52 w-52 rounded-full pointer-events-none"
             style={{
+              opacity: reducedMotion ? 0.15 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
@@ -470,7 +484,7 @@ function PrivacyPolicy() {
         </motion.section>
 
         {/* Back link */}
-        <motion.div {...fadeUp(0.15)} className="pt-6 text-center">
+        <motion.div {...fadeUp(0.15, reducedMotion)} className="pt-6 text-center">
           <Link
             to="/"
             className="group inline-flex items-center gap-2 text-sm font-semibold text-primary"

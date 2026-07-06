@@ -8,13 +8,14 @@ import {
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { supabase } from "@/lib/supabase/client";
 import { CommandPalette } from "@/components/admin/CommandPalette";
 import { NotificationBell } from "@/components/admin/NotificationBell";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import logo from "@/assets/logo.png";
-import logomark from "@/assets/logo.png"; // collapsed: same asset, shown small
+import logo from "@/assets/logo.webp";
+import logomark from "@/assets/logo.webp"; // collapsed: same asset, shown small
 
 type NavEntry = {
   label: string;
@@ -148,6 +149,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   const [isCollapsed, setIsCollapsed] = useState(
     () => localStorage.getItem("webcore-sidebar-collapsed") === "true",
   );
+  const prefersReduced = useReducedMotion();
 
   const sidebarWidth = isCollapsed ? "w-16" : "w-60";
 
@@ -344,18 +346,18 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         {mobileOpen && (
           <>
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={prefersReduced ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              exit={prefersReduced ? undefined : { opacity: 0 }}
+              transition={{ duration: prefersReduced ? 0 : 0.2 }}
               className="md:hidden fixed inset-0 bg-foreground/20 backdrop-blur-sm z-40"
               onClick={() => setMobileOpen(false)}
             />
             <motion.aside
-              initial={{ x: -240 }}
+              initial={prefersReduced ? false : { x: -240 }}
               animate={{ x: 0 }}
-              exit={{ x: -240 }}
-              transition={{ type: "tween", duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              exit={prefersReduced ? undefined : { x: -240 }}
+              transition={{ type: "tween", duration: prefersReduced ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="md:hidden fixed left-0 top-0 bottom-0 w-60 bg-card border-r border-border/60 z-50"
             >
               <SidebarBody collapsed={false} onNav={() => setMobileOpen(false)} />

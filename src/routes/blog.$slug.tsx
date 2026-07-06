@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase/client";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { readPageSeed } from "@/lib/content/pageSeed";
 import { blogPostMetaDescriptions } from "@/lib/seo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
@@ -127,12 +128,15 @@ export const Route = createFileRoute("/blog/$slug")({
   component: BlogPost,
 });
 
-const fadeUp = (delay = 0, duration = 0.65) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+const fadeUp = (delay = 0, duration = 0.65, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -216,6 +220,7 @@ function getMentions(tags: string[] | null) {
 }
 
 function BlogPost() {
+  const prefersReduced = useReducedMotion();
   const { slug } = Route.useParams();
   // The prerenderer inlines only this slug's post into the page HTML; read it
   // synchronously so SSR + hydration match. Null on client-side navigation to
@@ -334,6 +339,8 @@ function BlogPost() {
     ...(mentions.length ? { mentions } : {}),
   };
 
+  const fade = (delay = 0) => fadeUp(delay, 0.65, prefersReduced);
+
   return (
     <Layout>
       <script
@@ -367,7 +374,7 @@ function BlogPost() {
           <div className="absolute inset-x-0 bottom-0">
             <div className="mx-auto max-w-3xl px-4 pb-10">
               <motion.h1
-                initial={{ opacity: 0, y: 24 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight"
@@ -380,7 +387,7 @@ function BlogPost() {
       </section>
 
       <article className="mx-auto max-w-3xl px-4 pt-10 pb-24">
-        <motion.div {...fadeUp()}>
+        <motion.div {...fade()}>
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-5">
               {post.tags.map((tag) => (
@@ -414,7 +421,7 @@ function BlogPost() {
         </motion.div>
 
         <motion.div
-          {...fadeUp(0.05)}
+          {...fade(0.05)}
           className="prose prose-webcore max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:no-underline hover:prose-a:underline"
         >
           <ErrorBoundary variant="section" fallbackMessage="Error rendering post content.">
@@ -426,7 +433,7 @@ function BlogPost() {
 
         {/* End CTA — matches service-page CTA style */}
         <motion.div
-          {...fadeUp(0.1)}
+          {...fade(0.1)}
           className="mt-14 relative glass rounded-2xl p-8 overflow-hidden"
           style={{ border: "1px solid color-mix(in oklab, var(--primary) 25%, transparent)" }}
         >
@@ -452,12 +459,12 @@ function BlogPost() {
       {/* Related posts */}
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pb-24">
-          <motion.div {...fadeUp()}>
+          <motion.div {...fade()}>
             <SectionLabel>Keep reading</SectionLabel>
           </motion.div>
           <div className="grid gap-6 lg:grid-cols-3 mt-2">
             {related.map((r, i) => (
-              <motion.div key={r.id} {...fadeUp(Math.min(i * 0.06, 0.2))}>
+              <motion.div key={r.id} {...fade(Math.min(i * 0.06, 0.2))}>
                 <Link
                   to="/blog/$slug"
                   params={{ slug: r.slug }}

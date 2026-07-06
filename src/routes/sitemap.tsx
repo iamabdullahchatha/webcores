@@ -22,18 +22,24 @@ import {
 import { Layout } from "@/components/Layout";
 import { FloatingShapes, GridBackground } from "@/components/Scene3D";
 import { getSeoHead } from "@/lib/seo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/sitemap")({
   head: () => getSeoHead("sitemapHtml"),
   component: SitemapPage,
 });
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
-});
+// Reduced motion: no animation props — the element renders statically in its
+// final state.
+const fadeUp = (delay = 0, reducedMotion = false) =>
+  reducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-60px" },
+        transition: { duration: 0.65, delay, type: "tween" as const, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -46,6 +52,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 /* 3D Tilt Card (matches About / Home page pattern) */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const prefersReduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -61,6 +68,10 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
     },
     [x, y],
   );
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -232,10 +243,11 @@ const locationPages: SitemapEntry[] = [
 ];
 
 function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
+  const prefersReduced = useReducedMotion();
   return (
     <TiltCard>
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{
@@ -244,7 +256,7 @@ function SitemapCard({ entry, index }: { entry: SitemapEntry; index: number }) {
           type: "tween",
           ease: [0.22, 1, 0.36, 1],
         }}
-        whileHover={{ y: -6 }}
+        whileHover={prefersReduced ? undefined : { y: -6 }}
         className="h-full"
       >
         <div className="group relative glass rounded-2xl p-5 flex items-start gap-4 hover:shadow-glow transition-all duration-300 overflow-hidden h-full">
@@ -300,8 +312,9 @@ function SitemapGroup({
   delay: number;
   columns?: 1 | 2;
 }) {
+  const prefersReduced = useReducedMotion();
   return (
-    <motion.section {...fadeUp(delay)} className="mb-14">
+    <motion.section {...fadeUp(delay, prefersReduced)} className="mb-14">
       <h2 className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-bold uppercase tracking-widest text-primary mb-4">
         <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
         {title}
@@ -316,6 +329,7 @@ function SitemapGroup({
 }
 
 function SitemapPage() {
+  const prefersReduced = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
@@ -333,31 +347,36 @@ function SitemapPage() {
         <FloatingShapes />
 
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-10 right-16 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.25 : undefined,
             width: 500,
             height: 500,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
           }}
         />
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
+          animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.12, 0.28, 0.12] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
           className="absolute bottom-0 left-8 rounded-full pointer-events-none"
           style={{
+            opacity: prefersReduced ? 0.12 : undefined,
             width: 300,
             height: 300,
             background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 12%, transparent) 0%, transparent 70%)",
           }}
         />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+        <motion.div
+          style={prefersReduced ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative w-full"
+        >
           <div className="mx-auto max-w-7xl px-4 pt-20 pb-24 md:pt-24 md:pb-28">
             <div className="flex flex-col items-center text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
@@ -367,7 +386,7 @@ function SitemapPage() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 32 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, type: "tween", ease: [0.22, 1, 0.36, 1] }}
                 className="text-5xl md:text-6xl font-bold leading-[1.06] tracking-tight"
@@ -378,7 +397,7 @@ function SitemapPage() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 16 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, type: "tween", ease: "easeOut" }}
                 className="mt-7 text-lg text-muted-foreground leading-relaxed max-w-xl"
@@ -388,7 +407,7 @@ function SitemapPage() {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45, type: "tween", ease: "easeOut" }}
                 className="mt-8 flex flex-wrap justify-center gap-3"
@@ -423,7 +442,10 @@ function SitemapPage() {
 
       {/* ══════════════════════ INTRO PARAGRAPH ══════════════════════════ */}
       <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
-        <motion.p {...fadeUp()} className="text-base text-muted-foreground leading-relaxed">
+        <motion.p
+          {...fadeUp(0, prefersReduced)}
+          className="text-base text-muted-foreground leading-relaxed"
+        >
           Use this sitemap to quickly navigate to any section of the Webcore Solutions website.
           Whether you're looking for our core services, recent blog articles, or contact
           information, every page is listed and linked here for your convenience. Every page on this
@@ -436,23 +458,25 @@ function SitemapPage() {
       {/* ══════════════════════ XML SITEMAP CTA ══════════════════════════ */}
       <section className="mx-auto max-w-4xl px-4 pb-28">
         <motion.div
-          {...fadeUp()}
+          {...fadeUp(0, prefersReduced)}
           className="relative glass rounded-3xl p-8 md:p-12 overflow-hidden text-center"
         >
           <div className="absolute inset-0 gradient-primary opacity-[0.05] rounded-3xl pointer-events-none" />
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -right-10 h-52 w-52 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.15 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 70%)",
             }}
           />
           <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
             className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full pointer-events-none"
             style={{
+              opacity: prefersReduced ? 0.1 : undefined,
               background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 15%, transparent) 0%, transparent 70%)",
             }}
           />

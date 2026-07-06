@@ -13,8 +13,9 @@ import {
 } from "lucide-react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import { useSiteSettings } from "@/lib/content/useSiteSettings";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /* ─── Data ─────────────────────────────────────────────────────────── */
 const services = [
@@ -39,6 +40,8 @@ const SOCIAL_COLORS = { LinkedIn: "#0A66C2", Facebook: "#1877F2", WhatsApp: "#25
 
 /* ─── Floating Orb ─────────────────────────────────────────────────── */
 function FloatingOrb({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.div
       className="absolute rounded-full pointer-events-none"
@@ -47,9 +50,10 @@ function FloatingOrb({ x, y, size, delay }: { x: string; y: string; size: number
         top: y,
         width: size,
         height: size,
+        opacity: reducedMotion ? 0.5 : undefined,
         background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%)",
       }}
-      animate={{ y: [0, -18, 0], scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
+      animate={reducedMotion ? undefined : { y: [0, -18, 0], scale: [1, 1.08, 1], opacity: [0.5, 0.9, 0.5] }}
       transition={{
         duration: 5 + delay,
         repeat: Infinity,
@@ -74,12 +78,14 @@ function MagneticSocial({
   color: string;
 }) {
   const btnRef = useRef<HTMLAnchorElement>(null);
+  const reducedMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 300, damping: 20 });
   const sy = useSpring(y, { stiffness: 300, damping: 20 });
 
   const handleMouse = (e: React.MouseEvent) => {
+    if (reducedMotion) return;
     const rect = btnRef.current?.getBoundingClientRect();
     if (!rect) return;
     x.set((e.clientX - rect.left - rect.width / 2) * 0.35);
@@ -100,8 +106,8 @@ function MagneticSocial({
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       style={{ x: sx, y: sy }}
-      whileHover={{ scale: 1.15 }}
-      whileTap={{ scale: 0.9 }}
+      whileHover={reducedMotion ? undefined : { scale: 1.15 }}
+      whileTap={reducedMotion ? undefined : { scale: 0.9 }}
       className="relative group flex items-center justify-center w-10 h-10 rounded-2xl glass overflow-hidden"
     >
       <motion.div
@@ -114,7 +120,7 @@ function MagneticSocial({
         style={{ background: color }}
         initial={{ scaleX: 0 }}
         whileHover={{ scaleX: 1 }}
-        transition={{ duration: 0.25, type: "tween", ease: "easeOut" }}
+        transition={reducedMotion ? { duration: 0 } : { duration: 0.25, type: "tween", ease: "easeOut" }}
       />
     </motion.a>
   );
@@ -162,6 +168,7 @@ const tickerItems = [
 ];
 
 function Ticker() {
+  const reducedMotion = useReducedMotion();
   const items = [...tickerItems, ...tickerItems];
   return (
     <div className="relative overflow-hidden py-3 border-y border-border/30 my-10">
@@ -169,7 +176,7 @@ function Ticker() {
       <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-linear-to-l from-background to-transparent pointer-events-none" />
       <motion.div
         className="flex gap-8 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
+        animate={reducedMotion ? undefined : { x: ["0%", "-50%"] }}
         transition={{ duration: 22, repeat: Infinity, repeatType: "loop", ease: "linear" }}
       >
         {items.map((item, i) => (
@@ -192,9 +199,13 @@ export function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const { data: settings } = useSiteSettings();
+  const reducedMotion = useReducedMotion();
 
   const show = { opacity: 1, y: 0 };
-  const hidden = { opacity: 0, y: 28 };
+  // Reduced motion: entrance blocks start (and stay) in their final state —
+  // every `initial={hidden} animate={inView ? show : hidden}` below becomes
+  // a no-op transition from `show` to `show`.
+  const hidden = reducedMotion ? show : { opacity: 0, y: 28 };
 
   const socials = [
     {
@@ -252,9 +263,9 @@ export function Footer() {
 
       {/* Top shimmer */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 1.2, type: "tween", ease: "easeOut" }}
+        initial={reducedMotion ? false : { scaleX: 0 }}
+        animate={reducedMotion || inView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={reducedMotion ? { duration: 0 } : { duration: 1.2, type: "tween", ease: "easeOut" }}
         className="relative h-px bg-linear-to-r from-transparent via-primary/60 to-transparent origin-left"
       />
 
@@ -323,7 +334,7 @@ export function Footer() {
                 ))}
               </div>
               <motion.div
-                whileHover={{ x: 4 }}
+                whileHover={reducedMotion ? undefined : { x: 4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-xl glass text-xs text-muted-foreground"
               >
@@ -433,7 +444,7 @@ export function Footer() {
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground/50">
               <motion.span
                 className="inline-block w-1.5 h-1.5 rounded-full bg-primary"
-                animate={{ opacity: [1, 0.3, 1] }}
+                animate={reducedMotion ? undefined : { opacity: [1, 0.3, 1] }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,

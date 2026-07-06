@@ -7,6 +7,7 @@ import type { Database } from "@/lib/supabase/types";
 import { resolveServiceImage } from "@/lib/content/useServicePage";
 import { icon } from "./icons";
 import { fadeUp, SectionLabel, Card3D, FaqItem, TestimonialPhoto } from "./primitives";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type SectionRow = Database["public"]["Tables"]["service_page_content"]["Row"];
 
@@ -15,6 +16,7 @@ type J = Record<string, any>;
 
 /* ─── HERO ───────────────────────────────────────────────────────────── */
 function HeroSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -32,42 +34,45 @@ function HeroSection({ row }: { row: SectionRow }) {
       <FloatingShapes />
 
       <motion.div
-        animate={{ scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
+        animate={prefersReduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.22, 0.45, 0.22] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" as const }}
         className="absolute top-10 right-16 rounded-full pointer-events-none"
         style={{
+          opacity: prefersReduced ? 0.22 : undefined,
           width: 520,
           height: 520,
           background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 14%, transparent) 0%, transparent 70%)",
         }}
       />
       <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.22, 0.1] }}
+        animate={prefersReduced ? undefined : { scale: [1, 1.2, 1], opacity: [0.1, 0.22, 0.1] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
         className="absolute bottom-0 left-12 rounded-full pointer-events-none"
         style={{
+          opacity: prefersReduced ? 0.1 : undefined,
           width: 320,
           height: 320,
           background: "radial-gradient(circle, color-mix(in oklab, var(--primary) 10%, transparent) 0%, transparent 70%)",
         }}
       />
       <motion.div
-        animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
+        animate={prefersReduced ? undefined : { scale: [1, 1.3, 1], opacity: [0.06, 0.14, 0.06] }}
         transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" as const, delay: 1.5 }}
         className="absolute top-1/3 left-1/4 rounded-full pointer-events-none"
         style={{
+          opacity: prefersReduced ? 0.06 : undefined,
           width: 280,
           height: 280,
           background: `radial-gradient(circle, ${glow} 0%, transparent 70%)`,
         }}
       />
 
-      <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full">
+      <motion.div style={prefersReduced ? undefined : { y: heroY, opacity: heroOpacity }} className="relative w-full">
         <div className="mx-auto max-w-7xl px-4 pt-20 pb-32 md:pt-24 md:pb-36">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.88 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.88 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
                   duration: 0.5,
@@ -82,7 +87,7 @@ function HeroSection({ row }: { row: SectionRow }) {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 28 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.8,
@@ -95,7 +100,7 @@ function HeroSection({ row }: { row: SectionRow }) {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 14 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.6,
@@ -109,7 +114,7 @@ function HeroSection({ row }: { row: SectionRow }) {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
@@ -134,7 +139,7 @@ function HeroSection({ row }: { row: SectionRow }) {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
@@ -162,7 +167,7 @@ function HeroSection({ row }: { row: SectionRow }) {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={prefersReduced ? false : { opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.7,
@@ -178,14 +183,14 @@ function HeroSection({ row }: { row: SectionRow }) {
                 return (
                   <motion.div
                     key={s.l}
-                    animate={{ y: [0, -8, 0] }}
+                    animate={prefersReduced ? undefined : { y: [0, -8, 0] }}
                     transition={{
                       duration: 4 + i * 0.7,
                       repeat: Infinity,
                       ease: "easeInOut" as const,
                       delay: i * 0.5,
                     }}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={prefersReduced ? undefined : { scale: 1.05 }}
                     className="group glass border border-border/30 rounded-2xl p-6 text-center cursor-default hover:shadow-glow transition-all duration-300 relative overflow-hidden"
                     style={{ transform: "perspective(600px) rotateY(-4deg) rotateX(2deg)" }}
                   >
@@ -216,6 +221,7 @@ function HeroSection({ row }: { row: SectionRow }) {
 
 /* ─── OVERVIEW ───────────────────────────────────────────────────────── */
 function OverviewSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   const headingMain = (row.heading ?? "").replace(d.heading_accent ?? "", "").trim();
   const glow = d.glow_color ?? "#6366f1";
@@ -225,7 +231,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
     <section className="mx-auto max-w-7xl px-4 pt-14 pb-8">
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={prefersReduced ? false : { opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
@@ -244,7 +250,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
               return (
                 <motion.li
                   key={item.label}
-                  initial={{ opacity: 0, x: -14 }}
+                  initial={prefersReduced ? false : { opacity: 0, x: -14 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.12 + i * 0.09, duration: 0.5, ease: "easeOut" as const }}
@@ -281,7 +287,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
+          initial={prefersReduced ? false : { opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] as const }}
@@ -323,7 +329,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
               />
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={prefersReduced ? false : { opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
@@ -340,7 +346,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.55, duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
@@ -367,7 +373,7 @@ function OverviewSection({ row }: { row: SectionRow }) {
               {(d.footer_metrics ?? []).map((s: J, i: number) => (
                 <motion.div
                   key={s.l}
-                  initial={{ opacity: 0, y: 6 }}
+                  initial={prefersReduced ? false : { opacity: 0, y: 6 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.62 + i * 0.07, duration: 0.4, ease: "easeOut" as const }}
@@ -399,10 +405,11 @@ function OverviewSection({ row }: { row: SectionRow }) {
 
 /* ─── FEATURES ───────────────────────────────────────────────────────── */
 function FeaturesSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   return (
     <section className="mx-auto max-w-7xl px-4 py-20">
-      <motion.div {...fadeUp()} className="mb-14">
+      <motion.div {...fadeUp(0, prefersReduced)} className="mb-14">
         <SectionLabel>{row.subheading}</SectionLabel>
         <div className="flex items-end justify-between flex-wrap gap-6">
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
@@ -416,7 +423,7 @@ function FeaturesSection({ row }: { row: SectionRow }) {
           return (
             <motion.div
               key={f.t}
-              initial={{ opacity: 0, y: 24 }}
+              initial={prefersReduced ? false : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
@@ -470,6 +477,7 @@ function DeliverablesTechSection({
   deliverables?: SectionRow;
   tech?: SectionRow;
 }) {
+  const prefersReduced = useReducedMotion();
   const dd = (deliverables?.data_json ?? {}) as J;
   const td = (tech?.data_json ?? {}) as J;
   const CalloutIcon = icon(td.callout?.icon);
@@ -478,7 +486,7 @@ function DeliverablesTechSection({
     <section className="mx-auto max-w-7xl px-4 pb-20">
       <div className="grid md:grid-cols-2 gap-6">
         {deliverables && (
-          <motion.div {...fadeUp()}>
+          <motion.div {...fadeUp(0, prefersReduced)}>
             <div className="glass border border-border/35 rounded-3xl p-9 h-full relative overflow-hidden group hover:border-border/55 transition-colors duration-300">
               <div
                 className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
@@ -490,7 +498,7 @@ function DeliverablesTechSection({
                 {(dd.items ?? []).map((item: string, i: number) => (
                   <motion.li
                     key={item}
-                    initial={{ opacity: 0, x: -14 }}
+                    initial={prefersReduced ? false : { opacity: 0, x: -14 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{
@@ -513,7 +521,7 @@ function DeliverablesTechSection({
         )}
 
         {tech && (
-          <motion.div {...fadeUp(0.1)}>
+          <motion.div {...fadeUp(0.1, prefersReduced)}>
             <div className="glass border border-border/35 rounded-3xl p-9 h-full relative overflow-hidden group hover:border-border/55 transition-colors duration-300">
               <div
                 className="absolute -top-14 -right-14 w-52 h-52 rounded-full blur-3xl opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
@@ -526,7 +534,7 @@ function DeliverablesTechSection({
                 {(td.items ?? []).map((t: J, i: number) => (
                   <motion.div
                     key={t.name}
-                    initial={{ opacity: 0, scale: 0.88 }}
+                    initial={prefersReduced ? false : { opacity: 0, scale: 0.88 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{
@@ -535,7 +543,7 @@ function DeliverablesTechSection({
                       type: "tween" as const,
                       ease: "easeOut" as const,
                     }}
-                    whileHover={{ y: -3, scale: 1.06 }}
+                    whileHover={prefersReduced ? undefined : { y: -3, scale: 1.06 }}
                     className="inline-flex items-center gap-2.5 bg-card/80 border border-border/40 rounded-xl px-4 py-2.5 cursor-default hover:border-border/70 hover:shadow-glow transition-all duration-200"
                   >
                     <span
@@ -568,6 +576,7 @@ function DeliverablesTechSection({
 
 /* ─── PROCESS ────────────────────────────────────────────────────────── */
 function ProcessSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-20 overflow-hidden">
@@ -580,7 +589,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
         />
       </div>
 
-      <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-20">
+      <motion.div {...fadeUp(0, prefersReduced)} className="text-center max-w-2xl mx-auto mb-20">
         <SectionLabel>{row.subheading}</SectionLabel>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
         <p className="mt-4 text-muted-foreground text-sm leading-relaxed">{row.body}</p>
@@ -588,7 +597,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
 
       <div className="relative">
         <motion.div
-          initial={{ scaleX: 0 }}
+          initial={prefersReduced ? false : { scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{
@@ -610,7 +619,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
             return (
               <motion.div
                 key={p.n}
-                initial={{ opacity: 0, y: 24 }}
+                initial={prefersReduced ? false : { opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
@@ -619,7 +628,7 @@ function ProcessSection({ row }: { row: SectionRow }) {
                   type: "tween" as const,
                   ease: "easeOut" as const,
                 }}
-                whileHover={{ y: -8 }}
+                whileHover={prefersReduced ? undefined : { y: -8 }}
                 className="group relative text-center cursor-default"
               >
                 <div
@@ -656,10 +665,11 @@ function ProcessSection({ row }: { row: SectionRow }) {
 
 /* ─── TESTIMONIALS ───────────────────────────────────────────────────── */
 function TestimonialsSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 pb-20">
-      <motion.div {...fadeUp()} className="flex items-end justify-between flex-wrap gap-4 mb-12">
+      <motion.div {...fadeUp(0, prefersReduced)} className="flex items-end justify-between flex-wrap gap-4 mb-12">
         <div>
           <SectionLabel>{row.subheading}</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
@@ -677,7 +687,7 @@ function TestimonialsSection({ row }: { row: SectionRow }) {
         {(d.items ?? []).map((t: J, i: number) => (
           <motion.div
             key={t.name}
-            initial={{ opacity: 0, y: 24 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
@@ -731,10 +741,11 @@ function TestimonialsSection({ row }: { row: SectionRow }) {
 
 /* ─── FAQs ───────────────────────────────────────────────────────────── */
 function FaqsSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
-      <motion.div {...fadeUp()} className="text-center mb-14">
+      <motion.div {...fadeUp(0, prefersReduced)} className="text-center mb-14">
         <SectionLabel>{row.subheading}</SectionLabel>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight">{row.heading}</h2>
         <p className="mt-5 text-muted-foreground max-w-md mx-auto text-sm leading-relaxed">
@@ -758,6 +769,7 @@ function FaqsSection({ row }: { row: SectionRow }) {
 
 /* ─── CTA ────────────────────────────────────────────────────────────── */
 function CtaSection({ row }: { row: SectionRow }) {
+  const prefersReduced = useReducedMotion();
   const d = (row.data_json ?? {}) as J;
   const BadgeIcon = icon(d.badge_icon);
   const [line1, line2] = (d.heading_break ?? row.heading ?? "").split("|");
@@ -766,7 +778,7 @@ function CtaSection({ row }: { row: SectionRow }) {
   return (
     <section className="mx-auto max-w-5xl px-4 py-10 pb-28">
       <motion.div
-        {...fadeUp()}
+        {...fadeUp(0, prefersReduced)}
         className="relative overflow-hidden rounded-3xl gradient-primary shadow-elegant"
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -782,29 +794,32 @@ function CtaSection({ row }: { row: SectionRow }) {
             <rect width="100%" height="100%" fill={`url(#${gridId})`} />
           </svg>
           <motion.div
-            animate={{ scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.22, 1], opacity: [0.13, 0.25, 0.13] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" as const }}
             className="absolute -top-14 -right-14 w-64 h-64 rounded-full bg-white/10 blur-3xl"
+            style={{ opacity: prefersReduced ? 0.13 : undefined }}
           />
           <motion.div
-            animate={{ scale: [1, 1.28, 1], opacity: [0.1, 0.18, 0.1] }}
+            animate={prefersReduced ? undefined : { scale: [1, 1.28, 1], opacity: [0.1, 0.18, 0.1] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const, delay: 3 }}
             className="absolute -bottom-10 -left-10 w-52 h-52 rounded-full bg-white/10 blur-3xl"
+            style={{ opacity: prefersReduced ? 0.1 : undefined }}
           />
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
-              transition={{
-                duration: 2.8 + i * 0.55,
-                repeat: Infinity,
-                ease: "easeInOut" as const,
-                delay: i * 0.8,
-              }}
-              className="absolute w-1 h-1 rounded-full bg-white/60"
-              style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
-            />
-          ))}
+          {!prefersReduced &&
+            [...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{ opacity: [0, 1, 0], scale: [0.4, 1.3, 0.4] }}
+                transition={{
+                  duration: 2.8 + i * 0.55,
+                  repeat: Infinity,
+                  ease: "easeInOut" as const,
+                  delay: i * 0.8,
+                }}
+                className="absolute w-1 h-1 rounded-full bg-white/60"
+                style={{ top: `${12 + i * 13}%`, left: `${6 + i * 12}%` }}
+              />
+            ))}
         </div>
 
         <div className="relative flex flex-col md:flex-row items-center justify-between gap-8 px-8 py-12 md:px-14">
@@ -831,8 +846,8 @@ function CtaSection({ row }: { row: SectionRow }) {
 
           <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
             <motion.div
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={prefersReduced ? undefined : { scale: 1.03, y: -2 }}
+              whileTap={prefersReduced ? undefined : { scale: 0.97 }}
               transition={{ type: "spring", stiffness: 420, damping: 18 }}
             >
               <Link
@@ -844,8 +859,8 @@ function CtaSection({ row }: { row: SectionRow }) {
               </Link>
             </motion.div>
             <motion.div
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={prefersReduced ? undefined : { scale: 1.03, y: -2 }}
+              whileTap={prefersReduced ? undefined : { scale: 0.97 }}
               transition={{ type: "spring", stiffness: 420, damping: 18 }}
             >
               <Link
