@@ -13,13 +13,13 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
-    const postUrl = `https://www.webcoreuae.com/blog/${params.slug}`;
+    const postUrl = `https://webcoreuae.com/blog/${params.slug}`;
     const postTitle = `${params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} | Webcore Solutions`;
     const metaDescription =
       blogPostMetaDescriptions[params.slug] ??
       "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams.";
-    const ORG_ID = "https://www.webcoreuae.com/#organization";
-    const WEBSITE_ID = "https://www.webcoreuae.com/#website";
+    const ORG_ID = "https://webcoreuae.com/#organization";
+    const WEBSITE_ID = "https://webcoreuae.com/#website";
 
     const schema = {
       "@context": "https://schema.org",
@@ -28,10 +28,10 @@ export const Route = createFileRoute("/blog/$slug")({
           "@type": "Organization",
           "@id": ORG_ID,
           name: "Webcore Solutions",
-          url: "https://www.webcoreuae.com",
+          url: "https://webcoreuae.com",
           logo: {
             "@type": "ImageObject",
-            url: "https://www.webcoreuae.com/logo.png",
+            url: "https://webcoreuae.com/logo.png",
             width: 512,
             height: 512,
           },
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/blog/$slug")({
           "@type": "WebSite",
           "@id": WEBSITE_ID,
           name: "Webcore Solutions",
-          url: "https://www.webcoreuae.com",
+          url: "https://webcoreuae.com",
           publisher: { "@id": ORG_ID },
         },
         {
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/blog/$slug")({
           isPartOf: { "@id": WEBSITE_ID },
           image: {
             "@type": "ImageObject",
-            url: "https://www.webcoreuae.com/og-image.webp",
+            url: "https://webcoreuae.com/og-image.webp",
             width: 1200,
             height: 630,
           },
@@ -66,12 +66,12 @@ export const Route = createFileRoute("/blog/$slug")({
           "@type": "BreadcrumbList",
           "@id": `${postUrl}#breadcrumbs`,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.webcoreuae.com" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://webcoreuae.com" },
             {
               "@type": "ListItem",
               position: 2,
               name: "Blog",
-              item: "https://www.webcoreuae.com/blog",
+              item: "https://webcoreuae.com/blog",
             },
             {
               "@type": "ListItem",
@@ -105,7 +105,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:locale", content: "en_AE" },
         { property: "og:locale:alternate", content: "en_GB" },
         { property: "og:locale:alternate", content: "en_PK" },
-        { property: "og:image", content: "https://www.webcoreuae.com/og-image.webp" },
+        { property: "og:image", content: "https://webcoreuae.com/og-image.webp" },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         { property: "og:image:alt", content: "Webcore Solutions — digital agency Dubai" },
@@ -117,7 +117,7 @@ export const Route = createFileRoute("/blog/$slug")({
           content:
             "Webcore Solutions publishes practical insights on web development, software engineering, SEO, GEO and digital growth for Dubai and global teams.",
         },
-        { name: "twitter:image", content: "https://www.webcoreuae.com/og-image.webp" },
+        { name: "twitter:image", content: "https://webcoreuae.com/og-image.webp" },
         { "script:ld+json": schema },
       ],
       links: [
@@ -180,7 +180,7 @@ function formatDate(iso: string | null): string {
   });
 }
 
-const SITE_URL = "https://www.webcoreuae.com";
+const SITE_URL = "https://webcoreuae.com";
 
 const markdownHeadingComponents: Components = {
   h1: ({ node: _node, ...props }) => <h2 {...props} />,
@@ -192,13 +192,13 @@ const markdownHeadingComponents: Components = {
 };
 
 const SERVICE_ENTITY_MAP: Record<string, string> = {
-  "web development":      "https://www.webcoreuae.com/services/web-development#service",
-  "software development": "https://www.webcoreuae.com/services/software-development#service",
-  "seo":                  "https://www.webcoreuae.com/services/seo-geo#service",
-  "geo":                  "https://www.webcoreuae.com/services/seo-geo#service",
-  "cms":                  "https://www.webcoreuae.com/services/cms-development#service",
-  "graphic design":       "https://www.webcoreuae.com/services/graphic-design#service",
-  "it consultation":      "https://www.webcoreuae.com/services/it-consultation#service",
+  "web development":      "https://webcoreuae.com/services/web-development#service",
+  "software development": "https://webcoreuae.com/services/software-development#service",
+  "seo":                  "https://webcoreuae.com/services/seo-geo#service",
+  "geo":                  "https://webcoreuae.com/services/seo-geo#service",
+  "cms":                  "https://webcoreuae.com/services/cms-development#service",
+  "graphic design":       "https://webcoreuae.com/services/graphic-design#service",
+  "it consultation":      "https://webcoreuae.com/services/it-consultation#service",
 };
 
 function getMentions(tags: string[] | null) {

@@ -14,7 +14,7 @@ import { serverError } from "../_utils.js";
  *  4. Return { email } so the frontend can sign in
  */
 
-const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL ?? "https://www.webcoreuae.com";
+const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL ?? "https://webcoreuae.com";
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 

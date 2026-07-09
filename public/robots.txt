@@ -24,4 +24,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://www.webcoreuae.com/sitemap.xml
+Sitemap: https://webcoreuae.com/sitemap.xml

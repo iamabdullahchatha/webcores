@@ -34,7 +34,7 @@ Real responses occasionally become backlinks in major publications.
 ```
 Muhammad Abdullah Chattha, Founder of Webcore Solutions, a Dubai digital
 agency. Reach me at muhammad@webcoreuae.com or via
-https://www.webcoreuae.com
+https://webcoreuae.com
 ```
 
 ### Sample response format
@@ -53,7 +53,7 @@ Happy to expand if useful.
 
 — Muhammad Abdullah Chattha
 Founder, Webcore Solutions
-https://www.webcoreuae.com
+https://webcoreuae.com
 ```
 
 Track HARO replies in a simple spreadsheet:
@@ -116,7 +116,7 @@ Why we might fit the list:
 - [Specific factor 3: e.g., "450+ client projects with publicly verifiable Clutch reviews"]
 
 If the page is currently closed to additions, I completely understand. If
-it's open, our company URL is https://www.webcoreuae.com — happy to send
+it's open, our company URL is https://webcoreuae.com — happy to send
 project samples or specific data points if useful.
 
 Best,
@@ -171,7 +171,7 @@ appears to have been removed from [old domain].
 
 If you're looking for a replacement covering the same topic, we wrote
 [our equivalent article title] last quarter:
-https://www.webcoreuae.com/[blog-post-slug]
+https://webcoreuae.com/[blog-post-slug]
 
 It covers [1 sentence of what the post does]. If it's useful as a
 replacement, great. If not, no problem — just figured you'd want to know

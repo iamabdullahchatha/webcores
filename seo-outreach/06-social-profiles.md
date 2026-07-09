@@ -6,7 +6,7 @@
 ---
 
 ## CRITICAL RULE
-Every profile must include https://www.webcoreuae.com in the designated website field. Some platforms hide this field inside Settings > Account. The exact navigation path is included for each.
+Every profile must include https://webcoreuae.com in the designated website field. Some platforms hide this field inside Settings > Account. The exact navigation path is included for each.
 
 ---
 
@@ -15,7 +15,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 ### 1. LinkedIn Company Page
 - **Create at:** https://www.linkedin.com/company/setup/new/
 - **Website field location:** Admin View → Edit Page → Overview → Website
-- **Field:** Website URL — enter `https://www.webcoreuae.com`
+- **Field:** Website URL — enter `https://webcoreuae.com`
 - **Also add:** Industry (Information Technology & Services), Company size, Founded year, Tagline
 - **Logo size:** 300×300px PNG
 - **Cover image:** 1128×191px
@@ -36,7 +36,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 - **Create at:** https://www.facebook.com/pages/create
 - **Category:** Software Company → then add "Website Designer" and "Internet Marketing Service" as additional categories
 - **Website field location:** Edit Page Info → Contact → Website
-- **About (255 char):** Webcore Solutions is a Dubai digital agency delivering web development, software, ecommerce, CMS, SEO, GEO and brand identity. Senior in-house team. Global clients. https://www.webcoreuae.com
+- **About (255 char):** Webcore Solutions is a Dubai digital agency delivering web development, software, ecommerce, CMS, SEO, GEO and brand identity. Senior in-house team. Global clients. https://webcoreuae.com
 - **Status:** ☐
 
 ---
@@ -44,7 +44,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 ### 4. Instagram Business
 - **Convert personal to business:** Settings → Account → Switch to Professional Account
 - **Website field location:** Edit Profile → Links → Add External Link
-- **Note:** Instagram allows 1 clickable link in bio — use https://www.webcoreuae.com
+- **Note:** Instagram allows 1 clickable link in bio — use https://webcoreuae.com
 - **Bio (150 char):** Dubai digital studio. Web dev · Software · SEO · Brand. webcoreuae.com 🔗
 - **Status:** ☐
 
@@ -53,7 +53,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 ### 5. YouTube Channel
 - **Create at:** https://www.youtube.com/create_channel (use Google Workspace account)
 - **Website field location:** Customise Channel → Basic Info → Links → Website URL
-- **Channel description:** Webcore Solutions is a Dubai-based full-stack digital agency covering web development, custom software, SEO, GEO, ecommerce, CMS and brand identity. This channel covers technical tutorials, agency insights and digital strategy for UAE and global businesses. Visit https://www.webcoreuae.com
+- **Channel description:** Webcore Solutions is a Dubai-based full-stack digital agency covering web development, custom software, SEO, GEO, ecommerce, CMS and brand identity. This channel covers technical tutorials, agency insights and digital strategy for UAE and global businesses. Visit https://webcoreuae.com
 - **Note:** YouTube links in channel info are dofollow — high value
 - **Status:** ☐
 
@@ -77,10 +77,10 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 
 ### 8. Mastodon
 - **Create at:** https://mastodon.social/auth/sign_up (main instance, highest DA)
-- **Website field location:** Edit Profile → Extra fields → Label: "Website" → Content: https://www.webcoreuae.com
+- **Website field location:** Edit Profile → Extra fields → Label: "Website" → Content: https://webcoreuae.com
 - **Note:** Mastodon profile links are `rel="me"` verified links — valuable for entity authority
 - **Verification:** Add `<link rel="me" href="https://mastodon.social/@webcore_solutions">` to webcoreuae.com `<head>` to get the green verified tick
-- **Bio:** Dubai digital agency | Web dev · Software · SEO · GEO · Brand | Senior in-house team | https://www.webcoreuae.com
+- **Bio:** Dubai digital agency | Web dev · Software · SEO · GEO · Brand | Senior in-house team | https://webcoreuae.com
 - **Status:** ☐
 
 ---
@@ -108,7 +108,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 - **Create at:** https://medium.com/new-publication
 - **Publication name:** Webcore Solutions (or "The Digital Studio" / "Built in Dubai")
 - **Website field location:** Edit Publication → Homepage URL
-- **Description:** Web development, software engineering, SEO, GEO and digital strategy insights from the Webcore Solutions team in Dubai. Visit https://www.webcoreuae.com
+- **Description:** Web development, software engineering, SEO, GEO and digital strategy insights from the Webcore Solutions team in Dubai. Visit https://webcoreuae.com
 - **Note:** Publishing 2–3 articles on your Medium publication creates additional backlinks beyond the profile itself
 - **Status:** ☐
 
@@ -117,7 +117,7 @@ Every profile must include https://www.webcoreuae.com in the designated website 
 ### 12. Dev.to Profile
 - **Create at:** https://dev.to/enter
 - **Website field location:** Settings → User → Website URL
-- **Bio (200 char):** Full-stack digital studio in Dubai. We write about React, Next.js, TypeScript, SEO and GEO. Team at Webcore Solutions — https://www.webcoreuae.com
+- **Bio (200 char):** Full-stack digital studio in Dubai. We write about React, Next.js, TypeScript, SEO and GEO. Team at Webcore Solutions — https://webcoreuae.com
 - **Tags to follow/post in:** javascript, react, typescript, seo, webdev, nextjs
 - **Status:** ☐
 

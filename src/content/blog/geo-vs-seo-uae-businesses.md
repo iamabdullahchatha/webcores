@@ -63,7 +63,7 @@ is much more likely to be cited.
 Following the robots.txt pattern, llms.txt is a file at the site root that summarises
 the site's key facts in plain language for AI crawlers. Sites with a well-maintained
 llms.txt are cited more reliably by AI tools that respect the standard. Webcore
-Solutions publishes one at [webcoreuae.com/llms.txt](https://www.webcoreuae.com/llms.txt).
+Solutions publishes one at [webcoreuae.com/llms.txt](https://webcoreuae.com/llms.txt).
 
 ### 5. Brand citation density matters more than backlinks
 Traditional SEO weights backlinks heavily. AI search engines weight "how often is this
@@ -162,4 +162,4 @@ done well — not a replacement for it.
 
 *Webcore Solutions provides SEO and GEO services in Dubai, UAE since 2012, with
 particular focus on bilingual UAE-context optimization. For a no-cost GEO audit, visit
-[webcoreuae.com/services/seo-geo](https://www.webcoreuae.com/services/seo-geo).*
+[webcoreuae.com/services/seo-geo](https://webcoreuae.com/services/seo-geo).*

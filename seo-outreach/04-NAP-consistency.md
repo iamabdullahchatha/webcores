@@ -24,7 +24,7 @@ Fill this in once before you start submitting. Every field below must be identic
 | **Phone (Primary)** | [+971 XX XXX XXXX — in international format with country code] |
 | **Phone (UK)** | [+44 XXXX XXXXXX] |
 | **Email** | info@webcoreuae.com |
-| **Website** | https://www.webcoreuae.com |
+| **Website** | https://webcoreuae.com |
 
 > ⚠️ **Use HTTPS** in the website URL. Never use http:// or omit www if that's how it's registered.
 > ⚠️ **Always use international phone format** (+971... not 0...) — some directories serve global audiences.
@@ -41,7 +41,7 @@ These micro-decisions must be consistent everywhere:
 | Country | United Arab Emirates | UAE / U.A.E. / Uae |
 | City | Dubai | dubai / DUBAI |
 | Phone format | +971 50 716 9200 | 00971507169200 / 050 716 9200 |
-| Website | https://www.webcoreuae.com | http://webcoreuae.com / www.webcoreuae.com (no protocol) |
+| Website | https://webcoreuae.com | http://webcoreuae.com / webcoreuae.com (no protocol) |
 
 ---
 
@@ -51,7 +51,7 @@ Update this after each submission. Verify the live listing matches canonical NAP
 
 | # | Directory | Listed Name | Listed Address | Listed Phone | Listed Website | Match? | Notes |
 |---|-----------|------------|----------------|--------------|----------------|--------|-------|
-| **CANONICAL** | — | Webcore Solutions | [ADDRESS] | [PHONE] | https://www.webcoreuae.com | ✓ Reference | — |
+| **CANONICAL** | — | Webcore Solutions | [ADDRESS] | [PHONE] | https://webcoreuae.com | ✓ Reference | — |
 | 1 | Google Business Profile | | | | | ☐ | |
 | 2 | Bing Places | | | | | ☐ | |
 | 3 | LinkedIn Company Page | | | | | ☐ | |

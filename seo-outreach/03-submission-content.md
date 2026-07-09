@@ -21,7 +21,7 @@
 **Category (Primary):** Web Design Agency
 **Secondary Categories:** Software Company, SEO Agency, Graphic Designer
 **Description (750 char max):**
-Webcore Solutions is a Dubai-based digital agency delivering web development, custom software, ecommerce, CMS platforms, SEO, GEO, brand identity and IT consultation. Founded in Dubai and operating globally, our senior team serves businesses across the UAE, UK, Europe and North America. Every project is handled in-house — no subcontractors, no junior handoffs. Whether you need a high-performance marketing site, a custom SaaS platform, or a search visibility strategy that includes AI engine optimisation, Webcore Solutions delivers with clarity on scope, timeline and cost. Visit https://www.webcoreuae.com to book a free strategy call.
+Webcore Solutions is a Dubai-based digital agency delivering web development, custom software, ecommerce, CMS platforms, SEO, GEO, brand identity and IT consultation. Founded in Dubai and operating globally, our senior team serves businesses across the UAE, UK, Europe and North America. Every project is handled in-house — no subcontractors, no junior handoffs. Whether you need a high-performance marketing site, a custom SaaS platform, or a search visibility strategy that includes AI engine optimisation, Webcore Solutions delivers with clarity on scope, timeline and cost. Visit https://webcoreuae.com to book a free strategy call.
 
 **Opening Hours:** Mon–Fri 9:00 AM – 6:00 PM (UAE time); Sat 10:00 AM – 2:00 PM
 **Logo dimensions:** 720×720px minimum, square, PNG
@@ -88,7 +88,7 @@ What makes Webcore Solutions different is structural. Because all services are d
 
 We work with retail brands, SaaS companies, healthcare providers, logistics operators and professional services firms across Dubai, the UAE, the United Kingdom, Europe, Pakistan and the United States.
 
-Free 45-minute digital strategy calls are available to all prospective clients: https://www.webcoreuae.com/contact
+Free 45-minute digital strategy calls are available to all prospective clients: https://webcoreuae.com/contact
 
 **Focus Areas (percentages — must total 100%):**
 - Web Development: 30%
@@ -109,7 +109,7 @@ Free 45-minute digital strategy calls are available to all prospective clients: 
 Dubai's senior-only digital studio for web, software, SEO and brand.
 
 **Description (600 char):**
-Webcore Solutions is a full-stack digital agency based in Dubai, UAE, serving businesses across the UAE, UK, Europe and North America. Our in-house team of senior practitioners covers web development, custom software engineering, ecommerce platforms, CMS development, SEO, Generative Engine Optimisation (GEO), brand identity and IT consultation. We don't subcontract and we don't hand your project to juniors. The same senior team that scopes your project builds and manages it through to launch. Visit https://www.webcoreuae.com for a free strategy call.
+Webcore Solutions is a full-stack digital agency based in Dubai, UAE, serving businesses across the UAE, UK, Europe and North America. Our in-house team of senior practitioners covers web development, custom software engineering, ecommerce platforms, CMS development, SEO, Generative Engine Optimisation (GEO), brand identity and IT consultation. We don't subcontract and we don't hand your project to juniors. The same senior team that scopes your project builds and manages it through to launch. Visit https://webcoreuae.com for a free strategy call.
 
 **Service Lines to select:** Web Development, Software Development, E-commerce Development, SEO Services, UI/UX Design, Graphic Design
 **Technologies:** React, Node.js, WordPress, Shopify, Python, AWS
@@ -123,7 +123,7 @@ Webcore Solutions is a full-stack digital agency based in Dubai, UAE, serving bu
 Full-stack digital studio. Web, software, SEO & brand. Dubai-based.
 
 **Description (500 char):**
-Webcore Solutions is a Dubai-founded digital agency delivering measurable digital outcomes for businesses worldwide. Specialising in web development, custom software, ecommerce, headless CMS, technical SEO, GEO (AI search visibility), brand identity and IT consultation — all in-house, by a senior-only team. Our Dubai HQ and UK presence means we serve clients across the UAE, United Kingdom, Europe, the United States and Pakistan. No subcontractors. Transparent pricing. Free 45-minute strategy calls. https://www.webcoreuae.com
+Webcore Solutions is a Dubai-founded digital agency delivering measurable digital outcomes for businesses worldwide. Specialising in web development, custom software, ecommerce, headless CMS, technical SEO, GEO (AI search visibility), brand identity and IT consultation — all in-house, by a senior-only team. Our Dubai HQ and UK presence means we serve clients across the UAE, United Kingdom, Europe, the United States and Pakistan. No subcontractors. Transparent pricing. Free 45-minute strategy calls. https://webcoreuae.com
 
 **Categories to select:** Web Design, Web Development, Software Development, SEO Companies, Digital Marketing, Branding Agencies
 
@@ -136,7 +136,7 @@ Webcore Solutions is a Dubai-founded digital agency delivering measurable digita
 Dubai-based full-stack digital studio covering web development, software, SEO, ecommerce, CMS, brand identity and IT consultation.
 
 **Description (600 char):**
-Webcore Solutions helps businesses across the UAE, UK and globally build a complete digital presence — from technically excellent websites and scalable software to search visibility that extends into AI tools. Based in Dubai with a UK office, our senior team covers every digital service in-house: web development, custom software, ecommerce, headless CMS, SEO, GEO, branding and IT consultation. We work on projects from $5k to $500k+ across retail, SaaS, healthcare, finance and professional services. Start with a free 45-minute digital strategy call at https://www.webcoreuae.com/contact — honest advice, no sales pressure.
+Webcore Solutions helps businesses across the UAE, UK and globally build a complete digital presence — from technically excellent websites and scalable software to search visibility that extends into AI tools. Based in Dubai with a UK office, our senior team covers every digital service in-house: web development, custom software, ecommerce, headless CMS, SEO, GEO, branding and IT consultation. We work on projects from $5k to $500k+ across retail, SaaS, healthcare, finance and professional services. Start with a free 45-minute digital strategy call at https://webcoreuae.com/contact — honest advice, no sales pressure.
 
 ---
 
@@ -164,7 +164,7 @@ Webcore Solutions is a Dubai-founded digital agency operating at the intersectio
 
 Webcore Solutions is headquartered in Dubai, UAE, with client projects active across four continents. The agency operates on a direct-accountability model — the team that scopes your project is the team that builds it.
 
-**Website:** https://www.webcoreuae.com
+**Website:** https://webcoreuae.com
 **Contact:** info@webcoreuae.com
 
 **Categories:** Information Technology, Web Development, Software Development, Digital Marketing, Design
@@ -180,7 +180,7 @@ Webcore Solutions is headquartered in Dubai, UAE, with client projects active ac
 Full-stack digital studio in Dubai — web, software, SEO, GEO and brand for global clients.
 
 **Description (500 char):**
-Webcore Solutions is a Dubai-based digital agency with a senior in-house team covering web development, custom software, ecommerce, CMS, SEO, GEO, brand design and IT consultation. We serve startups, SMEs and enterprise teams across the UAE, UK, Europe and the United States. Our technical stack spans React, Next.js, Node.js, Python, Shopify and WordPress. Free 45-minute strategy calls are available. No commitment required. https://www.webcoreuae.com
+Webcore Solutions is a Dubai-based digital agency with a senior in-house team covering web development, custom software, ecommerce, CMS, SEO, GEO, brand design and IT consultation. We serve startups, SMEs and enterprise teams across the UAE, UK, Europe and the United States. Our technical stack spans React, Next.js, Node.js, Python, Shopify and WordPress. Free 45-minute strategy calls are available. No commitment required. https://webcoreuae.com
 
 **Tags:** web development, software development, SEO, Dubai, digital agency, ecommerce, CMS, GEO
 
@@ -193,7 +193,7 @@ Webcore Solutions is a Dubai-based digital agency with a senior in-house team co
 Dubai-based digital studio. Web development, software, brand identity and SEO. Senior team. Global clients. webcoreuae.com
 
 **Location:** Dubai, UAE
-**Website:** https://www.webcoreuae.com
+**Website:** https://webcoreuae.com
 **Portfolio upload suggestions:** homepage screenshot, 2–3 client project case studies, brand identity samples
 **Project titles should include:** "Web Development — [Client Type]", "Brand Identity System — [Industry]"
 
@@ -214,7 +214,7 @@ Webcore Solutions is a Dubai digital agency specialising in web development, sof
 
 **Business Name:** Webcore Solutions
 **Description (500 char):**
-Webcore Solutions provides professional digital services for businesses in Dubai and across the UAE. Our services include website design and development, custom software, ecommerce solutions, content management systems, search engine optimisation, brand identity and IT consultation. We operate as a senior-only in-house team — all work is delivered directly by our specialists, never outsourced. Based in Dubai with UK operations, we serve clients in the UAE, GCC, UK, Europe and globally. Visit https://www.webcoreuae.com or call for a free consultation.
+Webcore Solutions provides professional digital services for businesses in Dubai and across the UAE. Our services include website design and development, custom software, ecommerce solutions, content management systems, search engine optimisation, brand identity and IT consultation. We operate as a senior-only in-house team — all work is delivered directly by our specialists, never outsourced. Based in Dubai with UK operations, we serve clients in the UAE, GCC, UK, Europe and globally. Visit https://webcoreuae.com or call for a free consultation.
 
 **Category:** Computer & IT Services > Web Design
 **Keywords:** web design Dubai, software development UAE, digital agency Dubai
@@ -225,7 +225,7 @@ Webcore Solutions provides professional digital services for businesses in Dubai
 
 **Business Name:** Webcore Solutions
 **Description (250 char):**
-Dubai-based digital agency offering web development, software, ecommerce, CMS, SEO and brand design. Senior in-house team serving UAE and international clients. Free digital strategy calls. https://www.webcoreuae.com
+Dubai-based digital agency offering web development, software, ecommerce, CMS, SEO and brand design. Senior in-house team serving UAE and international clients. Free digital strategy calls. https://webcoreuae.com
 
 **Category:** Technology > Software & IT Services
 
@@ -235,7 +235,7 @@ Dubai-based digital agency offering web development, software, ecommerce, CMS, S
 
 **Business Name:** Webcore Solutions
 **Description (300 char):**
-Webcore Solutions is a professional digital agency headquartered in Dubai providing web development, custom software engineering, ecommerce platforms, SEO, GEO, CMS development and brand identity services. Serving UAE, UK and global clients with a senior in-house team. https://www.webcoreuae.com
+Webcore Solutions is a professional digital agency headquartered in Dubai providing web development, custom software engineering, ecommerce platforms, SEO, GEO, CMS development and brand identity services. Serving UAE, UK and global clients with a senior in-house team. https://webcoreuae.com
 
 **Category:** IT & Technology Services
 
@@ -248,7 +248,7 @@ Webcore Solutions is a professional digital agency headquartered in Dubai provid
 Full-stack digital studio in Dubai. Web development, software, SEO, GEO and brand design for UAE and global businesses.
 
 **Long Description (500 char):**
-Webcore Solutions is a Dubai digital agency providing web development, software engineering, ecommerce, CMS platforms, SEO, Generative Engine Optimisation (GEO), brand identity and IT consultation. Based in Dubai and serving clients across the UAE, UK, Europe and the United States. Our senior in-house team handles every project from discovery through to launch — no subcontractors, transparent pricing, and free 45-minute strategy calls available. Contact us at info@webcoreuae.com or visit https://www.webcoreuae.com.
+Webcore Solutions is a Dubai digital agency providing web development, software engineering, ecommerce, CMS platforms, SEO, Generative Engine Optimisation (GEO), brand identity and IT consultation. Based in Dubai and serving clients across the UAE, UK, Europe and the United States. Our senior in-house team handles every project from discovery through to launch — no subcontractors, transparent pricing, and free 45-minute strategy calls available. Contact us at info@webcoreuae.com or visit https://webcoreuae.com.
 
 **Category:** Technology & IT / Marketing & Digital Services
 
@@ -258,7 +258,7 @@ Webcore Solutions is a Dubai digital agency providing web development, software 
 
 **Business Name:** Webcore Solutions
 **Description (300 char):**
-Webcore Solutions — digital agency in Dubai. We design and build websites, software, ecommerce stores and CMS platforms. Also offering SEO, GEO, brand identity and IT strategy. Senior team, transparent process, free strategy calls. https://www.webcoreuae.com
+Webcore Solutions — digital agency in Dubai. We design and build websites, software, ecommerce stores and CMS platforms. Also offering SEO, GEO, brand identity and IT strategy. Senior team, transparent process, free strategy calls. https://webcoreuae.com
 
 **Tags:** web design, software development, SEO, digital marketing, Dubai, UAE
 
@@ -270,7 +270,7 @@ Webcore Solutions — digital agency in Dubai. We design and build websites, sof
 **Category:** Services > IT & Networking
 **Ad Title (80 char):** Web Development & Software Agency — Webcore Solutions Dubai
 **Ad Description (300 char):**
-Professional web development, software engineering, ecommerce, CMS, SEO and brand design services from Webcore Solutions. Dubai-based senior team serving UAE and international businesses. Free 45-min strategy call. No commitment. https://www.webcoreuae.com | info@webcoreuae.com
+Professional web development, software engineering, ecommerce, CMS, SEO and brand design services from Webcore Solutions. Dubai-based senior team serving UAE and international businesses. Free 45-min strategy call. No commitment. https://webcoreuae.com | info@webcoreuae.com
 
 ---
 
@@ -278,13 +278,13 @@ Professional web development, software engineering, ecommerce, CMS, SEO and bran
 
 **Business Name:** Webcore Solutions
 **Description (400 char):**
-Webcore Solutions is a full-stack digital studio based in Dubai, UAE, providing web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation to businesses across the Gulf, UK, Europe and North America. Our senior in-house team delivers complete digital solutions with full accountability from brief to launch. Free strategy consultations available. https://www.webcoreuae.com
+Webcore Solutions is a full-stack digital studio based in Dubai, UAE, providing web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation to businesses across the Gulf, UK, Europe and North America. Our senior in-house team delivers complete digital solutions with full accountability from brief to launch. Free strategy consultations available. https://webcoreuae.com
 
 ---
 
 ## 19. AWWWARDS
 
-**URL to Submit:** https://www.webcoreuae.com
+**URL to Submit:** https://webcoreuae.com
 **Description (500 char):**
 Webcore Solutions is a Dubai-based digital agency. The site was designed and developed in-house using React 19, TanStack Router, Tailwind CSS and Framer Motion — a performance-first stack with SSR prerendering, sub-second load times and full accessibility compliance. The visual language combines dark glassmorphism, ambient gradients and editorial typography to reflect the agency's senior positioning. Built to pass Core Web Vitals and achieve 100% Seobility on-page score.
 
@@ -295,7 +295,7 @@ Webcore Solutions is a Dubai-based digital agency. The site was designed and dev
 
 ## 20. CSS DESIGN AWARDS
 
-**URL:** https://www.webcoreuae.com
+**URL:** https://webcoreuae.com
 **Description (300 char):**
 Webcore Solutions — Dubai digital agency site. Built with React 19, Framer Motion and Tailwind CSS. Dark glassmorphism aesthetic, micro-interactions, SSR prerendering and sub-1s LCP. Designed and developed entirely in-house by the Webcore Solutions senior team.
 
@@ -303,7 +303,7 @@ Webcore Solutions — Dubai digital agency site. Built with React 19, Framer Mot
 
 ## 21. SITEINSPIRE
 
-**URL:** https://www.webcoreuae.com
+**URL:** https://webcoreuae.com
 **Your email:** info@webcoreuae.com
 **Note:** SiteInspire is editor-curated. No description field. Simply submit the URL. Approval is based on design quality alone.
 
@@ -315,7 +315,7 @@ Webcore Solutions — Dubai digital agency site. Built with React 19, Framer Mot
 **Bio (160 char):**
 Dubai digital studio. We design and build websites, software and brand identities for ambitious businesses worldwide. webcoreuae.com
 
-**Website:** https://www.webcoreuae.com
+**Website:** https://webcoreuae.com
 **Location:** Dubai, UAE
 **Upload suggestion:** Brand identity shots, UI screenshots, logo animations, web design mockups
 
@@ -327,7 +327,7 @@ Dubai digital studio. We design and build websites, software and brand identitie
 **Tagline (60 char):** Check if your brand appears in ChatGPT, Gemini & Perplexity
 **Description (260 char):**
 A free tool by Webcore Solutions that lets you check your brand's AI search visibility across ChatGPT, Google Gemini and Perplexity. Built to help UAE and global businesses understand their GEO (Generative Engine Optimisation) exposure.
-**URL:** https://www.webcoreuae.com
+**URL:** https://webcoreuae.com
 **Note:** Product Hunt works best with an actual tool/product page. Consider building a simple GEO checker as a lead magnet — it would legitimately rank on Product Hunt and generate high-DA backlinks.
 
 ---
@@ -339,7 +339,7 @@ A free tool by Webcore Solutions that lets you check your brand's AI search visi
 **Bio (160 char):**
 Dubai's full-stack digital studio. We build websites, software and brand identities. Open-source tools and resources from the Webcore Solutions team.
 
-**Website:** https://www.webcoreuae.com
+**Website:** https://webcoreuae.com
 **Location:** Dubai, UAE
 **Email:** info@webcoreuae.com
 **Repos to pin:** Any open-source tools, starter templates, or public projects. Even a "webcore-solutions.github.io" page linking to the main site counts as an additional backlink.
@@ -350,7 +350,7 @@ Dubai's full-stack digital studio. We build websites, software and brand identit
 
 **Company Name:** Webcore Solutions
 **Bio (300 char):**
-Webcore Solutions is a Dubai-based digital agency specialising in web development, software engineering, ecommerce, SEO and GEO. Our engineering team actively contributes to the JavaScript, React and TypeScript communities. https://www.webcoreuae.com
+Webcore Solutions is a Dubai-based digital agency specialising in web development, software engineering, ecommerce, SEO and GEO. Our engineering team actively contributes to the JavaScript, React and TypeScript communities. https://webcoreuae.com
 
 **Tags to answer under:** javascript, reactjs, typescript, node.js, next.js, wordpress, seo, tailwindcss
 **Note:** Answer 5–10 questions in your area of expertise before creating the company page — Stack Overflow's algorithm rewards participation, not just presence.

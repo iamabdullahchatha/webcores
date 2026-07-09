@@ -15,7 +15,7 @@ After receiving a confirmation email:
 
 ### Step 2 — Confirm the website link is clickable and correct
 1. On the live listing page, click the website link
-2. Confirm it goes to `https://www.webcoreuae.com` (not http://, not a redirect loop)
+2. Confirm it goes to `https://webcoreuae.com` (not http://, not a redirect loop)
 3. Check that the link is in the HTML source (right-click → View Source → search for "webcoreuae") not just a JavaScript-rendered element (JS-only links may not be crawled)
 
 ### Step 3 — Check if the link is dofollow or nofollow

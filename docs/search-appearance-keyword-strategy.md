@@ -2,7 +2,7 @@
 
 Date: 2026-05-11
 
-Website: https://www.webcoreuae.com/
+Website: https://webcoreuae.com/
 
 Scope: keyword research, search appearance, metadata direction, page mapping, topical authority, GEO, AEO, international SEO, competitor gaps, and high-conversion organic lead strategy.
 

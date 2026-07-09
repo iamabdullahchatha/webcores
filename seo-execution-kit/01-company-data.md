@@ -46,7 +46,7 @@ Postal code:     [POSTAL_CODE]
 Phone (primary): +971 50 716 9200
 Phone (UK):      +44 7570 792516
 Email:           info@webcoreuae.com
-Website:         https://www.webcoreuae.com
+Website:         https://webcoreuae.com
 ```
 
 ---
@@ -174,10 +174,10 @@ For directory upload fields:
 
 | Asset | Path / URL | Size |
 |---|---|---|
-| Logo (square, 512×512) | https://www.webcoreuae.com/web-app-manifest-512x512.png | 512×512 |
-| Logo (small, 192×192) | https://www.webcoreuae.com/web-app-manifest-192x192.png | 192×192 |
-| OG / cover image | https://www.webcoreuae.com/og-image.png | 1200×630 |
-| Favicon | https://www.webcoreuae.com/favicon.svg | scalable |
+| Logo (square, 512×512) | https://webcoreuae.com/web-app-manifest-512x512.png | 512×512 |
+| Logo (small, 192×192) | https://webcoreuae.com/web-app-manifest-192x192.png | 192×192 |
+| OG / cover image | https://webcoreuae.com/og-image.png | 1200×630 |
+| Favicon | https://webcoreuae.com/favicon.svg | scalable |
 
 If a directory needs a different aspect ratio (e.g. LinkedIn Cover is
 1128×191), create it in Figma using the existing brand assets. Don't

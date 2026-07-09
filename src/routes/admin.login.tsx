@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth/AuthContext";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 
 export const Route = createFileRoute("/admin/login")({
   component: LoginPage,

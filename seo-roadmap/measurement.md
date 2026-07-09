@@ -10,7 +10,7 @@ what to track, how often, and what counts as a real signal vs. noise.
 
 ### 1. Seobility score
 - URL: https://www.seobility.net/en/seocheck/
-- Run for: https://www.webcoreuae.com/
+- Run for: https://webcoreuae.com/
 - What's a good week: score holds or rises. Watch for sudden drops — they
   usually mean a recent code change broke something
 - Expected progression:
@@ -69,7 +69,7 @@ what to track, how often, and what counts as a real signal vs. noise.
   - Month 12: 25-35
 
 ### 3. Lighthouse scores
-- Run `npx lighthouse https://www.webcoreuae.com --view`
+- Run `npx lighthouse https://webcoreuae.com --view`
 - Or use https://pagespeed.web.dev/
 - All 4 scores should stay 95+. If any drops below 90, investigate.
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { getSupabase } from "@/lib/supabase/client";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 
 export const Route = createFileRoute("/admin/accept-invite")({
   component: AcceptInvitePage,

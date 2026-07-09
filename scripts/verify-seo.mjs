@@ -7,7 +7,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const distDir = path.join(rootDir, "dist");
 const seoFile = path.join(rootDir, "src", "lib", "seo.ts");
 
-const SITE_URL = "https://www.webcoreuae.com";
+const SITE_URL = "https://webcoreuae.com";
 
 function expectedCanonical(routePath) {
   return routePath === "/" ? `${SITE_URL}/` : `${SITE_URL}${routePath}`;
@@ -158,16 +158,18 @@ for (const route of routes) {
   const canHref = canMatch ? (canMatch[0].match(/href="([^"]*)"/i) || [])[1] : undefined;
   const c8 = check(route, rel, "canonical matches", canHref === canonical, `got ${canHref ?? "none"}, want ${canonical}`);
 
-  // 9. all three alternate hreflang point to this page's canonical URL
+  // 9. all six alternate hreflang tags (en-AE, en-GB, en-US, en-PK, en,
+  // x-default — see src/lib/seo.ts and prerender's validateHreflang) point to
+  // this page's canonical URL
   const altMatches = [...head.matchAll(/<link[^>]+rel="alternate"[^>]+hreflang="([^"]+)"[^>]*>/gi)];
   const altHrefs = altMatches.map((m) => (m[0].match(/href="([^"]*)"/i) || [])[1]);
   const altOk =
-    altHrefs.length === 5 &&
+    altHrefs.length === 6 &&
     altHrefs.every((h) => h === canonical);
   const c9 = check(
     route,
     rel,
-    "5 alternates -> page URL",
+    "6 alternates -> page URL",
     altOk,
     altHrefs.length ? altHrefs.join(" | ") : "none",
   );

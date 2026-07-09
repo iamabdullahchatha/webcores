@@ -21,7 +21,7 @@
 
 - [ ] **LinkedIn Company Page** — Create at https://www.linkedin.com/company/setup/new/
   - Use full description from `03-submission-content.md #3`
-  - Add website: https://www.webcoreuae.com
+  - Add website: https://webcoreuae.com
   - Upload logo (300×300px) and cover image (1128×191px)
   - Add all team members
   - ⏱ ~20 minutes
@@ -168,7 +168,7 @@
 
 - [ ] **LinkedIn** — Publish first company post (link back to webcoreuae.com)
   - Topic: "What is GEO (Generative Engine Optimisation) and why UAE businesses need it in 2026"
-  - Include https://www.webcoreuae.com/services/seo-geo in post
+  - Include https://webcoreuae.com/services/seo-geo in post
   - ⏱ ~20 minutes
 
 ---

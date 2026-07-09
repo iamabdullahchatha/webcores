@@ -25,7 +25,7 @@ Dubai-based Webcore Solutions delivers end-to-end digital services — web devel
 
 **Dubai, UAE — [DATE, e.g. May 2026]** — Webcore Solutions, a Dubai-founded digital agency, today announced the expansion of its full-service digital practice to serve businesses across the UAE, United Kingdom, Europe, and North America. With a senior in-house team covering every dimension of digital delivery — from web engineering and custom software to search visibility and brand identity — Webcore Solutions brings full-stack digital execution under one accountable roof.
 
-The agency's services include web development, custom software engineering, ecommerce platforms, headless CMS development, technical SEO, Generative Engine Optimisation (GEO), graphic design, and IT consultation. All work is delivered directly by senior practitioners at https://www.webcoreuae.com — never subcontracted, never handed to junior staff.
+The agency's services include web development, custom software engineering, ecommerce platforms, headless CMS development, technical SEO, Generative Engine Optimisation (GEO), graphic design, and IT consultation. All work is delivered directly by senior practitioners at https://webcoreuae.com — never subcontracted, never handed to junior staff.
 
 "Digital agencies have a structural problem," said [SPOKESPERSON NAME], [TITLE] at Webcore Solutions. "When a business splits its web development, SEO, and design across three different vendors, there are no accountability gaps in the brief — just gaps in the execution. At Webcore Solutions, the team that designs your website is the same team that optimises it for search and builds your brand system around it. That coherence is rare, and it compounds in value over time."
 
@@ -33,10 +33,10 @@ Webcore Solutions brings particular depth to two emerging practice areas: ecomme
 
 "Dubai businesses are sophisticated digital buyers," added [SPOKESPERSON NAME]. "They've been through enough agency relationships to know what bad looks like. We built Webcore Solutions for the clients who are done with slow timelines, unclear ownership, and work that doesn't move the needle. We give every client the same thing: a senior team that ships quality work and tells you the truth about what your project needs."
 
-The agency serves clients across the UAE, United Kingdom, Europe, the United States, and Pakistan, with projects ranging from five-figure website builds to six-figure enterprise software platforms. Free 45-minute digital strategy calls are available to all prospective clients at https://www.webcoreuae.com/contact.
+The agency serves clients across the UAE, United Kingdom, Europe, the United States, and Pakistan, with projects ranging from five-figure website builds to six-figure enterprise software platforms. Free 45-minute digital strategy calls are available to all prospective clients at https://webcoreuae.com/contact.
 
 **About Webcore Solutions**
-Webcore Solutions is a Dubai-based full-stack digital agency delivering web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation for businesses in the UAE and globally. The agency operates on a senior-only, in-house model — every project is built and managed by experienced practitioners with direct accountability to the client. Visit https://www.webcoreuae.com or email info@webcoreuae.com.
+Webcore Solutions is a Dubai-based full-stack digital agency delivering web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation for businesses in the UAE and globally. The agency operates on a senior-only, in-house model — every project is built and managed by experienced practitioners with direct accountability to the client. Visit https://webcoreuae.com or email info@webcoreuae.com.
 
 ---
 
@@ -46,7 +46,7 @@ Webcore Solutions is a Dubai-based full-stack digital agency delivering web deve
 Webcore Solutions
 Email: info@webcoreuae.com
 Phone: [+971 XX XXX XXXX]
-Website: https://www.webcoreuae.com
+Website: https://webcoreuae.com
 Address: [ADDRESS], Dubai, UAE
 
 ---
@@ -72,7 +72,7 @@ The agency was established to address a gap in the UAE market: the absence of a 
 *[Continue with paragraphs 3–6 from Version 1, lightly rephrased]*
 
 **About Webcore Solutions**
-Webcore Solutions is a Dubai-based full-stack digital agency delivering web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation. Senior-only delivery model. UAE, UK and global clients. https://www.webcoreuae.com | info@webcoreuae.com
+Webcore Solutions is a Dubai-based full-stack digital agency delivering web development, custom software, ecommerce, headless CMS, SEO, GEO, brand identity and IT consultation. Senior-only delivery model. UAE, UK and global clients. https://webcoreuae.com | info@webcoreuae.com
 
 ---
 
@@ -82,7 +82,7 @@ Webcore Solutions is a Dubai-based full-stack digital agency delivering web deve
 Webcore Solutions
 Email: info@webcoreuae.com
 Phone: [+971 XX XXX XXXX]
-Website: https://www.webcoreuae.com
+Website: https://webcoreuae.com
 
 ---
 
@@ -101,9 +101,9 @@ Website: https://www.webcoreuae.com
 
 ## PRESS RELEASE WRITING NOTES
 
-1. **URL placement:** The URL https://www.webcoreuae.com appears 3 times in Version 1 (paragraph 2, quote paragraph, about section) — this is the optimal range. More looks spammy; fewer misses the opportunity.
+1. **URL placement:** The URL https://webcoreuae.com appears 3 times in Version 1 (paragraph 2, quote paragraph, about section) — this is the optimal range. More looks spammy; fewer misses the opportunity.
 
-2. **Anchor text diversity:** Mix plain URL (`https://www.webcoreuae.com`), brand anchor (`Webcore Solutions`), and partial-match anchor (`Dubai digital agency`). Avoid over-optimised exact-match anchors like "web development agency Dubai" — these are a spam signal.
+2. **Anchor text diversity:** Mix plain URL (`https://webcoreuae.com`), brand anchor (`Webcore Solutions`), and partial-match anchor (`Dubai digital agency`). Avoid over-optimised exact-match anchors like "web development agency Dubai" — these are a spam signal.
 
 3. **Quote attribution:** The spokesperson quote must be attributed to a real person with a real title. Use your own name. Fake spokespersons are a press release quality signal.
 

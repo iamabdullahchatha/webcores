@@ -15,7 +15,7 @@ import { serverError } from "../_utils.js";
  * 409 is only returned when the existing profile is already active.
  */
 
-const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL ?? "https://www.webcoreuae.com";
+const PUBLIC_SITE_URL = process.env.PUBLIC_SITE_URL ?? "https://webcoreuae.com";
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;

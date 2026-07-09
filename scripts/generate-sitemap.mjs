@@ -19,7 +19,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sitemapPath = path.join(rootDir, "public", "sitemap.xml");
-const SITE_URL = "https://www.webcoreuae.com";
+const SITE_URL = "https://webcoreuae.com";
 
 // Matches a single-line <url>…</url> entry whose <loc> is a blog POST
 // (i.e. /blog/<slug>). The blog index (/blog with no trailing slug) does not

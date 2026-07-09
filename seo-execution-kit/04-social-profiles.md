@@ -37,7 +37,7 @@ and bio assets prepared. Bio versions live in `01-company-data.md`.
 - Display name: `Webcore Solutions`
 - Bio: paste **Short bio** (Twitter limit is 160 chars — bio fits)
 - Location field: `Dubai, United Arab Emirates`
-- Website field: `https://www.webcoreuae.com`
+- Website field: `https://webcoreuae.com`
 - Header image: 1500×500 (create from existing brand assets)
 - Profile photo: 400×400 (use 512×512 logo, Twitter will resize)
 - Verification: Twitter Blue is optional. Skip unless team posts daily.
@@ -53,7 +53,7 @@ link reach is throttled, but the profile crawl still counts as a backlink.
 - Username: `webcoresolutionsuae` (the URL slug — must be unique)
 - Category: `Web Designer` + `Software Company` (Facebook allows 3)
 - About → Description: paste **Mid bio**
-- Page Info → Website: `https://www.webcoreuae.com`
+- Page Info → Website: `https://webcoreuae.com`
 - Page Info → Phone: `+971 50 716 9200`
 - Page Info → Email: `info@webcoreuae.com`
 - Profile picture: 512×512 logo
@@ -71,7 +71,7 @@ Business Page and update `src/lib/seo.ts` `sameAs` array to the new URL.
 - Display name: `Webcore Solutions`
 - Bio: paste **Short bio**
 - Category: Business → Marketing Agency
-- Website field: `https://www.webcoreuae.com` (this is the ONLY clickable
+- Website field: `https://webcoreuae.com` (this is the ONLY clickable
   link Instagram allows in the entire profile — guard it carefully)
 - Contact options: enable email + phone
 
@@ -112,7 +112,7 @@ Behance profiles rank well in image search for "Dubai brand design".
 ### 7. Dribbble — design portfolio
 
 - Username: `webcoresolutions`
-- Profile → Settings → Profile → Website: `https://www.webcoreuae.com`
+- Profile → Settings → Profile → Website: `https://webcoreuae.com`
 - Upload 3 shots minimum (logo concepts, UI designs, brand systems)
 
 ---
@@ -123,7 +123,7 @@ Free organisation account. Useful for the few clients who actually look
 at GitHub when evaluating dev shops.
 
 - Org name: `webcoresolutions` or `webcore-uae`
-- Settings → Profile → Website URL: `https://www.webcoreuae.com`
+- Settings → Profile → Website URL: `https://webcoreuae.com`
 - Settings → Profile → Description: paste **Short bio**
 - Add 1-2 public repos (could be a project starter template, a tutorial,
   or an open-source utility your team built)
@@ -172,7 +172,7 @@ Same canonical cross-post strategy as Medium / Dev.to.
 Lower priority but free. Pinterest pins indexed by Google for visual
 queries.
 
-- Profile → Settings → Profile → Website: `https://www.webcoreuae.com`
+- Profile → Settings → Profile → Website: `https://webcoreuae.com`
 - Verify website ownership via meta tag (Pinterest gives you a meta tag
   to add to `index.html` — same pattern as Google Search Console)
 

@@ -66,7 +66,7 @@ Would this be of interest?
 Best,
 [YOUR NAME]
 [TITLE], Webcore Solutions
-https://www.webcoreuae.com
+https://webcoreuae.com
 [PHONE]
 ```
 

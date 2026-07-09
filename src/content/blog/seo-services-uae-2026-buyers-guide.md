@@ -186,4 +186,4 @@ UAE businesses.
 
 *Webcore Solutions provides SEO and GEO services in Dubai, UAE since 2012. For a
 no-cost technical audit and a 45-minute scoping call, visit
-[webcoreuae.com/services/seo-geo](https://www.webcoreuae.com/services/seo-geo).*
+[webcoreuae.com/services/seo-geo](https://webcoreuae.com/services/seo-geo).*

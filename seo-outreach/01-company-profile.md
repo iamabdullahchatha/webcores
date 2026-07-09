@@ -9,7 +9,7 @@
 | Field | Value |
 |-------|-------|
 | Company Name | Webcore Solutions |
-| Website | https://www.webcoreuae.com |
+| Website | https://webcoreuae.com |
 | Email | info@webcoreuae.com |
 | Founded | [YEAR — fill before submitting] |
 | Address | [ADDRESS — fill before submitting, e.g. "Business Bay, Dubai, UAE"] |
@@ -61,7 +61,7 @@ Our brand identity and graphic design practice creates logo systems, brand guide
 **Why clients stay:**
 The structural advantage of working with a full-stack studio is coherence. Your website is built with SEO baked in. Your CMS is architected to support your content strategy. Your brand system is applied consistently across every touchpoint. There are no agency handoff gaps because everything is designed, built and managed by one team.
 
-Webcore Solutions works with ambitious startups, established SMEs, and enterprise teams across Dubai, the UAE, the United Kingdom, and globally. Visit us at https://www.webcoreuae.com.
+Webcore Solutions works with ambitious startups, established SMEs, and enterprise teams across Dubai, the UAE, the United Kingdom, and globally. Visit us at https://webcoreuae.com.
 
 ---
 

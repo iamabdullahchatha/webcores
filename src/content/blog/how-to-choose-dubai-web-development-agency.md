@@ -143,4 +143,4 @@ say so on the call.
 
 *Webcore Solutions is a Dubai web development agency operating from the UAE since 2012.
 For a 45-minute scoping call, visit
-[webcoreuae.com/contact](https://www.webcoreuae.com/contact) or call +971 50 716 9200.*
+[webcoreuae.com/contact](https://webcoreuae.com/contact) or call +971 50 716 9200.*

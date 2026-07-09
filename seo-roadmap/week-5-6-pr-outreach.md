@@ -74,7 +74,7 @@ Muhammad Abdullah Chattha
 Founder, Webcore Solutions
 +971 50 716 9200
 muhammad@webcoreuae.com [replace with actual founder email]
-https://www.webcoreuae.com
+https://webcoreuae.com
 ```
 
 ---
@@ -154,7 +154,7 @@ or angle to fit your editorial calendar.
 Best,
 Muhammad Abdullah Chattha
 Founder, Webcore Solutions
-https://www.webcoreuae.com
+https://webcoreuae.com
 ```
 
 ---

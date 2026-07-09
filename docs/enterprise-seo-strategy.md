@@ -238,7 +238,7 @@ Public SERP competitors in Dubai/UAE commonly emphasize years in business, large
 
 1. Deploy the generated static route files.
 2. Confirm `/`, `/about`, `/services/*`, `/faqs`, and `/contact` return `200` with route-specific source HTML.
-3. Submit `https://www.webcoreuae.com/sitemap.xml` in Search Console.
+3. Submit `https://webcoreuae.com/sitemap.xml` in Search Console.
 4. Use URL Inspection on the homepage and every service page.
 5. Validate JSON-LD with Rich Results Test and Schema.org Validator.
 6. Crawl with JavaScript disabled and enabled, then compare word count, H1, canonical, and internal links.

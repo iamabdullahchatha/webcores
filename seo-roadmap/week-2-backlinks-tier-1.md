@@ -45,7 +45,7 @@ Core service lines:
 
 What separates Webcore Solutions: fixed-scope pricing with no hourly surprises, predictable delivery on agreed timelines, in-house execution (no outsourcing), and a process refined across more than a decade of compounded delivery.
 
-Website: https://www.webcoreuae.com
+Website: https://webcoreuae.com
 Email: info@webcoreuae.com
 Dubai: +971 50 716 9200
 UK: +44 7570 792516
@@ -62,7 +62,7 @@ Name:    Webcore Solutions
 Address: Dubai, United Arab Emirates
 Phone:   +971 50 716 9200
 Email:   info@webcoreuae.com
-Website: https://www.webcoreuae.com
+Website: https://webcoreuae.com
 ```
 
 ⚠️ **NAP consistency is critical.** Even a different abbreviation
@@ -84,7 +84,7 @@ SEO signals. Paste the values above verbatim every time.
 3. Category: `Website designer` (primary), add: `Software company`, `Internet marketing service`, `Graphic designer`
 4. Service area / address: Dubai, UAE (mark as service-area business if no public office)
 5. Phone: `+971 50 716 9200`
-6. Website: `https://www.webcoreuae.com`
+6. Website: `https://webcoreuae.com`
 7. Description: paste the mid bio above
 8. Add 5+ photos (logo, team, office or work samples)
 9. Choose verification method (postcard / phone / video)
@@ -109,7 +109,7 @@ SEO signals. Paste the values above verbatim every time.
 1. Choose "Small business" (or "Medium" if 25 employees)
 2. Name: `Webcore Solutions`
 3. LinkedIn public URL: claim `linkedin.com/company/webcore-solutions-uae`
-4. Website: `https://www.webcoreuae.com`
+4. Website: `https://webcoreuae.com`
 5. Industry: `Software Development`
 6. Company size: `11-50 employees`
 7. Company type: `Privately Held`

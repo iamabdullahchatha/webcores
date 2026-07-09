@@ -1,4 +1,4 @@
-export const SITE_URL = "https://www.webcoreuae.com";
+export const SITE_URL = "https://webcoreuae.com";
 export const SITE_NAME = "Webcore Solutions";
 export const BRAND_NAME = "Webcore Solutions";
 export const ORG_ID = `${SITE_URL}/#organization`;
@@ -571,7 +571,7 @@ function organizationSchema() {
     },
     description:
       "Webcore Solutions is a Dubai web development and SEO agency building production-grade websites, custom software, CMS platforms, GEO and brand systems for clients worldwide.",
-    foundingDate: "2013",
+    foundingDate: "2012",
     founder: {
       "@type": "Person",
       "@id": FOUNDER_ID,
@@ -582,15 +582,11 @@ function organizationSchema() {
       "@type": "QuantitativeValue",
       value: 25,
     },
-    // Aggregate of the 9 client testimonials (see reviewsSchema): seven 5★ + two 4★
-    // = 43 / 9 = 4.8. Lives on the Organization node so it is attributed site-wide.
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: 9,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    // No aggregateRating / Review markup: Google's review-snippet guidelines
+    // require ratings sourced from a third-party review platform for
+    // organizations. Testimonials stay as plain on-page content on the home
+    // page; re-add markup only for reviews verifiable on Google/Trustpilot/
+    // Clutch once those profiles exist.
     areaServed: orgAreaServed,
     address: {
       "@type": "PostalAddress",
@@ -629,41 +625,6 @@ function organizationSchema() {
       "Brand Design",
     ],
   };
-}
-
-// The 9 client testimonials as individual Review nodes. Each links back to the
-// Organization via itemReviewed so AI engines / crawlers attribute the rating to
-// Webcore Solutions; the AggregateRating of these lives on the Organization node.
-// These mirror the testimonials rendered on the home page — keep them gated to
-// that route in getSeoHead() so the markup matches visible on-page content.
-function reviewsSchema() {
-  const reviews = [
-    { name: "Layla Al-Mansoori", jobTitle: "Marketing Director, Khaleej Retail Group", rating: 5, body: "After five months on our Arabic-English SEO rebuild, organic traffic from UAE searches climbed 84 percent." },
-    { name: "Rohan Verma", jobTitle: "Head of Product, FinTrack MENA", rating: 5, body: "Webcore Solutions delivered our investor dashboard in ten focused weeks, two larger Dubai agencies had quoted us double the timeline." },
-    { name: "Hana Said", jobTitle: "Founder, Saharaboutique", rating: 5, body: "The refreshed storefront moved our checkout conversion rate from 1.6 to 4.2 percent." },
-    { name: "Daniel Whittaker", jobTitle: "Operations Lead, Brightline Logistics UK", rating: 5, body: "Webcore consolidated three legacy systems into one platform, reconciliation hours dropped 60 percent." },
-    { name: "Sara Al-Hashimi", jobTitle: "CEO, Pinnacle Properties Dubai", rating: 5, body: "Our new website went from wireframes to live in six weeks, Lighthouse score hit 97." },
-    { name: "Nour Khalil", jobTitle: "Content Manager, Gulf Media Network", rating: 5, body: "Publishing workflows are genuinely faster now, we ship content same-day." },
-    { name: "James Okafor", jobTitle: "Co-founder, Vestro Capital", rating: 5, body: "The brand identity Webcore built closed our Series-A round two weeks later." },
-    { name: "Priya Menon", jobTitle: "E-commerce Director, Saffron Living", rating: 4, body: "The WooCommerce build is solid, load time dropped from 6.2 seconds to under 1.1." },
-    { name: "Tom Aldridge", jobTitle: "Head of Growth, ClearRoute SaaS", rating: 4, body: "The SEO audit moved us from page four to page one for our main keyword." },
-  ];
-
-  return reviews.map((r) => ({
-    "@type": "Review",
-    author: {
-      "@type": "Person",
-      name: r.name,
-      jobTitle: r.jobTitle,
-    },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: r.rating,
-      bestRating: 5,
-    },
-    reviewBody: r.body,
-    itemReviewed: { "@id": ORG_ID },
-  }));
 }
 
 function websiteSchema() {
@@ -817,7 +778,6 @@ export function getSeoHead(
     serviceSchema(key),
     hasFaqs ? faqSchema(page, options.faqs!) : null,
     isAbout ? personSchema() : null,
-    ...(isHome ? reviewsSchema() : []),
     ...(options.extraSchemas ?? []),
   ].filter(Boolean);
 

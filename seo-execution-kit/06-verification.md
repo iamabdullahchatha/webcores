@@ -102,7 +102,7 @@ Set a recurring calendar reminder — every Monday morning, 15 minutes:
 
 ### 1. Re-run Seobility
 - Visit https://www.seobility.net/en/seocheck/
-- Enter `https://www.webcoreuae.com/`
+- Enter `https://webcoreuae.com/`
 - Note the overall score and which subscores changed since last week
 - Add a row to a simple spreadsheet: Date | Overall | Meta | Page Q | Links | External
 

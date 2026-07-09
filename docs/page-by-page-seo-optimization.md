@@ -2,7 +2,7 @@
 
 Date: 2026-05-11
 
-Website: https://www.webcoreuae.com/
+Website: https://webcoreuae.com/
 
 Scope: homepage, services hub, all inner service pages, about page, FAQ page, contact page, navigation, footer, schema, international SEO, GEO, AEO, search appearance and conversion strategy.
 

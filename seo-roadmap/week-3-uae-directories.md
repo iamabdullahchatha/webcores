@@ -145,7 +145,7 @@ Muhammad Abdullah Chattha
 Webcore Solutions
 +971 50 716 9200
 info@webcoreuae.com
-https://www.webcoreuae.com
+https://webcoreuae.com
 ```
 
 [ ] Pitched   [ ] Reply received   [ ] Published

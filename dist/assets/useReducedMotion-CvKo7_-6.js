@@ -1,0 +1,1 @@
+import{r as n}from"./icons-BVVL_L14.js";const r="(prefers-reduced-motion: reduce)";function c(e){const t=window.matchMedia(r);return t.addEventListener("change",e),()=>t.removeEventListener("change",e)}function s(){return n.useSyncExternalStore(c,()=>window.matchMedia(r).matches,()=>!1)}export{s as u};

@@ -26,7 +26,7 @@ survives staff changes. Optional but cleaner long-term.
 ### Step 2 — Add property
 Click **Add property** → choose **URL prefix** method (NOT "Domain").
 
-Enter: `https://www.webcoreuae.com`
+Enter: `https://webcoreuae.com`
 
 ⚠️ Use `https://www.` — exactly. The `https://www.` prefix must match
 your canonical URL. If you also want to track non-www, add a second
@@ -79,11 +79,11 @@ For your most important pages, manually request indexing:
 2. Click **Request indexing**
 
 Request indexing for these in this order:
-- `https://www.webcoreuae.com/`
-- `https://www.webcoreuae.com/webcore-solutions-dubai`
-- `https://www.webcoreuae.com/services`
-- `https://www.webcoreuae.com/about`
-- `https://www.webcoreuae.com/contact`
+- `https://webcoreuae.com/`
+- `https://webcoreuae.com/webcore-solutions-dubai`
+- `https://webcoreuae.com/services`
+- `https://webcoreuae.com/about`
+- `https://webcoreuae.com/contact`
 
 ⚠️ Google rate-limits this to 10-12 requests per day per property. Don't
 spam the button — Google deprioritises domains that spam request-indexing.
@@ -101,7 +101,7 @@ Visit https://www.bing.com/webmasters
 Sign in with a Microsoft account (or create one).
 
 ### Step 2 — Add site
-Click **Add site** → enter `https://www.webcoreuae.com`
+Click **Add site** → enter `https://webcoreuae.com`
 
 Bing offers an **Import from Google Search Console** option. If you
 verified Google first, this is a 1-click import — saves a lot of time.
@@ -116,7 +116,7 @@ Replace the placeholder with Bing's token, redeploy, click Verify in
 Bing Webmaster.
 
 ### Step 3 — Submit sitemap
-Bing Webmaster → Sitemaps → enter `https://www.webcoreuae.com/sitemap.xml`
+Bing Webmaster → Sitemaps → enter `https://webcoreuae.com/sitemap.xml`
 
 ---
 
@@ -182,7 +182,7 @@ Bing Webmaster → Sitemaps → enter `https://www.webcoreuae.com/sitemap.xml`
 - Try a different verification method (DNS TXT record, HTML file upload)
 
 ### "Sitemap fetch failed"
-- Visit `https://www.webcoreuae.com/sitemap.xml` directly — does it load?
+- Visit `https://webcoreuae.com/sitemap.xml` directly — does it load?
 - Validate XML at https://www.xml-sitemaps.com/validate-xml-sitemap.html
 - Re-submit after fixing any errors
 

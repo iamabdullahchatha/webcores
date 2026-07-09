@@ -1,6 +1,6 @@
 # Webcore Solutions — webcoreuae.com
 
-Production website for [www.webcoreuae.com](https://www.webcoreuae.com) — a Dubai digital agency for web, software, CMS, SEO, GEO and branding.
+Production website for [webcoreuae.com](https://webcoreuae.com) — a Dubai digital agency for web, software, CMS, SEO, GEO and branding.
 
 Built with **React 19 + Vite 7 + TanStack Router** and **prerendered to static HTML** at build time for full SEO support. See [src/lib/seo.ts](src/lib/seo.ts) for the per-page SEO source-of-truth and [scripts/prerender.mjs](scripts/prerender.mjs) for the build-time prerender.
 
@@ -48,7 +48,7 @@ Insert verification tags between the blank line and `mobile-web-app-capable`, so
 ### Google Search Console (GSC)
 
 1. Go to https://search.google.com/search-console
-2. **Add property** → choose **URL prefix** → enter `https://www.webcoreuae.com`
+2. **Add property** → choose **URL prefix** → enter `https://webcoreuae.com`
 3. Pick the **HTML tag** verification method. Google gives you a tag like:
    ```html
    <meta name="google-site-verification" content="abc123..." />
@@ -63,7 +63,7 @@ Then submit the sitemap: Search Console → Sitemaps → enter `sitemap.xml` →
 ### Bing Webmaster Tools
 
 1. Go to https://www.bing.com/webmasters
-2. **Add site** → enter `https://www.webcoreuae.com`. (If GSC is already verified, click **Import from Google Search Console** for a 1-click import and skip the steps below.)
+2. **Add site** → enter `https://webcoreuae.com`. (If GSC is already verified, click **Import from Google Search Console** for a 1-click import and skip the steps below.)
 3. Pick **Meta tag** verification. Bing gives you a tag like:
    ```html
    <meta name="msvalidate.01" content="XYZ789..." />
@@ -72,7 +72,7 @@ Then submit the sitemap: Search Console → Sitemaps → enter `sitemap.xml` →
 5. Run `npm run build` and deploy.
 6. Click **Verify** in Bing Webmaster.
 
-Then submit the sitemap: Bing Webmaster → Sitemaps → enter `https://www.webcoreuae.com/sitemap.xml`.
+Then submit the sitemap: Bing Webmaster → Sitemaps → enter `https://webcoreuae.com/sitemap.xml`.
 
 ### Important notes
 

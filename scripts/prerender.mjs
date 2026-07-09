@@ -178,10 +178,10 @@ if (supabaseUrl && supabaseAnonKey) {
   console.warn("blog prerender: VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY not set — skipping blog slug prerender");
 }
 
-const SITE_URL = "https://www.webcoreuae.com";
+const SITE_URL = "https://webcoreuae.com";
 
 function getCanonicalUrl(route) {
-  const base = "https://www.webcoreuae.com";
+  const base = "https://webcoreuae.com";
   if (route === "/") return base + "/";
   return base + route.replace(/\/+$/g, "");
 }
