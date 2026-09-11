@@ -4,7 +4,7 @@
   <!-- Core pages -->
   <url><loc>https://webcoreuae.com/</loc><lastmod>2026-05-17</lastmod><priority>1.0</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://webcoreuae.com/about</loc><lastmod>2026-05-17</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://webcoreuae.com/contact</loc><lastmod>2026-05-12</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://webcoreuae.com/contact</loc><lastmod>2026-09-11</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://webcoreuae.com/faqs</loc><lastmod>2026-05-12</lastmod><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://webcoreuae.com/privacy-policy</loc><lastmod>2026-05-12</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://webcoreuae.com/sitemap</loc><lastmod>2026-05-17</lastmod><priority>0.3</priority><changefreq>monthly</changefreq></url>
@@ -25,7 +25,7 @@
   <url><loc>https://webcoreuae.com/uae-software-development-company</loc><lastmod>2026-05-12</lastmod><priority>0.6</priority><changefreq>monthly</changefreq></url>
 
   <!-- Blog index -->
-  <url><loc>https://webcoreuae.com/blog</loc><lastmod>2026-07-08</lastmod><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://webcoreuae.com/blog</loc><lastmod>2026-09-11</lastmod><priority>0.7</priority><changefreq>weekly</changefreq></url>
 
   <!-- Blog posts (also appended dynamically by scripts/prerender.mjs at build time) -->
 

@@ -37,6 +37,7 @@ const quickLinks = [
 ];
 
 const SOCIAL_COLORS = { LinkedIn: "#0A66C2", Facebook: "#1877F2", WhatsApp: "#25D366" };
+const PAKISTAN_PHONE = "+92 306 6412127";
 
 /* ─── Floating Orb ─────────────────────────────────────────────────── */
 function FloatingOrb({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) {
@@ -231,6 +232,7 @@ export function Footer() {
   const contactItems = [
     { icon: Phone, label: "UK", value: settings?.phoneUk ?? "+44 7570 792516" },
     { icon: Phone, label: "Dubai", value: settings?.phoneUae ?? "+971 50 716 9200" },
+    { icon: Phone, label: "Pakistan", value: PAKISTAN_PHONE },
     { icon: Mail, label: "Email", value: settings?.email ?? "info@webcoreuae.com" },
     { icon: MapPin, label: "HQ", value: settings?.addressLine1 ?? "Dubai, United Arab Emirates" },
   ];
@@ -339,7 +341,7 @@ export function Footer() {
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-xl glass text-xs text-muted-foreground"
               >
                 <Globe className="h-3.5 w-3.5 text-primary shrink-0" />
-                Dubai, UAE · United Kingdom
+                Dubai, UAE · United Kingdom · Pakistan
               </motion.div>
             </motion.div>
 

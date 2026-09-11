@@ -159,6 +159,8 @@ const heroPills = [
   },
 ];
 
+const PAKISTAN_PHONE = "+92 306 6412127";
+
 /* ──────────────────────────────────────────────────────────────────── */
 /* Helpers */
 /* ──────────────────────────────────────────────────────────────────── */
@@ -790,6 +792,13 @@ function Contact() {
       bg: "rgba(59,130,246,0.10)",
     },
     {
+      icon: Phone,
+      label: "Pakistan",
+      value: PAKISTAN_PHONE,
+      color: "#10b981",
+      bg: "rgba(16,185,129,0.10)",
+    },
+    {
       icon: Mail,
       label: "Email",
       value: settings?.email ?? "info@webcoreuae.com",
@@ -800,8 +809,8 @@ function Contact() {
       icon: MapPin,
       label: "HQ",
       value: settings?.addressLine1 ?? "Dubai, UAE",
-      color: "#10b981",
-      bg: "rgba(16,185,129,0.10)",
+      color: "#f59e0b",
+      bg: "rgba(245,158,11,0.10)",
     },
   ];
 
@@ -1111,7 +1120,7 @@ function Contact() {
 
               <div className="mt-5 pt-4 border-t border-border/40 flex items-center gap-2 text-[10px] text-muted-foreground">
                 <Globe className="h-3 w-3 shrink-0" />
-                Dubai (GST) · United Kingdom (GMT/BST) · Response within 1 business day
+                Dubai (GST) · United Kingdom (GMT/BST) · Pakistan (PKT) · Response within 1 business day
               </div>
             </motion.div>
           </div>
